@@ -30,7 +30,7 @@
       inset: -1px 0 0;
       position: absolute;
       transition: all $common_anmt;
-      width: calc(120px / 1.7320508075688772935274463415059);
+      width: calc(120px / var(--root-3));
       &::before {
         color: $dark-gray;
         content: 'OPEN';
@@ -121,9 +121,9 @@
     &.opened {
       width: 650px;
       &::before {
-        right: calc(-60px / 1.7320508075688772935274463415059);
+        right: calc(-60px / var(--root-3));
         transition: all $common_anmt order(1);
-        width: calc(60px / 1.7320508075688772935274463415059);
+        width: calc(60px / var(--root-3));
       }
       &::after {
         height: 80px;

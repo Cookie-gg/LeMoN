@@ -1,5 +1,6 @@
 import 'assets/scss/foundation/reset.scss';
 import 'assets/scss/foundation/base.scss';
+import 'assets/scss/foundation/global.scss';
 import type { AppProps } from 'next/app';
 import { Head } from 'utils/next';
 import { PageTransition, Header } from 'components';
