@@ -1,0 +1,75 @@
+.title {
+  align-items: center;
+  background-clip: content-box;
+  background-color: $lemon;
+  display: flex;
+  font-family: $en_font;
+  font-size: 100px;
+  font-style: italic;
+  font-weight: 700;
+  height: 75px;
+  justify-content: center;
+  padding-right: 380px;
+  position: relative;
+  transition: all $common_anmt entry_order(2);
+  user-select: none;
+  width: 0px;
+  .text {
+    align-items: center;
+    color: $dark-gray;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: relative;
+    top: -70px;
+    transition: all $common_anmt entry_order(3);
+    width: 100%;
+    z-index: 1;
+    &_wrapper {
+      height: 100%;
+      overflow: hidden;
+      width: 100%;
+    }
+  }
+  &::before {
+    color: white;
+    content: 'Cookie_gg';
+    font-size: 20px;
+    font-weight: 200;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0%;
+    transition: opacity $moment entry_order(4), top $common_anmt entry_order(4);
+    z-index: -1;
+  }
+  &::after {
+    border-bottom: 1px solid $lemon;
+    border-left: 1px solid $lemon;
+    content: '';
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity $moment entry_order(4), width $common_anmt entry_order(4),
+    height $common_anmt entry_order(4);
+    width: 100%;
+  }
+  &.mounted {
+    padding-right: 0;
+    width: 380px;
+    .text {
+      top: 0;
+    }
+    &::before {
+      opacity: 1;
+      top: -30%;
+    }
+    &::after {
+      height: calc(100% + 15px);
+      opacity: 1;
+      width: calc(100% + 15px);
+    }
+  }
+}

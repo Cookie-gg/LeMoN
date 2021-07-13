@@ -1,0 +1,39 @@
+.entire {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  left: -120vw;
+  transition: all $common_anmt entry_order(1);
+  .cover {
+    background-color: $lemon;
+    height: 100vh;
+    left: 167.5px;
+    overflow: hidden;
+    position: absolute;
+    top: -50vh;
+    transform: skewX(-30deg);
+    width: 65vw;
+  }
+  .text_wrapper {
+    left: -1012px;
+    overflow: hidden;
+    position: absolute;
+    top: 100px;
+    transform: rotate(-60deg);
+    user-select: none;
+    span {
+      font-family: $en_font;
+      font-size: 750px;
+      font-style: italic;
+      font-weight: 700;
+      left: -25px;
+      opacity: 0.3;
+      position: relative;
+      top: -25px;
+    }
+  }
+  &.mounted {
+    left: 50%;
+  }
+}

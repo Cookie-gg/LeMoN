@@ -1,0 +1,15 @@
+{
+  "cSpell.enabled": false,
+  "csscomb.preset": "./.vscode/csscomb.json",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.next": true,
+    "**/next-env.d.ts": true,
+    "**/node_modules": true
+  },
+  "parameterHints.enabled": false
+}

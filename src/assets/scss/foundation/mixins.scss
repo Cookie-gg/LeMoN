@@ -1,0 +1,97 @@
+$breakPoints: (
+  "sp": "screen and (max-width: 767px)",
+  // sp
+  "pc": "screen and (min-width: 768px)",
+  // pc
+);
+// デフォルトはsp
+@mixin media($bp: sp) {
+  @media #{map-get($breakPoints, $bp)} {
+    @content;
+  }
+}
+@include media(sp) {
+  .pc {
+    display: none !important;
+  }
+}
+@include media(pc) {
+  .sp {
+    display: none !important;
+  }
+}
+$fixedPoint: (
+  pc: 1220,
+  sp: 375,
+);
+@mixin max($property, $value: initial, $spValue: initial, $fixed: false) {
+  @include media(pc) {
+    @if type-of($value) == number and $fixed != true {
+      @if unit($value) == "px" {
+        $value: strip_unit($value);
+        #{$property}: $value * 100 / map-get($fixedPoint, "pc") + 0vw;
+        @media screen and (min-width: map-get($fixedPoint, "pc") + 0px) {
+          #{$property}: $value + 0px;
+        }
+      } @else {
+        #{$property}: $value;
+      }
+    } @else if type-of($value) == string {
+      #{$property}: $value;
+    }
+  }
+  @include media(sp) {
+    @if type-of($spValue) == number and $fixed != true {
+      @if unit($spValue) == "px" {
+        $spValue: strip_unit($spValue);
+        #{$property}: $spValue * 100 / map-get($fixedPoint, "sp") + 0vw;
+        @media screen and (min-width: map-get($fixedPoint, "sp") + 0px) {
+          #{$property}: $spValue + 0px;
+        }
+      } @else {
+        #{$property}: $spValue;
+      }
+    } @else if type-of($spValue) == string {
+      #{$property}: $spValue;
+    }
+  }
+}
+@mixin main_frame {
+  box-sizing: border-box;
+  padding: 40px;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+  &::before,
+  &::after {
+    position: absolute;
+    width: 0;
+    height: 0;
+    box-sizing: border-box;
+  }
+  &::before {
+    content: "";
+    border-right: 1px solid $lemon;
+    border-top: 1px solid $lemon;
+    bottom: 40px;
+    right: 40px;
+    transition: height $common_anmt order(1), width $common_anmt order(2);
+  }
+  &::after {
+    content: "";
+    border-left: 1px solid $lemon;
+    border-bottom: 1px solid $lemon;
+    top: 40px;
+    left: 40px;
+    opacity: 0;
+    transition: opacity $moment order(3), height $common_anmt order(3), width $common_anmt order(4);
+  }
+  &.mounted {
+    &::before,
+    &::after {
+      opacity: 1;
+      width: calc(100% - 80px);
+      height: calc(100% - 80px);
+    }
+  }
+}

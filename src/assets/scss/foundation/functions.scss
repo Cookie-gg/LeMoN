@@ -1,0 +1,15 @@
+@function entry_order($times) {
+  @if $times == 1 {
+    @return 0.3s;
+  }
+  @return 0.6 * ($times - 1) + 0.3s;
+}
+@function order($times) {
+  @return 0.6 * ($times - 1) + 0s;
+}
+@function strip_unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
