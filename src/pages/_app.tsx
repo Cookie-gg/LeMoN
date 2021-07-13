@@ -3,9 +3,8 @@ import 'assets/scss/foundation/base.scss';
 import 'assets/scss/foundation/global.scss';
 import type { AppProps } from 'next/app';
 import { Head } from 'utils/next';
-import { PageTransition, Header } from 'components';
+import { PageTransition, Header, Frame } from 'components';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { useCheck } from 'hooks';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -13,7 +12,6 @@ const client = new ApolloClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const isMounted = useCheck();
   return (
     <ApolloProvider client={client}>
       <Head>
@@ -22,9 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <PageTransition />
       <Header />
-      <main className={`${isMounted && 'mounted'}`}>
+      <Frame>
         <Component {...pageProps} />
-      </main>
+      </Frame>
     </ApolloProvider>
   );
 }

@@ -4,6 +4,14 @@ import { setActiveTime } from 'utils/common';
 import { Link } from 'utils/next';
 import styles from '../assets/scss/components/Header.module.scss';
 
+const path = [
+  ['Home', '/'],
+  ['About', '/about'],
+  ['Works', '/Works'],
+  ['Blog', '/blog'],
+  ['Contact', '/contact'],
+];
+
 export default function Header() {
   const isMounted = useCheck();
   const [isClicked, _isClicked] = useState<boolean>(false);

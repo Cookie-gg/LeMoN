@@ -1,0 +1,43 @@
+.main {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  width: 100%;
+  &::before,
+  &::after {
+    box-sizing: border-box;
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
+  &::before {
+    border-right: 1px solid $lemon;
+    border-top: 1px solid $lemon;
+    bottom: 40px;
+    content: '';
+    right: 40px;
+    transition: height $common_anmt order(1), width $common_anmt order(2);
+  }
+  &::after {
+    border-bottom: 1px solid $lemon;
+    border-left: 1px solid $lemon;
+    content: '';
+    left: 40px;
+    opacity: 0;
+    top: 40px;
+    transition: opacity $moment order(3), height $common_anmt order(3),
+      width $common_anmt order(4);
+  }
+  &.mounted {
+    &::before,
+    &::after {
+      height: calc(100% - 80px);
+      opacity: 1;
+      width: calc(100% - 80px);
+    }
+  }
+}
