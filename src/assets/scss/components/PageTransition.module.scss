@@ -1,11 +1,13 @@
 .entire {
+  left: -120vw;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
-  left: -120vw;
   transition: all $common_anmt entry_order(1);
+  z-index: 1;
   .cover {
+    @include max(width, 65vw, 85vw);
+
     background-color: $lemon;
     height: 100vh;
     left: 167.5px;

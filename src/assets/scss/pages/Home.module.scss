@@ -59,6 +59,7 @@
   &.mounted {
     padding-right: 0;
     width: 380px;
+    @include max(width, 380px, 380px, $fixed: true, $sp_fixed: false);
     .text {
       top: 0;
     }

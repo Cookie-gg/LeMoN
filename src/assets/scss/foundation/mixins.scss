@@ -1,97 +1,70 @@
 $breakPoints: (
-  "sp": "screen and (max-width: 767px)",
-  // sp
-  "pc": "screen and (min-width: 768px)",
+  // small smartphone
+  "ssp":"screen and (max-width: 650px)", 
+  // smartphone
+  "sp": "screen and (max-width: 819px)",
   // pc
+  "pc": "screen and (min-width: 820px)",
 );
-// デフォルトはsp
+// デフォルトはspz
 @mixin media($bp: sp) {
   @media #{map-get($breakPoints, $bp)} {
     @content;
   }
 }
+@include media(ssp) {
+  .pc, .sp {
+    display: none !important;
+  }
+}
 @include media(sp) {
-  .pc {
+  .pc, .ssp {
     display: none !important;
   }
 }
 @include media(pc) {
-  .sp {
+  .sp, .ssp {
     display: none !important;
   }
 }
 $fixedPoint: (
-  pc: 1220,
-  sp: 375,
+  pc: 1000,
+  sp: 720,
 );
-@mixin max($property, $value: initial, $spValue: initial, $fixed: false) {
-  @include media(pc) {
-    @if type-of($value) == number and $fixed != true {
-      @if unit($value) == "px" {
-        $value: strip_unit($value);
-        #{$property}: $value * 100 / map-get($fixedPoint, "pc") + 0vw;
-        @media screen and (min-width: map-get($fixedPoint, "pc") + 0px) {
-          #{$property}: $value + 0px;
+@mixin max($property, $value: initial, $sp_value: initial, $fixed: false, $sp_fixed: initial, $ssp_value: initial) {
+  @if $fixed == true and $sp_fixed == initial {
+    $sp_fixed: true;
+  }
+  @if $value != initial {
+    @include media(pc) {
+      @if type-of($value) == number and $fixed == false {
+        @if unit($value) == "px" {
+          $value: number(str_replace('px', '', $value));
+          #{$property}: $value * 100 * 0.001 + 0vw;
+          @media screen and (min-width: map-get($fixedPoint, "pc") + 0px) {
+            #{$property}: $value + 0px;
+          }
+        } @else {
+          #{$property}: $value;
         }
       } @else {
         #{$property}: $value;
       }
-    } @else if type-of($value) == string {
-      #{$property}: $value;
     }
   }
   @include media(sp) {
-    @if type-of($spValue) == number and $fixed != true {
-      @if unit($spValue) == "px" {
-        $spValue: strip_unit($spValue);
-        #{$property}: $spValue * 100 / map-get($fixedPoint, "sp") + 0vw;
+    @if type-of($sp_value) == number and $sp_fixed == false {
+      @if unit($sp_value) == "px" {
+        $sp_value: number(str_replace('px', '', $sp_value));
+        #{$property}: $sp_value * 100 * 0.00138888888888888888888888888889 + 0vw;
         @media screen and (min-width: map-get($fixedPoint, "sp") + 0px) {
-          #{$property}: $spValue + 0px;
+          #{$property}: $sp_value + 0px;
         }
       } @else {
-        #{$property}: $spValue;
+        #{$property}: $sp_value;
       }
-    } @else if type-of($spValue) == string {
-      #{$property}: $spValue;
-    }
-  }
-}
-@mixin main_frame {
-  box-sizing: border-box;
-  padding: 40px;
-  height: 100vh;
-  position: relative;
-  width: 100%;
-  &::before,
-  &::after {
-    position: absolute;
-    width: 0;
-    height: 0;
-    box-sizing: border-box;
-  }
-  &::before {
-    content: "";
-    border-right: 1px solid $lemon;
-    border-top: 1px solid $lemon;
-    bottom: 40px;
-    right: 40px;
-    transition: height $common_anmt order(1), width $common_anmt order(2);
-  }
-  &::after {
-    content: "";
-    border-left: 1px solid $lemon;
-    border-bottom: 1px solid $lemon;
-    top: 40px;
-    left: 40px;
-    opacity: 0;
-    transition: opacity $moment order(3), height $common_anmt order(3), width $common_anmt order(4);
-  }
-  &.mounted {
-    &::before,
-    &::after {
-      opacity: 1;
-      width: calc(100% - 80px);
-      height: calc(100% - 80px);
+    } @else {
+      #{$property}: $sp_value;
     }
   }
 }

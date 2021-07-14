@@ -1,4 +1,5 @@
 .main {
+  @include max(padding, 40px, 5vw, true);
   align-items: center;
   box-sizing: border-box;
   display: flex;
@@ -15,29 +16,29 @@
     width: 0;
   }
   &::before {
+    @include max(bottom, 40px, 5vw, true);
+    @include max(right, 40px, 5vw, true);
     border-right: 1px solid $lemon;
     border-top: 1px solid $lemon;
-    bottom: 40px;
     content: '';
-    right: 40px;
     transition: height $common_anmt order(1), width $common_anmt order(2);
   }
   &::after {
+    @include max(left, 40px, 5vw, true);
+    @include max(top, 40px, 5vw, true);
     border-bottom: 1px solid $lemon;
     border-left: 1px solid $lemon;
     content: '';
-    left: 40px;
     opacity: 0;
-    top: 40px;
     transition: opacity $moment order(3), height $common_anmt order(3),
-      width $common_anmt order(4);
+    width $common_anmt order(4);
   }
   &.mounted {
     &::before,
     &::after {
-      height: calc(100% - 80px);
+      @include max(height, calc(100% - 80px), calc(100% - 10vw), true);
+      @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
       opacity: 1;
-      width: calc(100% - 80px);
     }
   }
 }

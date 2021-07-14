@@ -7,7 +7,14 @@
   "eof-newline": true,
   "leading-zero": true,
   "quotes": "single",
-  "sort-order": [],
+  "sort-order": [
+    [
+      "$variable",
+      "$extend",
+      "$include"
+    ],
+    [ "..." ]
+  ],
   "sort-order-fallback": "abc",
   "space-after-colon": " ",
   "space-after-combinator": " ",

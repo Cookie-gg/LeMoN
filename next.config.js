@@ -5,6 +5,7 @@ module.exports = {
     @import '../foundation/functions.scss';
       @import '../foundation/mixins.scss';
       @import '../foundation/colors.scss';
+      @import '../foundation/animations.scss';
       @import '../foundation/variables.scss';`,
   }
 }

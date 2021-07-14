@@ -1,7 +1,8 @@
 .entire {
   display: flex;
-  inset: 40px 0 0 40px;
-  padding: 11px 0 0 11px;
+  @include max(inset, 40px 0 0 40px, 5vw 5vw 0 0);
+  @include max(padding, 11px 0 0 11px, 11px 11px 0 0);
+  @include max(flex-direction, $sp_value: row-reverse);
   position: absolute;
   z-index: 1;
   button {
@@ -22,6 +23,7 @@
       width: 0;
     }
     span {
+      @include max(display, block, none);
       background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
       no-repeat top left/100% 100%;
       box-sizing: border-box;
@@ -30,7 +32,7 @@
       inset: -1px 0 0;
       position: absolute;
       transition: all $common_anmt;
-      width: calc(120px / var(--root-3));
+      width: calc(120px / #{$route_3});
       &::before {
         color: $dark-gray;
         content: 'OPEN';
@@ -46,40 +48,6 @@
         visibility: hidden;
       }
     }
-    &:hover,
-    &.opened {
-      transition: all $common_anmt;
-      width: 67px;
-      &::before,
-      &::after {
-        transition: all $common_anmt;
-        width: 0;
-      }
-      span {
-        height: 120px;
-        &::before {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-    }
-    &.closing:not(:hover) {
-      span {
-        height: 0;
-        transition: all $common_anmt 0.8s;
-        &::before {
-          opacity: 0;
-          transition: all 0.2s $ex_ease_out 0.8s;
-          visibility: hidden;
-        }
-      }
-    }
-    &.opened {
-      span::before {
-        content: 'CLOSE';
-        letter-spacing: 2px;
-      }
-    }
   }
   ul {
     align-items: center;
@@ -92,10 +60,12 @@
     font-style: italic;
     font-weight: 300;
     height: 60px;
-    inset: -1px 0 0 -35px;
+    @include max(top, -1px, 0px, true);
+    left: -35px;
     padding-bottom: 10px;
     position: relative;
     transition: all $common_anmt;
+    display: none;
     &::before {
       background: linear-gradient(
       to top left,
@@ -119,11 +89,11 @@
       width: 2.5px;
     }
     &.opened {
-      width: 650px;
+      @include max(width, 650px, 480px, true);
       &::before {
-        right: calc(-60px / var(--root-3));
+        right: calc(-60px / #{$route_3});
         transition: all $common_anmt order(1);
-        width: calc(60px / var(--root-3));
+        width: calc(60px / #{$route_3});
       }
       &::after {
         height: 80px;
@@ -131,8 +101,7 @@
         top: 0;
       }
       li {
-        opacity: 1;
-        visibility: visible;
+        animation: flash_once 0.1s linear forwards order(2);
       }
     }
     &.closed {
@@ -152,25 +121,67 @@
       align-items: center;
       display: flex;
       opacity: 0;
-      transition: all 0.2s $ex_ease_out;
       visibility: hidden;
       &:not(:first-of-type) {
-        margin-left: 30px;
+        @include max(margin-left, 30px, 30px, true);
         &::before {
+        @include max(margin-right, 30px, 30px, true);
           background-color: $lemon;
           content: '';
           height: 30px;
-          margin-right: 30px;
           opacity: 0.75;
           transform: rotate(30deg);
           width: 0.5px;
         }
       }
       &:first-of-type {
-        margin-left: 90px;
+        @include max(margin-left, 90px, 80px, true);
       }
-      &:last-of-type {
-        margin-right: 50px;
+      a {
+        position: relative;
+        span {
+          @include max(display, inline, none);
+          transition: color $common_anmt;
+        }
+        svg {
+          @include max(width, $sp_value: 22px, $sp_fixed: true);
+          @include max(height, $sp_value: 22px, $sp_fixed: true);
+          @include max(display, none, block);
+          overflow: hidden !important;
+          path {
+            transition: color $common_anmt;
+          }
+        }
+        &::before {
+          @include max(left, -20%, -55%);
+          background-color: $lemon;
+          content: '';
+          height: 140%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%) skewX(-30deg);
+          transition: all $common_anmt;
+          width: 0%;
+          z-index: -1;
+        }
+      }
+      &.active > a,
+      &:not(.active) > a:hover {
+        span {
+          color: $dark-gray;
+          -webkit-font-smoothing: antialiased;
+          -webkit-text-stroke-color: $dark-gray;
+          -webkit-text-stroke-width: 0.65px;
+        }
+        path {
+          color: $dark-gray;
+        }
+        &::before {
+          @include max(width, 140%, 225%);
+        }
+      }
+      &.active > a {
+        pointer-events: none;
       }
     }
   }
@@ -187,6 +198,38 @@
       }
       &::after {
         width: 30px;
+      }
+      &:hover,
+      &.opened {
+        &::before,
+        &::after {
+          transition: all $common_anmt;
+          width: 0;
+        }
+        span {
+          height: 120px;
+          &::before {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+      &.closing:not(:hover) {
+        span {
+          height: 0;
+          transition: all $common_anmt 0.8s;
+          &::before {
+            opacity: 0;
+            transition: all 0.2s $ex_ease_out 0.8s;
+            visibility: hidden;
+          }
+        }
+      }
+      &.opened {
+        span::before {
+          content: 'CLOSE';
+          letter-spacing: 2px;
+        }
       }
     }
   }
