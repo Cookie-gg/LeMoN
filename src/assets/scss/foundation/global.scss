@@ -12,3 +12,13 @@
   color: white;
   font-family: $jp_font;
 }
+@include media(sp) {
+  .pc {
+    display: none !important;
+  }
+}
+@include media(pc) {
+  .sp {
+    display: none !important;
+  }
+}

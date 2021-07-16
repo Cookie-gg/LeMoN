@@ -1,41 +1,42 @@
 .entire {
-  left: -120vw;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   transition: all $common_anmt entry_order(1);
   z-index: 1;
-  .cover {
-    @include max(width, 65vw, 85vw);
 
+  @include max(left, -120vw, -400vw);
+
+  .cover {
     background-color: $lemon;
-    height: 100vh;
+    height: 200vh;
     left: 167.5px;
     overflow: hidden;
     position: absolute;
-    top: -50vh;
-    transform: skewX(-30deg);
-    width: 65vw;
-  }
-  .text_wrapper {
-    left: -1012px;
-    overflow: hidden;
-    position: absolute;
-    top: 100px;
-    transform: rotate(-60deg);
-    user-select: none;
+    transform: translateY(-50%) rotate(30deg);
+    transform-origin: 0% 50%;
+
+    @include max(width, 80vw, 200vw);
+
     span {
+      display: block;
       font-family: $en_font;
-      font-size: 750px;
+      font-size: 700px;
       font-style: italic;
       font-weight: 700;
-      left: -25px;
+      left: -925px;
       opacity: 0.3;
-      position: relative;
-      top: -25px;
+      position: absolute;
+      top: 50%;
+      transform: rotate(-90deg);
     }
   }
   &.mounted {
-    left: 50%;
+    @include max(left, 50%, 50vw);
+    @media screen and (max-width: 500px) {
+      .cover {
+        left: 33vw;
+      }
+    }
   }
 }

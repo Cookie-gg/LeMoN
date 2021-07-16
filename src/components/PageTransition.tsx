@@ -6,8 +6,7 @@ export default function PageTransition() {
   return (
     <>
       <div className={`${styles.entire} ${isMounted && styles.mounted}`}>
-        <div className={styles.cover}></div>
-        <div className={styles.text_wrapper}>
+        <div className={styles.cover}>
           <span>LeMoN</span>
         </div>
       </div>

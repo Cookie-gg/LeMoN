@@ -31,7 +31,7 @@ export default function Header() {
         <span></span>
       </button>
       <ul className={`${isClicked ? styles.opened : styles.closed}`}>
-        {paths.map((path, i) => (
+        {/* {paths.map((path, i) => (
           <li key={i} className={`${path[1] === router.pathname && styles.active}`}>
             <Link href={path[1].toString()}>
               <a>
@@ -40,7 +40,7 @@ export default function Header() {
               </a>
             </Link>
           </li>
-        ))}
+        ))} */}
       </ul>
     </header>
   );

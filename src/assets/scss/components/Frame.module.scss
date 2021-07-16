@@ -21,7 +21,7 @@
     border-right: 1px solid $lemon;
     border-top: 1px solid $lemon;
     content: '';
-    transition: height $common_anmt order(1), width $common_anmt order(2);
+    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2);
   }
   &::after {
     @include max(left, 40px, 5vw, true);
@@ -30,8 +30,8 @@
     border-left: 1px solid $lemon;
     content: '';
     opacity: 0;
-    transition: opacity $moment order(3), height $common_anmt order(3),
-    width $common_anmt order(4);
+    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3),
+    width $common_anmt entry_order(4);
   }
   &.mounted {
     &::before,

@@ -4,16 +4,19 @@
   background-color: $lemon;
   display: flex;
   font-family: $en_font;
-  font-size: 100px;
   font-style: italic;
   font-weight: 700;
-  height: 75px;
   justify-content: center;
   padding-right: 380px;
   position: relative;
   transition: all $common_anmt entry_order(2);
   user-select: none;
   width: 0px;
+
+  @include max(font-size, 100px, 100px, true, false);
+
+  @include max(height, 75px, 75px, true, false);
+
   .text {
     align-items: center;
     color: $dark-gray;
@@ -34,7 +37,6 @@
   &::before {
     color: white;
     content: 'Cookie_gg';
-    font-size: 20px;
     font-weight: 200;
     opacity: 0;
     position: absolute;
@@ -42,6 +44,8 @@
     top: 0%;
     transition: opacity $moment entry_order(4), top $common_anmt entry_order(4);
     z-index: -1;
+
+    @include max(font-size, 20px, 20px, true, false);
   }
   &::after {
     border-bottom: 1px solid $lemon;
@@ -53,13 +57,14 @@
     right: 0;
     top: 0;
     transition: opacity $moment entry_order(4), width $common_anmt entry_order(4),
-    height $common_anmt entry_order(4);
+      height $common_anmt entry_order(4);
     width: 100%;
   }
   &.mounted {
     padding-right: 0;
-    width: 380px;
-    @include max(width, 380px, 380px, $fixed: true, $sp_fixed: false);
+
+    @include max(width, 380px, 380px, true, false);
+
     .text {
       top: 0;
     }
@@ -68,9 +73,103 @@
       top: -30%;
     }
     &::after {
-      height: calc(100% + 15px);
       opacity: 1;
-      width: calc(100% + 15px);
+
+      @include max(height, calc(100% + 15px), calc(100% + 2.5vw));
+
+      @include max(width, calc(100% + 15px), calc(100% + 2.5vw));
+    }
+  }
+}
+.phrase {
+  font-family: $en_font;
+  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) skewX(-30deg);
+  user-select: none;
+  z-index: -1;
+
+  @include max(font-size, 50px, 40px, true);
+
+  @include max(left, 180px, 25vw, true);
+
+  & > div {
+    overflow-y: hidden;
+    position: relative;
+    transform: skewX(30deg);
+    white-space: nowrap;
+    @for $i from 1 through 10 {
+      &:nth-of-type(#{$i}) {
+        @include max(height, calc(40px * #{$i} * 0.1), calc(40px * #{$i} * 0.1), true);
+        span {
+          @include max(
+            animation,
+            text_gradient 4s forwards 0.1 * ($i - 1) + 0s + order(5),
+            text_gradient 2.5s forwards 0.1 * ($i - 1) + 0s + order(5)
+          );
+        }
+      }
+    }
+    &:not(:last-of-type) {
+      @include max(margin-bottom, 10px, 5px, true);
+    }
+    span {
+      color: rgba(white, 0.05);
+      position: relative;
+      top: -40px;
+    }
+  }
+}
+@include media(pc) {
+  @keyframes text_gradient {
+    0% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+    5% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    40% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    50% {
+      color: rgba(white, 0.75);
+      top: 0;
+    }
+    60% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    95% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    100% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+  }
+}
+@include media(sp) {
+  @keyframes text_gradient {
+    0% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+    20% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    80% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    100% {
+      color: rgba(white, 0.05);
+      top: -40px;
     }
   }
 }

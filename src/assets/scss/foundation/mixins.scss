@@ -1,10 +1,10 @@
 $breakPoints: (
-  // small smartphone
-  "ssp":"screen and (max-width: 650px)", 
   // smartphone
-  "sp": "screen and (max-width: 819px)",
+  'ssp': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
+  // sp
+  'sp': 'screen and (max-width: 819px)',
   // pc
-  "pc": "screen and (min-width: 820px)",
+  'pc': 'screen and (min-width: 820px)'
 );
 // デフォルトはspz
 @mixin media($bp: sp) {
@@ -12,36 +12,28 @@ $breakPoints: (
     @content;
   }
 }
-@include media(ssp) {
-  .pc, .sp {
-    display: none !important;
-  }
-}
-@include media(sp) {
-  .pc, .ssp {
-    display: none !important;
-  }
-}
-@include media(pc) {
-  .sp, .ssp {
-    display: none !important;
-  }
-}
 $fixedPoint: (
   pc: 1000,
-  sp: 720,
+  sp: 500,
 );
-@mixin max($property, $value: initial, $sp_value: initial, $fixed: false, $sp_fixed: initial, $ssp_value: initial) {
+@mixin max(
+  $property,
+  $value: initial,
+  $sp_value: initial,
+  $fixed: false,
+  $sp_fixed: initial,
+  $ssp_value: initial
+) {
   @if $fixed == true and $sp_fixed == initial {
     $sp_fixed: true;
   }
   @if $value != initial {
     @include media(pc) {
       @if type-of($value) == number and $fixed == false {
-        @if unit($value) == "px" {
+        @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
-          #{$property}: $value * 100 * 0.001 + 0vw;
-          @media screen and (min-width: map-get($fixedPoint, "pc") + 0px) {
+          #{$property}: $sp_value * 100 * 0.001 + 0vw;
+          @media screen and (min-width: map-get($fixedPoint, 'pc') + 0px) {
             #{$property}: $value + 0px;
           }
         } @else {
@@ -52,19 +44,21 @@ $fixedPoint: (
       }
     }
   }
-  @include media(sp) {
-    @if type-of($sp_value) == number and $sp_fixed == false {
-      @if unit($sp_value) == "px" {
-        $sp_value: number(str_replace('px', '', $sp_value));
-        #{$property}: $sp_value * 100 * 0.00138888888888888888888888888889 + 0vw;
-        @media screen and (min-width: map-get($fixedPoint, "sp") + 0px) {
-          #{$property}: $sp_value + 0px;
+  @if $sp_value != initial {
+    @include media(sp) {
+      @if type-of($sp_value) == number and $sp_fixed == false {
+        @if unit($sp_value) == 'px' {
+          $sp_value: number(str_replace('px', '', $sp_value));
+          #{$property}: $sp_value * 100 * 0.002 + 0vw;
+          @media screen and (min-width: map-get($fixedPoint, 'sp') + 0px) {
+            #{$property}: $sp_value + 0px;
+          }
+        } @else {
+          #{$property}: $sp_value;
         }
       } @else {
         #{$property}: $sp_value;
       }
-    } @else {
-      #{$property}: $sp_value;
     }
   }
 }
