@@ -11,82 +11,154 @@
 
   @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
 
-  @include media(pc) {
-    ul {
-      align-items: center;
+  ul {
+    align-items: center;
+    display: flex;
+    font-family: $en_font;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 300;
+    transition: all $common_anmt;
+    width: 0;
+    @include media(pc) {
       background-clip: content-box;
-      background-color: rgba(#ffffff, 0.1);
       border-bottom: 1px solid $lemon;
-      display: flex;
-      font-family: $en_font;
-      font-size: 20px;
-      font-style: italic;
-      font-weight: 300;
-      height: 60px;
-      left: -35px;
       padding-bottom: 10px;
-      position: relative;
-      top: 0px;
-      transition: all $common_anmt;
-      width: 0;
+    }
 
-      &::before {
+    @include max(left, -35px, 50%, true);
+
+    @include max(background-color, rgba(#ffffff, 0.1), $lemon);
+
+    @include max(height, 60px, 100vh, true);
+
+    @include max(position, relative, absolute);
+
+    @include max(top, 0, 50%);
+
+    @include media(sp) {
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      transform: translate(-50%, -50%) skewX(-30deg);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+
+      @include max(height, 60px, calc(100vh + 100vw), true);
+
+      @include max(top, 0, 50%);
+
+      @include media(pc) {
         background: linear-gradient(
             to top left,
             rgba(255, 255, 255, 0) 50%,
             rgba(#ffffff, 0.1) 50.75%
           )
           no-repeat top left/100% 100%;
-        content: '';
-        height: 60px;
-        position: absolute;
         right: 0;
-        top: 0;
       }
-      &::after {
+
+      @include media(sp) {
+        background-color: $dark-gray;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        z-index: 2;
+      }
+    }
+    &::after {
+      content: '';
+      position: absolute;
+
+      @include max(top, 0, 50%);
+
+      @include max(transform, skewX(-30deg), translate(-50%, -50%) skewX(30deg) scale(0.05));
+
+      @include media(pc) {
         background-color: $lemon;
-        content: '';
-        position: absolute;
-        top: 0px;
-        transform: skewX(-30deg);
         transition: all $common_anmt order(1);
         width: 2.5px;
       }
-      &.opened {
-        @include max(width, 650px, calc(100% - 60px), true);
-        &::before {
+
+      @include media(sp) {
+        background-position: center;
+        background-size: cover;
+        content: url(../../img/lemon_gray.png);
+        left: 50%;
+        z-index: 1;
+      }
+    }
+    &.opened {
+      @include max(width, 650px, calc(100vw + 100vh), true);
+
+      @include media(sp) {
+        transition: all $bound_anmt;
+      }
+
+      &::before {
+        @include media(pc) {
           right: calc(-60px / #{$route_3});
           transition: all $common_anmt order(1);
-          width: calc(60px / #{$route_3});
         }
-        &::after {
+
+        @include media(sp) {
+          transition: all $bound_anmt 0.45s;
+        }
+
+        @include max(width, calc(60px / #{$route_3}), calc(100vh + 100vw));
+      }
+      &::after {
+        @include media(pc) {
           height: 80px;
           right: -25px;
           top: 0;
         }
-        li {
+      }
+      li {
+        @include media(pc) {
           animation: flash_once 0.1s linear forwards order(2);
         }
       }
-      &.closed {
-        width: 0px;
-        &::before {
+    }
+    &.closed {
+      width: 0px;
+
+      @include media(sp) {
+        transition: all $bound_anmt 0.45s;
+      }
+
+      &::before {
+        width: 0;
+
+        @include media(pc) {
           right: 0;
           transition: all $common_anmt order(2);
-          width: 0;
         }
-        &::after {
+
+        @include media(sp) {
+          transition: all $bound_anmt;
+        }
+      }
+      &::after {
+        @include media(pc) {
           height: 0;
           right: -35px;
           top: 2px;
         }
       }
+    }
 
-      li {
+    li {
+      @include media(pc) {
         align-items: center;
         display: flex;
         opacity: 0;
         visibility: hidden;
+        z-index: 3;
+
         &:not(:first-of-type) {
           @include max(margin-left, 30px, 30px, true);
           &::before {
@@ -110,19 +182,19 @@
 
             @include max(display, inline, none);
           }
-          svg {
-            overflow: hidden !important;
+          // svg {
+          //   overflow: hidden !important;
 
-            @include max(width, $sp_value: 22px, $sp_fixed: true);
+          //   @include max(width, $sp_value: 22px, $sp_fixed: true);
 
-            @include max(height, $sp_value: 22px, $sp_fixed: true);
+          //   @include max(height, $sp_value: 22px, $sp_fixed: true);
 
-            @include max(display, none, block);
+          //   @include max(display, none, block);
 
-            path {
-              transition: color $common_anmt;
-            }
-          }
+          //   path {
+          //     transition: color $common_anmt;
+          //   }
+          // }
           &::before {
             background-color: $lemon;
             content: '';
@@ -156,55 +228,13 @@
           pointer-events: none;
         }
       }
-    }
-  }
 
-  @include media(sp) {
-    ul {
-      background-color: $lemon;
-      height: calc(100vh + 100vw);
-      left: 50%;
-      overflow: hidden;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(30deg);
-      width: 0;
-      &::before {
-        background-color: $dark-gray;
-        content: '';
-        height: calc(100vh + 100vw);
+      @include media(sp) {
         left: 50%;
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
-        width: 0;
-        z-index: 2;
-      }
-      &::after {
-        background-position: center;
-        background-size: cover;
-        content: url(../../img/lemon_gray.png);
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%) rotate(-30deg) scale(0.05);
-        z-index: 1;
-      }
-      &.opened {
-        transition: all $bound_anmt;
-        width: calc(100vh + 100vw);
-        &::before {
-          transition: all $bound_anmt 0.45s;
-          width: calc(100vh + 100vw);
-        }
-      }
-      &.closed {
-        transition: all $bound_anmt 0.45s;
-        width: 0;
-        &::before {
-          transition: all $bound_anmt;
-          width: 0;
-        }
+        transform: translate(-50%, -50%) skewX(30deg);
+        z-index: 3;
       }
     }
   }

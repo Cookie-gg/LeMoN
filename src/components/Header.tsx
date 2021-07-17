@@ -31,16 +31,16 @@ export default function Header() {
         <span></span>
       </button>
       <ul className={`${isClicked ? styles.opened : styles.closed}`}>
-        {/* {paths.map((path, i) => (
+        {paths.map((path, i) => (
           <li key={i} className={`${path[1] === router.pathname && styles.active}`}>
             <Link href={path[1].toString()}>
               <a>
                 <span>{path[0]}</span>
-                <Icon icon={path[2] as IconDefinition}></Icon>
+                {/* <Icon icon={path[2] as IconDefinition}></Icon> */}
               </a>
             </Link>
           </li>
-        ))} */}
+        ))}
       </ul>
     </header>
   );

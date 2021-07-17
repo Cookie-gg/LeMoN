@@ -75,9 +75,9 @@
     &::after {
       opacity: 1;
 
-      @include max(height, calc(100% + 15px), calc(100% + 2.5vw));
+      @include max(height, calc(100% + 15px), calc(100% + 2.25vw));
 
-      @include max(width, calc(100% + 15px), calc(100% + 2.5vw));
+      @include max(width, calc(100% + 15px), calc(100% + 2.25vw));
     }
   }
 }

@@ -9,12 +9,13 @@
 
   .cover {
     background-color: $lemon;
-    height: 200vh;
+    height: calc(200vh + 200vw);
     left: 167.5px;
     overflow: hidden;
     position: absolute;
     transform: translateY(-50%) rotate(30deg);
     transform-origin: 0% 50%;
+    user-select: none;
 
     @include max(width, 80vw, 200vw);
 
@@ -33,7 +34,7 @@
   }
   &.mounted {
     @include max(left, 50%, 50vw);
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: map-get($fixed_point, 'sp') + 0px) {
       .cover {
         left: 33vw;
       }

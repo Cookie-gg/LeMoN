@@ -12,7 +12,7 @@ $breakPoints: (
     @content;
   }
 }
-$fixedPoint: (
+$fixed_point: (
   pc: 1000,
   sp: 500,
 );
@@ -33,7 +33,7 @@ $fixedPoint: (
         @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
           #{$property}: $sp_value * 100 * 0.001 + 0vw;
-          @media screen and (min-width: map-get($fixedPoint, 'pc') + 0px) {
+          @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
             #{$property}: $value + 0px;
           }
         } @else {
@@ -50,7 +50,7 @@ $fixedPoint: (
         @if unit($sp_value) == 'px' {
           $sp_value: number(str_replace('px', '', $sp_value));
           #{$property}: $sp_value * 100 * 0.002 + 0vw;
-          @media screen and (min-width: map-get($fixedPoint, 'sp') + 0px) {
+          @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
             #{$property}: $sp_value + 0px;
           }
         } @else {
