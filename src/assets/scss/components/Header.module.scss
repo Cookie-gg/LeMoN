@@ -3,7 +3,7 @@
   display: flex;
   padding: 11px;
   position: absolute;
-  z-index: 99;
+  z-index: 1;
 
   @include max(inset, 40px 0 0 40px, 5vw 0 0 5vw);
 
@@ -20,11 +20,6 @@
     font-weight: 300;
     transition: all $common_anmt;
     width: 0;
-    @include media(pc) {
-      background-clip: content-box;
-      border-bottom: 1px solid $lemon;
-      padding-bottom: 10px;
-    }
 
     @include max(left, -35px, 50%, true);
 
@@ -35,6 +30,12 @@
     @include max(position, relative, absolute);
 
     @include max(top, 0, 50%);
+
+    @include media(pc) {
+      background-clip: content-box;
+      border-bottom: 1px solid $lemon;
+      padding-bottom: 10px;
+    }
 
     @include media(sp) {
       flex-direction: column;
@@ -84,8 +85,6 @@
       }
 
       @include media(sp) {
-        background-position: center;
-        background-size: cover;
         content: url(../../img/lemon_gray.png);
         left: 50%;
         z-index: 1;
@@ -99,6 +98,8 @@
       }
 
       &::before {
+        @include max(width, calc(60px / #{$route_3}), calc(100vh + 100vw));
+
         @include media(pc) {
           right: calc(-60px / #{$route_3});
           transition: all $common_anmt order(1);
@@ -107,8 +108,6 @@
         @include media(sp) {
           transition: all $bound_anmt 0.45s;
         }
-
-        @include max(width, calc(60px / #{$route_3}), calc(100vh + 100vw));
       }
       &::after {
         @include media(pc) {
@@ -120,6 +119,10 @@
       li {
         @include media(pc) {
           animation: flash_once 0.1s linear forwards order(2);
+        }
+
+        @include media(sp) {
+          animation: flash_once 0.1s linear forwards 1s;
         }
       }
     }
@@ -182,19 +185,6 @@
 
             @include max(display, inline, none);
           }
-          // svg {
-          //   overflow: hidden !important;
-
-          //   @include max(width, $sp_value: 22px, $sp_fixed: true);
-
-          //   @include max(height, $sp_value: 22px, $sp_fixed: true);
-
-          //   @include max(display, none, block);
-
-          //   path {
-          //     transition: color $common_anmt;
-          //   }
-          // }
           &::before {
             background-color: $lemon;
             content: '';
@@ -230,11 +220,49 @@
       }
 
       @include media(sp) {
-        left: 50%;
+        align-items: center;
+        display: flex;
+        height: 100px;
+        justify-content: center;
+        opacity: 0;
         position: absolute;
-        top: 50%;
         transform: translate(-50%, -50%) skewX(30deg);
+        visibility: hidden;
         z-index: 3;
+        a {
+          align-items: center;
+          display: flex;
+          svg {
+            height: 25px;
+            margin-right: 20px;
+            width: 25px;
+          }
+          span {
+            align-items: flex-start;
+            display: flex;
+            font-size: 25px;
+            width: 100px;
+          }
+        }
+        @for $i from -2 through 2 {
+          &:nth-of-type(#{$i + 3}) {
+            top: 50 + $i * 10 + 0%;
+            @if $i < 0 {
+              left: calc(50% - #{#{$i * -55}px});
+            } @else {
+              left: calc(50% + #{#{$i * 55}px});
+            }
+          }
+        }
+        &.active {
+          span {
+            color: $lemon;
+            font-weight: bold;
+          }
+          path {
+            color: $lemon;
+          }
+        }
       }
     }
   }
@@ -248,13 +276,15 @@
     position: relative;
     width: 0px;
     z-index: 1;
+
     &::before,
     &::after {
       background-color: $lemon;
       content: '';
       height: 1px;
-      margin-top: 15px;
       width: 0;
+
+      @include max(margin-top, 15px, 15px, true, false);
     }
     span {
       background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
@@ -265,64 +295,84 @@
       inset: -1px 0 0;
       position: absolute;
       transition: all $common_anmt;
-      width: calc(120px / #{$route_3});
+
+      @include max(width, calc(120px /#{$route_3}), calc(calc(75px + 5.75vw) /#{$route_3}));
+
       &::before {
         color: $dark-gray;
         content: 'OPEN';
-        font-size: 16px;
         font-weight: 600;
-        left: -18px;
-        letter-spacing: 4px;
         opacity: 0;
         position: absolute;
-        top: 30px;
         transform: rotate(90deg);
         transition: all 0.2s $ex_ease_out;
         visibility: hidden;
+
+        @include max(font-size, 16px, 16px, true, false);
+
+        @include max(left, -18px, -18px, true, false);
+
+        @include max(letter-spacing, 4px, 4px, true, false);
+
+        @include max(top, 30px, 30px, true, false);
       }
     }
   }
   &.mounted {
     button {
       transition: all $common_anmt entry_order(4);
-      width: 60px;
+
+      @include max(width, 60px, 60px, true, false);
+
+      @include media(ssp) {
+        span {
+          transition: all $common_anmt entry_order(3);
+
+          @include max(height, 120px, calc(75px + 5.75vw), true);
+
+          &::before {
+            opacity: 1;
+            transition: all 0.2s $ex_ease_out entry-order(3);
+            visibility: visible;
+
+            @include max(font-size, 16px, 18px, true, false);
+
+            @include max(top, 30px, 35px, true, false);
+          }
+        }
+      }
+
       &::before,
       &::after {
         transition: all $common_anmt entry_order(4);
       }
       &::before {
-        width: 45px;
+        @include max(width, 45px, 40px, true, false);
       }
       &::after {
-        width: 30px;
+        @include max(width, 30px, 25px, true, false);
       }
-      @mixin opened_style {
+      &:hover,
+      &.opened,
+      &.closing:not(:hover) {
         span {
-          height: 120px;
+          transition: all $common_anmt;
+
+          @include max(height, 120px, calc(75px + 5.75vw), true);
+
           &::before {
             opacity: 1;
+            transition: all 0.2s $ex_ease_out;
             visibility: visible;
           }
         }
         &.opened {
           span::before {
             content: 'CLOSE';
-            letter-spacing: 2px;
-          }
-        }
-      }
-      &:hover,
-      &.opened {
-        @include opened_style;
-      }
-      &.closing:not(:hover) {
-        span {
-          height: 0;
-          transition: all $common_anmt 0.8s;
-          &::before {
-            opacity: 0;
-            transition: all 0.2s $ex_ease_out 0.8s;
-            visibility: hidden;
+
+            @include max(top, 30px, 28px, true, false);
+
+            @include max(letter-spacing, 2px, 1.5px, true, false);
           }
         }
       }

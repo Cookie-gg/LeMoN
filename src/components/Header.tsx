@@ -4,7 +4,14 @@ import { setActiveTime } from 'utils/common';
 import { Link, useRouter } from 'utils/next';
 import styles from '../assets/scss/components/Header.module.scss';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faCode, faHome, faUser, faNewspaper, faEnvelope, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCode,
+  faHome,
+  faUser,
+  faNewspaper,
+  faEnvelope,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
 
 const paths = [
   ['Home', '/', faHome],
@@ -25,7 +32,7 @@ export default function Header() {
         className={`${isClicked && styles.opened} ${closing && styles.closing}`}
         onClick={() => {
           _isClicked((prev) => !prev);
-          setActiveTime(_closing, 725);
+          setActiveTime(_closing, 950);
         }}
       >
         <span></span>
@@ -35,8 +42,8 @@ export default function Header() {
           <li key={i} className={`${path[1] === router.pathname && styles.active}`}>
             <Link href={path[1].toString()}>
               <a>
+                <Icon className="sp" icon={path[2] as IconDefinition}></Icon>
                 <span>{path[0]}</span>
-                {/* <Icon icon={path[2] as IconDefinition}></Icon> */}
               </a>
             </Link>
           </li>
