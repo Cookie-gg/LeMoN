@@ -32,7 +32,7 @@ $fixed_point: (
       @if type-of($value) == number and $fixed == false {
         @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
-          #{$property}: $sp_value * 100 * 0.001 + 0vw;
+          #{$property}: $value * 100 * 0.001 + 0vw;
           @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
             #{$property}: $value + 0px;
           }
