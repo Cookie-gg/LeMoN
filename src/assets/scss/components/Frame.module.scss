@@ -1,13 +1,15 @@
 .main {
-  @include max(padding, 40px, 5vw, true);
   align-items: center;
   box-sizing: border-box;
   display: flex;
   height: 100vh;
+
+  @include max(padding, 40px, 5vw, true);
   justify-content: center;
   padding: 40px;
   position: relative;
   width: 100%;
+
   &::before,
   &::after {
     box-sizing: border-box;
@@ -16,27 +18,32 @@
     width: 0;
   }
   &::before {
-    @include max(bottom, 40px, 5vw, true);
-    @include max(right, 40px, 5vw, true);
     border-right: 1px solid $lemon;
     border-top: 1px solid $lemon;
     content: '';
+
+    @include max(bottom, 40px, 5vw, true);
+
+    @include max(right, 40px, 5vw, true);
     transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2);
   }
   &::after {
-    @include max(left, 40px, 5vw, true);
-    @include max(top, 40px, 5vw, true);
     border-bottom: 1px solid $lemon;
     border-left: 1px solid $lemon;
     content: '';
+
+    @include max(left, 40px, 5vw, true);
+
+    @include max(top, 40px, 5vw, true);
     opacity: 0;
     transition: opacity $moment entry_order(3), height $common_anmt entry_order(3),
-    width $common_anmt entry_order(4);
+      width $common_anmt entry_order(4);
   }
   &.mounted {
     &::before,
     &::after {
       @include max(height, calc(100% - 80px), calc(100% - 10vw), true);
+
       @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
       opacity: 1;
     }
