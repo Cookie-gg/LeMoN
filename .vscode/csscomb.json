@@ -9,8 +9,7 @@
   "quotes": "single",
   "sort-order": [
     [ 
-      "...",
-      "$include"
+      "..."
     ],
     [
       "$include"
