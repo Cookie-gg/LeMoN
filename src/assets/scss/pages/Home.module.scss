@@ -1,17 +1,18 @@
 .title {
   align-items: center;
   background-clip: content-box;
-  background-color: $lemon;
   display: flex;
   font-family: $en_font;
   font-style: italic;
   font-weight: 700;
   justify-content: center;
-  padding-right: 380px;
   position: relative;
   transition: all $common_anmt entry_order(2);
   user-select: none;
   width: 0px;
+  z-index: 2;
+
+  @include max(padding-right, 380px, 380px, true, false);
 
   @include max(font-size, 100px, 100px, true, false);
 
@@ -32,6 +33,7 @@
       height: 100%;
       overflow: hidden;
       width: 100%;
+      background-color: $lemon;
     }
   }
   &::before {
@@ -92,7 +94,7 @@
 
   @include max(font-size, 50px, 40px, true);
 
-  @include max(left, 180px, 25vw, true);
+  @include max(left, 185px, 25vw, true);
 
   & > div {
     overflow-y: hidden;
