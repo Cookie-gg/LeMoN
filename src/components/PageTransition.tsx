@@ -1,4 +1,4 @@
-import { useCheck } from 'hooks';
+import { useMount } from 'hooks';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { setActiveTime } from 'utils/common';
@@ -7,7 +7,7 @@ import styles from '../assets/scss/components/PageTransition.module.scss';
 
 export default function PageTransition() {
   const router = useRouter();
-  const isMounted = useCheck();
+  const isMounted = useMount();
   const [isTransition, _isTransition] = useState<boolean>(false);
   useEffect(() => {
     if (localStorage.getItem('path') !== router.pathname) setActiveTime(_isTransition, 1200);

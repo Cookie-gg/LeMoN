@@ -1,12 +1,8 @@
 $breakPoints: (
-  // smartphone
-  'ssp': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
-  // sp
+  'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
   'sp': 'screen and (max-width: 819px)',
-  // pc
   'pc': 'screen and (min-width: 820px)'
 );
-// デフォルトはspz
 @mixin media($bp: sp) {
   @media #{map-get($breakPoints, $bp)} {
     @content;

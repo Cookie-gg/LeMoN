@@ -1,9 +1,9 @@
 import pages from '../assets/scss/pages/Home.module.scss';
 import { Head } from 'utils/next';
-import { useCheck } from 'hooks';
+import { useMount } from 'hooks';
 
 export default function Home() {
-  const isMounted = useCheck();
+  const isMounted = useMount();
   return (
     <>
       <Head>

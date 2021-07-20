@@ -324,7 +324,7 @@
 
       @include max(width, 60px, 60px, true, false);
 
-      @include media(ssp) {
+      @include media(mobile) {
         span {
           transition: all $common_anmt entry_order(3);
 

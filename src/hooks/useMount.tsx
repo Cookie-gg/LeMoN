@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'utils/next';
 
-const useCheck = function () {
+const useMount = function () {
   const [isMounted, _isMounted] = useState<boolean>(false);
   const router = useRouter();
   useEffect(() => {
@@ -12,4 +12,4 @@ const useCheck = function () {
   }, [isMounted, router.pathname]);
   return isMounted;
 };
-export default useCheck;
+export default useMount;

@@ -1,4 +1,4 @@
-import { useCheck } from 'hooks';
+import { useMount } from 'hooks';
 import { useState } from 'react';
 import { setActiveTime } from 'utils/common';
 import { Link, useRouter } from 'utils/next';
@@ -22,7 +22,7 @@ const paths = [
 ];
 
 export default function Header() {
-  const isMounted = useCheck();
+  const isMounted = useMount();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
   const [closing, _closing] = useState<boolean>(false);
