@@ -10,7 +10,8 @@
   transition: all $common_anmt entry_order(2);
   user-select: none;
   width: 0px;
-  z-index: 2;
+
+  @include max(z-index, 2, 1);
 
   @include max(padding-right, 380px, 380px, true, false);
 
@@ -30,10 +31,10 @@
     width: 100%;
     z-index: 1;
     &_wrapper {
+      background-color: $lemon;
       height: 100%;
       overflow: hidden;
       width: 100%;
-      background-color: $lemon;
     }
   }
   &::before {
