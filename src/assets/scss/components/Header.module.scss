@@ -6,11 +6,14 @@
 
   @include max(z-index, 1, 2);
 
-  @include max(inset, 40px 0 0 40px, 5vw 0 0 5vw);
+  @include max(top, 40px, 5vw, true);
 
-  @include max(height, calc(100% - 80px), calc(100% - 10vw), true);
+  @include max(left, 40px, 5vw, true);
 
-  @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
+  @include media(sp) {
+    height: calc(100% - 10vw);
+    width: calc(100% - 10vw);
+  }
 
   ul {
     align-items: center;
