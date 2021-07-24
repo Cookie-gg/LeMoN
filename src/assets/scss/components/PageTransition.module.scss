@@ -3,9 +3,10 @@
   top: 50%;
   transform: translate(-50%, -50%);
   transition: all $common_anmt entry_order(1);
-  z-index: 2;
 
-  @include max(left, -150vw, -400vw);
+  @include max(z-index, 2, 1);
+
+  @include max(left, -120vw, -400vw);
 
   .cover {
     background-color: $lemon;
@@ -17,7 +18,7 @@
     transform-origin: 0% 50%;
     user-select: none;
 
-    @include max(width, 80vw, 200vw);
+    @include max(width, 55vw, 180vw);
 
     span {
       display: block;
@@ -32,58 +33,18 @@
       transform: rotate(-90deg);
     }
   }
-  &.transitioned::before {
-    background-color: $dark-gray;
-    content: '';
-    height: calc(200vh + 200vw);
-    left: 75vw;
-    overflow: hidden;
-    position: absolute;
-    transform: translateY(-50%) rotate(30deg);
-    transform-origin: 0% 50%;
-    user-select: none;
-    z-index: 1;
-
-    @include max(width, 200vw, 200vw);
+  &:not(.home) {
+    transition: all $common_anmt;
   }
-  &.mounted {
+  &.home {
+    transition: all $common_anmt entry_order(1);
+
     @include max(left, 50%, 50vw);
+
     @media screen and (max-width: map-get($fixed_point, 'sp') + 0px) {
       .cover {
         left: 33vw;
       }
-    }
-  }
-  @include media(pc) {
-    @keyframes left_animation {
-      0% {
-        left: 50%;
-      }
-      50% {
-        left: -150vw;
-      }
-      100% {
-        left: 50%;
-      }
-    }
-  }
-  @include media(sp) {
-    @keyframes left_animation {
-      0% {
-        left: 50vw;
-      }
-      50% {
-        left: -400vw;
-      }
-      100% {
-        left: 50vw;
-      }
-    }
-  }
-  &.transitioned {
-    animation: left_animation 1.2s $ex_ease_out forwards 0s;
-    &.home {
-      
     }
   }
 }
