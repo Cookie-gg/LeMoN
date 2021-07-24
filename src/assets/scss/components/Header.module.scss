@@ -3,7 +3,8 @@
   display: flex;
   padding: 11px;
   position: absolute;
-  z-index: 1;
+
+  @include max(z-index, 1, 2);
 
   @include max(inset, 40px 0 0 40px, 5vw 0 0 5vw);
 

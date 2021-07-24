@@ -1,4 +1,4 @@
-import { useMount } from 'hooks';
+import { useAgent, useMount } from 'hooks';
 import { useState } from 'react';
 import { setActiveTime } from 'utils/common';
 import { Link, useRouter } from 'utils/next';
@@ -23,6 +23,7 @@ const paths = [
 
 export default function Header() {
   const isMounted = useMount();
+  const isMobile = useAgent();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
   const [closing, _closing] = useState<boolean>(false);
@@ -32,14 +33,24 @@ export default function Header() {
         className={`${isClicked && styles.opened} ${closing && styles.closing}`}
         onClick={() => {
           _isClicked((prev) => !prev);
-          setActiveTime(_closing, 950);
+          setActiveTime(_closing, isMobile ? 950 : 1500);
         }}
       >
         <span></span>
       </button>
       <ul className={`${isClicked ? styles.opened : styles.closed}`}>
         {paths.map((path, i) => (
-          <li key={i} className={`${path[1] === router.pathname && styles.active}`}>
+          <li
+            key={i}
+            className={`${path[1] === router.pathname && styles.active}`}
+            onClick={() => {
+              if (isMobile) {
+                console.log("test");
+                _isClicked((prev) => !prev);
+                setActiveTime(_closing, isMobile ? 950 : 1500);
+              }
+            }}
+          >
             <Link href={path[1].toString()}>
               <a>
                 <Icon className="sp" icon={path[2] as IconDefinition}></Icon>
