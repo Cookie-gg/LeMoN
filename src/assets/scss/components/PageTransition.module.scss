@@ -33,17 +33,19 @@
       transform: rotate(-90deg);
     }
   }
-  &:not(.home) {
-    transition: all $common_anmt;
-  }
-  &.home {
-    transition: all $common_anmt entry_order(1);
+  &.mounted {
+    &:not(.home) {
+      transition: all $common_anmt;
+    }
+    &.home {
+      transition: all $common_anmt entry_order(1);
 
-    @include max(left, 50%, 50vw);
+      @include max(left, 50%, 50vw);
 
-    @media screen and (max-width: map-get($fixed_point, 'sp') + 0px) {
-      .cover {
-        left: 33vw;
+      @media screen and (max-width: map-get($fixed_point, 'sp') + 0px) {
+        .cover {
+          left: 33vw;
+        }
       }
     }
   }
