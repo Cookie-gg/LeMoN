@@ -1,7 +1,8 @@
 $breakPoints: (
   'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
   'sp': 'screen and (max-width: 819px)',
-  'pc': 'screen and (min-width: 820px)'
+  'pc': 'screen and (min-width: 820px)',
+  'dark': '(prefers-color-scheme: dark)'
 );
 @mixin media($bp: sp) {
   @media #{map-get($breakPoints, $bp)} {
