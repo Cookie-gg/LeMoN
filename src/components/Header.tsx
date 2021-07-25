@@ -1,6 +1,5 @@
-import { useAgent, useMount } from 'hooks';
+import { useAgent, useMount, useActive } from 'hooks';
 import { useState } from 'react';
-import { setActiveTime } from 'utils/common';
 import { Link, useRouter } from 'utils/next';
 import styles from '../assets/scss/components/Header.module.scss';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -26,15 +25,16 @@ export default function Header() {
   const isMobile = useAgent();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
-  const [closing, _closing] = useState<boolean>(false);
+  const [closing, _closing] = useActive(false);
+  function clickEvent() {
+    _isClicked((prev) => !prev);
+    _closing(!isMobile ? 950 : 1250);
+  }
   return (
     <header className={`${styles.entire} ${isMounted && styles.mounted}`}>
       <button
         className={`${isClicked && styles.opened} ${closing && styles.closing}`}
-        onClick={() => {
-          _isClicked((prev) => !prev);
-          setActiveTime(_closing, isMobile ? 950 : 1500);
-        }}
+        onClick={() => clickEvent()}
       >
         <span></span>
       </button>
@@ -44,11 +44,7 @@ export default function Header() {
             key={i}
             className={`${path[1] === router.pathname && styles.active}`}
             onClick={() => {
-              if (isMobile) {
-                console.log("test");
-                _isClicked((prev) => !prev);
-                setActiveTime(_closing, isMobile ? 950 : 1500);
-              }
+              if (isMobile) clickEvent();
             }}
           >
             <Link href={path[1].toString()}>
