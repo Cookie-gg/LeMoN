@@ -252,9 +252,9 @@
           &:nth-of-type(#{$i + 3}) {
             top: 50 + $i * 10 + 0%;
             @if $i < 0 {
-              left: calc(50% - #{#{$i * -55}px});
+              left: calc(50% - #{#{$i * -52.5}px});
             } @else {
-              left: calc(50% + #{#{$i * 55}px});
+              left: calc(50% + #{#{$i * 52.5}px});
             }
           }
         }
@@ -265,6 +265,17 @@
           }
           path {
             color: $lemon;
+          }
+        }
+      }
+      @include media(mobile) {
+        @for $i from -2 through 2 {
+          &:nth-of-type(#{$i + 3}) {
+            @if $i < 0 {
+              left: calc(50% - #{#{$i * -47.5}px});
+            } @else {
+              left: calc(50% + #{#{$i * 47.5}px});
+            }
           }
         }
       }
