@@ -1,4 +1,4 @@
-import { useAgent, useMount, useActive } from 'hooks';
+import { useAgent, useMount, usePeriod } from 'hooks';
 import { useState } from 'react';
 import { Link, useRouter } from 'utils/next';
 import styles from '../assets/scss/components/Header.module.scss';
@@ -25,7 +25,7 @@ export default function Header() {
   const isMobile = useAgent();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
-  const [closing, _closing] = useActive(false);
+  const [closing, _closing] = usePeriod(false);
   function clickEvent() {
     _isClicked((prev) => !prev);
     _closing(!isMobile ? 950 : 1250);
