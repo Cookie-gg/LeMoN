@@ -17,16 +17,13 @@ export default function Home() {
       <div className={pages.phrase}>
         {(() => {
           const item = [];
-          for (let i = 0; i < 10; i++) item.push(
-            <div key={i}>
-              <span className="pc">
-                WEB DEVELOP
-              </span>
-              <span className="sp">
-                WEB DEV
-              </span>
-            </div>
-          );
+          for (let i = 0; i < 10; i++)
+            item.push(
+              <div key={i}>
+                <span className="pc">WEB DEVELOP</span>
+                <span className="sp">WEB DEV</span>
+              </div>,
+            );
           return item;
         })()}
       </div>
