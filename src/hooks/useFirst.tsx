@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'utils/next';
 
-export default function useActive(duration: number) {
-  const [first, _first] = useState<boolean>(true);
-  setTimeout(() => {
-    _first(false);
-  }, duration);
-  return first;
+export default function useFirst() {
+  const router = useRouter();
+  const [isFirst, _isFirst] = useState<boolean>(true);
+  useEffect(() => () => _isFirst(false), [router.pathname]);
+  return isFirst;
 }
