@@ -3,7 +3,7 @@ import 'assets/scss/foundation/base.scss';
 import 'assets/scss/foundation/global.scss';
 import type { AppProps } from 'next/app';
 import { Head } from 'utils/next';
-import { PageTransition, Header, Frame } from 'components';
+import { Header, Frame } from 'components';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <PageTransition />
       <Header />
       <Frame>
         <Component {...pageProps} />

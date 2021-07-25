@@ -12,3 +12,13 @@
     visibility: visible;
   }
 }
+@keyframes fade_in {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
