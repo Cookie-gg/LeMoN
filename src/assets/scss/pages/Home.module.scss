@@ -19,6 +19,24 @@
 
   @include max(height, 75px, 75px, true, false);
 
+  @include media(sp) {
+    &:not(.first) {
+      transition: all $common_anmt entry_order(2) + $first_duration;
+      .text {
+        transition: all $common_anmt entry_order(3) + $first_duration;
+      }
+      &::before {
+        transition: opacity $moment entry_order(4) + $first_duration,
+          top $common_anmt entry_order(4) + $first_duration;
+      }
+      &::after {
+        transition: opacity $moment entry_order(4) + $first_duration,
+          width $common_anmt entry_order(4) + $first_duration,
+          height $common_anmt entry_order(4) + $first_duration;
+      }
+    }
+  }
+
   .text {
     align-items: center;
     color: $dark-gray;
@@ -96,6 +114,20 @@
   @include max(font-size, 50px, 40px, true);
 
   @include max(left, 185px, 25vw, true);
+
+  @include media(sp) {
+    &:not(.first) > div {
+      @for $i from 1 through 10 {
+        &:nth-of-type(#{$i}) span {
+          @include max(
+            animation,
+            text_gradient 4s forwards 0.1 * ($i - 1) + 0s + order(7),
+            text_gradient 2.5s forwards 0.1 * ($i - 1) + 0s + order(7)
+          );
+        }
+      }
+    }
+  }
 
   & > div {
     overflow-y: hidden;
