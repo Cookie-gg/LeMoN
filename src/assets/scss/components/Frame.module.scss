@@ -7,7 +7,6 @@
   padding: 40px;
   position: relative;
   width: 100%;
-  z-index: 1;
 
   @include max(padding, 40px, 5vw, true);
 
@@ -51,7 +50,7 @@
       @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
     }
   }
-  & > * {
+  & > *:not([class*='exclude']) {
     animation: fade_in 1s both;
   }
 }

@@ -13,6 +13,7 @@ body {
     top: 0;
     transform: skewX(-30deg);
     width: 600px;
+    z-index: -1;
   }
   &::before {
     left: 150px;

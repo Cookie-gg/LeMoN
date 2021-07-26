@@ -4,7 +4,7 @@
   padding: 11px;
   position: absolute;
 
-  z-index: 2;
+  @include max(z-index, 1, 2);
 
   @include max(top, 40px, 5vw, true);
 
