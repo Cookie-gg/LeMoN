@@ -34,10 +34,17 @@ npm run build
   │   │   └── scss (Scssファイル)
   │   │       ├── components (コンポーネントごとのScss)
   │   │       ├── foundation (リセットCSSや変数、mixinなど)
-  │   │       └── pages (ページごとのScss)
+  │   │       ├── pages (ページごとのScss)
+  │   │       └── parts (パーツなど)
   │   ├── components
   │   │   ├── components files...
   │   │   └── index.tsx (componentsのエントリーポイント)
+  │   ├── graphQL
+  │   │   ├── mutations (mutationsファイル群)
+  │   │   └── queries (queriesファイル群)
+  │   ├── hooks
+  │   │   ├── hooks files...
+  │   │   └── index.tsx (custom hooksのエントリーポイント)
   │   ├── pages
   │   │   ├── pages files...
   │   │   ├── _app.tsc (pagesのエントリーポイント)
@@ -54,8 +61,7 @@ npm run build
   │   │   │   ├── get.firebase.ts (firebaseのGETリクエスト処理)
   │   │   │   └── post.firebase.ts (firebaseのPOSTリクエスト処理)
   │   │   ├── common.ts (よく使用する関数)
-  │   │   ├── next.ts (next/**のモジュールのエントリーポイント)
-  │   │   └── types.ts (よく使用する型など)
+  │   │   └── next.ts (next/**のモジュールのエントリーポイント)
   │   │       
   │   │        
   │   └── index.tsx (エントリーポイント)
