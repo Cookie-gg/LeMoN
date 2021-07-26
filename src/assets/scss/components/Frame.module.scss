@@ -7,6 +7,7 @@
   padding: 40px;
   position: relative;
   width: 100%;
+  z-index: 1;
 
   @include max(padding, 40px, 5vw, true);
 
@@ -16,6 +17,7 @@
     height: 0;
     position: absolute;
     width: 0;
+    z-index: -1;
   }
   &::before {
     border-right: 1px solid $lemon;
@@ -49,4 +51,13 @@
       @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
     }
   }
+  // &:not(.appeared) > * {
+  //   opacity: 0;
+  //   visibility: hidden;
+  // }
+  // &.appeared > * {
+  //   transition: all 1s;
+  //   opacity: 1;
+  //   visibility: visible;
+  // }
 }
