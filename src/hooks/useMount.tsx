@@ -9,7 +9,7 @@ const useMount = function () {
     return () => {
       _isMounted(false);
     };
-  }, [isMounted, router.pathname]);
+  }, [router.pathname]);
   return isMounted;
 };
 export default useMount;
