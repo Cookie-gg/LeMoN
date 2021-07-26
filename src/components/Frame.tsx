@@ -22,9 +22,7 @@ export default function Frame({
   });
   return (
     <>
-      <main
-        className={`${styles.main} ${isMounted && styles.mounted}`}
-      >
+      <main className={`${styles.main} ${isMounted && styles.mounted}`}>
         <PageTransition isFirst={isFirst} />
         {child}
       </main>
