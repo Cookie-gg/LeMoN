@@ -10,10 +10,10 @@
 
   @include max(left, 40px, 5vw, true);
 
-  @include media(sp) {
-    height: calc(100% - 10vw);
-    width: calc(100% - 10vw);
-  }
+    @include media(sp) {
+      height: calc(100% - 10vw);
+      width: calc(100% - 10vw);
+    }
 
   ul {
     align-items: center;
