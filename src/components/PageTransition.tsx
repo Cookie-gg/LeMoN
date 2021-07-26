@@ -10,7 +10,7 @@ export default function PageTransition({ isFirst }: { isFirst: boolean }) {
       <div
         className={`${styles.entire} ${isMounted && styles.mounted} ${
           router.pathname == '/' && styles.home
-        } ${isFirst && styles.first}`}
+        } ${isFirst && styles.first} exclude`}
       >
         <div className={styles.cover}>
           <span>LeMoN</span>

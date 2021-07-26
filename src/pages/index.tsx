@@ -9,12 +9,16 @@ export default function Home({ isFirst }: { isFirst: boolean }) {
       <Head>
         <title>LeMoN | Home</title>
       </Head>
-      <h1 className={`${pages.title} ${isMounted && pages.mounted} ${isFirst && pages.first}`}>
+      <h1
+        className={`${pages.title} ${isMounted && pages.mounted} ${
+          isFirst && pages.first
+        } exclude`}
+      >
         <span className={pages.text_wrapper}>
           <span className={pages.text}>LeMoN</span>
         </span>
       </h1>
-      <div className={`${pages.phrase} ${isFirst && pages.first}`}>
+      <div className={`${pages.phrase} ${isFirst && pages.first} exclude`}>
         {(() => {
           const item = [];
           for (let i = 0; i < 10; i++)
