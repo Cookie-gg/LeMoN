@@ -1,4 +1,4 @@
-import { useAgent, useMount, usePeriod } from 'hooks';
+import { useAgent, usePeriod } from 'hooks';
 import { useState } from 'react';
 import { Link, useRouter } from 'utils/next';
 import styles from '../assets/scss/components/Header.module.scss';
@@ -20,8 +20,7 @@ const paths = [
   ['Contact', '/contact', faEnvelope],
 ];
 
-export default function Header() {
-  const isMounted = useMount();
+export default function Header({ isMounted }: { isMounted: boolean }) {
   const isMobile = useAgent();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
@@ -30,6 +29,22 @@ export default function Header() {
     _isClicked((prev) => !prev);
     _closing(!isMobile ? 950 : 1250);
   }
+  const list = paths.map((path, i) => (
+    <li
+      key={i}
+      className={`${path[1] === router.pathname && styles.active}`}
+      onClick={() => {
+        if (isMobile) clickEvent();
+      }}
+    >
+      <Link href={path[1].toString()}>
+        <a>
+          <Icon className="sp" icon={path[2] as IconDefinition}></Icon>
+          <span>{path[0]}</span>
+        </a>
+      </Link>
+    </li>
+  ));
   return (
     <header className={`${styles.entire} ${isMounted && styles.mounted}`}>
       <button
@@ -39,22 +54,7 @@ export default function Header() {
         <span></span>
       </button>
       <ul className={`${isClicked ? styles.opened : styles.closed}`}>
-        {paths.map((path, i) => (
-          <li
-            key={i}
-            className={`${path[1] === router.pathname && styles.active}`}
-            onClick={() => {
-              if (isMobile) clickEvent();
-            }}
-          >
-            <Link href={path[1].toString()}>
-              <a>
-                <Icon className="sp" icon={path[2] as IconDefinition}></Icon>
-                <span>{path[0]}</span>
-              </a>
-            </Link>
-          </li>
-        ))}
+        {isMobile ? <span className={styles.sp_wrapper}>{list}</span> : list}
       </ul>
     </header>
   );

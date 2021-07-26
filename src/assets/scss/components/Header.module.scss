@@ -4,7 +4,7 @@
   padding: 11px;
   position: absolute;
 
-  @include max(z-index, 1, 2);
+  z-index: 2;
 
   @include max(top, 40px, 5vw, true);
 
@@ -157,7 +157,13 @@
         }
       }
     }
-
+    .sp_wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) skewX(30deg);
+      z-index: 3;
+    }
     li {
       @include media(pc) {
         align-items: center;
@@ -229,10 +235,7 @@
         height: 100px;
         justify-content: center;
         opacity: 0;
-        position: absolute;
-        transform: translate(-50%, -50%) skewX(30deg);
         visibility: hidden;
-        z-index: 3;
         a {
           align-items: center;
           display: flex;
@@ -248,16 +251,6 @@
             width: 100px;
           }
         }
-        @for $i from -2 through 2 {
-          &:nth-of-type(#{$i + 3}) {
-            top: 50 + $i * 10 + 0%;
-            @if $i < 0 {
-              left: calc(50% - #{#{$i * -55}px});
-            } @else {
-              left: calc(50% + #{#{$i * 55}px});
-            }
-          }
-        }
         &.active {
           span {
             color: $lemon;
@@ -265,17 +258,6 @@
           }
           path {
             color: $lemon;
-          }
-        }
-      }
-      @include media(mobile) {
-        @for $i from -2 through 2 {
-          &:nth-of-type(#{$i + 3}) {
-            @if $i < 0 {
-              left: calc(50% - #{#{$i * -47.5}px});
-            } @else {
-              left: calc(50% + #{#{$i * 47.5}px});
-            }
           }
         }
       }
