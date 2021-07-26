@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Header isMounted={isMounted} />
-      <Frame isMounted={isMounted}>
+      <Frame isMounted={isMounted} type="base">
         <Component {...pageProps} />
       </Frame>
     </ApolloProvider>
