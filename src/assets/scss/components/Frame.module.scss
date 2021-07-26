@@ -55,3 +55,14 @@
     animation: fade_in 1s both;
   }
 }
+.scroller {
+  height: calc(100% - 22px - 110px - 40px);
+  margin: 110px 40px 40px 40px;
+  overflow-y: scroll;
+  position: relative;
+  width: calc(100% - 22px - 40px - 40px);
+  .contents {
+    height: 200%;
+    width: 100%;
+  }
+}
