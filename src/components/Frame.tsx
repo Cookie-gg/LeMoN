@@ -2,22 +2,18 @@ import { useFirst } from 'hooks';
 import { useRouter } from 'utils/next';
 import { PageTransition } from 'components';
 import styles from '../assets/scss/components/Frame.module.scss';
-import { ReactElement, cloneElement, Children } from 'react';
-import { UIEvent } from 'react';
-import { useState } from 'react';
+import { ReactElement, cloneElement, Children, useState } from 'react';
 
 export default function Frame({
   children,
   isMounted,
   type,
-  number = 0,
-  section,
+  section = 1,
   _section,
 }: {
   children: ReactElement;
   isMounted?: boolean;
   type: string;
-  number?: number;
   section?: number;
   _section?: (n: number) => void;
 }) {
@@ -25,13 +21,9 @@ export default function Frame({
   const router = useRouter();
   const [marginTop, _marginTop] = useState<number>(0);
   if (type === 'base') {
-    const child = Children.map(children, () => {
-      if (router.pathname === '/') {
-        return cloneElement(children, { isFirst });
-      } else {
-        return children;
-      }
-    });
+    const child = Children.map(children, (child) =>
+      router.pathname === '/' ? cloneElement(child, { isFirst }) : child,
+    );
     return (
       <>
         <main className={`${styles.main} ${isMounted && styles.mounted}`}>
@@ -41,36 +33,46 @@ export default function Frame({
       </>
     );
   } else {
-    const scrollEvent = (e: UIEvent<HTMLDivElement, globalThis.UIEvent>) => {
+    const n_section = children.props.children.length;
+    const scrollEvent = (e: EventTypes) => {
       if (_section) {
         const el = e.target as HTMLDivElement;
-        const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * number);
-        _section(diff !== number ? diff + 1 : number);
+        const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n_section);
+        _section(diff !== n_section ? diff + 1 : n_section);
         _marginTop(el.scrollTop);
       }
     };
-    return number > 1 ? (
+    return n_section > 1 ? (
       <>
-        <div className={styles.scroller} onScroll={(e) => scrollEvent(e)}>
+        <div className={`${styles.wrapper} ${styles.scroller}`} onScroll={(e) => scrollEvent(e)}>
           <div className={styles.contents} style={{ marginTop: `${marginTop}px` }}>
-            {children}
+            {(() => {
+              const list = [];
+              for (let i = 1; i <= 2; i++)
+                list.push(
+                  <section key={i} style={{ transform: `translateY(${100 * (i - section)}%)` }}>
+                    {children.props.children[i - 1]}
+                  </section>,
+                );
+              return list;
+            })()}
           </div>
-          <div className={styles.scroller_height} style={{ height: `${number * 60}%` }}></div>
+          <div className={styles.contents_height} style={{ height: `${n_section * 60}%` }}></div>
         </div>
-        <div className={styles.wrapper}>
+        <div className={styles.buttons}>
           {(() => {
             const item = [];
-            for (let i = 1; i < number + 1; i++)
+            for (let i = 1; i < n_section + 1; i++)
               item.push(
                 <button
                   key={i}
                   className={`${i === section && styles.current}`}
-                  style={{ height: `calc(50vh / ${number})` }}
+                  style={{ height: `calc(40vh / ${n_section})` }}
                   onClick={(e) => {
                     const el = (e.target as HTMLDivElement).parentElement!.previousElementSibling!;
                     if (i === 1) {
                       el.scrollTop = 0;
-                    } else if (i === number) {
+                    } else if (i === n_section) {
                       el.scrollTop = el.scrollHeight - el.clientHeight;
                     } else {
                       el.scrollTop = ((el.scrollHeight - el.clientHeight) / 3) * (i - 1) + 1;
@@ -83,7 +85,7 @@ export default function Frame({
         </div>
       </>
     ) : (
-      <div className={styles.scroller}>{children}</div>
+      <div className={styles.wrapper}>{children}</div>
     );
   }
 }
