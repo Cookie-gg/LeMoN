@@ -10,10 +10,10 @@
 
   @include max(left, 40px, 5vw, true);
 
-    @include media(sp) {
-      height: calc(100% - 10vw);
-      width: calc(100% - 10vw);
-    }
+  @include media(sp) {
+    height: calc(100% - 10vw);
+    width: calc(100% - 10vw);
+  }
 
   ul {
     align-items: center;
@@ -158,9 +158,9 @@
       }
     }
     .sp_wrapper {
+      left: 50%;
       position: absolute;
       top: 50%;
-      left: 50%;
       transform: translate(-50%, -50%) skewX(30deg);
       z-index: 3;
     }
@@ -284,8 +284,8 @@
       @include max(margin-top, 15px, 15px, true, false);
     }
     span {
-      background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
-        no-repeat top left/100% 100%;
+      background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat
+        top left/100% 100%;
       box-sizing: border-box;
       font-family: $en_font;
       height: 0;
