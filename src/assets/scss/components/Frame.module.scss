@@ -55,13 +55,52 @@
   }
 }
 .scroller {
+  display: flex;
   height: calc(100% - 22px - 110px - 40px);
-  margin: 110px 40px 40px 40px;
+  margin: 110px 0px 40px 40px;
+  overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
-  width: calc(100% - 22px - 40px - 40px);
+  width: calc(100% - 22px - 40px);
+  .scroller_height {
+    width: 0%;
+  }
   .contents {
-    height: 200%;
+    height: 100%;
     width: 100%;
+  }
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  width: 6.5px;
+  margin-right: 15px;
+  button {
+    // background-color: $lemon;
+    display: block;
+    width: 100%;
+    border-right: 2.5px solid $lemon;
+    box-sizing: border-box;
+    transition: all .3s;
+    &:first-of-type {
+      margin-bottom: 6.5px;
+    }
+    &:not(:first-of-type):not(:last-of-type) {
+      margin-top: 6.5px;
+      margin-bottom: 6.5px;
+    }
+    &:last-of-type {
+      margin-top: 6.5px;
+    }
+    &:hover,
+    &.current {
+      border-right: 6.5px solid $lemon;
+    }
   }
 }
