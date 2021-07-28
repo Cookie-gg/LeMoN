@@ -1,17 +1,16 @@
 import pages from '../assets/scss/pages/About.module.scss';
-import { Frame } from 'components';
-import { useState } from 'react';
+import { PageFrame } from 'components';
 import { Image } from 'utils/next';
-import profile from '../assets/img/lemon_gray.png';
+import profile from '../assets/img/profile.svg';
 
 export default function About() {
-  const [section, _section] = useState<number>(1);
   return (
-    <Frame type="scroll" section={section} _section={(n: number) => _section(n)}>
+    <PageFrame pageStyles={[pages.profile, pages.skills]}>
       <>
         {
           <>
-            <p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+            <h1>PROFILE</h1>
+            <Image src={profile} alt="profile image" className={pages.image} />
           </>
         }
         {
@@ -20,6 +19,6 @@ export default function About() {
           </>
         }
       </>
-    </Frame>
+    </PageFrame>
   );
 }

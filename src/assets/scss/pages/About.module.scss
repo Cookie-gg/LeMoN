@@ -1,0 +1,17 @@
+.profile {
+  // display: flex;
+  h1 {
+    font-size: 100px;
+    font-family: $en_font;
+    font-style: italic;
+    font-weight: bold;
+    width: 100%;
+    text-align: right;
+  }
+  .image {
+    display: block;
+  }
+}
+.skills {
+  display: flex;
+}
