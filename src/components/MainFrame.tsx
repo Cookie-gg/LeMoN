@@ -2,7 +2,7 @@ import { useFirst } from 'hooks';
 import { useRouter } from 'utils/next';
 import PageTransition from './PageTransition';
 import { Children, ReactElement, cloneElement } from 'react';
-import styles from '../assets/scss/components/Frame.module.scss';
+import styles from '../assets/scss/components/MainFrame.module.scss';
 
 export default function MainFrame({
   children,

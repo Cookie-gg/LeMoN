@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import styles from '../assets/scss/components/Frame.module.scss';
+import styles from '../assets/scss/components/PageFrame.module.scss';
 
 export default function PageFrame({
   children,
