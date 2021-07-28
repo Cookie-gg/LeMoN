@@ -3,7 +3,7 @@ import 'assets/scss/foundation/base.scss';
 import 'assets/scss/foundation/global.scss';
 import type { AppProps } from 'next/app';
 import { Head } from 'utils/next';
-import { Header, Frame } from 'components';
+import { Header, MainFrame } from 'components';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { useMount } from 'hooks';
 
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Header isMounted={isMounted} />
-      <Frame isMounted={isMounted} type="base">
+      <MainFrame isMounted={isMounted}>
         <Component {...pageProps} />
-      </Frame>
+      </MainFrame>
     </ApolloProvider>
   );
 }

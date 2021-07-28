@@ -1,13 +1,13 @@
-import { Frame } from 'components';
+import { Frame, PageFrame } from 'components';
 
 export default function Works() {
   return (
-    <Frame type="scroll">
+    <PageFrame pageStyles='styles'>
       {
         <>
           <h1>Works Page</h1>
         </>
       }
-    </Frame>
+    </PageFrame>
   );
 }
