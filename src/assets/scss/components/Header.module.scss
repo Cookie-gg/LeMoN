@@ -4,15 +4,21 @@
   padding: 11px;
   position: absolute;
 
-  @include max(z-index, 1, 2);
-
   @include max(top, 40px, 5vw, true);
 
   @include max(left, 40px, 5vw, true);
 
+  @include media(pc) {
+    z-index: 1;
+  }
+
   @include media(sp) {
     height: calc(100% - 10vw);
     width: calc(100% - 10vw);
+    &.opened,
+    &.closing {
+      z-index: 3;
+    }
   }
 
   ul {
@@ -170,7 +176,6 @@
         display: flex;
         opacity: 0;
         visibility: hidden;
-        z-index: 3;
 
         &:not(:first-of-type) {
           @include max(margin-left, 30px, 30px, true);
@@ -284,8 +289,8 @@
       @include max(margin-top, 15px, 15px, true, false);
     }
     span {
-      background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat
-        top left/100% 100%;
+      background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
+        no-repeat top left/100% 100%;
       box-sizing: border-box;
       font-family: $en_font;
       height: 0;

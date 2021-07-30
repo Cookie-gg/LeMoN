@@ -26,8 +26,8 @@ export default function Header({ isMounted }: { isMounted: boolean }) {
   const [isClicked, _isClicked] = useState<boolean>(false);
   const [closing, _closing] = usePeriod(false);
   function clickEvent() {
-    _isClicked((prev) => !prev);
     _closing(!isMobile ? 950 : 1250);
+    _isClicked((prev) => !prev);
   }
   const list = paths.map((path, i) => (
     <li
@@ -46,7 +46,11 @@ export default function Header({ isMounted }: { isMounted: boolean }) {
     </li>
   ));
   return (
-    <header className={`${styles.entire} ${isMounted && styles.mounted}`}>
+    <header
+      className={`${styles.entire} ${isMounted && styles.mounted} ${closing && styles.closing} ${
+        isClicked && styles.opened
+      }`}
+    >
       <button
         className={`${isClicked && styles.opened} ${closing && styles.closing}`}
         onClick={() => clickEvent()}

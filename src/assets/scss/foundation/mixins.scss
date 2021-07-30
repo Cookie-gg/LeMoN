@@ -1,8 +1,10 @@
 $breakPoints: (
   'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
+  'tablet': 'screen and (max-width: 1000px)',
+  'ssp': 'screen and (max-width: 500px)',
   'sp': 'screen and (max-width: 819px)',
   'pc': 'screen and (min-width: 820px)',
-  'dark': '(prefers-color-scheme: dark)'
+  'dark': '(prefers-color-scheme: dark)',
 );
 @mixin media($bp: sp) {
   @media #{map-get($breakPoints, $bp)} {
@@ -10,7 +12,7 @@ $breakPoints: (
   }
 }
 $fixed_point: (
-  pc: 1000,
+  pc: 1500,
   sp: 500,
 );
 @mixin max(
@@ -19,7 +21,7 @@ $fixed_point: (
   $sp_value: initial,
   $fixed: false,
   $sp_fixed: initial,
-  $ssp_value: initial
+  $tablet_value: initial
 ) {
   @if $fixed == true and $sp_fixed == initial {
     $sp_fixed: true;
@@ -29,7 +31,7 @@ $fixed_point: (
       @if type-of($value) == number and $fixed == false {
         @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
-          #{$property}: $value * 100 * 0.001 + 0vw;
+          #{$property}: $value * 100 * 0.000666666666666666666 + 0vw;
           @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
             #{$property}: $value + 0px;
           }
@@ -56,6 +58,11 @@ $fixed_point: (
       } @else {
         #{$property}: $sp_value;
       }
+    }
+  }
+  @if $tablet_value != initial {
+    @include media(tablet) {
+      #{$property}: $tablet_value;
     }
   }
 }

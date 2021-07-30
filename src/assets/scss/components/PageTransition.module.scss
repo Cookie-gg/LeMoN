@@ -6,7 +6,7 @@
 
   @include max(z-index, 2, 1);
 
-  @include max(left, -120vw, -400vw);
+  @include max(left, -130vw, -400vw);
 
   .cover {
     background-color: $lemon;
