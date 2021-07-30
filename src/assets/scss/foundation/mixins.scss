@@ -21,7 +21,8 @@ $fixed_point: (
   $sp_value: initial,
   $fixed: false,
   $sp_fixed: initial,
-  $tablet_value: initial
+  $tablet_value: initial,
+  $fixed_value: initial
 ) {
   @if $fixed == true and $sp_fixed == initial {
     $sp_fixed: true;
@@ -32,8 +33,15 @@ $fixed_point: (
         @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
           #{$property}: $value * 100 * 0.000666666666666666666 + 0vw;
-          @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
-            #{$property}: $value + 0px;
+          @if $fixed_value != initial {
+            $fixed_value: number(str_replace('px', '', $fixed_value));
+            @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+              #{$property}: $fixed_value + 0px;
+            }
+          } @else {
+            @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+              #{$property}: $value + 0px;
+            }
           }
         } @else {
           #{$property}: $value;
