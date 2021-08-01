@@ -87,7 +87,7 @@
       letter-spacing: -3px;
       position: relative;
 
-      @include max(width, 410px, $fixed_value: 525px);
+      @include max(width, 410px, $fixed_value: 550px);
 
       @include max(font-size, 50px);
 
