@@ -12,7 +12,7 @@ $breakPoints: (
   }
 }
 $fixed_point: (
-  pc: 1500,
+  pc: 1430,
   sp: 500,
 );
 @mixin max(
@@ -32,7 +32,7 @@ $fixed_point: (
       @if type-of($value) == number and $fixed == false {
         @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
-          #{$property}: $value * 100 * 0.000666666666666666666 + 0vw;
+          #{$property}: $value * 100 * 0.0006993006993006993006993006993007 + 0vw;
           @if $fixed_value != initial {
             $fixed_value: number(str_replace('px', '', $fixed_value));
             @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
