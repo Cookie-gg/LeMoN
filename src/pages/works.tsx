@@ -1,13 +1,5 @@
-import { Frame, PageFrame } from 'components';
-
+import Lottie from 'react-lottie-player';
+import * as animationData from '../assets/img/profile.json';
 export default function Works() {
-  return (
-    <PageFrame pageStyles='styles'>
-      {
-        <>
-          <h1>Works Page</h1>
-        </>
-      }
-    </PageFrame>
-  );
+  return <Lottie loop animationData={animationData} play />;
 }
