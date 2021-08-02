@@ -1,165 +1,101 @@
 .profile {
+  align-items: center;
   display: flex;
-  justify-content: space-between;
-
-  @include media(tablet) {
-    flex-direction: column;
-  }
-
-  & > h1 {
-    font-family: $en_font;
-    font-size: 12.5vh;
-    font-weight: bold;
-    opacity: 0.1;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    transform: rotate(90deg);
-    transform-origin: top right;
-    user-select: none;
-  }
-  .image_wrapper {
-    align-items: center;
-    border-bottom: 1.25px solid $lemon;
-    border-right: 10px solid $lemon;
-    box-sizing: border-box;
-    display: flex;
-    height: 100%;
-    justify-content: flex-end;
-    margin-left: -40%;
-    overflow: hidden;
-    position: relative;
-    transform: translateX(1.5px) skewX(-30deg);
-    width: 80%;
-
-    @include media(tablet) {
-      height: 50%;
-      margin-left: -10vw;
-    }
-
+  .svg {
+    width: 50%;
     &::before {
-      background-color: rgba(white, 0.08);
-      content: '';
-      height: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 40vw;
-
-      @include media(tablet) {
-        width: 50vw;
-      }
-    }
-    .image {
-      background-image: url(../../img/profile.svg);
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;
-      height: 90%;
-      transform: translateX(25%) skewX(30deg);
-      width: 60%;
-
-      @include media(tablet) {
-        width: 80%;
-      }
+      transform: translate(-40%, -50%) skewX(-30deg);
     }
   }
   .text_wrapper {
-    border-top: 1.25px solid $lemon;
     box-sizing: border-box;
-    position: relative;
-    transform: skewX(-30deg);
-    width: 60%;
+    font-family: $en_font;
+    height: 100%;
+    width: 50%;
 
-    & > * > * {
-      transform: skewX(30deg);
+    @include max(padding, 50px);
+
+    @include max(padding-top, 30px);
+
+    .title {
+      @include max(margin-top, 65px);
     }
-    h2 {
-      align-items: center;
-      background-color: rgba(white, 0.08);
-      border-bottom: 1px solid $lemon;
-      box-sizing: border-box;
-      display: flex;
-      font-family: $en_font;
-      font-style: italic;
-      font-weight: 900;
-      justify-content: center;
-      letter-spacing: -3px;
-      position: relative;
+    .sentence {
+      margin-left: 2%;
 
-      @include max(width, 410px, $fixed_value: 550px);
+      @include max(margin-top, 50px);
+    }
+    .info {
+      margin-left: 2%;
 
-      @include max(font-size, 50px);
+      @include max(margin-top, 50px);
+    }
+  }
+  &:not([class*='mounted']),
+  &[class*='mounted']:not(.active) {
+    .heading span {
+      transform: translateY(105%);
+    }
+    .title {
+      width: 0;
 
-      @include max(margin-top, 15px);
+      @include max(margin-top, 65px);
 
-      @include max(margin-left, 20px);
-
-      @include max(padding-top, 15px);
-
-      @include max(padding-bottom, 10px);
-
-      span {
-        color: $lemon;
-        display: inline-block;
+      span span {
+        transform: translateY(-100%);
       }
       &::before {
-        background-color: $lemon;
-        content: '';
-        height: calc(100% + 1px);
-        left: 100%;
-        position: absolute;
-        top: 0;
-        transform: scaleX(-1);
-        width: 100vw;
-
-        @include media(tablet) {
-          display: none;
-        }
+        height: 0;
       }
     }
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 10px;
+    .sentence span,
+    .info li span {
+      transform: translateY(-100%);
+    }
+  }
+  &[class*='mounted'].active {
+    .heading span {
+      transform: translateY(0%);
+      transition: transform $common_anmt order(3);
+    }
+    .title {
+      transition: width $common_anmt order(2);
 
-      @include max(width, 600px);
+      @include max(width, 460px);
 
-      @include max(margin-left, 45px);
-
-      li {
-        align-items: center;
-        display: flex;
-        font-family: $en_font;
-        font-size: 22.5px;
-        font-style: italic;
-        font-weight: 100;
-        height: 27.5px;
-        margin-top: 25px;
-        width: 250px;
-        svg {
-          height: 22.5px;
-          margin-right: 20px;
-          width: 22.5px;
-          path {
-            color: $lemon;
-          }
-        }
-        a {
-          display: flex;
-          &:hover {
-            text-decoration: underline;
-            text-decoration-color: rgba(white, 0.5);
-            text-decoration-thickness: 1px;
-          }
-        }
-        &:nth-of-type(2n - 1) {
-          margin-right: 40px;
-        }
+      span span {
+        transform: translateY(0%);
+        transition: transform $common_anmt order(3);
+      }
+      &::before {
+        height: 100%;
+        transition: height $common_anmt order(2);
       }
     }
+    .sentence span,
+    .info li span {
+      transform: translateY(0%);
+      transition: transform $common_anmt order(3);
+    }
+  }
+  &[class*='mounted']:not(.active) * {
+    transition: all 0s $common_drtn;
+  }
+}
+.career {
+  align-items: center;
+  display: flex;
+  .svg {
+    width: 50%;
+    transform: scaleX(-1);
+    &::before {
+      transform: translate(-40%, -50%) skewX(-30deg);
+    }
+  }
+  .text_wrapper {
+    height: 100%;
+    width: 50%;
   }
 }
 .skills {
-  display: flex;
 }
