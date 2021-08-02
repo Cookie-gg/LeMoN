@@ -5,6 +5,8 @@
   overflow: hidden;
   position: relative;
   width: calc(100% - 22px - 40px - 40px);
+  align-items: center;
+  justify-content: center;
   &.scroller {
     margin: 110px 0px 40px 40px;
     overflow-x: hidden;
@@ -15,6 +17,7 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+    max-width: 1250px;
     section {
       height: 100%;
       left: 0;

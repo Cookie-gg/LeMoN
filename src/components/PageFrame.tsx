@@ -1,21 +1,25 @@
+import { useMount } from 'hooks';
 import { ReactElement, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 
 export default function PageFrame({
   children,
-  pageStyles,
+  secStyles,
+  active,
 }: {
   children: ReactElement;
-  pageStyles: string | string[];
+  secStyles: string | string[];
+  active?: string;
 }) {
   const [marginTop, _marginTop] = useState<number>(0);
   const [section, _section] = useState<number>(1);
+  const isMounted = useMount();
   const n_section = children.props.children.length;
   const scrollEvent = (e: EventTypes) => {
     const el = e.target as HTMLDivElement;
     const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n_section);
     _section(diff !== n_section ? diff + 1 : n_section);
-    _marginTop(el.scrollTop);
+    _marginTop(el.scrollTop * 2);
   };
   return n_section > 1 ? (
     <>
@@ -24,14 +28,16 @@ export default function PageFrame({
           {children.props.children.map((child: ReactElement, i: number) => (
             <section
               key={i}
-              className={pageStyles[i]}
+              className={`${secStyles[i]} ${section === i + 1 && active} ${
+                isMounted && 'mounted'
+              }`}
               style={{ transform: `translateY(${100 * (i + 1 - section)}%)` }}
             >
               {child}
             </section>
           ))}
         </div>
-        <div style={{ height: `${n_section * 60}%` }}></div>
+        <div style={{ height: `${n_section * (50 + (n_section - 1) * 15)}%` }}></div>
       </div>
       <div className={styles.buttons}>
         {children.props.children.map((child: ReactElement, i: number) => (
@@ -55,7 +61,7 @@ export default function PageFrame({
     </>
   ) : (
     <div className={styles.wrapper}>
-      <section className={pageStyles as string}>{children}</section>
+      <section className={secStyles as string}>{children}</section>
     </div>
   );
 }
