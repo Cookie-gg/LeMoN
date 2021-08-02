@@ -1,0 +1,41 @@
+.entire {
+  display: flex;
+  flex-wrap: wrap;
+
+  @include max(width, 600px);
+
+  li {
+    font-family: $en_font;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 200;
+    height: 27.5px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    position: relative;
+    width: 250px;
+    span {
+      align-items: center;
+      display: inline-flex;
+      svg {
+        height: 22.5px;
+        margin-right: 20px;
+        width: 22.5px;
+        path {
+          color: $lemon;
+        }
+      }
+      a {
+        display: flex;
+        &:hover {
+          text-decoration: underline;
+          text-decoration-color: rgba(white, 0.5);
+          text-decoration-thickness: 1px;
+        }
+      }
+    }
+    &:nth-of-type(2n - 1) {
+      margin-right: 40px;
+    }
+  }
+}
