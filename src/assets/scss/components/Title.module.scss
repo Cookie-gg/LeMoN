@@ -1,0 +1,52 @@
+.entire {
+  background-color: $lemon;
+  display: flex;
+  font-family: $en_font;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: -4px;
+  position: relative;
+  transform: translateX(2%);
+  user-select: none;
+
+  @include max(font-size, 90px);
+
+  @include max(width, 460px);
+
+  @include max(height, 85px);
+
+  &::before {
+    background-color: $lemon;
+    content: '';
+    height: 100%;
+    position: absolute;
+    right: 102%;
+    top: 0;
+    width: 2px;
+  }
+  &::after {
+    aspect-ratio: 1 / #{$route_3};
+    background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat
+      top left/100% 100%;
+    content: '';
+    height: 102%;
+    left: 100%;
+    position: absolute;
+    top: 0;
+    transform: translateX(-1px);
+  }
+  & > span {
+    overflow: hidden;
+    position: relative;
+
+    @include max(padding-top, 3px);
+
+    @include max(padding-left, 25px);
+
+    span {
+      display: inline-block;
+      color: $dark-gray;
+      position: relative;
+    }
+  }
+}
