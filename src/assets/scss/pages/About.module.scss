@@ -1,7 +1,7 @@
 .profile {
   align-items: center;
   display: flex;
-  .svg {
+  .concept_img {
     width: 50%;
     &::before {
       transform: translate(-40%, -50%) skewX(-30deg);
@@ -19,6 +19,16 @@
 
     .title {
       @include max(margin-top, 65px);
+
+      @include max(width, 460px);
+
+      @include max(height, 85px);
+
+      svg {
+        height: 112.5%;
+        margin-top: -1%;
+        width: 100%;
+      }
     }
     .sentence {
       margin-left: 2%;
@@ -33,6 +43,13 @@
   }
   &:not([class*='mounted']),
   &[class*='mounted']:not(.active) {
+    // .concept_img svg {
+    //   opacity: 0;
+    //   transform: translateX(10%);
+    // }
+    // .concept_img::before {
+    //   width: 0;
+    // }
     .heading span {
       transform: translateY(105%);
     }
@@ -41,8 +58,13 @@
 
       @include max(margin-top, 65px);
 
-      span span {
-        transform: translateY(-100%);
+      span {
+        svg:first-of-type path {
+          stroke-dashoffset: 2000;
+        }
+        &::before {
+          width: 100%;
+        }
       }
       &::before {
         height: 0;
@@ -54,6 +76,15 @@
     }
   }
   &[class*='mounted'].active {
+    // .concept_img::before {
+    //   width: 90%;
+    //   transition: width $common_anmt order(2);
+    // }
+    // .concept_img svg {
+    //   opacity: 1;
+    //   transform: translateX(0%);
+    //   transition: all ease-out $common_drtn order(2);
+    // }
     .heading span {
       transform: translateY(0%);
       transition: transform $common_anmt order(3);
@@ -63,10 +94,17 @@
 
       @include max(width, 460px);
 
-      span span {
-        transform: translateY(0%);
-        transition: transform $common_anmt order(3);
+      span {
+        &:first-of-type path {
+          stroke-dashoffset: 0;
+          transition: stroke-dashoffset 3s ease-in order(3);
+        }
+        &::before {
+          transition: width $common_anmt 3.5s;
+          width: 0%;
+        }
       }
+
       &::before {
         height: 100%;
         transition: height $common_anmt order(2);
@@ -78,16 +116,18 @@
       transition: transform $common_anmt order(3);
     }
   }
-  &[class*='mounted']:not(.active) * {
+  &[class*='mounted']:not(.active) *,
+  &[class*='mounted']:not(.active) *::before,
+  &[class*='mounted']:not(.active) *::after {
     transition: all 0s $common_drtn;
   }
 }
 .career {
   align-items: center;
   display: flex;
-  .svg {
-    width: 50%;
+  .concept_img {
     transform: scaleX(-1);
+    width: 50%;
     &::before {
       transform: translate(-40%, -50%) skewX(-30deg);
     }
@@ -98,4 +138,6 @@
   }
 }
 .skills {
+  align-items: center;
+  display: flex;
 }
