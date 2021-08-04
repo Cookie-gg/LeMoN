@@ -1,0 +1,16 @@
+.entire {
+  display: flex;
+  height: 85%;
+  position: relative;
+  &::before {
+    background-color: rgba(white, 0.08);
+    border-right: 10px solid $lemon;
+    content: '';
+    height: 125%;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    width: 90%;
+    z-index: -1;
+  }
+}
