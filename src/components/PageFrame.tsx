@@ -1,4 +1,5 @@
 import { useMount } from 'hooks';
+import { useReducer } from 'react';
 import { ReactElement, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 
@@ -14,13 +15,28 @@ export default function PageFrame({
   const [marginTop, _marginTop] = useState<number>(0);
   const [section, _section] = useState<number>(1);
   const isMounted = useMount();
-  const n_section = children.props.children.length;
+  const n_section: number = children.props.children.length;
   const scrollEvent = (e: EventTypes) => {
     const el = e.target as HTMLDivElement;
     const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n_section);
     _section(diff !== n_section ? diff + 1 : n_section);
+    _isActive(diff !== n_section ? diff + 1 : n_section);
     _marginTop(el.scrollTop * 2);
   };
+
+  
+  const initialState: { [key: string]: boolean } = { section_1: true };
+  if (n_section > 1) {
+    for (let i = 1; i < n_section; i++) {
+      initialState[`section_${i + 1}`] = false;
+    }
+  }
+  const reducer = (state: typeof initialState, n: number) => {
+    if (state[`section_${n}`] === true) return state;
+    return { ...state, ...{ [`section_${n}`]: true } };
+  };
+  const [isActive, _isActive] = useReducer(reducer, initialState);
+
   return n_section > 1 ? (
     <>
       <div className={`${styles.wrapper} ${styles.scroller}`} onScroll={(e) => scrollEvent(e)}>
@@ -28,7 +44,7 @@ export default function PageFrame({
           {children.props.children.map((child: ReactElement, i: number) => (
             <section
               key={i}
-              className={`${secStyles[i]} ${section === i + 1 && active} ${
+              className={`${secStyles[i]} ${isActive[`section_${i + 1}`] && active} ${
                 isMounted && 'mounted'
               }`}
               style={{ transform: `translateY(${100 * (i + 1 - section)}%)` }}
