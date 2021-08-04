@@ -1,5 +1,5 @@
 import pages from '../assets/scss/pages/About.module.scss';
-import { Heading, PageFrame, Svg, Title, List } from 'components';
+import { Heading, PageFrame, SvgFrame, Title, List } from 'components';
 import {
   faCalendarAlt,
   faAddressCard,
@@ -7,6 +7,7 @@ import {
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
 import Paragraph from 'components/Paragraph';
+import { Career, Logo, Profile } from 'svg';
 
 export default function About() {
   const icon = [faCalendarAlt, faAddressCard, faEnvelope, faHome];
@@ -34,7 +35,9 @@ export default function About() {
           <>
             <div className={pages.text_wrapper}>
               <Heading rank={1} text="PROFILE" className={pages.heading} />
-              <Title rank={2} text="Cookie_gg" className={pages.title} />
+              <Title rank={2} className={pages.title}>
+                <Logo />
+              </Title>
               <Paragraph
                 className={pages.sentence}
                 text={
@@ -43,13 +46,19 @@ export default function About() {
               />
               <List list={info} icon={icon} className={pages.info} />
             </div>
-            <Svg name="profile" className={pages.svg} />
+            <SvgFrame className={pages.concept_img}>
+              <Profile />
+            </SvgFrame>
           </>
         }
         {
           <>
-            <Svg name="career" className={pages.svg} />
-            <div className={pages.text_wrapper}></div>
+            <SvgFrame className={pages.concept_img}>
+              <Career />
+            </SvgFrame>
+            <div className={pages.text_wrapper}>
+              <Heading rank={1} text="CAREER" className={pages.heading} />
+            </div>
           </>
         }
         {<></>}
