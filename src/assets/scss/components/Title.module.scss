@@ -11,9 +11,7 @@
 
   @include max(font-size, 90px);
 
-  @include max(width, 460px);
-
-  @include max(height, 85px);
+  @include max(letter-spacing, -4px);
 
   &::before {
     background-color: $lemon;
@@ -38,15 +36,47 @@
   & > span {
     overflow: hidden;
     position: relative;
-
+    span {
+      display: inline-block;
+      position: relative;
+    }
+  }
+  .text {
     @include max(padding-top, 3px);
 
     @include max(padding-left, 25px);
 
     span {
-      display: inline-block;
       color: $dark-gray;
-      position: relative;
+    }
+  }
+  .svg {
+    @include max(margin-left, 20px);
+    svg {
+      &:first-of-type path {
+        fill: transparent;
+        stroke: $dark-gray;
+        stroke-dasharray: 2000;
+        stroke-width: 3px;
+      }
+      &:last-of-type {
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -2;
+        path {
+          fill: $dark-gray;
+        }
+      }
+    }
+    &::before {
+      background-color: $lemon;
+      content: '';
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: -1;
     }
   }
 }
