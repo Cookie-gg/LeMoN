@@ -4,8 +4,5 @@ import React from 'react';
 declare global {
   type InputTypes = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
   type FormTypes = React.FormEvent;
-  type EventTypes = React.UIEvent<HTMLDivElement, globalThis.UIEvent>;
-  type MountedType = {
-    isMounted: boolean;
-  };
+  type ScrollTypes = React.UIEvent<HTMLDivElement, globalThis.UIEvent>;
 }
