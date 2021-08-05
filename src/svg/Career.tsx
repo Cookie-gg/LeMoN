@@ -1,6 +1,6 @@
-export default function Career() {
+export default function Career({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 654.23657 682.11354">
+    <svg className={className} viewBox="0 0 654.23657 682.11354">
       <path
         d="M892.88171,744.55677c0,25.68-138.79,46.5-310,46.5s-310-20.82-310-46.5c0-18.18,69.57-33.93,170.96-41.57,41.81-3.16,89.05-4.93,139.04-4.93,20.55,0,40.63.3,60.05.87C785.40173,703.12678,892.88171,721.95673,892.88171,744.55677Z"
         transform="translate(-272.88171 -108.94323)"

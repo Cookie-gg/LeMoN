@@ -1,6 +1,6 @@
-export default function Profile() {
+export default function Profile({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 711.1879 669.68268">
+    <svg className={className} viewBox="0 0 711.1879 669.68268">
       <polygon
         points="516.326 380.018 516.326 565.013 547.27 615.443 549.625 619.279 671.722 619.279 674.189 380.018 516.326 380.018"
         fill="#e6e6e6"
