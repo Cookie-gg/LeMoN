@@ -60,7 +60,7 @@
           stroke-dashoffset: 2000;
         }
         &::before {
-          width: 100%;
+          width: 110%;
         }
       }
       &::before {
@@ -110,73 +110,9 @@
     }
   }
 }
-.career {
-  align-items: center;
-  display: flex;
-  .concept_img {
-    transform: scaleX(-1);
-    width: 50%;
-    &::before {
-      transform: translate(-40%, -50%) skewX(-30deg);
-    }
-  }
-  .text_wrapper {
-    box-sizing: border-box;
-    height: 100%;
-    position: relative;
-    width: 50%;
-
-    @include max(padding-right, 50px);
-
-    @include max(padding-bottom, 50px);
-
-    @include max(padding, 50px);
-
-    @include max(padding-top, 30px);
-
-    .heading {
-      align-items: flex-end;
-      display: flex;
-      flex-direction: column;
-    }
-    .experience {
-      position: relative;
-
-      @include max(margin-top, 30px);
-
-      li {
-        font-family: $en_font;
-        width: 100%;
-        time {
-          align-items: center;
-          background-color: $lemon;
-          display: inline-flex;
-          font-size: 20px;
-          font-weight: bold;
-          height: 30px;
-          justify-content: center;
-          margin-bottom: 10px;
-          transform: skewX(30deg);
-          width: 120px;
-          span {
-            color: $dark-gray;
-            display: inline-block;
-            transform: translateY(1.5px) skewX(-30deg);
-          }
-        }
-        div {
-          font-size: 22px;
-          font-weight: 200;
-          margin-left: 10px;
-        }
-        &:not(:first-of-type) {
-          margin-top: 40px;
-        }
-      }
-    }
-  }
-}
 .skills {
-  align-items: center;
-  display: flex;
+  .heading {
+    @include max(margin-top, 30px);
+    @include max(margin-left, 50px);
+  }
 }
