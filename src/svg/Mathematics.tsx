@@ -1,4 +1,4 @@
-export default function Career({ className }: { className?: string }) {
+export default function Mathematics({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 654.23657 682.11354">
       <path

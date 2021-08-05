@@ -1,4 +1,4 @@
-export default function Profile({ className }: { className?: string }) {
+export default function Feelingproud({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 711.1879 669.68268">
       <polygon
