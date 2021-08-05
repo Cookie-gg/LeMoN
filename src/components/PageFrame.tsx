@@ -16,15 +16,15 @@ export default function PageFrame({
   const [section, _section] = useState<number>(1);
   const isMounted = useMount();
   const n_section: number = children.props.children.length;
-  const scrollEvent = (e: EventTypes) => {
+  const scrollEvent = (e: ScrollTypes) => {
     const el = e.target as HTMLDivElement;
     const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n_section);
-    _section(diff !== n_section ? diff + 1 : n_section);
-    _isActive(diff !== n_section ? diff + 1 : n_section);
+    const activeNumber = diff !== n_section ? diff + 1 : n_section;
+    _section(activeNumber);
+    _isActive(activeNumber);
     _marginTop(el.scrollTop * 2);
   };
 
-  
   const initialState: { [key: string]: boolean } = { section_1: true };
   if (n_section > 1) {
     for (let i = 1; i < n_section; i++) {
