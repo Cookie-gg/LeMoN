@@ -18,7 +18,7 @@ export default function About() {
     { content: 'cookie.nkz@gmail.com' },
     { content: 'Kanagawa / Japan' },
   ];
-  const skills: { name: string; icon: string; vscodeIcon: boolean }[] = [
+  const skills = [
     { name: 'HTML Living Standard', icon: 'html', vscodeIcon: true },
     { name: 'CSS3', icon: 'css-3', vscodeIcon: true },
     { name: 'JavaScript', icon: 'javascript', vscodeIcon: false },
@@ -63,12 +63,19 @@ export default function About() {
         {
           <>
             <Heading rank={1} text="SKILLS" className={pages.heading} />
-            <Iconify icon="vscode-icons:file-type-html" />
-            {skills.map((el: { name: string; icon: string; vscodeIcon: boolean }, i: number) => (
-              <li key={i}>
-                <Iconify icon={'logos:' + icon} />
-              </li>
-            ))}
+            <ul>
+              {skills.map(
+                (el: { name: string; icon: string; vscodeIcon: boolean }, i: number) => (
+                  <li key={i}>
+                    {el.vscodeIcon ? (
+                      <Iconify icon={`vscode-icons:file-type-${el.icon}`} />
+                    ) : (
+                      <Iconify icon={`logos:${el.icon}`} />
+                    )}
+                  </li>
+                ),
+              )}
+            </ul>
           </>
         }
       </>

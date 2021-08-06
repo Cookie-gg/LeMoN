@@ -111,8 +111,18 @@
   }
 }
 .skills {
-  .heading {
-    @include max(margin-top, 30px);
-    @include max(margin-left, 50px);
+  box-sizing: border-box;
+
+  @include max(padding, 50px);
+
+  @include max(padding-top, 30px);
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    li {
+      width: 18%;
+    }
   }
 }
