@@ -20,7 +20,7 @@ export default function About() {
   ];
   const skills = [
     { name: 'HTML Living Standard', icon: 'html', vscodeIcon: true },
-    { name: 'CSS3', icon: 'css-3', vscodeIcon: true },
+    { name: 'CSS3', icon: 'css', vscodeIcon: true },
     { name: 'JavaScript', icon: 'javascript', vscodeIcon: false },
     { name: 'TypeScript', icon: 'typescript-icon', vscodeIcon: false },
     { name: 'Webpack', icon: 'webpack', vscodeIcon: false },
