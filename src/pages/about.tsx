@@ -29,7 +29,6 @@ export default function About() {
     { name: 'Vue.js', icon: 'vue', vscodeIcon: false },
     { name: 'Nuxtjs', icon: 'nuxt-icon', vscodeIcon: false },
     { name: 'Node.js', icon: 'nodejs-icon', vscodeIcon: false },
-    { name: 'Express.js', icon: 'express', vscodeIcon: false },
     { name: 'NestJS', icon: 'nestjs', vscodeIcon: false },
     { name: 'MongoDB', icon: 'mongo', vscodeIcon: true },
     { name: 'GraphQL', icon: 'graphql', vscodeIcon: false },

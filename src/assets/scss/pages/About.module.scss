@@ -32,7 +32,7 @@
     }
     .sentence {
       margin-left: 2%;
-
+      width: 98%;
       @include max(margin-top, 50px);
     }
     .info {
@@ -121,8 +121,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @include max(margin-top, 40px);
     li {
-      width: 18%;
+      // width: 13%;
+      // padding-top: 13%;
+      // @include max(width, )
+      background-color: rgba(white, 0.08);
     }
   }
 }
