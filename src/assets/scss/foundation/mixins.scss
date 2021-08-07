@@ -1,7 +1,5 @@
 $breakPoints: (
   'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
-  'tablet': 'screen and (max-width: 1000px)',
-  'ssp': 'screen and (max-width: 500px)',
   'sp': 'screen and (max-width: 819px)',
   'pc': 'screen and (min-width: 820px)',
   'dark': '(prefers-color-scheme: dark)',
@@ -21,8 +19,6 @@ $fixed_point: (
   $sp_value: initial,
   $fixed: false,
   $sp_fixed: initial,
-  $tablet_value: initial,
-  $fixed_value: initial
 ) {
   @if $fixed == true and $sp_fixed == initial {
     $sp_fixed: true;
@@ -33,15 +29,8 @@ $fixed_point: (
         @if unit($value) == 'px' {
           $value: number(str_replace('px', '', $value));
           #{$property}: $value * 100 * 0.0006993006993006993006993006993007 + 0vw;
-          @if $fixed_value != initial {
-            $fixed_value: number(str_replace('px', '', $fixed_value));
-            @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
-              #{$property}: $fixed_value + 0px;
-            }
-          } @else {
-            @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
-              #{$property}: $value + 0px;
-            }
+          @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+            #{$property}: $value + 0px;
           }
         } @else {
           #{$property}: $value;
@@ -66,11 +55,6 @@ $fixed_point: (
       } @else {
         #{$property}: $sp_value;
       }
-    }
-  }
-  @if $tablet_value != initial {
-    @include media(tablet) {
-      #{$property}: $tablet_value;
     }
   }
 }
