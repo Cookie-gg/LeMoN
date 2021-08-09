@@ -1,6 +1,7 @@
 import 'assets/scss/foundation/reset.scss';
 import 'assets/scss/foundation/base.scss';
 import 'assets/scss/foundation/global.scss';
+import 'slick-carousel/slick/slick.css';
 import type { AppProps } from 'next/app';
 import { Head } from 'utils/next';
 import { Header, MainFrame } from 'components';
