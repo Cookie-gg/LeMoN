@@ -16,7 +16,8 @@
 // Entire Style
 * {
   color: white;
-  font-family: $jp_font;
+  font-family: $en_font;
+  font-weight: 200;
 }
 @include media(sp) {
   .pc {
@@ -30,4 +31,10 @@
 }
 html, body {
   scroll-behavior: smooth;
+}
+html {
+  background-color: $dark-gray;
+}
+span {
+  display: inline-block;
 }

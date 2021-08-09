@@ -1,5 +1,14 @@
 import pages from '../assets/scss/pages/About.module.scss';
-import { Heading, PageFrame, SvgFrame, Paragraph, Title, List } from 'components';
+import {
+  Heading,
+  PageFrame,
+  SvgFrame,
+  Paragraph,
+  NamePlate,
+  List,
+  MultiSlider,
+  SingleSlider,
+} from 'components';
 import {
   faCalendarAlt,
   faAddressCard,
@@ -7,7 +16,6 @@ import {
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
 import { Cookie_gg, Feelingproud } from 'svg';
-import { Icon as Iconify } from '@iconify/react';
 
 export default function About() {
   const icon = [faCalendarAlt, faAddressCard, faEnvelope, faHome];
@@ -19,7 +27,7 @@ export default function About() {
     { content: 'Kanagawa / Japan' },
   ];
   const skills = [
-    { name: 'HTML Living Standard', icon: 'html', vscodeIcon: true },
+    { name: 'HTML LS', icon: 'html', vscodeIcon: true },
     { name: 'CSS3', icon: 'css', vscodeIcon: true },
     { name: 'JavaScript', icon: 'javascript', vscodeIcon: false },
     { name: 'TypeScript', icon: 'typescript-icon', vscodeIcon: false },
@@ -36,6 +44,16 @@ export default function About() {
     { name: 'C++', icon: 'c-plusplus', vscodeIcon: false },
     { name: 'C', icon: 'c', vscodeIcon: false },
   ];
+  const tools = [
+    {
+      title: 'Visual Studio Code',
+      explain: 'My main source-code editor',
+    },
+    {
+      title: 'Adobe Photoshop',
+      explain: 'My main image editor',
+    },
+  ];
   return (
     <PageFrame secStyles={[pages.profile, pages.skills]} active={pages.active}>
       <>
@@ -43,9 +61,9 @@ export default function About() {
           <>
             <div className={pages.text_wrapper}>
               <Heading rank={1} text="PROFILE" className={pages.heading} />
-              <Title rank={2} className={pages.title}>
+              <NamePlate rank={2} className={pages.title}>
                 <Cookie_gg />
-              </Title>
+              </NamePlate>
               <Paragraph
                 className={pages.sentence}
                 text={
@@ -61,20 +79,10 @@ export default function About() {
         }
         {
           <>
-            <Heading rank={1} text="SKILLS" className={pages.heading} />
-            <ul>
-              {skills.map(
-                (el: { name: string; icon: string; vscodeIcon: boolean }, i: number) => (
-                  <li key={i}>
-                    {el.vscodeIcon ? (
-                      <Iconify icon={`vscode-icons:file-type-${el.icon}`} />
-                    ) : (
-                      <Iconify icon={`logos:${el.icon}`} />
-                    )}
-                  </li>
-                ),
-              )}
-            </ul>
+            <Heading rank={1} text="TOOLS" className={pages.heading} />
+            <SingleSlider data={tools} className={pages.tools} />
+            <Heading rank={1} text="LANGS" className={pages.heading} />
+            <MultiSlider data={skills} className={pages.langs} />
           </>
         }
       </>

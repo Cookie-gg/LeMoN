@@ -4,7 +4,7 @@
   .concept_img {
     width: 50%;
     &::before {
-      transform: translate(-40%, -50%) skewX(-30deg);
+      transform: translate(-38%, -50%) skewX(-30deg);
     }
   }
   .text_wrapper {
@@ -29,10 +29,16 @@
         margin-top: -1%;
         width: 100%;
       }
+      &::after {
+        @include max(height, 85 * 1.02px);
+
+        @include max(width, (85 * 1.02 / $route_3) + 0px);
+      }
     }
     .sentence {
       margin-left: 2%;
       width: 98%;
+
       @include max(margin-top, 50px);
     }
     .info {
@@ -52,8 +58,6 @@
     }
     .title {
       width: 0;
-
-      @include max(margin-top, 65px);
 
       span {
         svg:first-of-type path {
@@ -113,20 +117,48 @@
 .skills {
   box-sizing: border-box;
 
-  @include max(padding, 50px);
+  @include max(padding-left, 50px);
 
   @include max(padding-top, 30px);
 
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    @include max(margin-top, 40px);
-    li {
-      // width: 13%;
-      // padding-top: 13%;
-      // @include max(width, )
-      background-color: rgba(white, 0.08);
+  .heading:not(:first-of-type) {
+    @include max(margin-top, 65px);
+  }
+
+  & > *:not(.heading) {
+    @include max(margin-top, 20px);
+  }
+
+  &[class*='mounted'].active {
+    .langs {
+      [class*='slick-slide'] {
+        &::before {
+          opacity: 0;
+          transition: opacity $common_anmt order(3);
+        }
+      }
+      [class*='slick-slide'] > div {
+        &::before {
+          height: 100%;
+          opacity: 1;
+          transition: opacity 0s order(3), width $common_anmt order(5),
+            height $common_anmt order(5);
+          width: 100%;
+        }
+        &::after {
+          transition: all $common_anmt order(4);
+
+          @include max(height, 30px);
+
+          @include max(width, 30px);
+        }
+      }
+    }
+    .tools {
+      &::before {
+        height: 1px;
+        transition: all $common_anmt order(2);
+      }
     }
   }
 }

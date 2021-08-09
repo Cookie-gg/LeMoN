@@ -1,0 +1,108 @@
+.entire {
+  display: flex;
+  position: relative;
+
+  [class*='slick-arrow'] {
+    background-color: $lemon;
+    font-size: 0;
+    overflow: hidden;
+    position: relative;
+
+    @include max(width, 30px);
+
+    &[class*='slick-prev'] {
+      @include max(margin-right, 15px);
+      &::before {
+        color: $dark-gray;
+        content: '<';
+        display: block;
+        font-family: $en_font;
+        font-weight: 300;
+        transform: scaleY(1.2);
+
+        @include max(font-size, 20px);
+      }
+    }
+    &[class*='slick-next'] {
+      @include max(margin-left, 15px);
+      &::before {
+        color: $dark-gray;
+        content: '>';
+        display: block;
+        font-family: $en_font;
+        font-weight: 300;
+        transform: scaleY(1.2);
+
+        @include max(font-size, 20px);
+      }
+    }
+  }
+  [class*='slick-list'] {
+    box-sizing: border-box;
+
+    @include max(width, 1260px);
+
+    [class*='slick-slide'] {
+      position: relative;
+      &::before {
+        background-color: $lemon;
+        content: '';
+        height: 100%;
+        left: 0;
+        mix-blend-mode: hue;
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
+    }
+    [class*='slick-slide'] > div {
+      align-items: center;
+      background-color: $lemon;
+      background-color: rgba(white, 0.08);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+
+      @include max(margin-right, 15px);
+
+      @include max(margin-left, 15px);
+
+      @include max(height, 181px);
+
+      &::before,
+      &::after {
+        bottom: 0;
+        content: '';
+        height: 0;
+        position: absolute;
+        right: 0;
+        width: 0;
+      }
+
+      &::before {
+        border-bottom: 1px solid $lemon;
+        border-right: 1px solid $lemon;
+        opacity: 0;
+      }
+      &::after {
+        background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
+          no-repeat top left/100% 100%;
+        bottom: 0;
+      }
+      .lang_icon {
+        position: relative;
+
+        @include max(font-size, 90px);
+      }
+      .lang_title {
+        @include max(margin-top, 30px);
+
+        @include max(font-size, 20px);
+      }
+    }
+  }
+}
