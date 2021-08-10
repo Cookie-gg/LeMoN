@@ -4,7 +4,7 @@ export function postCMS<T>(endPoint: string, data: T) {
     .post(endPoint, data, {
       headers: {
         'Content-Type': 'application/json',
-        'X-WRITE-API-KEY': process.env.NEXT_PUBLIC_POST_API_KEY,
+        'X-WRITE-API-KEY': process.env.NEXT_PUBLIC_CMS_POST_API_KEY,
       },
     })
     .then(() => {
