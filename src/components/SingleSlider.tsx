@@ -3,8 +3,6 @@ import Slick, { Settings } from 'react-slick';
 import { Title, Paragraph } from 'components';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/SingleSlider.module.scss';
-import Vscode from '../assets/img/vscode.png';
-import Photoshop from '../assets/img/photoshop.png';
 
 export default function SingleSlider({
   data,
@@ -13,6 +11,8 @@ export default function SingleSlider({
   data: {
     title: string;
     explain: string;
+    icon: string;
+    bg: string;
   }[];
   className: string;
 }) {
@@ -26,23 +26,23 @@ export default function SingleSlider({
     slidesToShow: 1,
     swipeToSlide: true,
   };
-  const image = [
-    { bg: Vscode.src, icon: 'file-icons:vscode' },
-    { bg: Photoshop.src, icon: 'cib:adobe-photoshop' },
-  ];
   return (
     <div className={`${className} ${styles.entire}`}>
       <Slick {...settings}>
         {data.map((el: typeof data[0], i: number) => (
           <_ key={i}>
             <div className={styles.image}>
-              <span style={{ backgroundImage: `url(${image[i].bg})` }}></span>
+              <span
+                style={{
+                  backgroundImage: `url(${el.bg !== undefined ? el.bg : ''})`,
+                }}
+              ></span>
             </div>
             <div className={styles.text_wrapper}>
               <Title rank={2} text={el.title} />
-              <Paragraph text={el.explain} className={styles.tool_explain} />
+              <Paragraph text={el.explain} />
             </div>
-            <Iconify icon={image[i].icon} />
+            <Iconify icon={el.icon} />
           </_>
         ))}
       </Slick>

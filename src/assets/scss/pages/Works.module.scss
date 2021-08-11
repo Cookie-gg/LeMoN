@@ -1,0 +1,25 @@
+.portfolio {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+
+  @include max(padding-left, 50px);
+
+  @include max(padding-top, 30px);
+
+  .image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    // @include max(height, 300px);
+    height: 50%;
+    width: 100%;
+  }
+  &[class*='mounted'] {
+    .heading span {
+      transform: translateY(0);
+      transition: transform $common_anmt order(2);
+    }
+  }
+}

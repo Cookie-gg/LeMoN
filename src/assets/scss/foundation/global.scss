@@ -14,7 +14,9 @@
 // Staatliches
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Staatliches&display=swap');
 // Entire Style
-* {
+*,
+html,
+body {
   color: white;
   font-family: $en_font;
   font-weight: 200;
@@ -29,7 +31,8 @@
     display: none !important;
   }
 }
-html, body {
+html,
+body {
   scroll-behavior: smooth;
 }
 html {

@@ -2,14 +2,15 @@
   align-items: center;
   display: flex;
   .concept_img {
+    height: 85%;
     width: 50%;
+
     &::before {
-      transform: translate(-38%, -50%) skewX(-30deg);
+      transform: translate(-36%, -50%) skewX(-30deg);
     }
   }
   .text_wrapper {
     box-sizing: border-box;
-    font-family: $en_font;
     height: 100%;
     width: 50%;
 
@@ -130,6 +131,16 @@
   }
 
   &[class*='mounted'].active {
+    .heading span {
+      transform: translateY(0%);
+      transition: transform $common_anmt order(3);
+    }
+    .tools {
+      &::before {
+        height: 1px;
+        transition: all $common_anmt order(2);
+      }
+    }
     .langs {
       [class*='slick-slide'] {
         &::before {
@@ -141,23 +152,17 @@
         &::before {
           height: 100%;
           opacity: 1;
-          transition: opacity 0s order(3), width $common_anmt order(5),
-            height $common_anmt order(5);
+          transition: opacity 0s order(3), width $common_anmt order(4),
+            height $common_anmt order(4);
           width: 100%;
         }
         &::after {
-          transition: all $common_anmt order(4);
+          transition: all $common_anmt order(3);
 
           @include max(height, 30px);
 
           @include max(width, 30px);
         }
-      }
-    }
-    .tools {
-      &::before {
-        height: 1px;
-        transition: all $common_anmt order(2);
       }
     }
   }

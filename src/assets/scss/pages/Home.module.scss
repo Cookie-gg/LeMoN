@@ -2,7 +2,6 @@
   align-items: center;
   background-clip: content-box;
   display: flex;
-  font-family: $en_font;
   font-style: italic;
   font-weight: 700;
   justify-content: center;
@@ -103,7 +102,6 @@
   }
 }
 .phrase {
-  font-family: $en_font;
   font-weight: 700;
   position: absolute;
   top: 50%;

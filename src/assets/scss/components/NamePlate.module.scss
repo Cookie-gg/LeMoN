@@ -1,7 +1,6 @@
 .entire {
   background-color: $lemon;
   display: flex;
-  font-family: $en_font;
   font-style: italic;
   font-weight: bold;
   letter-spacing: -4px;
@@ -30,7 +29,6 @@
     position: absolute;
     top: 0;
     transform: translateX(-1px);
-
   }
   & > span {
     overflow: hidden;
@@ -75,8 +73,8 @@
       position: absolute;
       right: -5%;
       top: 0;
-      z-index: -1;
       transform: skewX(-30deg);
+      z-index: -1;
     }
   }
 }

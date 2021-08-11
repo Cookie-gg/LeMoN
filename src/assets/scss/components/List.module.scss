@@ -5,10 +5,8 @@
   @include max(width, 600px);
 
   li {
-    font-family: $en_font;
     font-size: 20px;
     font-style: italic;
-    font-weight: 200;
     height: 27.5px;
     margin-bottom: 25px;
     overflow: hidden;

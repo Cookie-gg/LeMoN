@@ -1,35 +1,76 @@
 .wrapper {
   display: flex;
   height: calc(100% - 22px - 110px - 40px);
+  justify-content: center;
   margin: 110px 40px 40px 40px;
-  overflow: hidden;
   position: relative;
   width: calc(100% - 22px - 40px - 40px);
-  align-items: center;
-  justify-content: center;
   &.scroller {
+    align-items: center;
     margin: 110px 0px 40px 40px;
     overflow-x: hidden;
     overflow-y: scroll;
-  }
-  .contents {
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    section {
+    .contents {
       height: 100%;
-      left: 0;
+      max-width: 1400px;
       overflow: hidden;
-      position: absolute;
-      top: 0;
-      transition: all $common_anmt;
+      position: relative;
       width: 100%;
+      section {
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        transition: all $common_anmt;
+        width: 100%;
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 0px;
     }
   }
-  &::-webkit-scrollbar {
-    width: 0px;
+  &:not(.scroller) {
+    max-width: 1400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .contents {
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      section {
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: all $common_anmt;
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    // &::-webkit-scrollbar-track {
+    // }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(white, 0.1);
+      border-radius: 5px;
+      transition: background-color $common_anmt;
+      &:hover {
+        background-color: rgba(white, 0.2);
+      }
+    }
+    .scrollbar {
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      span {
+        background-color: $lemon;
+        border-radius: 2.5px;
+        transition: all $common_anmt;
+        width: 8px;
+      }
+    }
   }
 }
 .buttons {

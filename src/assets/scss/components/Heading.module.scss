@@ -1,7 +1,6 @@
 .entire {
   display: flex;
   flex-direction: column;
-  font-family: $en_font;
   font-weight: 400;
   overflow: hidden;
   position: relative;
@@ -16,5 +15,8 @@
     @include max(margin-bottom, 10px);
 
     @include max(width, 300px);
+  }
+  span {
+    transform: translateY(105%);
   }
 }

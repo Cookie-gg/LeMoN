@@ -57,15 +57,13 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            font-family: $en_font;
-            font-weight: 200;
             height: 100%;
             width: 61%;
 
             @include max(padding-left, 80px);
 
             h2 {
-              @include max(margin-top, 115px);
+              @include max(margin-top, 120px);
               span {
                 transform: translateY(125%);
                 transition: all $common_anmt order(2);
@@ -84,8 +82,8 @@
             height: 100%;
             justify-content: flex-end;
             position: relative;
-            width: 39%;
             transition: all $common_anmt order(2);
+            width: 39%;
             span {
               background-position: right;
               background-repeat: no-repeat;

@@ -24,7 +24,6 @@
   ul {
     align-items: center;
     display: flex;
-    font-family: $en_font;
     font-size: 20px;
     font-style: italic;
     font-weight: 300;
@@ -95,7 +94,7 @@
       }
 
       @include media(sp) {
-        content: url(../../img/lemon_gray.png);
+        content: url(../../img/lemon_gray.svg);
         left: 50%;
         z-index: 1;
       }
@@ -292,7 +291,6 @@
       background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
         no-repeat top left/100% 100%;
       box-sizing: border-box;
-      font-family: $en_font;
       height: 0;
       inset: -1px 0 0;
       position: absolute;

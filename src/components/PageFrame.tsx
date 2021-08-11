@@ -1,5 +1,5 @@
 import { useMount } from 'hooks';
-import { useReducer } from 'react';
+import { useReducer, useRef } from 'react';
 import { ReactElement, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 
@@ -16,15 +16,19 @@ export default function PageFrame({
   const [section, _section] = useState<number>(1);
   const isMounted = useMount();
   const n_section: number = children.props.children.length;
-  const scrollEvent = (e: ScrollTypes) => {
+  const contentsHeight = useRef<HTMLDivElement>(null);
+  const scrollEvent = (e: React.UIEvent<HTMLDivElement, globalThis.UIEvent>) => {
     const el = e.target as HTMLDivElement;
-    const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n_section);
-    const activeNumber = diff !== n_section ? diff + 1 : n_section;
-    _section(activeNumber);
-    _isActive(activeNumber);
-    _marginTop(el.scrollTop * 2);
+    if (n_section > 1) {
+      const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n_section);
+      const activeNumber = diff !== n_section ? diff + 1 : n_section;
+      _section(activeNumber);
+      _isActive(activeNumber);
+      _marginTop(el.scrollTop * 2);
+    } else {
+      _marginTop(el.scrollTop);
+    }
   };
-
   const initialState: { [key: string]: boolean } = { section_1: true };
   if (n_section > 1) {
     for (let i = 1; i < n_section; i++) {
@@ -36,7 +40,6 @@ export default function PageFrame({
     return { ...state, ...{ [`section_${n}`]: true } };
   };
   const [isActive, _isActive] = useReducer(reducer, initialState);
-
   return n_section > 1 ? (
     <>
       <div className={`${styles.wrapper} ${styles.scroller}`} onScroll={(e) => scrollEvent(e)}>
@@ -76,8 +79,17 @@ export default function PageFrame({
       </div>
     </>
   ) : (
-    <div className={styles.wrapper}>
-      <section className={secStyles as string}>{children}</section>
+    <div className={styles.wrapper} onScroll={(e) => scrollEvent(e)}>
+      <div className={styles.contents} style={{ marginTop: `${marginTop}px` }}>
+        <section
+          className={`${secStyles as string} ${isMounted && 'mounted'}`}
+          style={{ top: `${marginTop * -1}px` }}
+          ref={contentsHeight}
+        >
+          {children}
+        </section>
+      </div>
+      <div style={{ height: `${contentsHeight.current?.clientHeight}px` }} />
     </div>
   );
 }

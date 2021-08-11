@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import styles from '../assets/scss/components/SvgFrame.module.scss';
-export default function SvgFrame({
+import styles from '../assets/scss/components/ImageFrame.module.scss';
+export default function ImageFrame({
   className,
   children,
 }: {

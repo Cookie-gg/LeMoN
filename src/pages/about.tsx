@@ -1,8 +1,9 @@
+import { Head } from 'utils/next';
 import pages from '../assets/scss/pages/About.module.scss';
 import {
   Heading,
   PageFrame,
-  SvgFrame,
+  ImageFrame,
   Paragraph,
   NamePlate,
   List,
@@ -16,9 +17,12 @@ import {
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
 import { Cookie_gg, Feelingproud } from 'svg';
+import { useDbxGet } from 'hooks';
 
 export default function About() {
   const icon = [faCalendarAlt, faAddressCard, faEnvelope, faHome];
+  const links = useDbxGet('/about');
+
   // from data-base
   const info = [
     { content: '11th November, 2001' },
@@ -26,7 +30,7 @@ export default function About() {
     { content: 'cookie.nkz@gmail.com' },
     { content: 'Kanagawa / Japan' },
   ];
-  const skills = [
+  const langs = [
     { name: 'HTML LS', icon: 'html', vscodeIcon: true },
     { name: 'CSS3', icon: 'css', vscodeIcon: true },
     { name: 'JavaScript', icon: 'javascript', vscodeIcon: false },
@@ -48,44 +52,53 @@ export default function About() {
     {
       title: 'Visual Studio Code',
       explain: 'My main source-code editor',
+      icon: 'file-icons:vscode',
+      bg: links[1],
     },
     {
       title: 'Adobe Photoshop',
       explain: 'My main image editor',
+      icon: 'cib:adobe-photoshop',
+      bg: links[0],
     },
   ];
   return (
-    <PageFrame secStyles={[pages.profile, pages.skills]} active={pages.active}>
-      <>
-        {
-          <>
-            <div className={pages.text_wrapper}>
-              <Heading rank={1} text="PROFILE" className={pages.heading} />
-              <NamePlate rank={2} className={pages.title}>
-                <Cookie_gg />
-              </NamePlate>
-              <Paragraph
-                className={pages.sentence}
-                text={
-                  '" AIM FOR INTERESTING DEVELOPS "\nI like interesting develops. Any requirement will be interesting depending on the development method. In my opinion, interesting products are born from interesting development.'
-                }
-              />
-              <List list={info} icon={icon} className={pages.info} />
-            </div>
-            <SvgFrame className={pages.concept_img}>
-              <Feelingproud />
-            </SvgFrame>
-          </>
-        }
-        {
-          <>
-            <Heading rank={1} text="TOOLS" className={pages.heading} />
-            <SingleSlider data={tools} className={pages.tools} />
-            <Heading rank={1} text="LANGS" className={pages.heading} />
-            <MultiSlider data={skills} className={pages.langs} />
-          </>
-        }
-      </>
-    </PageFrame>
+    <>
+      <Head>
+        <title>LeMoN | About</title>
+      </Head>
+      <PageFrame secStyles={[pages.profile, pages.skills]} active={pages.active}>
+        <>
+          {
+            <>
+              <div className={pages.text_wrapper}>
+                <Heading rank={1} text="PROFILE" className={pages.heading} />
+                <NamePlate rank={2} className={pages.title}>
+                  <Cookie_gg />
+                </NamePlate>
+                <Paragraph
+                  className={pages.sentence}
+                  text={
+                    '" AIM FOR INTERESTING DEVELOPS "\nI like interesting develops. Any requirement will be interesting depending on the development method. In my opinion, interesting products are born from interesting development.'
+                  }
+                />
+                <List list={info} icon={icon} className={pages.info} />
+              </div>
+              <ImageFrame className={pages.concept_img}>
+                <Feelingproud />
+              </ImageFrame>
+            </>
+          }
+          {
+            <>
+              <Heading rank={1} text="TOOLS" className={pages.heading} />
+              <SingleSlider data={tools} className={pages.tools} />
+              <Heading rank={1} text="LANGS" className={pages.heading} />
+              <MultiSlider data={langs} className={pages.langs} />
+            </>
+          }
+        </>
+      </PageFrame>
+    </>
   );
 }
