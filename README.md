@@ -6,6 +6,15 @@ https://github.com/Cookie-gg/LeMoN
 ## バックエンド及び管理画面
 https://github.com/Cookie-gg/NoMeL
 
+## 構成
+* フロントエンド
+Next.js + Apollo + GraphQL
+* バックエンド
+NestJS + GraphQL + MongoDB
+* 管理画面
+Vue + Vite + Apollo + GraphQL
+
+
 ## セットアップ
 開発用
 ```
