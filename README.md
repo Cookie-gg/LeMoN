@@ -1,13 +1,10 @@
-# Next.js Firebase
-Headless CMSの使用及び、Firebaseでの認証を想定した開発環境
+# LeMoN
+フロントエンジニア Cookie_ggのポートフォリオ及びホームページ
 
-## アップデート
-### 2.0.0 (June 26, 2021)
-Next アップデート
-* eslint-config-nextの導入
-### 1.0.1 (June 14, 2021)
-XSS問題解決
-* sanitize-htmlの導入
+## フロント
+https://github.com/Cookie-gg/LeMoN
+## バックエンド及び管理画面
+https://github.com/Cookie-gg/NoMeL
 
 ## セットアップ
 開発用
@@ -22,6 +19,12 @@ npm i
 
 npm run build
 ```
+GraphQL ジェネレート
+```
+npm i 
+
+npm run generate
+```
 
 ## ディレクトリ構成
 ```
@@ -34,8 +37,7 @@ npm run build
   │   │   └── scss (Scssファイル)
   │   │       ├── components (コンポーネントごとのScss)
   │   │       ├── foundation (リセットCSSや変数、mixinなど)
-  │   │       ├── pages (ページごとのScss)
-  │   │       └── parts (パーツなど)
+  │   │       └── pages (ページごとのScss)
   │   ├── components
   │   │   ├── components files...
   │   │   └── index.tsx (componentsのエントリーポイント)
@@ -81,12 +83,6 @@ npm run build
 
 ## 注意点
 
-### microCMSについて
-* 使用アカウントは
-* Googleアカウントのパスワードは
-* microMCSアカウントのパスワードは
-* プロジェクトごとに分ける
-
 ### パス指定について
 * css modules(scss)の補完を効かせるには、相対パスで記述
 ```tsx
@@ -107,8 +103,6 @@ import { Component } "components";
 https://marketplace.visualstudio.com/items?itemName=clinyong.vscode-css-modules
 
 ### 環境変数について (.env.development, .env.production)
-* REACT_APP_GET_API_KEY は GET API キー
-* REACT_APP_POST_API_KEY は POST API キー
 * REACT_APP_API_URL は API URL
 
 ### ReduxやHooksについて
