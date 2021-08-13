@@ -1,100 +1,102 @@
+import { Cookie_gg } from 'svg';
+import { useMount } from 'hooks';
 import { Head } from 'utils/next';
 import pages from '../assets/scss/pages/About.module.scss';
-import {
-  Heading,
-  PageFrame,
-  ImageFrame,
-  Paragraph,
-  NamePlate,
-  List,
-  MultiSlider,
-  SingleSlider,
-} from 'components';
-import {
-  faCalendarAlt,
-  faAddressCard,
-  faEnvelope,
-  faHome,
-} from '@fortawesome/free-solid-svg-icons';
-import { Cookie_gg, Feelingproud } from 'svg';
-import { useDbxGet } from 'hooks';
+import { Heading, PageFrame, Paragraph, NamePlate, List, MultiSlider, SingleSlider } from 'components';
+
+// from data-base
+import Vscode from 'assets/img/vscode.png';
+import Photoshop from 'assets/img/photoshop.png';
+import Feelingproud from 'assets/img/feelingproud.svg';
+const data = {
+  profile: {
+    title: 'PROFILE',
+    sentence:
+      '" AIM FOR INTERESTING DEVELOPS "\nI like interesting develops. Any requirement will be interesting depending on the development method. In my opinion, interesting products are born from interesting development."',
+    info: [
+      { icon: 'fa-solid:calendar-alt', content: '11th November, 2001' },
+      { icon: 'fa-solid:address-card', content: 'Front-end engineer' },
+      { icon: 'fa-solid:envelope', content: 'cookie.nkz@gmail.com' },
+      { icon: 'fa-solid:home', content: 'Kanagawa / Japan' },
+    ],
+    featuredImage: Feelingproud.src,
+  },
+  tools: {
+    title: 'TOOLS',
+    slide: [
+      {
+        title: 'Visual Studio Code',
+        explain: 'My main source-code editor',
+        icon: 'file-icons:vscode',
+        bg: Vscode.src,
+      },
+      {
+        title: 'Adobe Photoshop',
+        explain: 'My main image editor',
+        icon: 'cib:adobe-photoshop',
+        bg: Photoshop.src,
+      },
+    ],
+  },
+  langs: {
+    title: 'LANGS',
+    slide: [
+      { name: 'HTML LS', icon: 'vscode-icons:file-type-html' },
+      { name: 'CSS3', icon: 'vscode-icons:file-type-css' },
+      { name: 'JavaScript', icon: 'logos:javascript' },
+      { name: 'TypeScript', icon: 'logos:typescript-icon' },
+      { name: 'Webpack', icon: 'logos:webpack' },
+      { name: 'React', icon: 'logos:react' },
+      { name: 'Next.js', icon: 'logos:nextjs' },
+      { name: 'Vue.js', icon: 'logos:vue' },
+      { name: 'Nuxtjs', icon: 'logos:nuxt-icon' },
+      { name: 'Node.js', icon: 'logos:nodejs-icon' },
+      { name: 'NestJS', icon: 'logos:nestjs' },
+      { name: 'MongoDB', icon: 'vscode-icons:file-type-mongo' },
+      { name: 'GraphQL', icon: 'logos:graphql' },
+      { name: 'GitHub', icon: 'logos:github-icon' },
+      { name: 'C++', icon: 'logos:c-plusplus' },
+      { name: 'C', icon: 'logos:c' },
+    ],
+  },
+};
 
 export default function About() {
-  const icon = [faCalendarAlt, faAddressCard, faEnvelope, faHome];
-  const links = useDbxGet('/about');
-
-  // from data-base
-  const info = [
-    { content: '11th November, 2001' },
-    { content: 'Front-end engineer' },
-    { content: 'cookie.nkz@gmail.com' },
-    { content: 'Kanagawa / Japan' },
-  ];
-  const langs = [
-    { name: 'HTML LS', icon: 'html', vscodeIcon: true },
-    { name: 'CSS3', icon: 'css', vscodeIcon: true },
-    { name: 'JavaScript', icon: 'javascript', vscodeIcon: false },
-    { name: 'TypeScript', icon: 'typescript-icon', vscodeIcon: false },
-    { name: 'Webpack', icon: 'webpack', vscodeIcon: false },
-    { name: 'React', icon: 'react', vscodeIcon: false },
-    { name: 'Next.js', icon: 'nextjs', vscodeIcon: false },
-    { name: 'Vue.js', icon: 'vue', vscodeIcon: false },
-    { name: 'Nuxtjs', icon: 'nuxt-icon', vscodeIcon: false },
-    { name: 'Node.js', icon: 'nodejs-icon', vscodeIcon: false },
-    { name: 'NestJS', icon: 'nestjs', vscodeIcon: false },
-    { name: 'MongoDB', icon: 'mongo', vscodeIcon: true },
-    { name: 'GraphQL', icon: 'graphql', vscodeIcon: false },
-    { name: 'GitHub', icon: 'github-icon', vscodeIcon: false },
-    { name: 'C++', icon: 'c-plusplus', vscodeIcon: false },
-    { name: 'C', icon: 'c', vscodeIcon: false },
-  ];
-  const tools = [
-    {
-      title: 'Visual Studio Code',
-      explain: 'My main source-code editor',
-      icon: 'file-icons:vscode',
-      bg: links[1],
-    },
-    {
-      title: 'Adobe Photoshop',
-      explain: 'My main image editor',
-      icon: 'cib:adobe-photoshop',
-      bg: links[0],
-    },
-  ];
+  const isMounted = useMount();
   return (
     <>
       <Head>
         <title>LeMoN | About</title>
       </Head>
-      <PageFrame secStyles={[pages.profile, pages.skills]} active={pages.active}>
+      <PageFrame
+        secStyles={[`${pages.profile} ${isMounted && pages.mounted}`, pages.skills]}
+        active={pages.active}
+      >
         <>
           {
             <>
               <div className={pages.text_wrapper}>
-                <Heading rank={1} text="PROFILE" className={pages.heading} />
+                <Heading rank={1} text={data.profile.title} className={pages.heading} />
                 <NamePlate rank={2} className={pages.title}>
                   <Cookie_gg />
                 </NamePlate>
-                <Paragraph
-                  className={pages.sentence}
-                  text={
-                    '" AIM FOR INTERESTING DEVELOPS "\nI like interesting develops. Any requirement will be interesting depending on the development method. In my opinion, interesting products are born from interesting development.'
-                  }
-                />
-                <List list={info} icon={icon} className={pages.info} />
+                <Paragraph className={pages.sentence} text={data.profile.sentence} />
+                <List data={data.profile.info} className={pages.info} />
               </div>
-              <ImageFrame className={pages.concept_img}>
-                <Feelingproud />
-              </ImageFrame>
+              <div className={pages.concept_img}>
+                <img
+                  src={data.profile.featuredImage}
+                  alt={`${data.profile.title.toLowerCase()}_featured_image`}
+                />
+              </div>
             </>
           }
           {
             <>
-              <Heading rank={1} text="TOOLS" className={pages.heading} />
-              <SingleSlider data={tools} className={pages.tools} />
-              <Heading rank={1} text="LANGS" className={pages.heading} />
-              <MultiSlider data={langs} className={pages.langs} />
+              <Heading rank={1} text={data.tools.title} className={pages.heading} />
+              <SingleSlider data={data.tools.slide} className={pages.tools} />
+              <Heading rank={1} text={data.langs.title} className={pages.heading} />
+              <MultiSlider data={data.langs.slide} className={pages.langs} />
             </>
           }
         </>
