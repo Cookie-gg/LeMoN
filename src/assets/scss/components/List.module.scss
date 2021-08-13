@@ -2,8 +2,6 @@
   display: flex;
   flex-wrap: wrap;
 
-  @include max(width, 600px);
-
   li {
     font-size: 20px;
     font-style: italic;
@@ -11,7 +9,7 @@
     margin-bottom: 25px;
     overflow: hidden;
     position: relative;
-    width: 250px;
+    width: 225px;
     span {
       align-items: center;
       display: inline-flex;

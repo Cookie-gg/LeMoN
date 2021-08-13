@@ -1,19 +1,16 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/List.module.scss';
 
 export default function List({
-  list,
-  icon,
+  data,
   className,
 }: {
-  list: { content: string | number }[];
-  icon?: IconDefinition[];
+  data: { content: string; icon: string }[];
   className: string;
 }) {
   return (
     <ul className={`${styles.entire} ${className}`}>
-      {list.map((el: { content: string | number }, i: number) => {
+      {data.map((el: { content: string; icon: string }, i: number) => {
         if (
           ((el.content as string).includes('@') && (el.content as string).includes('.com')) ||
           (el.content as string).includes('.co.jp')
@@ -22,7 +19,7 @@ export default function List({
             <li key={i}>
               <span>
                 <a href={`mailto:${el.content}`}>
-                  {icon && <Icon icon={icon[i]}></Icon>}
+                  <Iconify icon={el.icon} />
                   <p>{el.content}</p>
                 </a>
               </span>
@@ -32,7 +29,7 @@ export default function List({
           return (
             <li key={i}>
               <span>
-                {icon && <Icon icon={icon[i]}></Icon>}
+                <Iconify icon={el.icon} />
                 <p>{el.content}</p>
               </span>
             </li>
