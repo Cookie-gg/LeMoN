@@ -1,9 +1,6 @@
 @import '../foundation/variables.scss';
 // Background
 body {
-  background-color: $dark-gray;
-  overflow: hidden;
-  position: relative;
   z-index: 1;
   &::before,
   &::after {
