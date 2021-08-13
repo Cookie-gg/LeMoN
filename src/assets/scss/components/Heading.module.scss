@@ -1,22 +1,19 @@
 .entire {
   display: flex;
   flex-direction: column;
+  font-size: 24px;
   font-weight: 400;
   overflow: hidden;
   position: relative;
-
-  @include max(font-size, 25px);
 
   &::before {
     background-color: $lemon;
     content: '';
     height: 1.25px;
-
-    @include max(margin-bottom, 10px);
-
-    @include max(width, 300px);
+    margin-bottom: 10px;
+    width: 300px;
   }
   span {
-    transform: translateY(105%);
+    transform: translateY(125%);
   }
 }
