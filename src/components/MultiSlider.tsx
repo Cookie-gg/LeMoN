@@ -1,4 +1,3 @@
-import { Fragment as _ } from 'react';
 import Slick, { Settings } from 'react-slick';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/MultiSlider.module.scss';
@@ -7,7 +6,7 @@ export default function MultiSlider({
   data,
   className,
 }: {
-  data: { name: string; icon: string; vscodeIcon: boolean }[];
+  data: { name: string; icon: string }[];
   className?: string;
 }) {
   const settings: Settings = {
@@ -18,24 +17,41 @@ export default function MultiSlider({
     slidesToScroll: 1,
     slidesToShow: 6,
     swipeToSlide: true,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
   return (
     <Slick {...settings} className={`${styles.entire} ${className}`}>
-      {data[0].name
-        ? data.map((el: typeof data[0], i: number) => (
-            <_ key={i}>
-              {el.vscodeIcon ? (
-                <Iconify
-                  icon={`vscode-icons:file-type-${el.icon}`}
-                  className={styles.lang_icon}
-                />
-              ) : (
-                <Iconify icon={`logos:${el.icon}`} className={styles.lang_icon} />
-              )}
-              <p className={styles.lang_title}>{el.name}</p>
-            </_>
-          ))
-        : ''}
+      {data.map((el: typeof data[0], i: number) => (
+        <div className={styles.inner} key={i}>
+          <Iconify icon={el.icon} />
+          <p>{el.name}</p>
+        </div>
+      ))}
     </Slick>
   );
 }

@@ -8,10 +8,12 @@
     overflow: hidden;
     position: relative;
 
-    @include max(width, 30px);
+    // @include max(width, 30px);
+    width: 30px;
 
     &[class*='slick-prev'] {
-      @include max(margin-right, 15px);
+      // @include max(margin-right, 15px);
+      margin-right: 15px;
       &::before {
         color: $dark-gray;
         content: '<';
@@ -23,7 +25,8 @@
       }
     }
     &[class*='slick-next'] {
-      @include max(margin-left, 15px);
+      // @include max(margin-left, 15px);
+      margin-left: 15px;
       &::before {
         color: $dark-gray;
         content: '>';
@@ -38,7 +41,8 @@
   [class*='slick-list'] {
     box-sizing: border-box;
 
-    @include max(width, 1260px);
+    // @include max(width, 1260px);
+    width: calc(100% - 30px);
 
     [class*='slick-slide'] {
       position: relative;
@@ -46,12 +50,14 @@
         background-color: $lemon;
         content: '';
         height: 100%;
-        left: calc(#{300 / 21 + 0%} / 2);
+        // left: calc(#{300 / 21 + 0%} / 2);
+        left: 15px;
         mix-blend-mode: hue;
         opacity: 1;
         position: absolute;
         top: 0;
-        width: calc(100% - #{300 / 21 + 0%});
+        // width: calc(100% - #{300 / 21 + 0%});
+        width: calc(100% - 30px);
         z-index: 1;
       }
     }
@@ -65,11 +71,14 @@
       justify-content: center;
       position: relative;
 
-      @include max(margin-right, 15px);
+      // @include max(margin-right, 15px);
+      margin-right: 15px;
 
-      @include max(margin-left, 15px);
+      // @include max(margin-left, 15px);
+      margin-left: 15px;
 
-      @include max(height, 180px);
+      // @include max(height, 180px);
+      padding-top: calc(100% - 30px);
 
       &::before,
       &::after {
@@ -80,7 +89,6 @@
         right: 0;
         width: 0;
       }
-
       &::before {
         border-bottom: 1px solid $lemon;
         border-right: 1px solid $lemon;
@@ -91,15 +99,26 @@
           no-repeat top left/100% 100%;
         bottom: 0;
       }
-      .lang_icon {
-        position: relative;
 
-        @include max(font-size, 90px);
-      }
-      .lang_title {
-        @include max(margin-top, 30px);
-
-        @include max(font-size, 20px);
+      .inner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        * {
+          display: block;
+          margin: 0 auto;
+          text-align: center;
+        }
+        svg {
+          // @include max(font-size, 90px);
+          font-size: 90px;
+        }
+        p {
+          // @include max(margin-top, 30px);
+          margin-top: 30px;
+          font-size: 20px;
+        }
       }
     }
   }
