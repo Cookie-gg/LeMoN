@@ -17,6 +17,7 @@
       position: relative;
       width: 100%;
       section {
+        box-sizing: border-box;
         height: 100%;
         left: 0;
         overflow: hidden;
@@ -31,19 +32,21 @@
     }
   }
   &:not(.scroller) {
-    max-width: 1400px;
+    // max-width: 1400px;
     overflow-x: hidden;
     overflow-y: scroll;
     .contents {
       height: 100%;
+      max-width: 1400px;
       overflow: hidden;
       position: relative;
       width: 100%;
       section {
+        box-sizing: border-box;
         left: 0;
         position: absolute;
-        top: 0;
         transition: all $common_anmt;
+        width: 100%;
       }
     }
     &::-webkit-scrollbar {

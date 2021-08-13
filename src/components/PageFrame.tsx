@@ -1,4 +1,3 @@
-import { useMount } from 'hooks';
 import { useReducer, useRef } from 'react';
 import { ReactElement, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
@@ -14,7 +13,6 @@ export default function PageFrame({
 }) {
   const [marginTop, _marginTop] = useState<number>(0);
   const [section, _section] = useState<number>(1);
-  const isMounted = useMount();
   const n_section: number = children.props.children.length;
   const contentsHeight = useRef<HTMLDivElement>(null);
   const scrollEvent = (e: React.UIEvent<HTMLDivElement, globalThis.UIEvent>) => {
@@ -47,9 +45,7 @@ export default function PageFrame({
           {children.props.children.map((child: ReactElement, i: number) => (
             <section
               key={i}
-              className={`${secStyles[i]} ${isActive[`section_${i + 1}`] && active} ${
-                isMounted && 'mounted'
-              }`}
+              className={`${secStyles[i]} ${isActive[`section_${i + 1}`] && active}`}
               style={{ transform: `translateY(${100 * (i + 1 - section)}%)` }}
             >
               {child}
@@ -82,7 +78,7 @@ export default function PageFrame({
     <div className={styles.wrapper} onScroll={(e) => scrollEvent(e)}>
       <div className={styles.contents} style={{ marginTop: `${marginTop}px` }}>
         <section
-          className={`${secStyles as string} ${isMounted && 'mounted'}`}
+          className={secStyles as string}
           style={{ top: `${marginTop * -1}px` }}
           ref={contentsHeight}
         >
