@@ -8,10 +8,6 @@
   transform: translateX(2%);
   user-select: none;
 
-  @include max(font-size, 90px);
-
-  @include max(letter-spacing, -4px);
-
   &::before {
     background-color: $lemon;
     content: '';
@@ -43,12 +39,16 @@
 
     @include max(padding-left, 25px);
 
+    @include max(font-size, 90px);
+
+    @include max(letter-spacing, -4px);
+
     span {
       color: $dark-gray;
     }
   }
   .svg {
-    @include max(margin-left, 20px);
+    margin-left: 20px;
     svg {
       &:first-of-type path {
         fill: transparent;
