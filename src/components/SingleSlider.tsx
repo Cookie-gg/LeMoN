@@ -1,6 +1,5 @@
 import { Fragment as _ } from 'react';
 import Slick, { Settings } from 'react-slick';
-import { Title, Paragraph } from 'components';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/SingleSlider.module.scss';
 
@@ -32,15 +31,15 @@ export default function SingleSlider({
         {data.map((el: typeof data[0], i: number) => (
           <_ key={i}>
             <div className={styles.image}>
-              <span
-                style={{
-                  backgroundImage: `url(${el.bg !== undefined ? el.bg : ''})`,
-                }}
-              ></span>
+              <img src={el.bg} alt={el.title} />
             </div>
             <div className={styles.text_wrapper}>
-              <Title rank={2} text={el.title} />
-              <Paragraph text={el.explain} />
+              <h2>
+                <span>{el.title}</span>
+              </h2>
+              <p>
+                <span>{el.explain}</span>
+              </p>
             </div>
             <Iconify icon={el.icon} />
           </_>
