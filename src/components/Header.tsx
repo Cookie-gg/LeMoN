@@ -2,22 +2,14 @@ import { useAgent, usePeriod } from 'hooks';
 import { useState } from 'react';
 import { Link, useRouter } from 'utils/next';
 import styles from '../assets/scss/components/Header.module.scss';
-import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import {
-  faCode,
-  faHome,
-  faUser,
-  faNewspaper,
-  faEnvelope,
-  IconDefinition,
-} from '@fortawesome/free-solid-svg-icons';
+import { Icon as Iconify } from '@iconify/react';
 
-const paths = [
-  ['Home', '/', faHome],
-  ['About', '/about', faUser],
-  ['Works', '/works', faCode],
-  ['Blog', '/blog', faNewspaper],
-  ['Contact', '/contact', faEnvelope],
+const data = [
+  { name: 'Home', path: '/', icon: 'fa-solid:home' },
+  { name: 'About', path: '/about', icon: 'fa-solid:user' },
+  { name: 'Works', path: '/works', icon: 'fa-solid:code' },
+  { name: 'Blog', path: '/blog', icon: 'fa-solid:newspaper' },
+  { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
 ];
 
 export default function Header({ isMounted }: { isMounted: boolean }) {
@@ -29,18 +21,18 @@ export default function Header({ isMounted }: { isMounted: boolean }) {
     _closing(!isMobile ? 950 : 1250);
     _isClicked((prev) => !prev);
   }
-  const list = paths.map((path, i) => (
+  const list = data.map((el: {name: string, path: string, icon: string}, i: number) => (
     <li
       key={i}
-      className={`${path[1] === router.pathname && styles.active}`}
+      className={`${el.path === router.pathname && styles.active}`}
       onClick={() => {
         if (isMobile) clickEvent();
       }}
     >
-      <Link href={path[1].toString()}>
+      <Link href={el.path}>
         <a>
-          <Icon className="sp" icon={path[2] as IconDefinition}></Icon>
-          <span>{path[0]}</span>
+          <Iconify className="sp" icon={el.icon} />
+          <span>{el.name}</span>
         </a>
       </Link>
     </li>
