@@ -122,6 +122,13 @@ https://marketplace.visualstudio.com/items?itemName=clinyong.vscode-css-modules
 * HooksのuseContextでなるべく使用を避ける
 * Hooks含め、全ての処理はpagesのみで行う、componentsにはpropsで渡す
 * Hooks処理が長くなる場合はカスタムフックを作る
+* useStateの記述方法は下記に則る
+```tsx
+import { useState } from 'react';
+
+// Dispatch関数において、set = _ とする
+const [variableName, _variableName] = useState<Types>(InitialState);
+```
 
 ### メモリリークについて
 * 下記のエラーが出た上で正常に動くことがあっても、解消する
