@@ -1,8 +1,8 @@
-import { useAgent, usePeriod } from 'hooks';
 import { useState } from 'react';
 import { Link, useRouter } from 'utils/next';
-import styles from '../assets/scss/components/Header.module.scss';
 import { Icon as Iconify } from '@iconify/react';
+import { useAgent, useMount, usePeriod } from 'hooks';
+import styles from '../assets/scss/components/Header.module.scss';
 
 const data = [
   { name: 'Home', path: '/', icon: 'fa-solid:home' },
@@ -12,8 +12,9 @@ const data = [
   { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
 ];
 
-export default function Header({ isMounted }: { isMounted: boolean }) {
+export default function Header() {
   const isMobile = useAgent();
+  const isMounted = useMount();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
   const [closing, _closing] = usePeriod(false);
@@ -21,10 +22,12 @@ export default function Header({ isMounted }: { isMounted: boolean }) {
     _closing(!isMobile ? 950 : 1250);
     _isClicked((prev) => !prev);
   }
-  const list = data.map((el: {name: string, path: string, icon: string}, i: number) => (
+  const list = data.map((el: { name: string; path: string; icon: string }, i: number) => (
     <li
       key={i}
-      className={`${el.path === router.pathname && styles.active}`}
+      className={`${router.pathname === el.path && styles.active} ${
+        router.pathname === el.path + '/[...id]' && styles.lower_active
+      }`}
       onClick={() => {
         if (isMobile) clickEvent();
       }}
@@ -43,10 +46,7 @@ export default function Header({ isMounted }: { isMounted: boolean }) {
         isClicked && styles.opened
       }`}
     >
-      <button
-        className={`${isClicked && styles.opened} ${closing && styles.closing}`}
-        onClick={() => clickEvent()}
-      >
+      <button className={`${isClicked && styles.opened} ${closing && styles.closing}`} onClick={() => clickEvent()}>
         <span></span>
       </button>
       <ul className={`${isClicked ? styles.opened : styles.closed}`}>

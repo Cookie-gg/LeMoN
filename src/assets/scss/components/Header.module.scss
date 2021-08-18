@@ -214,6 +214,7 @@
           }
         }
         &.active > a,
+        &.lower_active > a,
         &:not(.active) > a:hover {
           span {
             color: $dark-gray;
