@@ -5,29 +5,24 @@ export const encodeImg = (file: File) => {
     reader.readAsDataURL(file);
   });
 };
-export function sortByDate<T extends { date: string }[]>(type: 'asc' | 'desc', data: T): T {
+
+export function sortByDate<T extends { releaseDate: Date }[]>(type: 'asc' | 'desc', data: T): T {
   for (let i = 0; i < data.length - 1; i++) {
     for (let j = 1; j < data.length - i; j++) {
-      const curtArray = data[j].date.split('/');
-      const curt = {
-        year: Number(curtArray[0]),
-        month: Number(curtArray[1]),
-        day: Number(curtArray[1]),
-      };
-      const prevArray = data[j - 1].date.split('/');
-      const prev = {
-        year: Number(prevArray[0]),
-        month: Number(prevArray[1]),
-        day: Number(prevArray[1]),
-      };
+      const prev = data[j - 1].releaseDate;
+      const curt = data[j].releaseDate;
       if (
         type === 'desc'
-          ? prev.year < curt.year ||
-            (prev.year === curt.year && prev.month < curt.month) ||
-            (prev.year === curt.year && prev.month === curt.month && prev.day < curt.day)
-          : prev.year > curt.year ||
-            (prev.year === curt.year && prev.month > curt.month) ||
-            (prev.year === curt.year && prev.month === curt.month && prev.day > curt.day)
+          ? prev.getFullYear() < curt.getFullYear() ||
+            (prev.getFullYear() === curt.getFullYear() && prev.getMonth() < curt.getMonth()) ||
+            (prev.getFullYear() === curt.getFullYear() &&
+              prev.getMonth() === curt.getMonth() &&
+              prev.getDate() < curt.getDate())
+          : prev.getFullYear() > curt.getFullYear() ||
+            (prev.getFullYear() === curt.getFullYear() && prev.getMonth() > curt.getMonth()) ||
+            (prev.getFullYear() === curt.getFullYear() &&
+              prev.getMonth() === curt.getMonth() &&
+              prev.getDate() > curt.getDate())
       ) {
         const tmp: T[0] = data[j];
         data[j] = data[j - 1];
@@ -36,4 +31,30 @@ export function sortByDate<T extends { date: string }[]>(type: 'asc' | 'desc', d
     }
   }
   return data;
+}
+
+export function displayDate(date: Date, split = '/'): string {
+  return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth()))}${split}${displayDigit(
+    String(date.getDay()),
+  )}`;
+}
+
+export function specifor<T>(times: number, func: (index: number) => T): T[] {
+  const list = [];
+  for (let i = 0; i < times; i++) {
+    list.push(func(i));
+  }
+  return list;
+}
+
+export function displayDigit(str: string, digit = 1) {
+  let preposition = '';
+  for (let i = 0; i < digit; i++) {
+    preposition += '0';
+  }
+  return (preposition + str).slice(-1 + -1 * digit);
+}
+
+export function compare<T>(prev: T, next: T) {
+  return JSON.stringify(prev) === JSON.stringify(next);
 }
