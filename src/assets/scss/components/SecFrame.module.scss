@@ -1,0 +1,62 @@
+.wrapper {
+  align-items: center;
+  display: flex;
+  height: calc(100% - 22px - 110px - 40px);
+  justify-content: center;
+  margin: 110px 0px 40px 40px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  width: calc(100% - 22px - 40px - 40px);
+  .contents {
+    height: 100%;
+    max-width: 1400px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    section {
+      box-sizing: border-box;
+      height: 100%;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      transition: all $common_anmt;
+      width: 100%;
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+.buttons {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin-left: 18.5px;
+  margin-right: 15px;
+  width: 6.5px;
+  button {
+    border-right: 2.5px solid gray;
+    box-sizing: border-box;
+    display: block;
+    transition: all 0.3s;
+    width: 100%;
+    &:first-of-type {
+      margin-bottom: 6.5px;
+    }
+    &:not(:first-of-type):not(:last-of-type) {
+      margin-bottom: 6.5px;
+      margin-top: 6.5px;
+    }
+    &:last-of-type {
+      margin-top: 6.5px;
+    }
+    &:hover,
+    &.current {
+      border-right: 6.5px solid $lemon;
+    }
+  }
+}
