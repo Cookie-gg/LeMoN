@@ -1,12 +1,10 @@
-import { Fragment as _ } from 'react';
+import { Fragment as _, memo } from 'react';
 import Slick, { Settings } from 'react-slick';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/SingleSlider.module.scss';
+import { compare } from 'utils/common';
 
-export default function SingleSlider({
-  data,
-  className,
-}: {
+interface PropsType {
   data: {
     title: string;
     explain: string;
@@ -14,7 +12,9 @@ export default function SingleSlider({
     bg: string;
   }[];
   className: string;
-}) {
+}
+
+function SingleSlider({ data, className }: PropsType) {
   const settings: Settings = {
     autoplay: false,
     autoplaySpeed: 8000,
@@ -48,3 +48,5 @@ export default function SingleSlider({
     </div>
   );
 }
+
+export default memo(SingleSlider, (prev: PropsType, next: PropsType) => compare<PropsType>(prev, next));

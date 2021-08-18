@@ -1,29 +1,21 @@
-import { ReactElement } from 'react';
+import { memo } from 'react';
+import { Cookie_gg } from 'svg';
+import { compare } from 'utils/common';
 import styles from '../assets/scss/components/NamePlate.module.scss';
-export default function NamePlate({
-  rank,
-  text,
-  className,
-  children,
-}: {
-  rank: number;
-  text?: string;
+
+interface PropsType {
   className?: string;
-  children?: ReactElement;
-}) {
-  const Tag = `h${rank}` as React.ElementType;
+}
+
+function NamePlate({ className }: PropsType) {
   return (
-    <Tag className={`${className} ${styles.entire}`}>
-      <span className={text ? styles.text : styles.svg}>
-        {text ? (
-          <span>{text}</span>
-        ) : (
-          <>
-            {children}
-            {children}
-          </>
-        )}
+    <h2 className={`${className} ${styles.entire}`}>
+      <span className={styles.svg}>
+        <Cookie_gg />
+        <Cookie_gg />
       </span>
-    </Tag>
+    </h2>
   );
 }
+
+export default memo(NamePlate, (prev: PropsType, next: PropsType) => compare<PropsType>(prev, next));

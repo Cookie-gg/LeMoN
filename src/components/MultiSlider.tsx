@@ -1,14 +1,15 @@
+import { memo } from 'react';
+import { compare } from 'utils/common';
 import Slick, { Settings } from 'react-slick';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/MultiSlider.module.scss';
 
-export default function MultiSlider({
-  data,
-  className,
-}: {
+interface PropsType {
   data: { name: string; icon: string }[];
   className?: string;
-}) {
+}
+
+function MultiSlider({ data, className }: PropsType) {
   const settings: Settings = {
     autoplay: true,
     autoplaySpeed: 8000,
@@ -55,3 +56,5 @@ export default function MultiSlider({
     </Slick>
   );
 }
+
+export default memo(MultiSlider, (prev: PropsType, next: PropsType) => compare<PropsType>(prev, next));

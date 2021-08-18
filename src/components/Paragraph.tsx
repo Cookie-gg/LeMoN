@@ -1,8 +1,15 @@
-import React from 'react';
+import { compare } from 'utils/common';
+import { memo, Fragment as _ } from 'react';
 import styles from '../assets/scss/components/Paragraph.module.scss';
-export default function Paragraph({ text, className }: { text: string; className?: string }) {
+
+interface PropsType {
+  text: string;
+  className?: string;
+}
+
+function Paragraph({ text, className }: PropsType) {
   const replacedText = text.split(/(\n)/).map((el) => {
-    return <React.Fragment key={el}>{el.match(/\n/) ? <br /> : el}</React.Fragment>;
+    return <_ key={el}>{el.match(/\n/) ? <br /> : el}</_>;
   });
   return (
     <p className={`${className} ${styles.entire}`}>
@@ -10,3 +17,5 @@ export default function Paragraph({ text, className }: { text: string; className
     </p>
   );
 }
+
+export default memo(Paragraph, (prev: PropsType, next: PropsType) => compare(prev, next));
