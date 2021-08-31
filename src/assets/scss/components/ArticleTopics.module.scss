@@ -1,0 +1,52 @@
+.entire {
+  background-color: rgba(white, 0.08);
+  box-sizing: border-box;
+  font-family: $jp_font;
+  font-size: 18px;
+  line-height: 1.4;
+  padding: 25px;
+  position: relative;
+  top: 0;
+  transition: all $common_anmt;
+  width: 100%;
+  margin-bottom: 40px;
+
+  .title {
+    font-weight: 700;
+  }
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    li {
+      align-items: center;
+      display: flex;
+      font-size: 16px;
+      font-weight: 200;
+      width: 48%;
+      span {
+        align-items: center;
+        background-color: $dark-gray;
+        border: 1px solid $lemon;
+        border-radius: 50%;
+        display: flex;
+        height: 40px;
+        justify-content: center;
+        margin-right: 10px;
+        overflow: hidden;
+        position: relative;
+        width: 40px;
+        svg {
+          font-size: 20px;
+          path {
+            color: $lemon;
+          }
+        }
+      }
+      &:nth-of-type(n + 3) {
+        margin-top: 20px;
+      }
+    }
+  }
+}

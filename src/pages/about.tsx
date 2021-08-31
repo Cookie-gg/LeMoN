@@ -1,8 +1,7 @@
-import { Cookie_gg } from 'svg';
 import { useMount } from 'hooks';
 import { Head } from 'utils/next';
 import pages from '../assets/scss/pages/About.module.scss';
-import { Heading, PageFrame, Paragraph, NamePlate, List, MultiSlider, SingleSlider } from 'components';
+import { Heading, SecFrame, Paragraph, NamePlate, MultiSlider, SingleSlider, ProfileInfo } from 'components';
 
 // from data-base
 import Vscode from 'assets/img/vscode.png';
@@ -11,7 +10,7 @@ import Feelingproud from 'assets/img/feelingproud.svg';
 const data = {
   profile: {
     title: 'PROFILE',
-    sentence:
+    introduction:
       '" AIM FOR INTERESTING DEVELOPS "\nI like interesting develops. Any requirement will be interesting depending on the development method. In my opinion, interesting products are born from interesting development."',
     info: [
       { icon: 'fa-solid:calendar-alt', content: '11th November, 2001' },
@@ -68,26 +67,21 @@ export default function About() {
       <Head>
         <title>LeMoN | About</title>
       </Head>
-      <PageFrame
-        secStyles={[`${pages.profile} ${isMounted && pages.mounted}`, pages.skills]}
-        active={pages.active}
+      <SecFrame
+        sectionClass={[`${pages.profile} ${isMounted && pages.mounted}`, pages.skills]}
+        activeClass={pages.active}
       >
         <>
           {
             <>
               <div className={pages.text_wrapper}>
                 <Heading rank={1} text={data.profile.title} className={pages.heading} />
-                <NamePlate rank={2} className={pages.title}>
-                  <Cookie_gg />
-                </NamePlate>
-                <Paragraph className={pages.sentence} text={data.profile.sentence} />
-                <List data={data.profile.info} className={pages.info} />
+                <NamePlate className={pages.title} />
+                <Paragraph className={pages.introduction} text={data.profile.introduction} />
+                <ProfileInfo data={data.profile.info} className={pages.info} />
               </div>
               <div className={pages.concept_img}>
-                <img
-                  src={data.profile.featuredImage}
-                  alt={`${data.profile.title.toLowerCase()}_featured_image`}
-                />
+                <img src={data.profile.featuredImage} alt={`${data.profile.title.toLowerCase()}_featured_image`} />
               </div>
             </>
           }
@@ -100,7 +94,7 @@ export default function About() {
             </>
           }
         </>
-      </PageFrame>
+      </SecFrame>
     </>
   );
 }

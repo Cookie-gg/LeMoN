@@ -18,37 +18,17 @@
     width: 2px;
   }
   &::after {
-    background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat
-      top left/100% 100%;
+    background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%;
     content: '';
     left: 100%;
     position: absolute;
     top: 0;
     transform: translateX(-1px);
   }
-  & > span {
-    overflow: hidden;
-    position: relative;
-    span {
-      display: inline-block;
-      position: relative;
-    }
-  }
-  .text {
-    @include max(padding-top, 3px);
-
-    @include max(padding-left, 25px);
-
-    @include max(font-size, 90px);
-
-    @include max(letter-spacing, -4px);
-
-    span {
-      color: $dark-gray;
-    }
-  }
   .svg {
     margin-left: 20px;
+    overflow: hidden;
+    position: relative;
     svg {
       &:first-of-type path {
         fill: transparent;

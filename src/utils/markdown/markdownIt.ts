@@ -11,7 +11,6 @@ const md = new MarkdownIt({
   html: true,
   breaks: true,
 })
-  .use(MarkdownItSanitizer)
   .use(MarkdownItImsize)
   .use(MarkdownItNamedCodeBlocks)
   .use(MarkdownItKatexx, { throwOnError: false, errorColor: ' #cc0000' })
@@ -50,6 +49,7 @@ const md = new MarkdownIt({
       }
     },
   })
-  .use(MarkdownItLinkAttribute, { target: '_blank', rel: 'noopener' });
+  .use(MarkdownItLinkAttribute, { target: '_blank', rel: 'noopener' })
+  .use(MarkdownItSanitizer);
 
 export default md;

@@ -6,5 +6,6 @@ declare global {
   interface Array<T> {
     specifor<U>(times: number, func: (value: T, index: number, array: T[]) => U): U[];
     exSpecifor<U>(times: number, func: (value: T, index: number, array: T[]) => U): U[];
+    rangeMap<U>(start: number, end: number, func: (value: T, index: number, array: T[]) => U): U[];
   }
 }

@@ -13,13 +13,7 @@ $fixed_point: (
   pc: 1582,
   sp: 500,
 );
-@mixin max(
-  $property,
-  $value: initial,
-  $sp_value: initial,
-  $fixed: false,
-  $sp_fixed: initial,
-) {
+@mixin max($property, $value: initial, $sp_value: initial, $fixed: false, $sp_fixed: initial) {
   @if $fixed == true and $sp_fixed == initial {
     $sp_fixed: true;
   }
@@ -55,6 +49,22 @@ $fixed_point: (
       } @else {
         #{$property}: $sp_value;
       }
+    }
+  }
+}
+
+@mixin custom_scrollbar() {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  // &::-webkit-scrollbar-track {
+  // }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(white, 0.1);
+    border-radius: 5px;
+    transition: background-color $common_anmt;
+    &:hover {
+      background-color: rgba(white, 0.2);
     }
   }
 }

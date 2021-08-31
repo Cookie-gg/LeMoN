@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-const useMount = function () {
+const useFirstMount = function () {
   const [isMounted, _isMounted] = useState<boolean>(false);
   useEffect(() => {
-    _isMounted(true);
+    setTimeout(() => _isMounted(true), 0);
     return () => {
       _isMounted(false);
     };
   }, []);
   return isMounted;
 };
-export default useMount;
+export default useFirstMount;

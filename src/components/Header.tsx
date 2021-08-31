@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link, useRouter } from 'utils/next';
+import { Nlink } from 'components';
+import { useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
-import { useAgent, useMount, usePeriod } from 'hooks';
+import { useAgent, useFirstMount, usePeriod } from 'hooks';
 import styles from '../assets/scss/components/Header.module.scss';
 
 const data = [
@@ -14,7 +15,7 @@ const data = [
 
 export default function Header() {
   const isMobile = useAgent();
-  const isMounted = useMount();
+  const isMounted = useFirstMount();
   const router = useRouter();
   const [isClicked, _isClicked] = useState<boolean>(false);
   const [closing, _closing] = usePeriod(false);
@@ -26,18 +27,18 @@ export default function Header() {
     <li
       key={i}
       className={`${router.pathname === el.path && styles.active} ${
-        router.pathname === el.path + '/[...id]' && styles.lower_active
+        router.pathname.includes(`${el.path}/`) && styles.lower_active
       }`}
       onClick={() => {
         if (isMobile) clickEvent();
       }}
     >
-      <Link href={el.path}>
-        <a>
+      <Nlink href={el.path}>
+        <>
           <Iconify className="sp" icon={el.icon} />
           <span>{el.name}</span>
-        </a>
-      </Link>
+        </>
+      </Nlink>
     </li>
   ));
   return (

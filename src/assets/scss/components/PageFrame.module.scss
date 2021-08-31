@@ -3,11 +3,26 @@
   height: calc(100% - 22px - 110px - 40px);
   justify-content: center;
   margin: 110px 40px 40px 40px;
-  position: relative;
-  width: calc(100% - 22px - 40px - 40px);
-  // max-width: 1400px;
   overflow-x: hidden;
   overflow-y: scroll;
+  position: relative;
+  width: calc(100% - 22px - 40px - 40px);
+
+  @include custom_scrollbar();
+
+  // max-width: 1400px;
+  // section {
+  //   box-sizing: border-box;
+  //   width: 100%;
+
+  //   @include max(padding-left, 50px);
+
+  //   @include max(padding-right, 50px);
+
+  //   @include max(padding-top, 30px);
+
+  //   @include max(padding-bottom, 30px);
+  // }
   .contents {
     height: 100%;
     max-width: 1400px;
@@ -28,19 +43,10 @@
       @include max(padding-top, 30px);
 
       @include max(padding-bottom, 30px);
-    }
-  }
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  // &::-webkit-scrollbar-track {
-  // }
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(white, 0.1);
-    border-radius: 5px;
-    transition: background-color $common_anmt;
-    &:hover {
-      background-color: rgba(white, 0.2);
+
+      &.no_transition {
+        transition: all 0s;
+      }
     }
   }
   .scrollbar {

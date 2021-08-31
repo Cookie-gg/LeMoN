@@ -1,0 +1,30 @@
+.entire {
+  display: flex;
+  justify-content: center;
+  letter-spacing: 1.2px;
+  width: 100%;
+
+  button {
+    font-family: $jp_font;
+    font-size: 16px;
+    font-weight: 400;
+    a {
+      position: relative;
+      padding: 10px 40px 12px 40px;
+      background-color: rgba(white, 0.08);
+      &::after {
+        background-color: $lemon;
+        bottom: -1px;
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        transition: all $common_anmt;
+        width: 0;
+      }
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+}

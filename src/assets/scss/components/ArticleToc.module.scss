@@ -1,0 +1,98 @@
+.entire {
+  font-family: $jp_font;
+  line-height: 1.4;
+  position: relative;
+  top: 0;
+  transition: top $common_anmt;
+  width: 100%;
+  &.no_transition {
+    transition: top 0s;
+    .toc {
+      transition: margin-top 0s;
+    }
+  }
+  .toc {
+    background-color: #313131;
+    box-sizing: border-box;
+    font-family: $jp_font;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 25px;
+    width: 100%;
+    transition: margin-top $common_anmt order(3);
+
+    @include custom_scrollbar();
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .body {
+      margin-top: 20px;
+      li {
+        align-items: center;
+        color: rgba(white, 0.6);
+        cursor: pointer;
+        display: flex;
+        position: relative;
+        transition: all $common_anmt;
+        user-select: none;
+
+        &.heading_1 {
+          font-size: 16px;
+          font-weight: 500;
+          &::before {
+            margin: 2px 10px 0 0;
+          }
+        }
+        &.heading_2 {
+          font-size: 13px;
+          font-weight: 400;
+          &::before {
+            height: 7px;
+            margin: 2px 10px 0 1.5px;
+            width: 7px;
+          }
+        }
+        &::before {
+          background-color: #6f6f6f;
+          box-sizing: border-box;
+          content: '';
+          display: block;
+          height: 10px;
+          transform: rotate(-45deg);
+          transition: all $common_anmt;
+          width: 10px;
+          z-index: 1;
+        }
+        &:not(:first-of-type) {
+          margin-top: 10px;
+          &::after {
+            background-color: #6f6f6f;
+            bottom: 50%;
+            content: '';
+            height: 30px;
+            left: 4px;
+            position: absolute;
+            width: 1px;
+            z-index: 0;
+          }
+        }
+        &.active {
+          color: white;
+          pointer-events: none;
+          &::before {
+            background-clip: content-box;
+            background-color: $lemon;
+            border: 2px solid rgba($lemon, 0.5);
+          }
+        }
+      }
+    }
+  }
+  &:not(.mounted) .toc {
+    transition: margin-top 0s;
+  }
+  &.show .toc {
+    transition: margin-top $common_anmt order(2);
+  }
+}

@@ -1,0 +1,55 @@
+.blog {
+  position: relative;
+  .articles {
+    @include max(margin-top, 30px);
+  }
+  .column {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+
+    @include max(margin-top, 65px);
+  }
+  .more {
+    @include max(margin-top, 45px);
+  }
+  &.mounted {
+    .heading span {
+      transform: translateY(0);
+      transition: transform $common_anmt order(2);
+    }
+  }
+}
+.post {
+  letter-spacing: 1.2px;
+  .contents {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    main {
+      margin-right: 40px;
+      .heading {
+        margin-top: 40px;
+      }
+      .relations {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        gap: 40px;
+        li {
+          width: 47.75%;
+          width: calc((100% - 40px) / 2);
+        }
+      }
+    }
+    aside {
+      position: relative;
+      width: 360px;
+    }
+  }
+  &.mounted {
+    .heading span {
+      transform: translateY(0);
+      transition: transform $common_anmt order(2);
+    }
+  }
+}

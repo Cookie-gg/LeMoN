@@ -48,7 +48,7 @@
         width: calc(85px * 1.02 / #{$route_3});
       }
     }
-    .sentence,
+    .introduction,
     .info {
       margin-left: 2%;
       width: 98%;
@@ -80,7 +80,7 @@
         height: 0;
       }
     }
-    .sentence span,
+    .introduction span,
     .info li span {
       transform: translateY(-100%);
     }
@@ -115,7 +115,7 @@
         transition: height $common_anmt order(1);
       }
     }
-    .sentence span,
+    .introduction span,
     .info li span {
       transform: translateY(0%);
       transition: transform $common_anmt order(2);

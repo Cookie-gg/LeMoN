@@ -1,13 +1,14 @@
+import styles from '../assets/scss/components/ProfileInfo.module.scss';
 import { Icon as Iconify } from '@iconify/react';
-import styles from '../assets/scss/components/List.module.scss';
+import { memo } from 'react';
+import { compare } from 'utils/common';
 
-export default function List({
-  data,
-  className,
-}: {
-  data: { content: string; icon: string }[];
+interface PropsType {
+  data: { icon: string; content: string }[];
   className: string;
-}) {
+}
+
+function ProfileInfo({ data, className }: PropsType) {
   return (
     <ul className={`${styles.entire} ${className}`}>
       {data.map((el: { content: string; icon: string }, i: number) => {
@@ -39,3 +40,5 @@ export default function List({
     </ul>
   );
 }
+
+export default memo(ProfileInfo, (prev: PropsType, next: PropsType) => compare(prev, next));

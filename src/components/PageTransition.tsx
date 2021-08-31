@@ -1,10 +1,10 @@
-import { useMount } from 'hooks';
+import { useFirstMount } from 'hooks';
 import { useRouter } from 'utils/next';
 import styles from '../assets/scss/components/PageTransition.module.scss';
 
 export default function PageTransition({ isFirst }: { isFirst: boolean }) {
   const router = useRouter();
-  const isMounted = useMount();
+  const isMounted = useFirstMount();
   return (
     <>
       <div

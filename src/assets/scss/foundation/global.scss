@@ -38,3 +38,7 @@ body {
 span {
   display: inline-block;
 }
+textarea,
+input {
+  color: $dark-gray;
+}

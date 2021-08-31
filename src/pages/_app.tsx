@@ -1,12 +1,12 @@
-import 'assets/scss/foundation/reset.scss';
-import 'assets/scss/foundation/base.scss';
-import 'assets/scss/foundation/global.scss';
+import 'utils/prototype';
+import { Head } from 'utils/next';
 import 'slick-carousel/slick/slick.css';
 import type { AppProps } from 'next/app';
-import { Head } from 'utils/next';
+import 'assets/scss/foundation/base.scss';
+import 'assets/scss/foundation/reset.scss';
+import 'assets/scss/foundation/global.scss';
 import { Header, MainFrame } from 'components';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { useMount } from 'hooks';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -14,7 +14,6 @@ const client = new ApolloClient({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const isMounted = useMount();
   return (
     <ApolloProvider client={client}>
       <Head>
@@ -22,8 +21,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Header isMounted={isMounted} />
-      <MainFrame isMounted={isMounted}>
+      <Header />
+      <MainFrame>
         <Component {...pageProps} />
       </MainFrame>
     </ApolloProvider>

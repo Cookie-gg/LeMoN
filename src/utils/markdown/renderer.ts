@@ -50,6 +50,5 @@ export default async function renderer(data: string): Promise<string> {
   data = data.replaceAll(`${open}_`, '```');
   data = data.replaceAll(`_${close}`, '');
   if (links.length > 0) data = await linkCard(data, links);
-
   return data;
 }
