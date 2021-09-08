@@ -1,9 +1,9 @@
-import { useFirstPeriod, useHeight } from 'hooks';
+import { memo } from 'react';
 import { useRouter } from 'utils/next';
+import { useFirstPeriod, useHeight } from 'hooks';
 import memoryCache, { CacheClass } from 'memory-cache';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 import { useState, useRef, useEffect, createContext, ReactElement, RefObject } from 'react';
-import { memo } from 'react';
 
 export const Context = createContext<[RefObject<HTMLDivElement>, number, (n: number) => void]>([
   { current: null },
@@ -12,28 +12,21 @@ export const Context = createContext<[RefObject<HTMLDivElement>, number, (n: num
     n;
   },
 ]);
+
 export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache();
 
-interface ProspType {
-  children: ReactElement;
-  sectionClass: string;
-}
-
-function PageFrame({ children, sectionClass }: ProspType) {
+function PageFrame({ children, sectionClass }: { children: ReactElement; sectionClass: string }) {
   const router = useRouter();
+  const noTransition = useFirstPeriod(1);
   const scroller = useRef<HTMLDivElement>(null);
   const [scrollTop, _scrollTop] = useState<number>(0);
   const [height, _height] = useHeight<HTMLDivElement>();
-  const noTransition = useFirstPeriod(1);
-  function scrollEvent(e: React.UIEvent<HTMLDivElement, globalThis.UIEvent>) {
-    _scrollTop((e.target as HTMLDivElement).scrollTop);
-  }
-
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       scrollTopCashe.put(router.asPath, scrollTop);
-    };
-  }, [router.asPath, scrollTop]);
+    },
+    [router.asPath, scrollTop],
+  );
 
   useEffect(() => {
     const el = scroller.current as HTMLDivElement;
@@ -48,7 +41,11 @@ function PageFrame({ children, sectionClass }: ProspType) {
 
   return (
     <Context.Provider value={[scroller, scrollTop, _scrollTop]}>
-      <div className={styles.wrapper} onScroll={(e) => scrollEvent(e)} ref={scroller}>
+      <div
+        className={styles.wrapper}
+        onScroll={(e) => _scrollTop((e.target as HTMLDivElement).scrollTop)}
+        ref={scroller}
+      >
         <div className={styles.contents} style={{ marginTop: `${scrollTop}px` }}>
           <section
             className={`${sectionClass} ${noTransition && styles.no_transition}`}
@@ -64,4 +61,4 @@ function PageFrame({ children, sectionClass }: ProspType) {
   );
 }
 
-export default memo(PageFrame, (prev: ProspType, next: ProspType) => prev === next);
+export default memo(PageFrame);
