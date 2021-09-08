@@ -10,6 +10,7 @@ interface PropsType {
 }
 
 export default function Button({ children, className, isInteractive = false, switching, clickEvent }: PropsType) {
+  
   return (
     <div className={`${styles.entire} ${className}`}>
       {isInteractive ? (
