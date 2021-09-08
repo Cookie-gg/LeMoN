@@ -1,0 +1,34 @@
+query Blog {
+  titles: findTitle(page: "blog") {
+    text
+    section
+  }
+  latest: findArticles(latest: true) {
+    id
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
+  topics: findAllTopics {
+    displayName
+    icon
+    allArticles {
+      id
+    }
+    someArticles {
+      id
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+  numberOfArticles: getNumberOfArticles
+}
