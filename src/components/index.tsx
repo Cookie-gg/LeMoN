@@ -2,10 +2,11 @@
 export { default as Nlink } from './Nlink';
 export { default as Header } from './Header';
 export { default as Button } from './Button';
+export { default as DataRes } from './DataRes';
 export { default as MainFrame } from './MainFrame';
 export { default as ArticleBody } from './ArticleBody';
+export { default as ProgressBar } from './ProgressBar';
 export { default as PageTransition } from './PageTransition';
-
 
 // memo-component
 export { default as Heading } from './Heading';
