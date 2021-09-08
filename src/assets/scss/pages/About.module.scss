@@ -20,6 +20,8 @@
     }
     img {
       height: auto;
+      opacity: 0;
+      transform: translateX(10%);
       width: 100%;
     }
   }
@@ -33,20 +35,7 @@
     @include max(padding-left, 50px);
 
     .title {
-      height: 85px;
-      width: 460px;
-
       @include max(margin-top, 65px);
-
-      svg {
-        height: 112.5%;
-        margin-top: -1%;
-        width: 100%;
-      }
-      &::after {
-        height: calc(85px * 1.02);
-        width: calc(85px * 1.02 / #{$route_3});
-      }
     }
     .introduction,
     .info {
@@ -56,37 +45,8 @@
       @include max(margin-top, 50px);
     }
   }
-  &:not(.mounted),
-  &.mounted:not(.active) {
-    .concept_img svg {
-      opacity: 0;
-      transform: translateX(10%);
-    }
-    .heading span {
-      transform: translateY(105%);
-    }
-    .title {
-      width: 0;
-
-      span {
-        svg:first-of-type path {
-          stroke-dashoffset: 2000;
-        }
-        &::before {
-          width: 110%;
-        }
-      }
-      &::before {
-        height: 0;
-      }
-    }
-    .introduction span,
-    .info li span {
-      transform: translateY(-100%);
-    }
-  }
-  &.mounted.active {
-    .concept_img svg {
+  &.mounted {
+    .concept_img img {
       opacity: 1;
       transform: translateX(0%);
       transition: all ease-out $common_drtn order(1);
@@ -98,7 +58,6 @@
     .title {
       transition: width $common_anmt order(1);
       width: 460px;
-
       span {
         &:first-of-type path {
           stroke-dashoffset: 0;
@@ -109,7 +68,6 @@
           width: 0%;
         }
       }
-
       &::before {
         height: 100%;
         transition: height $common_anmt order(1);
