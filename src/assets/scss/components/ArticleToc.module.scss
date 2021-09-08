@@ -1,10 +1,13 @@
 .entire {
   font-family: $jp_font;
+  letter-spacing: 1.2px;
   line-height: 1.4;
   position: relative;
   top: 0;
   transition: top $common_anmt;
   width: 100%;
+
+  @include max(margin-top, 40px);
   &.no_transition {
     transition: top 0s;
     .toc {
@@ -18,10 +21,10 @@
     overflow-x: hidden;
     overflow-y: scroll;
     padding: 25px;
-    width: 100%;
     transition: margin-top $common_anmt order(3);
-
+    width: 100%;
     @include custom_scrollbar();
+
     .title {
       font-size: 18px;
       font-weight: 600;

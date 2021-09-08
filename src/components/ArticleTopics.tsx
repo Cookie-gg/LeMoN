@@ -1,32 +1,86 @@
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/ArticleTopics.module.scss';
+import Nlink from './Nlink';
 
 interface PropsType {
-  type: string;
+  type?: string;
   topics: string[];
   icons: string[];
+  inArticle?: boolean;
+  className?: string;
+  activeNumber?: number;
+  clickEvent?: (n: number) => void;
 }
 
-export default function ArticleTopics({ type, topics, icons }: PropsType) {
+export default function ArticleTopics({
+  type,
+  topics,
+  icons,
+  inArticle = false,
+  className,
+  activeNumber,
+  clickEvent,
+}: PropsType) {
+  const Tag = inArticle ? 'div' : 'li';
   return (
-    <div className={styles.entire}>
-      <div className={styles.title}>TOPICS</div>
+    <Tag className={`${styles.entire} ${inArticle && styles.in_article} ${className}`}>
+      {inArticle && <div className={styles.title}>TOPICS</div>}
       <ul className={styles.body}>
         {topics.map((value: string, i: number) => (
-          <li key={i}>
-            <span>
-              <Iconify icon={icons[i]} />
-            </span>
-            {value}
+          <li
+            key={i}
+            className={`${activeNumber === i && styles.active}`}
+            onClick={() => !inArticle && (clickEvent as (n: number) => void)(i)}
+          >
+            {inArticle ? (
+              <Nlink href={`/topics/${value.toLowerCase()}`}>
+                <>
+                  <span>
+                    <Iconify
+                      icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
+                      style={{ filter: `${icons[i].slice(0, 1) === '_' && 'invert()'}` }}
+                    />
+                  </span>
+                  {value}
+                </>
+              </Nlink>
+            ) : (
+              <>
+                <span>
+                  <Iconify
+                    icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
+                    style={{ filter: `${icons[i].slice(0, 1) === '_' && 'invert()'}` }}
+                  />
+                </span>
+                {value}
+              </>
+            )}
           </li>
         ))}
-        <li>
-          <span>
-            <Iconify icon={icons[icons.length - 1]} />
-          </span>
-          {type.slice(0, 1).toUpperCase() + type.slice(1)}
-        </li>
+        {inArticle ? (
+          <li>
+            <Nlink href="/blog/topics">
+              <>
+                <span>
+                  <Iconify icon={icons[icons.length - 1]} />
+                </span>
+                {(type as string).slice(0, 1).toUpperCase() + (type as string).slice(1)}
+              </>
+            </Nlink>
+          </li>
+        ) : (
+          <li>
+            <Nlink href="/blog/topics">
+              <>
+                <span>
+                  <Iconify icon={'fa-solid:arrow-right'} />
+                </span>
+                トピックごとに表示
+              </>
+            </Nlink>
+          </li>
+        )}
       </ul>
-    </div>
+    </Tag>
   );
 }
