@@ -13,6 +13,34 @@ $fixed_point: (
   pc: 1582,
   sp: 500,
 );
+@mixin diff($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '', $divide: initial) {
+  @if $value != initial {
+    @include media(pc) {
+      $value: number(str_replace('px', '', $value));
+      @if $divide == initial {
+        #{$property}: calc(#{$from} - #{$value * 100 * 0.00063211125158027812895069532237674 + 0vw});
+        @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+          #{$property}: calc(#{$from} - #{$value + 0px});
+        }
+      } @else {
+        #{$property}: calc((#{$from} - #{$value * 100 * 0.00063211125158027812895069532237674 + 0vw}) / #{$divide});
+        @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+          #{$property}: calc((#{$from} - #{$value + 0px}) / #{$divide});
+        }
+      }
+    }
+  }
+  @if $sp_value != initial {
+    @include media(sp) {
+      $sp_value: number(str_replace('px', '', $sp_value));
+      #{$property}: calc(#{$from} - #{$sp_value * 100 * 0.002 + 0vw});
+      @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+        #{$property}: calc(#{$from} - #{$sp_value});
+      }
+    }
+  }
+}
+
 @mixin max($property, $value: initial, $sp_value: initial, $fixed: false, $sp_fixed: initial) {
   @if $fixed == true and $sp_fixed == initial {
     $sp_fixed: true;
