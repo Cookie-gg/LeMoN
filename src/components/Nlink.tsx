@@ -14,17 +14,15 @@ export default function Nlink({ children, href, title }: PropsType) {
       <a
         title={title}
         onClick={() => {
-          if (href.includes('/blog')) {
-            scrollTopCashe.del(href);
-            if (href === '/blog') {
-              const keys = scrollTopCashe.keys().map((key) => {
-                if (key.includes(href + '?display=')) return key;
+          scrollTopCashe.del(href);
+          if (href === '/blog') {
+            const keys = scrollTopCashe.keys().map((key) => {
+              if (key.includes(href + '?display=')) return key;
+            });
+            if (keys.length > 0) {
+              keys.forEach((key) => {
+                scrollTopCashe.del(key as string);
               });
-              if (keys.length > 0) {
-                keys.forEach((key) => {
-                  scrollTopCashe.del(key as string);
-                });
-              }
             }
           }
         }}
