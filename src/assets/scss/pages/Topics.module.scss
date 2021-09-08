@@ -1,0 +1,16 @@
+.topics {
+  .articles {
+    &:first-of-type {
+      @include max(margin-top, 30px);
+    }
+    &:not(:first-of-type) {
+      @include max(margin-top, 65px);
+    }
+  }
+  &.mounted {
+    .heading span {
+      transform: translateY(0);
+      transition: transform $common_anmt order(2);
+    }
+  }
+}
