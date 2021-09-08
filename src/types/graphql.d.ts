@@ -12,134 +12,605 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch. */
+  Timestamp: any;
 };
 
-export type Director = {
-  __typename?: 'Director';
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  age?: Maybe<Scalars['Int']>;
-  movies?: Maybe<Array<Maybe<Movie>>>;
+export type ArticleInput = {
+  releaseDate: Scalars['Timestamp'];
+  updateDate: Scalars['Timestamp'];
+  title: Scalars['String'];
+  emoji: Scalars['String'];
+  type: Scalars['String'];
+  topics: Array<Scalars['String']>;
+  body: Scalars['String'];
 };
 
-export type Movie = {
-  __typename?: 'Movie';
-  id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  genre?: Maybe<Scalars['String']>;
-  director?: Maybe<Director>;
+export type ArticleObject = {
+  __typename?: 'ArticleObject';
+  id: Scalars['ID'];
+  releaseDate: Scalars['Timestamp'];
+  updateDate: Scalars['Timestamp'];
+  title: Scalars['String'];
+  emoji: Scalars['String'];
+  type: Scalars['String'];
+  topics: Array<Scalars['String']>;
+  typeIcon: TopicObject;
+  topicIcons: Array<TopicObject>;
+  body: Scalars['String'];
+  relations: Array<ArticleObject>;
+};
+
+export type ImageInput = {
+  data: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type ImageObject = {
+  __typename?: 'ImageObject';
+  id: Scalars['ID'];
+  data: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type ListBodyInput = {
+  title: Scalars['String'];
+  icon: Scalars['String'];
+  texts?: Maybe<Array<Scalars['String']>>;
+  background?: Maybe<Scalars['String']>;
+};
+
+export type ListBodyObject = {
+  __typename?: 'ListBodyObject';
+  title: Scalars['String'];
+  icon: Scalars['String'];
+  texts?: Maybe<Array<Scalars['String']>>;
+  background?: Maybe<Scalars['String']>;
+};
+
+export type ListInput = {
+  list: Array<ListBodyInput>;
+  name: Scalars['String'];
+};
+
+export type ListObject = {
+  __typename?: 'ListObject';
+  id: Scalars['ID'];
+  list: Array<ListBodyObject>;
+  name: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addMovie?: Maybe<Movie>;
-  addDirector?: Maybe<Director>;
-  updateDirector?: Maybe<Director>;
-  updateMovie?: Maybe<Movie>;
-  deleteDirector?: Maybe<Director>;
-  deleteMovie?: Maybe<Movie>;
+  addList: ListObject;
+  updateList: ListObject;
+  addTopic: TopicObject;
+  updateTopic: TopicObject;
+  addArticle: ArticleObject;
+  updateArticle: ArticleObject;
+  addTitle: TitleObject;
+  updateTitle: TitleObject;
+  addSentence: SentenceObject;
+  updateSentence: SentenceObject;
+  addImage: ImageObject;
+  updateImage: ImageObject;
+  addPath: PathObject;
+  update: PathObject;
 };
 
 
-export type MutationAddMovieArgs = {
-  name?: Maybe<Scalars['String']>;
-  genre?: Maybe<Scalars['String']>;
-  directorId?: Maybe<Scalars['ID']>;
+export type MutationAddListArgs = {
+  args: ListInput;
 };
 
 
-export type MutationAddDirectorArgs = {
-  name?: Maybe<Scalars['String']>;
-  age?: Maybe<Scalars['Int']>;
+export type MutationUpdateListArgs = {
+  args: ListInput;
 };
 
 
-export type MutationUpdateDirectorArgs = {
+export type MutationAddTopicArgs = {
+  args: TopicInput;
+};
+
+
+export type MutationUpdateTopicArgs = {
+  args: TopicInput;
+};
+
+
+export type MutationAddArticleArgs = {
+  args: ArticleInput;
+};
+
+
+export type MutationUpdateArticleArgs = {
+  args: ArticleInput;
+  id: Scalars['String'];
+};
+
+
+export type MutationAddTitleArgs = {
+  args: TitleInput;
+};
+
+
+export type MutationUpdateTitleArgs = {
+  args: TitleInput;
+};
+
+
+export type MutationAddSentenceArgs = {
+  args: SentenceInput;
+};
+
+
+export type MutationUpdateSentenceArgs = {
+  args: SentenceInput;
+};
+
+
+export type MutationAddImageArgs = {
+  args: ImageInput;
+};
+
+
+export type MutationUpdateImageArgs = {
+  args: ImageInput;
+};
+
+
+export type MutationAddPathArgs = {
+  args: PathInput;
+};
+
+
+export type MutationUpdateArgs = {
+  args: PathInput;
+  name: Scalars['String'];
+};
+
+export type PathInput = {
+  name: Scalars['String'];
+  path: Scalars['String'];
+  icon: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+};
+
+export type PathObject = {
+  __typename?: 'PathObject';
   id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  age?: Maybe<Scalars['Int']>;
+  name: Scalars['String'];
+  path: Scalars['String'];
+  icon: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
+  findList: ListObject;
+  findTopic: TopicObject;
+  findAllTopics: Array<TopicObject>;
+  findArticles: Array<ArticleObject>;
+  findAllArticles: Array<ArticleObject>;
+  getNumberOfArticles: Scalars['Int'];
+  findTitle: Array<TitleObject>;
+  findSentence: Array<SentenceObject>;
+  findImage: ImageObject;
+  findPath: PathObject;
+  findAllPaths: Array<PathObject>;
 };
 
 
-export type MutationUpdateMovieArgs = {
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  genre?: Maybe<Scalars['Int']>;
-  directorId?: Maybe<Scalars['ID']>;
-};
-
-
-export type MutationDeleteDirectorArgs = {
+export type QueryFindListArgs = {
   name: Scalars['String'];
 };
 
 
-export type MutationDeleteMovieArgs = {
+export type QueryFindTopicArgs = {
   name: Scalars['String'];
 };
 
-export type RootQueryType = {
-  __typename?: 'RootQueryType';
-  movie?: Maybe<Movie>;
-  director?: Maybe<Director>;
-  movies?: Maybe<Array<Maybe<Movie>>>;
-  directors?: Maybe<Array<Maybe<Director>>>;
+
+export type QueryFindArticlesArgs = {
+  displayNum?: Maybe<Scalars['String']>;
+  latest: Scalars['Boolean'];
 };
 
 
-export type RootQueryTypeMovieArgs = {
-  id?: Maybe<Scalars['ID']>;
+export type QueryFindTitleArgs = {
+  page: Scalars['String'];
 };
 
 
-export type RootQueryTypeDirectorArgs = {
-  id?: Maybe<Scalars['ID']>;
+export type QueryFindSentenceArgs = {
+  page: Scalars['String'];
 };
 
-export type MoviesQueryVariables = Exact<{ [key: string]: never; }>;
+
+export type QueryFindImageArgs = {
+  name: Scalars['String'];
+};
 
 
-export type MoviesQuery = (
-  { __typename?: 'RootQueryType' }
-  & { movies?: Maybe<Array<Maybe<(
-    { __typename?: 'Movie' }
-    & Pick<Movie, 'name' | 'genre'>
-  )>>> }
-);
+export type QueryFindPathArgs = {
+  name: Scalars['String'];
+};
+
+export type SentenceInput = {
+  text: Array<Scalars['String']>;
+  page: Scalars['String'];
+  section: Scalars['String'];
+};
+
+export type SentenceObject = {
+  __typename?: 'SentenceObject';
+  id: Scalars['ID'];
+  text: Array<Scalars['String']>;
+  page: Scalars['String'];
+  section: Scalars['String'];
+};
 
 
-export const MoviesDocument = gql`
-    query movies {
-  movies {
-    name
-    genre
+export type TitleInput = {
+  text: Scalars['String'];
+  page: Scalars['String'];
+  section: Scalars['String'];
+};
+
+export type TitleObject = {
+  __typename?: 'TitleObject';
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  page: Scalars['String'];
+  section: Scalars['String'];
+};
+
+export type TopicInput = {
+  name: Scalars['String'];
+  displayName: Scalars['String'];
+  icon: Scalars['String'];
+};
+
+export type TopicObject = {
+  __typename?: 'TopicObject';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  displayName: Scalars['String'];
+  icon: Scalars['String'];
+  someArticles: Array<ArticleObject>;
+  allArticles: Array<ArticleObject>;
+};
+
+export type AboutQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AboutQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, sentences: Array<{ __typename?: 'SentenceObject', text: Array<string>, section: string }>, info: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon: string }> }, tools: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon: string, texts?: Maybe<Array<string>>, background?: Maybe<string> }> }, langs: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon: string }> }, featuredImage: { __typename?: 'ImageObject', data: string } };
+
+export type BlogQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BlogQuery = { __typename?: 'Query', numberOfArticles: number, titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, latest: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string }>, someArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+
+export type ClientBlogQueryVariables = Exact<{
+  displayNum: Scalars['String'];
+}>;
+
+
+export type ClientBlogQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> };
+
+export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HeaderQuery = { __typename?: 'Query', paths: Array<{ __typename?: 'PathObject', name: string, path: string, icon: string, order?: Maybe<number> }> };
+
+export type PostQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, updateDate: any, title: string, emoji: string, body: string, topicIcons: Array<{ __typename?: 'TopicObject', icon: string, displayName: string }>, typeIcon: { __typename?: 'TopicObject', icon: string, displayName: string }, relations: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+
+export type PostIdQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostIdQuery = { __typename?: 'Query', articleId: Array<{ __typename?: 'ArticleObject', id: string }> };
+
+
+export const AboutDocument = gql`
+    query About {
+  titles: findTitle(page: "about") {
+    text
+    section
+  }
+  sentences: findSentence(page: "about") {
+    text
+    section
+  }
+  info: findList(name: "info") {
+    list {
+      title
+      icon
+    }
+  }
+  tools: findList(name: "tools") {
+    list {
+      title
+      icon
+      texts
+      background
+    }
+  }
+  langs: findList(name: "langs") {
+    list {
+      title
+      icon
+    }
+  }
+  featuredImage: findImage(name: "featured") {
+    data
   }
 }
     `;
 
 /**
- * __useMoviesQuery__
+ * __useAboutQuery__
  *
- * To run a query within a React component, call `useMoviesQuery` and pass it any options that fit your needs.
- * When your component renders, `useMoviesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAboutQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAboutQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMoviesQuery({
+ * const { data, loading, error } = useAboutQuery({
  *   variables: {
  *   },
  * });
  */
-export function useMoviesQuery(baseOptions?: Apollo.QueryHookOptions<MoviesQuery, MoviesQueryVariables>) {
+export function useAboutQuery(baseOptions?: Apollo.QueryHookOptions<AboutQuery, AboutQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MoviesQuery, MoviesQueryVariables>(MoviesDocument, options);
+        return Apollo.useQuery<AboutQuery, AboutQueryVariables>(AboutDocument, options);
       }
-export function useMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MoviesQuery, MoviesQueryVariables>) {
+export function useAboutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AboutQuery, AboutQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MoviesQuery, MoviesQueryVariables>(MoviesDocument, options);
+          return Apollo.useLazyQuery<AboutQuery, AboutQueryVariables>(AboutDocument, options);
         }
-export type MoviesQueryHookResult = ReturnType<typeof useMoviesQuery>;
-export type MoviesLazyQueryHookResult = ReturnType<typeof useMoviesLazyQuery>;
-export type MoviesQueryResult = Apollo.QueryResult<MoviesQuery, MoviesQueryVariables>;
+export type AboutQueryHookResult = ReturnType<typeof useAboutQuery>;
+export type AboutLazyQueryHookResult = ReturnType<typeof useAboutLazyQuery>;
+export type AboutQueryResult = Apollo.QueryResult<AboutQuery, AboutQueryVariables>;
+export const BlogDocument = gql`
+    query Blog {
+  titles: findTitle(page: "blog") {
+    text
+    section
+  }
+  latest: findArticles(latest: true) {
+    id
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
+  topics: findAllTopics {
+    displayName
+    icon
+    allArticles {
+      id
+    }
+    someArticles {
+      id
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+  numberOfArticles: getNumberOfArticles
+}
+    `;
+
+/**
+ * __useBlogQuery__
+ *
+ * To run a query within a React component, call `useBlogQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBlogQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBlogQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBlogQuery(baseOptions?: Apollo.QueryHookOptions<BlogQuery, BlogQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BlogQuery, BlogQueryVariables>(BlogDocument, options);
+      }
+export function useBlogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BlogQuery, BlogQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BlogQuery, BlogQueryVariables>(BlogDocument, options);
+        }
+export type BlogQueryHookResult = ReturnType<typeof useBlogQuery>;
+export type BlogLazyQueryHookResult = ReturnType<typeof useBlogLazyQuery>;
+export type BlogQueryResult = Apollo.QueryResult<BlogQuery, BlogQueryVariables>;
+export const ClientBlogDocument = gql`
+    query clientBlog($displayNum: String!) {
+  articles: findArticles(latest: false, displayNum: $displayNum) {
+    id
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
+}
+    `;
+
+/**
+ * __useClientBlogQuery__
+ *
+ * To run a query within a React component, call `useClientBlogQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClientBlogQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useClientBlogQuery({
+ *   variables: {
+ *      displayNum: // value for 'displayNum'
+ *   },
+ * });
+ */
+export function useClientBlogQuery(baseOptions: Apollo.QueryHookOptions<ClientBlogQuery, ClientBlogQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ClientBlogQuery, ClientBlogQueryVariables>(ClientBlogDocument, options);
+      }
+export function useClientBlogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClientBlogQuery, ClientBlogQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ClientBlogQuery, ClientBlogQueryVariables>(ClientBlogDocument, options);
+        }
+export type ClientBlogQueryHookResult = ReturnType<typeof useClientBlogQuery>;
+export type ClientBlogLazyQueryHookResult = ReturnType<typeof useClientBlogLazyQuery>;
+export type ClientBlogQueryResult = Apollo.QueryResult<ClientBlogQuery, ClientBlogQueryVariables>;
+export const HeaderDocument = gql`
+    query Header {
+  paths: findAllPaths {
+    name
+    path
+    icon
+    order
+  }
+}
+    `;
+
+/**
+ * __useHeaderQuery__
+ *
+ * To run a query within a React component, call `useHeaderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHeaderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHeaderQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useHeaderQuery(baseOptions?: Apollo.QueryHookOptions<HeaderQuery, HeaderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<HeaderQuery, HeaderQueryVariables>(HeaderDocument, options);
+      }
+export function useHeaderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HeaderQuery, HeaderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<HeaderQuery, HeaderQueryVariables>(HeaderDocument, options);
+        }
+export type HeaderQueryHookResult = ReturnType<typeof useHeaderQuery>;
+export type HeaderLazyQueryHookResult = ReturnType<typeof useHeaderLazyQuery>;
+export type HeaderQueryResult = Apollo.QueryResult<HeaderQuery, HeaderQueryVariables>;
+export const PostDocument = gql`
+    query Post {
+  titles: findTitle(page: "post") {
+    text
+    section
+  }
+  allArticles: findAllArticles {
+    id
+    releaseDate
+    updateDate
+    title
+    emoji
+    topicIcons {
+      icon
+      displayName
+    }
+    typeIcon {
+      icon
+      displayName
+    }
+    body
+    relations {
+      id
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostQuery__
+ *
+ * To run a query within a React component, call `usePostQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePostQuery(baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+      }
+export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+        }
+export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
+export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
+export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
+export const PostIdDocument = gql`
+    query PostId {
+  articleId: findAllArticles {
+    id
+  }
+}
+    `;
+
+/**
+ * __usePostIdQuery__
+ *
+ * To run a query within a React component, call `usePostIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostIdQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePostIdQuery(baseOptions?: Apollo.QueryHookOptions<PostIdQuery, PostIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostIdQuery, PostIdQueryVariables>(PostIdDocument, options);
+      }
+export function usePostIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostIdQuery, PostIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostIdQuery, PostIdQueryVariables>(PostIdDocument, options);
+        }
+export type PostIdQueryHookResult = ReturnType<typeof usePostIdQuery>;
+export type PostIdLazyQueryHookResult = ReturnType<typeof usePostIdLazyQuery>;
+export type PostIdQueryResult = Apollo.QueryResult<PostIdQuery, PostIdQueryVariables>;
