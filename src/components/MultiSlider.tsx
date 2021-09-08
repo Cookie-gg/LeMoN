@@ -5,7 +5,7 @@ import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/MultiSlider.module.scss';
 
 interface PropsType {
-  data: { name: string; icon: string }[];
+  data: { text: string; icon: string }[];
   className?: string;
 }
 
@@ -47,10 +47,10 @@ function MultiSlider({ data, className }: PropsType) {
   };
   return (
     <Slick {...settings} className={`${styles.entire} ${className}`}>
-      {data.map((el: typeof data[0], i: number) => (
+      {data.map((el: { text: string; icon: string }, i: number) => (
         <div className={styles.inner} key={i}>
           <Iconify icon={el.icon} />
-          <p>{el.name}</p>
+          <p>{el.text}</p>
         </div>
       ))}
     </Slick>
