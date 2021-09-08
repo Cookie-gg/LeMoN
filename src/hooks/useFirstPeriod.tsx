@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'utils/next';
 
-export default function usePeriod(duration: number): boolean {
+export default function useFirstPeriod(duration: number): boolean {
   const asPath = useRouter().asPath;
   const [period, _period] = useState<boolean>(true);
   useEffect(() => {
