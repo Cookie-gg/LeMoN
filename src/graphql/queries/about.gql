@@ -1,0 +1,33 @@
+query About {
+  titles: findTitle(page: "about") {
+    text
+    section
+  }
+  sentences: findSentence(page: "about") {
+    text
+    section
+  }
+  info: findList(name: "info") {
+    list {
+      title
+      icon
+    }
+  }
+  tools: findList(name: "tools") {
+    list {
+      title
+      icon
+      texts
+      background
+    }
+  }
+  langs: findList(name: "langs") {
+    list {
+      title
+      icon
+    }
+  }
+  featuredImage: findImage(name: "featured") {
+    data
+  }
+}
