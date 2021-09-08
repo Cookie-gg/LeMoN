@@ -1,27 +1,22 @@
 import styles from '../assets/scss/components/ProfileInfo.module.scss';
 import { Icon as Iconify } from '@iconify/react';
-import { memo } from 'react';
-import { compare } from 'utils/common';
 
 interface PropsType {
-  data: { icon: string; content: string }[];
+  data: { text: string; icon: string }[];
   className: string;
 }
 
-function ProfileInfo({ data, className }: PropsType) {
+export default function ProfileInfo({ data, className }: PropsType) {
   return (
     <ul className={`${styles.entire} ${className}`}>
-      {data.map((el: { content: string; icon: string }, i: number) => {
-        if (
-          ((el.content as string).includes('@') && (el.content as string).includes('.com')) ||
-          (el.content as string).includes('.co.jp')
-        ) {
+      {data.map((el: { text: string; icon: string }, i: number) => {
+        if ((el.text.includes('@') && el.text.includes('.com')) || el.text.includes('.co.jp')) {
           return (
             <li key={i}>
               <span>
-                <a href={`mailto:${el.content}`}>
+                <a href={`mailto:${el.text}`}>
                   <Iconify icon={el.icon} />
-                  <p>{el.content}</p>
+                  <p>{el.text}</p>
                 </a>
               </span>
             </li>
@@ -31,7 +26,7 @@ function ProfileInfo({ data, className }: PropsType) {
             <li key={i}>
               <span>
                 <Iconify icon={el.icon} />
-                <p>{el.content}</p>
+                <p>{el.text}</p>
               </span>
             </li>
           );
@@ -40,5 +35,3 @@ function ProfileInfo({ data, className }: PropsType) {
     </ul>
   );
 }
-
-export default memo(ProfileInfo, (prev: PropsType, next: PropsType) => compare(prev, next));

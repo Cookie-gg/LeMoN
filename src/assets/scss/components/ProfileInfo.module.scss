@@ -6,12 +6,14 @@
     font-style: italic;
     height: 27.5px;
     margin-bottom: 25px;
-    overflow: hidden;
     position: relative;
-    width: 225px;
+    overflow: hidden;
+    width: 230px;
     span {
       align-items: center;
       display: inline-flex;
+      position: relative;
+      transform: translateY(-100%);
       svg {
         height: 22.5px;
         margin-right: 20px;
