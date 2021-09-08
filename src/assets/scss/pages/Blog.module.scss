@@ -1,13 +1,8 @@
 .blog {
-  position: relative;
   .articles {
     @include max(margin-top, 30px);
   }
-  .column {
-    align-items: flex-start;
-    display: flex;
-    justify-content: space-between;
-
+  .heading:not(:first-of-type) {
     @include max(margin-top, 65px);
   }
   .more {
@@ -21,29 +16,40 @@
   }
 }
 .post {
-  letter-spacing: 1.2px;
   .contents {
     display: flex;
-    justify-content: space-between;
-    margin-top: 50px;
+
+    @include max(margin-top, 40px);
+
     main {
-      margin-right: 40px;
+      @include max(margin-right, 40px);
+
+      @include diff(width, 40px, $from: calc(100% - 360px));
+
+      @media screen and (max-width: 1250px) {
+        width: 100%;
+      }
       .heading {
-        margin-top: 40px;
+        @include max(margin-top, 65px);
       }
       .relations {
-        margin-top: 30px;
-        margin-bottom: 30px;
-        gap: 40px;
+        @include max(margin-top, 30px);
+
+        @include max(margin-bottom, 30px);
+
+        @include max(gap, 40px);
+
         li {
-          width: 47.75%;
-          width: calc((100% - 40px) / 2);
+          @include diff(width, 40px, $from: 100%, $divide: 2);
         }
       }
     }
     aside {
       position: relative;
       width: 360px;
+      @media screen and (max-width: 1250px) {
+        display: none;
+      }
     }
   }
   &.mounted {

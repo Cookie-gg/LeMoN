@@ -1,242 +1,83 @@
 import { useMount } from 'hooks';
-import { sortByDate } from 'utils/common';
-import { Head, useRouter } from 'utils/next';
+import DataResponse from 'components/DataRes';
+import useClientBlog from 'data/clientBlogQuery';
+import blogQuery, { DataType } from 'data/blogQuery';
+import { scrollTopCashe } from 'components/PageFrame';
 import { useState, useEffect, useCallback } from 'react';
 import pages from '../../assets/scss/pages/Blog.module.scss';
-import { Heading, PageFrame, ArticleList, Button, Nlink } from 'components';
+import { GetServerSideProps, Head, useRouter } from 'utils/next';
+import { Heading, PageFrame, ArticleList, Button, Nlink, ArticleTopics, DataRes } from 'components';
 
-// from data base
-const data = {
-  latest: {
-    title: 'Latest',
-    articles: sortByDate('desc', [
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 8, 10),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '📝',
-        type: 'tech',
-        topics: ['Zenn', 'TypeScript'],
-      },
-      {
-        id: 'markdown-guide',
-        releaseDate: new Date(2021, 9, 6),
-        title: 'ZennのMarkdown記法一覧',
-        emoji: '👩‍💻',
-        type: 'tech',
-        topics: ['Zenn', 'Markdown'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 8, 10),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '📘',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 4, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-    ]),
-  },
-  all: {
-    title: 'Articles',
-    articles: sortByDate('desc', [
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 8, 10),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '📘',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 4, 10),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '🍋',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 4, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 4, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 4, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2021, 4, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 1, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['TypeScript'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 1, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 31),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn', 'TypeScript'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn', 'TypeScript'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn', 'TypeScript'],
-      },
-      {
-        id: 'zenn',
-        releaseDate: new Date(2020, 4, 11),
-        title: 'Zennと自分のサイトで記事を同時投稿できるようにしてみた',
-        emoji: '💻',
-        type: 'tech',
-        topics: ['Zenn'],
-      },
-    ]),
-  },
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data, error } = await blogQuery();
+  if (error) {
+    return { props: { error: JSON.stringify(error) } };
+  }
+  return { props: { data: JSON.stringify(data) } };
 };
-// const topics = ['all', ...Array.from(new Set(data.articles.exSpecifor(4, (el) => el.topics).flat()))];
 
-export default function Blog() {
+export default function Blog({ data, error }: { data: DataType; error?: string }) {
   const router = useRouter();
   const isMounted = useMount();
-  const [displayNum, _displayNum] = useState(4);
-  useEffect(() => _displayNum(router.query.display ? Number(router.query.display) : 4), [router.query.display]);
-  const clickEvent = useCallback(() => {
-    _displayNum((prev) => {
-      if (!(data.all.articles.length === prev)) {
-        if (data.all.articles.length <= prev + 6) {
-          router.push({
-            pathname: router.pathname,
-            query: { display: data.all.articles.length },
-          });
-          return data.all.articles.length;
-        } else {
-          router.push({
-            pathname: router.pathname,
-            query: { display: prev + 6 },
-          });
-          return prev + 6;
-        }
-      } else return prev;
-    });
-  }, [router]);
+  data = JSON.parse(String(data));
+  const [displayNum, _displayNum] = useState(2);
+  const [selectedTopic, _selectedTopic] = useState(0);
+  const { clientData, loading, clientError } = useClientBlog(String(displayNum + 4));
+  useEffect(() => _displayNum(router.query.display ? Number(router.query.display) : 2), [router.query.display]);
+  const _displayNumHandler = useCallback(() => {
+    if (!(data.all.length === displayNum)) {
+      _displayNum((prev) => {
+        const displayNum = data.all.length <= prev + 6 ? data.all.length : prev + 6;
+        scrollTopCashe.del(`/blog?display=${displayNum}`);
+        router.push({ query: { display: displayNum } });
+        return displayNum;
+      });
+    }
+  }, [router, displayNum, data]);
   return (
     <>
       <Head>
         <title>LeMoN | Blog</title>
       </Head>
+      <DataRes error={error} />
       <PageFrame sectionClass={`${pages.blog} ${isMounted && pages.mounted}`}>
         <>
-          {
-            <>
-              <Heading className={pages.heading} rank={1} text={data.latest.title} />
-              <ArticleList className={pages.articles} type="latest" data={data.latest.articles} />
-              <div className={pages.column}>
-                <Heading className={pages.heading} rank={1} text={data.all.title} />
-                <Button className={pages.to_topics}>
-                  <Nlink href="/blog/topics">
-                    <>トピックごとに表示</>
-                  </Nlink>
-                </Button>
-              </div>
-              <ArticleList className={pages.articles} data={data.all.articles} displayNum={displayNum} />
-              <Button
-                className={pages.more}
-                isInteractive={true}
-                switching={displayNum === data.all.articles.length}
-                clickEvent={clickEvent}
-              >
-                <Nlink href="/blog/topics">
-                  <>トピックごとに表示</>
-                </Nlink>
-                <a>さらに表示</a>
-              </Button>
-            </>
-          }
+          <Heading className={pages.heading} rank={1} text={data.latest.title} />
+          <ArticleList
+            className={pages.articles}
+            type="latest"
+            data={data.latest.articles}
+            display={data.latest.articles.length}
+          />
+          <Heading className={pages.heading} rank={1} text={data.topTopics.title} />
+          <ArticleList
+            className={pages.articles}
+            type="latest"
+            data={data.topTopics.articles[selectedTopic]}
+            display={3}
+            shiftList={
+              <ArticleTopics
+                topics={data.topTopics.topics}
+                icons={data.topTopics.icons}
+                activeNumber={selectedTopic}
+                clickEvent={(n: number) => _selectedTopic(n)}
+              />
+            }
+          />
+          <Heading className={pages.heading} rank={1} text={data.all.title} />
+          {clientData && <ArticleList className={pages.articles} data={clientData.articles} display={displayNum} />}
+          <DataResponse loading={loading} error={clientError} />
+          <Button
+            className={pages.more}
+            isInteractive={true}
+            switching={data.all.length === displayNum}
+            clickEvent={_displayNumHandler}
+          >
+            <Nlink href="/blog/topics">
+              <>トピックごとに表示</>
+            </Nlink>
+            <span>さらに表示</span>
+          </Button>
         </>
       </PageFrame>
     </>
