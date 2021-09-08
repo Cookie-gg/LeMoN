@@ -5,6 +5,7 @@
   font-weight: 400;
   overflow: hidden;
   position: relative;
+  letter-spacing: 0;
 
   &::before {
     background-color: $lemon;
