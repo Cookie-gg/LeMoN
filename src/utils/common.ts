@@ -34,8 +34,8 @@ export function sortByDate<T extends { releaseDate: Date }[]>(type: 'asc' | 'des
 }
 
 export function displayDate(date: Date, split = '/'): string {
-  return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth()))}${split}${displayDigit(
-    String(date.getDay()),
+  return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth() + 1))}${split}${displayDigit(
+    String(date.getDate()),
   )}`;
 }
 
@@ -57,4 +57,10 @@ export function displayDigit(str: string, digit = 1) {
 
 export function compare<T>(prev: T, next: T) {
   return JSON.stringify(prev) === JSON.stringify(next);
+}
+
+export function section<T>(data: { section: string; text: T }[]): { [sectionName: string]: T } {
+  const titles: { [sectionName: string]: T } = {};
+  data.forEach((title) => (titles[title.section] = title.text));
+  return titles;
 }
