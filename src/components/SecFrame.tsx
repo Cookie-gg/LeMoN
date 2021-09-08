@@ -1,4 +1,4 @@
-import { useState, useReducer, memo, ReactElement } from 'react';
+import { useState, useReducer, ReactElement } from 'react';
 import styles from '../assets/scss/components/SecFrame.module.scss';
 
 interface ProspType {
@@ -7,10 +7,11 @@ interface ProspType {
   activeClass: string;
 }
 
-function SecFrame({ children, sectionClass, activeClass }: ProspType) {
+export default function SecFrame({ children, sectionClass, activeClass }: ProspType) {
   const [scrollTop, _scrollTop] = useState(0);
   const [section, _section] = useState<number>(1);
   const n: number = children.props.children.length;
+
   const initialState: { [key: string]: boolean } = { section_1: true };
   for (let i = 1; i < n; i++) {
     initialState[`section_${i + 1}`] = false;
@@ -20,6 +21,7 @@ function SecFrame({ children, sectionClass, activeClass }: ProspType) {
     return { ...state, ...{ [`section_${n}`]: true } };
   };
   const [isActive, _isActive] = useReducer(reducer, initialState);
+
   const scrollEvent = (e: React.UIEvent<HTMLDivElement, globalThis.UIEvent>) => {
     const el = e.target as HTMLDivElement;
     const diff = Math.floor((el.scrollTop / (el.scrollHeight - el.clientHeight)) * n);
@@ -31,7 +33,7 @@ function SecFrame({ children, sectionClass, activeClass }: ProspType) {
 
   return (
     <>
-      <div className={`${styles.wrapper} ${styles.scroller}`} onScroll={(e) => scrollEvent(e)}>
+      <div className={styles.wrapper} onScroll={(e) => scrollEvent(e)}>
         <div className={styles.contents} style={{ marginTop: `${scrollTop}px` }}>
           {children.props.children.map((child: ReactElement, i: number) => (
             <section
@@ -67,5 +69,3 @@ function SecFrame({ children, sectionClass, activeClass }: ProspType) {
     </>
   );
 }
-
-export default memo(SecFrame, (prev: ProspType, next: ProspType) => prev === next);
