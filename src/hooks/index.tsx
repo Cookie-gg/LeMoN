@@ -1,5 +1,6 @@
 export { default as useMount } from './useMount';
 export { default as useFirstMount } from './useFirstMount';
+export { default as usePrevious } from './usePrevious';
 export { default as useAgent } from './useAgent';
 export { default as usePeriod } from './usePeriod';
 export { default as useFirst } from './useFirst';
