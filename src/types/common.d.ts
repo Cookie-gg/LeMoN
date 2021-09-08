@@ -21,8 +21,11 @@ export interface Zenn {
 }
 
 export interface ZennAdds {
-  updateDate?: Date;
+  updateDate: Date;
   icons: string[];
   body: string;
-  relations: Zenn[];
+  relations: {
+    articles: Zenn[];
+    title: string;
+  };
 }
