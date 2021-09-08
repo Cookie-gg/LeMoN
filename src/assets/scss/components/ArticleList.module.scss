@@ -3,8 +3,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  li {
-    a {
+  & > li {
+    & > a {
       display: block;
       height: 100%;
       width: 100%;
@@ -26,6 +26,7 @@
           height: 50px;
           width: 50px;
           img {
+            animation: fade_in 1s both;
             height: 100% !important;
             width: auto !important;
           }
@@ -76,11 +77,11 @@
     }
   }
   &.vertical {
-    @include max(row-gap, 50px);
-    li {
-      width: 22.5%;
+    @include max(gap, 40px);
+    & > li {
+      @include diff(width, 120px, $from: 100%, $divide: 4);
       @media screen and (max-width: 1300px) {
-        width: 48%;
+        @include diff(width, 40px, $from: 100%, $divide: 2);
       }
       a {
         .thumbnail {
@@ -126,7 +127,7 @@
           }
           h2 {
             font-size: 19px;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
           }
         }
       }
@@ -147,16 +148,15 @@
     }
   }
   &.horizontal {
-    @include max(row-gap, 45px);
-    @media screen and (max-width: 1300px) {
-      @include max(row-gap, 50px);
-    }
-    li {
-      width: 48.25%;
+    @include max(gap, 40px);
+    & > li {
+      animation: fade_in 1s both;
+
+      @include diff(width, 40px, $from: 100%, $divide: 2);
+
       @media screen and (max-width: 1300px) {
         width: 100%;
       }
-      animation: fade_in 1s both;
 
       a {
         display: flex;

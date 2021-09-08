@@ -1,18 +1,22 @@
 import { useMount } from 'hooks';
 import { Nlink } from 'components';
 import { Zenn } from 'types/common';
-import { Twemoji } from 'react-emoji-render';
+import { ReactElement } from 'react';
 import { displayDate } from 'utils/common';
+import { Twemoji } from 'react-emoji-render';
 import styles from '../assets/scss/components/ArticleList.module.scss';
 
 interface PropsType {
   type?: 'latest' | 'related';
   className: string;
   data: Zenn[];
-  displayNum?: number;
+  display: number;
+  shiftList?: ReactElement;
+  pushList?: ReactElement;
+  needDateParse?: boolean;
 }
 
-export default function ArticleList({ type, className, data, displayNum }: PropsType) {
+export default function ArticleList({ type, className, data, display, shiftList, pushList }: PropsType) {
   const isMouted = useMount();
   const displayTopics = type ? 2 : 5;
   const listBody = (value: Zenn, i: number) => (
@@ -40,14 +44,16 @@ export default function ArticleList({ type, className, data, displayNum }: Props
     </li>
   );
   return (
-    <ul
-      className={`${styles.articles} ${type ? styles.vertical : styles.horizontal} ${className} ${
-        isMouted && styles.mounted
-      }`}
-    >
-      {type
-        ? data.map((value: Zenn, i: number) => listBody(value, i))
-        : data.specifor(displayNum as number, (value: Zenn, i: number) => listBody(value, i))}
-    </ul>
+    <>
+      <ul
+        className={`${styles.articles} ${type ? styles.vertical : styles.horizontal} ${className} ${
+          isMouted && styles.mounted
+        }`}
+      >
+        {shiftList}
+        {data.specifor(display as number, (value: Zenn, i: number) => listBody(value, i))}
+        {pushList}
+      </ul>
+    </>
   );
 }
