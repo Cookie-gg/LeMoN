@@ -42,10 +42,6 @@
         position: relative;
         width: 100%;
 
-        @include max(padding-top, $sp_value: 10px);
-
-        @include max(padding-bottom, $sp_value: 10px);
-
         @include hover(true) {
           &:hover {
             &::before {
@@ -75,6 +71,9 @@
           z-index: -1;
         }
         a {
+          @include max(padding-top, $sp_value: 10px);
+
+          @include max(padding-bottom, $sp_value: 10px);
           align-items: center;
           display: flex;
           justify-content: center;
