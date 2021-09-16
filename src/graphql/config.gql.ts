@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export const client = new ApolloClient({
-  uri: 'https://lemon-backend.an.r.appspot.com/graphql',
+  uri: process.env.NEXT_PUBLIC_BACKEND_API_URL,
   cache: new InMemoryCache(),
 });
