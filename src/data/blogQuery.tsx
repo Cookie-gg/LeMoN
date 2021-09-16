@@ -1,8 +1,8 @@
 import { Zenn } from 'types/common';
 import { section } from 'utils/common';
-import { BlogDocument, BlogQuery } from 'types/graphql.d';
+import { client } from 'graphql/config.gql';
 import { ApolloError } from '@apollo/client';
-import { client } from 'pages/_app';
+import { BlogDocument, BlogQuery } from 'types/graphql.d';
 
 export interface DataType {
   latest: {
@@ -17,7 +17,7 @@ export interface DataType {
   };
   all: {
     title: string;
-    length: number;
+    articles: Zenn[];
   };
 }
 
@@ -31,7 +31,7 @@ export default async function blogQuery(): Promise<{
     const topTopics = data.topics.sortObj('allArticles', 'asc', true).slice(0, 3);
     const shapedData: DataType = {
       latest: {
-        title: titles.latest,
+        title: titles.latest.text,
         articles: data.latest.map((obj) => ({
           id: obj.id,
           releaseDate: new Date(obj.releaseDate),
@@ -42,7 +42,7 @@ export default async function blogQuery(): Promise<{
         })),
       },
       topTopics: {
-        title: titles.topTopics,
+        title: titles.topTopics.text,
         topics: topTopics.map((obj) => obj.displayName),
         icons: topTopics.map((obj) => obj.icon),
         articles: topTopics.map((obj) =>
@@ -57,8 +57,15 @@ export default async function blogQuery(): Promise<{
         ),
       },
       all: {
-        title: titles.all,
-        length: data.numberOfArticles - 4,
+        title: titles.all.text,
+        articles: data.all.map((obj) => ({
+          id: obj.id,
+          releaseDate: new Date(obj.releaseDate),
+          title: obj.title,
+          emoji: obj.emoji,
+          type: obj.type,
+          topics: obj.topicIcons.map((obj) => obj.displayName),
+        })),
       },
     };
     return { data: shapedData, error };

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { compare } from 'utils/common';
 import styles from '../assets/scss/components/Heading.module.scss';
 
 interface PropsType {
@@ -17,4 +16,4 @@ function Heading({ rank, text, className }: PropsType) {
   );
 }
 
-export default memo(Heading, (prev: PropsType, next: PropsType) => compare<PropsType>(prev, next));
+export default memo(Heading);

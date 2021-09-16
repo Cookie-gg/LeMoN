@@ -1,0 +1,36 @@
+.entire {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+
+  @include max(height, calc(calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px)) * 0.85));
+
+  @include max(margin-bottom, calc(calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px)) * 0.075), 60px);
+
+  @include max(margin-top, calc(calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px)) * 0.075), 70px);
+
+  &::before {
+    background-color: rgba(white, 0.08);
+    border-right: solid $lemon;
+    content: '';
+    left: 0;
+    position: absolute;
+    top: 50%;
+    z-index: -1;
+
+    @include max(border-right-width, #{10px}, 10px);
+
+    @include max(height, calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px) - 1px));
+
+    @include add(height, $sp_value: 60px);
+  }
+  img {
+    display: block;
+    height: auto;
+    opacity: 0;
+    transform: translateX(10%);
+    width: 100%;
+    z-index: 2;
+  }
+}

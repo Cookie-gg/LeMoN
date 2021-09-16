@@ -1,16 +1,15 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 import styles from '../assets/scss/components/Button.module.scss';
 
 interface PropsType {
   children: ReactElement | ReactElement[];
-  className: string;
+  className?: string;
   isInteractive?: boolean;
   switching?: boolean;
   clickEvent?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export default function Button({ children, className, isInteractive = false, switching, clickEvent }: PropsType) {
-  
+function Button({ children, className, isInteractive = false, switching, clickEvent }: PropsType) {
   return (
     <div className={`${styles.entire} ${className}`}>
       {isInteractive ? (
@@ -27,3 +26,5 @@ export default function Button({ children, className, isInteractive = false, swi
     </div>
   );
 }
+
+export default memo(Button);

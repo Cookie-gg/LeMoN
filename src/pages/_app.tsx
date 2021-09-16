@@ -1,19 +1,14 @@
 import 'utils/prototype';
 import { Head } from 'utils/next';
-import 'slick-carousel/slick/slick.css';
 import type { AppProps } from 'next/app';
-import 'assets/scss/foundation/base.scss';
-import 'assets/scss/foundation/reset.scss';
-import 'assets/scss/foundation/global.scss';
+import 'assets/scss/foundations/base.scss';
+import 'assets/scss/foundations/reset.scss';
+import 'assets/scss/foundations/global.scss';
 import { Header, MainFrame, ProgressBar } from 'components';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { useState } from 'react';
 
-export const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache(),
-});
-
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
+  const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   return (
     <>
       <Head>
@@ -22,13 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <ProgressBar />
-      <ApolloProvider client={client}>
-        <Header />
-        <MainFrame>
-          <Component {...pageProps} />
-        </MainFrame>
-      </ApolloProvider>
+      <Header headerState={headerState} _headerState={_headerState} />
+      <MainFrame headerState={headerState}>
+        <Component {...pageProps} />
+      </MainFrame>
     </>
   );
 }
-export default MyApp;

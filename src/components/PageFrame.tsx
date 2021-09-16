@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useRouter } from 'utils/next';
-import { useFirstPeriod, useHeight } from 'hooks';
+import { useAgent, useFirstPeriod, useHeight } from 'hooks';
 import memoryCache, { CacheClass } from 'memory-cache';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 import { useState, useRef, useEffect, createContext, ReactElement, RefObject } from 'react';
@@ -15,12 +15,13 @@ export const Context = createContext<[RefObject<HTMLDivElement>, number, (n: num
 
 export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache();
 
-function PageFrame({ children, sectionClass }: { children: ReactElement; sectionClass: string }) {
+function PageFrame({ children, classNmae }: { children: ReactElement; classNmae: string }) {
   const router = useRouter();
   const noTransition = useFirstPeriod(1);
   const scroller = useRef<HTMLDivElement>(null);
   const [scrollTop, _scrollTop] = useState<number>(0);
   const [height, _height] = useHeight<HTMLDivElement>();
+  const isMobile = useAgent();
   useEffect(
     () => () => {
       scrollTopCashe.put(router.asPath, scrollTop);
@@ -46,16 +47,27 @@ function PageFrame({ children, sectionClass }: { children: ReactElement; section
         onScroll={(e) => _scrollTop((e.target as HTMLDivElement).scrollTop)}
         ref={scroller}
       >
-        <div className={styles.contents} style={{ marginTop: `${scrollTop}px` }}>
+        {isMobile ? (
           <section
-            className={`${sectionClass} ${noTransition && styles.no_transition}`}
+            className={`${classNmae} ${noTransition && styles.no_transition}`}
             style={{ top: `${scrollTop * -1}px` }}
-            ref={_height}
           >
             {children}
           </section>
-        </div>
-        <div style={{ height: `${height}px` }} />
+        ) : (
+          <>
+            <div className={styles.contents} style={{ marginTop: `${scrollTop}px` }}>
+              <section
+                className={`${classNmae} ${noTransition && styles.no_transition}`}
+                style={{ top: `${scrollTop * -1}px` }}
+                ref={_height}
+              >
+                {children}
+              </section>
+            </div>
+            <div style={{ height: `${height}px` }} />
+          </>
+        )}
       </div>
     </Context.Provider>
   );

@@ -1,0 +1,134 @@
+$breakPoints: (
+  'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
+  'sp': 'screen and (max-width: 819px)',
+  'pc': 'screen and (min-width: 820px)',
+  'dark': '(prefers-color-scheme: dark)',
+);
+@mixin media($bp: sp) {
+  @media #{map-get($breakPoints, $bp)} {
+    @content;
+  }
+}
+$fixed_point: (
+  pc: 1562,
+  sp: 500,
+);
+
+@mixin diff($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
+  @if $value != initial {
+    @include media(pc) {
+      $value: number(str_replace('px', '', $value));
+      #{$property}: calc((#{$from} - #{$value * 100 * 0.00064020486555697823303457106274008 + 0vw}) #{$add_term});
+      @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+        #{$property}: calc((#{$from} - #{$value + 0px}) #{$add_term});
+      }
+    }
+  }
+  @if $sp_value != initial {
+    @include media(sp) {
+      $sp_value: number(str_replace('px', '', $sp_value));
+      #{$property}: calc((#{$from} - #{$sp_value * 100 * 0.002 + 0vw}) #{$add_term});
+      @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+        #{$property}: calc((#{$from} - #{$sp_value + 0px}) #{$add_term});
+      }
+    }
+  }
+}
+
+@mixin add($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
+  @if $value != initial {
+    @include media(pc) {
+      $value: number(str_replace('px', '', $value));
+      #{$property}: calc((#{$from} + #{$value * 100 * 0.00064020486555697823303457106274008 + 0vw}) #{$add_term});
+      @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+        #{$property}: calc((#{$from} + #{$value + 0px}) #{$add_term});
+      }
+    }
+  }
+  @if $sp_value != initial {
+    @include media(sp) {
+      $sp_value: number(str_replace('px', '', $sp_value));
+      #{$property}: calc((#{$from} + #{$sp_value * 100 * 0.002 + 0vw}) #{$add_term});
+      @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+        #{$property}: calc((#{$from} + #{$sp_value + 0px}) #{$add_term});
+      }
+    }
+  }
+}
+
+// $sp_fixed: if($fixed == true, true, false);
+@mixin max($property, $value: initial, $sp_value: initial, $important: false) {
+  @if $value != initial {
+    @include media(pc) {
+      @if type-of($value) == number and unit($value) == 'px' {
+        $value: number(str_replace('px', '', $value));
+        #{$property}: $value * 100 * 0.00064020486555697823303457106274008 + 0vw#{if($important, !important, '')};
+        @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+          #{$property}: $value + 0px#{if($important, !important, '')};
+        }
+      } @else {
+        #{$property}: $value#{if($important, !important, '')};
+      }
+    }
+  }
+  @if $sp_value != initial {
+    @include media(sp) {
+      @if type-of($sp_value) == number and unit($sp_value) == 'px' {
+        $sp_value: number(str_replace('px', '', $sp_value));
+        #{$property}: $sp_value * 100 * 0.002 + 0vw#{if($important, !important, '')};
+        @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+          #{$property}: $sp_value + 0px#{if($important, !important, '')};
+        }
+      } @else {
+        #{$property}: $sp_value#{if($important, !important, '')};
+      }
+    }
+  }
+}
+
+@mixin custom_max($property, $value, $min_width) {
+  $value: number(str_replace('px', '', $value));
+  $min_width: number(str_replace('px', '', $min_width));
+  #{$property}: $value * 100 * 1 / $min_width + 0vw;
+  @media screen and (min-width: $min_width + 0px) {
+    #{$property}: $value + 0px;
+  }
+}
+
+@mixin hover($hover_available) {
+  @if $hover_available == false {
+    @media (hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse) {
+      @content;
+    }
+  } @else if $hover_available == true {
+    @media (hover: hover) and (pointer: fine) and (any-hover: hover) and (any-pointer: fine) {
+      @content;
+    }
+  } @else {
+    @media (hover: hover) and (pointer: fine) and (any-hover: hover) and (any-pointer: fine) {
+      &:hover {
+        @content;
+      }
+    }
+    @media (hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse) {
+      @content;
+    }
+  }
+}
+
+@mixin custom_scrollbar() {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  // &::-webkit-scrollbar-track {
+  // }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(white, 0.1);
+    border-radius: 5px;
+    transition: background-color $common_anmt;
+    &:hover {
+      background-color: rgba(white, 0.2);
+    }
+  }
+}

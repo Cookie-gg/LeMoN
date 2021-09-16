@@ -1,0 +1,126 @@
+.cards {
+  display: flex;
+  width: 100%;
+
+  @include max(column-gap, 40px);
+
+  @include max(row-gap, 40px, 30px);
+
+  @media screen and (max-width: 975px) {
+    flex-wrap: wrap;
+  }
+  .card {
+    align-items: center;
+    background-color: rgba(white, 0.08);
+    border-bottom: 1px solid $lemon;
+    border-right: 1px solid $lemon;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    @include max(padding-top, 40px, 30px);
+
+    @include max(padding-bottom, 40px, 30px);
+
+    @include diff(width, 40px, $add_term: '/ 3');
+
+    @media screen and (max-width: 975px) {
+      width: 100%;
+    }
+    &::before {
+      background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
+        100%;
+      bottom: 0;
+      content: '';
+      position: absolute;
+      right: 0;
+
+      @include max(height, #{50px}, 50px);
+
+      @include max(width, #{50px}, 50px);
+    }
+    .icon {
+      display: block;
+
+      @include max(font-size, #{55px}, 55px);
+
+      path {
+        color: $lemon;
+      }
+    }
+    h2 {
+      background-color: $lemon;
+      color: $dark-gray;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 300;
+      position: relative;
+      text-align: center;
+      -webkit-text-stroke-color: $dark-gray;
+      -webkit-text-stroke-width: 1px;
+      width: 100%;
+
+      @include max(padding-top, #{10px}, 10px);
+
+      @include max(padding-bottom, #{5px}, 5px);
+
+      @include max(margin-top, #{30px}, 30px);
+
+      @include max(font-size, #{27.5px}, 27.5px);
+    }
+    & > *:not(h2) {
+      @include max(padding-right, 40px, 30px);
+
+      @include max(padding-left, 40px, 30px);
+    }
+    p {
+      font-family: $jp_font;
+      font-weight: 300;
+      letter-spacing: 1.2px;
+      line-height: 1.8;
+      text-align: center;
+      vertical-align: bottom;
+
+      @include max(margin-top, #{30px}, 30px);
+
+      @include max(font-size, #{16px}, 16px);
+    }
+    hr {
+      margin: 0;
+      opacity: 0.15;
+      width: 60%;
+
+      @include max(margin-top, #{27.5px}, 27.5px);
+    }
+    h3 {
+      font-weight: 400;
+      position: relative;
+
+      @include max(font-size, #{20px}, 20px);
+
+      @include max(margin-top, #{27.5px}, 27.5px);
+
+      &,
+      span {
+        color: $lemon;
+      }
+    }
+    ul {
+      @include max(margin-top, #{20px}, 20px);
+
+      li {
+        align-items: flex-end;
+        display: flex;
+        font-weight: 300;
+        justify-content: center;
+        text-align: center;
+
+        @include max(font-size, #{18px}, 18px);
+
+        &:not(:first-of-type) {
+          @include max(margin-top, #{15px}, 15px);
+        }
+      }
+    }
+  }
+}

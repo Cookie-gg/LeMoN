@@ -9,8 +9,8 @@ interface PropsType {
 }
 
 export default function ArticleToc({ children, table }: PropsType) {
-  const paddingTop = 161;
-  const paddingBottom = 81;
+  const paddingTop = 151;
+  const paddingBottom = 71;
   const isMounted = useMount();
   const noTransition = useFirstPeriod(1);
   const [scroller, scrollTop] = useContext(Context);
@@ -46,7 +46,7 @@ export default function ArticleToc({ children, table }: PropsType) {
                 scrollTop > (i === 0 ? -30000 : el.height - 250) &&
                 styles.active
               } ${el.tagName === 'H1' ? styles.heading_1 : styles.heading_2}`}
-              onClick={() => (scroller.current as HTMLDivElement).scrollTo(0, el.height - 180)}
+              onClick={() => (scroller.current as HTMLDivElement).scrollTo(0, el.height - 165)}
             >
               {el.text}
             </li>

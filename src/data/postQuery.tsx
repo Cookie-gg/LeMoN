@@ -1,4 +1,4 @@
-import { client } from 'pages/_app';
+import { client } from 'graphql/config.gql';
 import { ApolloError } from '@apollo/client';
 import { Zenn, ZennAdds } from 'types/common';
 import { PostDocument, PostQuery } from 'types/graphql.d';
@@ -35,7 +35,7 @@ export default async function postQuery(): Promise<{
             type: obj.type,
             topics: obj.topicIcons.map((obj) => obj.displayName),
           })),
-          title: titles.relations,
+          title: titles.relations.text,
         },
       })),
     };

@@ -8,7 +8,7 @@ interface PropsType {
 export default function NamePlate({ className }: PropsType) {
   return (
     <h2 className={`${className} ${styles.entire}`}>
-      <span className={styles.svg}>
+      <span>
         <Cookie_gg />
         <Cookie_gg />
       </span>

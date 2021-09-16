@@ -1,38 +1,52 @@
 .entire {
   display: flex;
   flex-wrap: wrap;
+
+  @include max(justify-content, $sp_value: space-evenly);
+
+  @include max(column-gap, #{40px}, 20px);
+
+  @include max(row-gap, #{25px}, 20px);
+
   li {
-    font-size: 20px;
+    align-items: center;
+    display: flex;
     font-style: italic;
-    height: 27.5px;
-    margin-bottom: 25px;
-    position: relative;
     overflow: hidden;
-    width: 230px;
+    position: relative;
+    vertical-align: middle;
+
+    @include max(width, #{230px}, 230px);
+
+    @include max(height, #{27.5px}, 35px);
+
+    @include max(font-size, #{20px}, 20px);
+
     span {
       align-items: center;
       display: inline-flex;
       position: relative;
-      transform: translateY(-100%);
+      transform: translateY(-125%);
       svg {
-        height: 22.5px;
-        margin-right: 20px;
-        width: 22.5px;
+        @include max(height, #{22.5px}, 27.5px);
+
+        @include max(width, #{22.5px}, 27.5px);
+
+        @include max(margin-right, #{20px}, 15px);
+
         path {
           color: $lemon;
         }
       }
       a {
         display: flex;
-        &:hover {
+
+        @include hover(both) {
           text-decoration: underline;
           text-decoration-color: rgba(white, 0.5);
           text-decoration-thickness: 1px;
         }
       }
-    }
-    &:nth-of-type(2n - 1) {
-      margin-right: 40px;
     }
   }
 }

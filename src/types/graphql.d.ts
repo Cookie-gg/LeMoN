@@ -55,22 +55,19 @@ export type ImageObject = {
 
 export type ListBodyInput = {
   title: Scalars['String'];
-  icon: Scalars['String'];
-  texts?: Maybe<Array<Scalars['String']>>;
-  background?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
 };
 
 export type ListBodyObject = {
   __typename?: 'ListBodyObject';
   title: Scalars['String'];
-  icon: Scalars['String'];
-  texts?: Maybe<Array<Scalars['String']>>;
-  background?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
 };
 
 export type ListInput = {
   list: Array<ListBodyInput>;
   name: Scalars['String'];
+  section: Scalars['String'];
 };
 
 export type ListObject = {
@@ -78,6 +75,7 @@ export type ListObject = {
   id: Scalars['ID'];
   list: Array<ListBodyObject>;
   name: Scalars['String'];
+  section: Scalars['String'];
 };
 
 export type Mutation = {
@@ -189,21 +187,28 @@ export type PathObject = {
 export type Query = {
   __typename?: 'Query';
   findList: ListObject;
+  findListBySection: Array<ListObject>;
   findTopic: TopicObject;
   findAllTopics: Array<TopicObject>;
   findArticles: Array<ArticleObject>;
   findAllArticles: Array<ArticleObject>;
-  getNumberOfArticles: Scalars['Int'];
   findTitle: Array<TitleObject>;
   findSentence: Array<SentenceObject>;
   findImage: ImageObject;
   findPath: PathObject;
   findAllPaths: Array<PathObject>;
+  findPathByOrder: PathObject;
 };
 
 
 export type QueryFindListArgs = {
+  section: Scalars['String'];
   name: Scalars['String'];
+};
+
+
+export type QueryFindListBySectionArgs = {
+  section: Scalars['String'];
 };
 
 
@@ -213,7 +218,6 @@ export type QueryFindTopicArgs = {
 
 
 export type QueryFindArticlesArgs = {
-  displayNum?: Maybe<Scalars['String']>;
   latest: Scalars['Boolean'];
 };
 
@@ -237,6 +241,11 @@ export type QueryFindPathArgs = {
   name: Scalars['String'];
 };
 
+
+export type QueryFindPathByOrderArgs = {
+  order: Scalars['Float'];
+};
+
 export type SentenceInput = {
   text: Array<Scalars['String']>;
   page: Scalars['String'];
@@ -256,6 +265,7 @@ export type TitleInput = {
   text: Scalars['String'];
   page: Scalars['String'];
   section: Scalars['String'];
+  icon?: Maybe<Scalars['String']>;
 };
 
 export type TitleObject = {
@@ -264,6 +274,7 @@ export type TitleObject = {
   text: Scalars['String'];
   page: Scalars['String'];
   section: Scalars['String'];
+  icon?: Maybe<Scalars['String']>;
 };
 
 export type TopicInput = {
@@ -285,19 +296,17 @@ export type TopicObject = {
 export type AboutQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AboutQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, sentences: Array<{ __typename?: 'SentenceObject', text: Array<string>, section: string }>, info: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon: string }> }, tools: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon: string, texts?: Maybe<Array<string>>, background?: Maybe<string> }> }, langs: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon: string }> }, featuredImage: { __typename?: 'ImageObject', data: string } };
+export type AboutQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string, icon?: Maybe<string> }>, sentences: Array<{ __typename?: 'SentenceObject', text: Array<string>, section: string }>, info: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon?: Maybe<string> }> }, feelingProud: { __typename?: 'ImageObject', data: string }, front: Array<{ __typename?: 'ListObject', name: string, list: Array<{ __typename?: 'ListBodyObject', title: string }> }>, back: Array<{ __typename?: 'ListObject', name: string, list: Array<{ __typename?: 'ListBodyObject', title: string }> }>, others: Array<{ __typename?: 'ListObject', name: string, list: Array<{ __typename?: 'ListBodyObject', title: string }> }> };
 
 export type BlogQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogQuery = { __typename?: 'Query', numberOfArticles: number, titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, latest: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string }>, someArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type BlogQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, latest: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, all: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string }>, someArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
-export type ClientBlogQueryVariables = Exact<{
-  displayNum: Scalars['String'];
-}>;
+export type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ClientBlogQuery = { __typename?: 'Query', articles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> };
+export type ContactQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, adressDelivery: { __typename?: 'ImageObject', data: string } };
 
 export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -320,33 +329,38 @@ export const AboutDocument = gql`
   titles: findTitle(page: "about") {
     text
     section
+    icon
   }
   sentences: findSentence(page: "about") {
     text
     section
   }
-  info: findList(name: "info") {
+  info: findList(name: "info", section: "profile") {
     list {
       title
       icon
     }
   }
-  tools: findList(name: "tools") {
-    list {
-      title
-      icon
-      texts
-      background
-    }
-  }
-  langs: findList(name: "langs") {
-    list {
-      title
-      icon
-    }
-  }
-  featuredImage: findImage(name: "featured") {
+  feelingProud: findImage(name: "feeling proud") {
     data
+  }
+  front: findListBySection(section: "front") {
+    name
+    list {
+      title
+    }
+  }
+  back: findListBySection(section: "back") {
+    name
+    list {
+      title
+    }
+  }
+  others: findListBySection(section: "others") {
+    name
+    list {
+      title
+    }
   }
 }
     `;
@@ -393,6 +407,16 @@ export const BlogDocument = gql`
       displayName
     }
   }
+  all: findArticles(latest: false) {
+    id
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
   topics: findAllTopics {
     displayName
     icon
@@ -410,7 +434,6 @@ export const BlogDocument = gql`
       }
     }
   }
-  numberOfArticles: getNumberOfArticles
 }
     `;
 
@@ -440,48 +463,44 @@ export function useBlogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BlogQ
 export type BlogQueryHookResult = ReturnType<typeof useBlogQuery>;
 export type BlogLazyQueryHookResult = ReturnType<typeof useBlogLazyQuery>;
 export type BlogQueryResult = Apollo.QueryResult<BlogQuery, BlogQueryVariables>;
-export const ClientBlogDocument = gql`
-    query clientBlog($displayNum: String!) {
-  articles: findArticles(latest: false, displayNum: $displayNum) {
-    id
-    releaseDate
-    title
-    emoji
-    type
-    topicIcons {
-      displayName
-    }
+export const ContactDocument = gql`
+    query Contact {
+  titles: findTitle(page: "contact") {
+    text
+    section
+  }
+  adressDelivery: findImage(name: "address delivery") {
+    data
   }
 }
     `;
 
 /**
- * __useClientBlogQuery__
+ * __useContactQuery__
  *
- * To run a query within a React component, call `useClientBlogQuery` and pass it any options that fit your needs.
- * When your component renders, `useClientBlogQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useContactQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContactQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useClientBlogQuery({
+ * const { data, loading, error } = useContactQuery({
  *   variables: {
- *      displayNum: // value for 'displayNum'
  *   },
  * });
  */
-export function useClientBlogQuery(baseOptions: Apollo.QueryHookOptions<ClientBlogQuery, ClientBlogQueryVariables>) {
+export function useContactQuery(baseOptions?: Apollo.QueryHookOptions<ContactQuery, ContactQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ClientBlogQuery, ClientBlogQueryVariables>(ClientBlogDocument, options);
+        return Apollo.useQuery<ContactQuery, ContactQueryVariables>(ContactDocument, options);
       }
-export function useClientBlogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClientBlogQuery, ClientBlogQueryVariables>) {
+export function useContactLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContactQuery, ContactQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ClientBlogQuery, ClientBlogQueryVariables>(ClientBlogDocument, options);
+          return Apollo.useLazyQuery<ContactQuery, ContactQueryVariables>(ContactDocument, options);
         }
-export type ClientBlogQueryHookResult = ReturnType<typeof useClientBlogQuery>;
-export type ClientBlogLazyQueryHookResult = ReturnType<typeof useClientBlogLazyQuery>;
-export type ClientBlogQueryResult = Apollo.QueryResult<ClientBlogQuery, ClientBlogQueryVariables>;
+export type ContactQueryHookResult = ReturnType<typeof useContactQuery>;
+export type ContactLazyQueryHookResult = ReturnType<typeof useContactLazyQuery>;
+export type ContactQueryResult = Apollo.QueryResult<ContactQuery, ContactQueryVariables>;
 export const HeaderDocument = gql`
     query Header {
   paths: findAllPaths {

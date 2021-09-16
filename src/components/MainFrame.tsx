@@ -1,19 +1,25 @@
-import { useFirst, useFirstMount } from 'hooks';
-import { useRouter } from 'utils/next';
+import { useFirstMount } from 'hooks';
+import { ReactElement } from 'react';
 import PageTransition from './PageTransition';
-import { Children, ReactElement, cloneElement } from 'react';
 import styles from '../assets/scss/components/MainFrame.module.scss';
 
-export default function MainFrame({ children }: { children: ReactElement }) {
-  const isFirst = useFirst();
+export default function MainFrame({
+  headerState,
+  children,
+}: {
+  headerState: 'close' | 'open' | 'expand';
+  children: ReactElement;
+}) {
   const isMounted = useFirstMount();
-  const router = useRouter();
-  const child = Children.map(children, (child) => (router.pathname === '/' ? cloneElement(child, { isFirst }) : child));
   return (
     <>
-      <main className={`${styles.main} ${isMounted && styles.mounted}`}>
-        <PageTransition isFirst={isFirst} />
-        {child}
+      <main
+        className={`${styles.main} ${isMounted && styles.mounted} ${
+          (headerState === 'open' || headerState === 'expand') && styles.opened
+        } ${headerState === 'expand' && styles.expanded}`}
+      >
+        <PageTransition />
+        {children}
       </main>
     </>
   );

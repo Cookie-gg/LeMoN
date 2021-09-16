@@ -1,0 +1,196 @@
+.entire {
+  box-sizing: border-box;
+  color: rgba(white, 0.9);
+  position: relative;
+
+  @include max(padding, #{30px}, 30px);
+
+  @include max(max-width, #{400px});
+
+  @include max(width, $sp_value: 100%);
+
+  & > * {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &::before {
+    background-color: rgba(white, 0.08);
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+    width: 0;
+    z-index: -1;
+  }
+  &::after {
+    background-color: $lemon;
+    content: '';
+    height: 0;
+    position: absolute;
+    right: 100%;
+    top: 0;
+
+    @include max(width, #{5px}, 5px);
+  }
+  label {
+    display: inline-block;
+    font-weight: 400;
+    position: relative;
+
+    @include max(font-size, #{20px}, 20px);
+
+    &:not(:first-of-type) {
+      @include max(margin-top, #{35px}, 35px);
+    }
+  }
+  .text {
+    align-items: flex-end;
+    display: flex;
+    input,
+    textarea {
+      background-color: rgba($dark-gray, 0.5);
+      border-bottom: 1px solid $lemon;
+      box-sizing: border-box;
+      color: rgba(white, 0.9);
+      font-family: $jp_font;
+      font-weight: 400;
+      line-height: 1.4;
+      transition: background-color $common_anmt;
+      width: 100%;
+
+      @include max(padding-top, #{6.5px}, 6.5px);
+
+      @include max(padding-right, #{25px}, 25px);
+
+      @include max(padding-bottom, #{7.5px}, 7.5px);
+
+      @include max(padding-left, #{7.5px}, 7.5px);
+
+      @include max(letter-spacing, #{1.2px}, 1.2px);
+
+      @include max(font-size, #{14px}, 14px);
+
+      @include max(margin-top, #{10px}, 10px);
+
+      &:-webkit-autofill {
+        animation-name: onAutoFillStart;
+        caret-color: white;
+        -webkit-text-fill-color: white !important;
+        transition: background-color 0s;
+        transition-delay: 10000s;
+      }
+      &:focus + .triangle::before {
+        @include max(height, #{34px}, 34px);
+
+        @include max(width, #{34px}, 34px);
+      }
+    }
+    textarea {
+      resize: none;
+
+      @include max(height, #{100px}, 100px);
+
+      @include custom_scrollbar();
+    }
+    .triangle {
+      position: relative;
+      &::before {
+        background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
+          100%;
+        bottom: 0;
+        content: '';
+        height: 0;
+        position: absolute;
+        right: 0;
+        transition: all $common_anmt;
+        width: 0;
+      }
+    }
+  }
+  .submit {
+    overflow: hidden;
+    position: relative;
+
+    @include max(margin-top, #{35px}, 35px);
+
+    input {
+      background-color: transparent;
+      color: rgba(white, 0.9);
+      cursor: pointer;
+      font-family: $en_font;
+      font-weight: 400;
+      position: relative;
+      transition: all $common_anmt;
+      width: 100%;
+      z-index: 3;
+
+      @include max(font-size, #{20px}, 20px);
+
+      @include max(padding-top, #{10px}, 10px);
+
+      @include max(padding-right, #{7.5px}, 7.5px);
+
+      @include max(padding-bottom, #{5.5px}, 5.5px);
+
+      @include max(padding-left, #{7.5px}, 7.5px);
+    }
+    &:hover {
+      input {
+        color: $dark-gray;
+        font-weight: bold;
+      }
+      &:after {
+        @include max(width, 100%, 105%);
+      }
+    }
+    &::before {
+      background-color: rgba($dark-gray, 0.5);
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+    }
+    &::after {
+      background-color: $lemon;
+      content: '';
+      height: 100%;
+      position: absolute;
+      top: 0;
+      transform: skewX(-30deg);
+      transition: all $common_anmt;
+      z-index: 2;
+
+      @include max(left, -85px, -120px);
+
+      @include max(width, 200px, 200px);
+    }
+  }
+  .thanks {
+    font-weight: 400;
+    left: 50%;
+    line-height: 1.8;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 100px);
+
+    @include max(font-size, #{22.5px}, 22.5px);
+
+    & > * {
+      @include max(margin-right, #{30px}, 30px);
+    }
+  }
+  @keyframes onAutoFillStart {
+    from {
+    }
+    to {
+      background-color: rgba($dark-gray, 0.25);
+    }
+  }
+}

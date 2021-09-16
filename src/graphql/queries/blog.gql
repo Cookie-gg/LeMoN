@@ -13,6 +13,16 @@ query Blog {
       displayName
     }
   }
+  all: findArticles(latest: false) {
+    id
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
   topics: findAllTopics {
     displayName
     icon
@@ -30,5 +40,4 @@ query Blog {
       }
     }
   }
-  numberOfArticles: getNumberOfArticles
 }

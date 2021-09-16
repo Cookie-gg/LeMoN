@@ -41,12 +41,6 @@
 
       @include max(left, 50%, 50vw);
 
-      @include media(sp) {
-        &:not(.first) {
-          transition: all $common_anmt entry_order(1) + $first_duration;
-        }
-      }
-
       @media screen and (max-width: map-get($fixed_point, 'sp') + 0px) {
         .cover {
           left: 33vw;

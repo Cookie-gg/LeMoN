@@ -1,19 +1,17 @@
 import { useMount } from 'hooks';
-import DataResponse from 'components/DataRes';
-import useClientBlog from 'data/clientBlogQuery';
 import blogQuery, { DataType } from 'data/blogQuery';
 import { scrollTopCashe } from 'components/PageFrame';
 import { useState, useEffect, useCallback } from 'react';
 import pages from '../../assets/scss/pages/Blog.module.scss';
-import { GetServerSideProps, Head, useRouter } from 'utils/next';
+import { GetStaticProps, Head, useRouter } from 'utils/next';
 import { Heading, PageFrame, ArticleList, Button, Nlink, ArticleTopics, DataRes } from 'components';
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { data, error } = await blogQuery();
   if (error) {
     return { props: { error: JSON.stringify(error) } };
   }
-  return { props: { data: JSON.stringify(data) } };
+  return { props: { data: JSON.stringify(data) }, revalidate: 60 };
 };
 
 export default function Blog({ data, error }: { data: DataType; error?: string }) {
@@ -22,12 +20,11 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
   data = JSON.parse(String(data));
   const [displayNum, _displayNum] = useState(2);
   const [selectedTopic, _selectedTopic] = useState(0);
-  const { clientData, loading, clientError } = useClientBlog(String(displayNum + 4));
   useEffect(() => _displayNum(router.query.display ? Number(router.query.display) : 2), [router.query.display]);
   const _displayNumHandler = useCallback(() => {
-    if (!(data.all.length === displayNum)) {
+    if (!(data.all.articles.length === displayNum)) {
       _displayNum((prev) => {
-        const displayNum = data.all.length <= prev + 6 ? data.all.length : prev + 6;
+        const displayNum = data.all.articles.length <= prev + 6 ? data.all.articles.length : prev + 6;
         scrollTopCashe.del(`/blog?display=${displayNum}`);
         router.push({ query: { display: displayNum } });
         return displayNum;
@@ -40,7 +37,7 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
         <title>LeMoN | Blog</title>
       </Head>
       <DataRes error={error} />
-      <PageFrame sectionClass={`${pages.blog} ${isMounted && pages.mounted}`}>
+      <PageFrame classNmae={`${pages.blog} ${pages.entire} ${isMounted && pages.mounted}`}>
         <>
           <Heading className={pages.heading} rank={1} text={data.latest.title} />
           <ArticleList
@@ -65,12 +62,11 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
             }
           />
           <Heading className={pages.heading} rank={1} text={data.all.title} />
-          {clientData && <ArticleList className={pages.articles} data={clientData.articles} display={displayNum} />}
-          <DataResponse loading={loading} error={clientError} />
+          <ArticleList className={pages.articles} data={data.all.articles} display={displayNum} />
           <Button
             className={pages.more}
             isInteractive={true}
-            switching={data.all.length === displayNum}
+            switching={data.all.articles.length === displayNum}
             clickEvent={_displayNumHandler}
           >
             <Nlink href="/blog/topics">

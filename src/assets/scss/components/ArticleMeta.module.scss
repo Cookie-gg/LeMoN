@@ -1,32 +1,44 @@
 .main {
-  letter-spacing: 1.2px;
   font-family: $jp_font;
   transition: all $common_anmt;
+
+  @include max(letter-spacing, #{1.2px}, 1.2px);
+
   .emoji {
     align-items: center;
     display: flex;
     justify-content: center;
     width: 100%;
     img {
-      height: 80px !important;
-      width: 80px !important;
+      @include max(height, #{80px}, 80px, true);
+
+      @include max(width, #{80px}, 80px, true);
     }
   }
   .title {
     color: rgba(white, 0.9);
-    font-size: 28px;
     font-weight: 600;
     line-height: 1.4;
-    margin: 0 auto;
-    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-    width: 60%;
+
+    @include max(width, 60%, 90%);
+
+    @include max(font-size, #{28px}, 24px);
+
+    @include max(margin-top, #{30px}, 30px);
   }
   .time_header {
     display: flex;
+    flex-wrap: wrap;
     font-weight: 100;
     justify-content: center;
-    margin-top: 30px;
+
+    @include max(margin-top, #{30px}, 30px);
+
+    @include max(gap, #{30px}, 30px);
+
     span {
       align-items: center;
       display: flex;
@@ -34,13 +46,10 @@
         color: rgba(white, 0.75);
       }
       svg {
-        margin-right: 7.5px;
+        @include max(margin-right, #{7.5px}, 7.5px);
       }
       time {
-        font-size: 16px;
-      }
-      &:not(:first-of-type) {
-        margin-left: 30px;
+        @include max(font-size, #{16px}, 14px);
       }
     }
   }
@@ -51,12 +60,10 @@
   box-sizing: border-box;
   display: flex;
   font-family: $jp_font;
-  // margin-top: 40px;
   padding: 25px;
   position: relative;
   width: 100%;
   z-index: -1;
-
 
   &::before {
     background-color: $lemon;

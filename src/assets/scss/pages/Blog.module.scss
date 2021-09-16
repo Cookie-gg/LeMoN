@@ -1,17 +1,25 @@
+.entire {
+  @include max(padding-left, 30px);
+
+  @include max(padding-bottom, 30px, 30px);
+
+  @include max(padding-right, 30px, 30px);
+}
 .blog {
+  @include max(padding-top, 30px);
   .articles {
-    @include max(margin-top, 30px);
+    @include max(margin-top, 30px, 30px);
   }
   .heading:not(:first-of-type) {
-    @include max(margin-top, 65px);
+    @include max(margin-top, 65px, 65px);
   }
   .more {
-    @include max(margin-top, 45px);
+    @include max(margin-top, 45px, 30px);
   }
   &.mounted {
     .heading span {
       transform: translateY(0);
-      transition: transform $common_anmt order(2);
+      transition: transform $common_anmt order(1);
     }
   }
 }
@@ -19,35 +27,30 @@
   .contents {
     display: flex;
 
-    @include max(margin-top, 40px);
+    @include max(margin-top, #{40px}, 30px);
 
     main {
       @include max(margin-right, 40px);
 
       @include diff(width, 40px, $from: calc(100% - 360px));
 
-      @media screen and (max-width: 1250px) {
+      @media screen and (max-width: 1200px) {
         width: 100%;
       }
       .heading {
-        @include max(margin-top, 65px);
+        @include max(margin-top, 65px, 65px);
       }
       .relations {
-        @include max(margin-top, 30px);
-
-        @include max(margin-bottom, 30px);
-
-        @include max(gap, 40px);
-
+        @include max(margin-top, 30px, 30px);
         li {
-          @include diff(width, 40px, $from: 100%, $divide: 2);
+          @include diff(width, 40px, $add_term: '/ 2');
         }
       }
     }
     aside {
       position: relative;
       width: 360px;
-      @media screen and (max-width: 1250px) {
+      @media screen and (max-width: 1200px) {
         display: none;
       }
     }

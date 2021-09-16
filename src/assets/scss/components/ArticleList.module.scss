@@ -12,9 +12,11 @@
         align-items: center;
         background-color: rgba(white, 0.08);
         display: flex;
-        height: 125px;
         justify-content: center;
         position: relative;
+
+        @include max(height, #{125px}, 125px);
+
         &::before {
           background-color: $lemon;
           content: '';
@@ -23,10 +25,11 @@
           z-index: -1;
         }
         .emoji {
-          height: 50px;
-          width: 50px;
+          @include max(height, #{50px}, 50px);
+
+          @include max(width, #{50px}, 50px);
+
           img {
-            animation: fade_in 1s both;
             height: 100% !important;
             width: auto !important;
           }
@@ -38,8 +41,10 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        letter-spacing: 1.2px;
         position: relative;
+
+        @include max(letter-spacing, #{1.2px}, 1.2px);
+
         &::before {
           content: '';
           position: absolute;
@@ -49,27 +54,33 @@
           display: -webkit-box;
           font-family: $jp_font;
           font-weight: 400;
-          height: calc(19px * 1.4 * 2);
           line-height: 1.4;
           overflow: hidden;
           position: relative;
           width: 100%;
+
+          @include max(height, #{19px * 1.4 * 2}, 19px * 1.4 * 2);
         }
         div {
           align-items: flex-end;
           display: flex;
           flex-direction: column;
-          font-size: 15px;
           font-weight: 200;
+
+          @include max(font-size, #{15px}, 16px);
+
           p {
-            margin-top: 5px;
-            span:first-of-type::before {
-              content: 'Topic: ';
-            }
-            span:not(:first-of-type)::before {
-              content: ',';
-              display: inline-block;
-              margin-right: 5px;
+            @include max(margin-top, #{5px}, 5px);
+            span {
+              &:first-of-type::before {
+                content: 'Topic: ';
+              }
+              &:not(:first-of-type)::before {
+                content: ',';
+                display: inline-block;
+
+                @include max(margin-right, #{5px}, 5px);
+              }
             }
           }
         }
@@ -77,11 +88,14 @@
     }
   }
   &.vertical {
-    @include max(gap, 40px);
+    @include max(gap, 40px, 30px);
     & > li {
-      @include diff(width, 120px, $from: 100%, $divide: 4);
+      @include diff(width, 120px, $add_term: '/ 4');
       @media screen and (max-width: 1300px) {
-        @include diff(width, 40px, $from: 100%, $divide: 2);
+        @include diff(width, 40px, 30px, $add_term: '/ 2');
+        @media screen and (max-width: 650px) {
+          width: 100%;
+        }
       }
       a {
         .thumbnail {
@@ -94,26 +108,46 @@
           .type {
             background-color: $lemon;
             color: $dark-gray;
-            font-size: 16px;
             font-weight: 600;
-            left: 10px;
-            padding: 6px 5px 2px 5px;
             position: absolute;
-            top: 10px;
             transition: all $common_anmt;
+
+            @include max(left, #{10px}, 10px);
+
+            @include max(top, #{10px}, 10px);
+
+            @include max(font-size, #{16px}, 16px);
+
+            @include max(padding-top, #{6px}, 6px);
+
+            @include max(padding-bottom, #{2px}, 2px);
+
+            @include max(padding-right, #{5px}, 5px);
+
+            @include max(padding-left, #{5px}, 5px);
           }
         }
         .text_wrapper {
-          height: 155px;
-          padding: 15px 15px 12.5px 15px;
+          @include max(padding-right, #{15px}, 15px);
+
+          @include max(padding-left, #{15px}, 15px);
+
+          @include max(padding-top, #{15px}, 15px);
+
+          @include max(padding-bottom, #{12.5px}, 12.5px);
+
+          @include max(height, #{155px}, 155px);
+
           &::before {
             background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
               100%;
-            height: 30px;
             right: 0;
             top: 0;
             transition: all $common_anmt;
-            width: 30px;
+
+            @include max(width, #{30px}, 30px);
+
+            @include max(height, #{30px}, 30px);
           }
           &::after {
             background-color: $lemon;
@@ -126,33 +160,36 @@
             width: 0%;
           }
           h2 {
-            font-size: 19px;
             -webkit-line-clamp: 2;
+
+            @include max(font-size, #{19px}, 19px);
           }
         }
       }
-      &:hover {
-        .text_wrapper::after {
-          width: 100%;
-        }
-        .thumbnail {
-          .type {
-            background-color: $dark-gray;
-            color: $lemon;
+      @include hover(true) {
+        &:hover {
+          .text_wrapper::after {
+            width: 100%;
           }
-          &::before {
-            height: 100%;
+          .thumbnail {
+            .type {
+              background-color: $dark-gray;
+              color: $lemon;
+            }
+            &::before {
+              height: 100%;
+            }
           }
         }
       }
     }
   }
   &.horizontal {
-    @include max(gap, 40px);
+    @include max(gap, 40px, 30px);
     & > li {
       animation: fade_in 1s both;
 
-      @include diff(width, 40px, $from: 100%, $divide: 2);
+      @include diff(width, 40px, $from: 100%, $add_term: '/ 2');
 
       @media screen and (max-width: 1300px) {
         width: 100%;
@@ -161,7 +198,7 @@
       a {
         display: flex;
         .thumbnail {
-          width: 125px;
+          @include max(width, #{125px}, 125px);
 
           &::before {
             height: 100%;
@@ -171,8 +208,18 @@
           }
         }
         .text_wrapper {
-          padding: 17.5px 17.5px 15px 17.5px;
-          width: calc(100% - 125px);
+          @include max(width, calc(100% - 125px));
+
+          @include diff(width, $sp_value: 125px);
+
+          @include max(padding-top, #{17.5px}, 17.5px);
+
+          @include max(padding-left, #{17.5px}, 17.5px);
+
+          @include max(padding-right, #{17.5px}, 17.5px);
+
+          @include max(padding-bottom, #{15px}, 15px);
+
           &::before {
             background-color: $lemon;
             bottom: 0;
@@ -182,18 +229,31 @@
             width: 0;
           }
           h2 {
-            font-size: 18px;
-            height: calc(18px * 1.4 * 2);
             -webkit-line-clamp: 2;
+
+            @include max(font-size, #{18px}, 18px);
+
+            @include max(height, #{18px * 1.4 * 2}, 18px * 1.4 * 2);
+          }
+          div {
+            p {
+              @include media(sp) {
+                span:not(:first-of-type) {
+                  display: none;
+                }
+              }
+            }
           }
         }
       }
-      &:hover {
-        .text_wrapper::before {
-          width: 100%;
-        }
-        .thumbnail::before {
-          width: 100%;
+      @include hover(true) {
+        &:hover {
+          .text_wrapper::before {
+            width: 100%;
+          }
+          .thumbnail::before {
+            width: 100%;
+          }
         }
       }
     }

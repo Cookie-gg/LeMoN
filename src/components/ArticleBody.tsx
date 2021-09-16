@@ -28,10 +28,12 @@ export default function ArticleBody({ body, _table }: PropsType) {
     resizeObserver.observe(el);
     el.addEventListener('transitionstart', () => resizeObserver.disconnect());
     el.addEventListener('transitionrun', () => getToc());
+    // window.addEventListener('resize', () => getToc());
     return () => {
       el.removeEventListener('transitionstart', () => resizeObserver.disconnect());
       el.removeEventListener('transitionrun', () => getToc());
-    }
+      // window.removeEventListener('resize', () => getToc());
+    };
   }, [router.asPath, _table]);
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;

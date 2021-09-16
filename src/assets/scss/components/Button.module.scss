@@ -1,19 +1,30 @@
 .entire {
   display: flex;
   justify-content: center;
-  letter-spacing: 1.2px;
   width: 100%;
+
+  @include max(letter-spacing, #{1.2px}, 1.2px);
 
   button {
     font-family: $jp_font;
-    font-size: 16px;
     font-weight: 400;
+
+    @include max(font-size, #{16px}, 16px);
+
     a,
     span {
-      position: relative;
-      padding: 10px 40px 12px 40px;
       background-color: rgba(white, 0.08);
       display: block;
+      position: relative;
+
+      @include max(padding-top, #{10px}, 10px);
+
+      @include max(padding-left, #{40px}, 40px);
+
+      @include max(padding-right, #{40px}, 40px);
+
+      @include max(padding-bottom, #{12px}, 12px);
+
       &::after {
         background-color: $lemon;
         bottom: -1px;
@@ -23,6 +34,7 @@
         position: absolute;
         transition: all $common_anmt;
         width: 0;
+        z-index: 1;
       }
       &:hover::after {
         width: 100%;

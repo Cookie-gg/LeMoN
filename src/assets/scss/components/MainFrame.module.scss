@@ -4,11 +4,20 @@
   display: flex;
   height: 100vh;
   justify-content: center;
-  padding: 40px;
+  left: 0;
   position: relative;
   width: 100%;
 
-  @include max(padding, 40px, 5vw, true);
+  @include max(transition, $sp_value: left $common_anmt);
+
+  @include max(padding, #{30px}, 30px);
+
+  &.opened {
+    @include max(left, $sp_value: 70px);
+    &.expanded {
+      @include max(left, $sp_value: 200px);
+    }
+  }
 
   &::before,
   &::after {
@@ -24,33 +33,44 @@
     content: '';
     transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2);
 
-    @include max(bottom, 40px, 5vw, true);
+    @include max(bottom, #{30px}, 30px);
 
-    @include max(right, 40px, 5vw, true);
+    @include max(right, #{30px}, 30px);
   }
   &::after {
     border-bottom: 1px solid $lemon;
     border-left: 1px solid $lemon;
     content: '';
     opacity: 0;
-    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3),
-      width $common_anmt entry_order(4);
+    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4);
 
-    @include max(left, 40px, 5vw, true);
+    @include max(left, #{30px}, 30px);
 
-    @include max(top, 40px, 5vw, true);
+    @include max(top, #{30px}, 30px);
   }
   &.mounted {
     &::before,
     &::after {
+      height: calc(100% - 30px * 2);
       opacity: 1;
+      width: calc(100% - 30px * 2);
 
-      @include max(height, calc(100% - 80px), calc(100% - 10vw), true);
+      @include diff(width, $sp_value: 30px * 2);
 
-      @include max(width, calc(100% - 80px), calc(100% - 10vw), true);
+      @include diff(height, $sp_value: 30px * 2);
     }
   }
   & > *:not([class*='exclude']) {
     animation: fade_in 1s both;
+  }
+}
+@keyframes fade_in {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
   }
 }

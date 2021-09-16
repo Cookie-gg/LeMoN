@@ -1,19 +1,25 @@
 .body {
   background-color: rgba(white, 0.08);
-  border-right: 5px solid $lemon;
+  border-right: solid $lemon;
   box-sizing: border-box;
   font-family: $jp_font;
-  font-size: 16px;
   font-weight: 300;
-  letter-spacing: 1.2px;
   line-height: 1.8;
-  padding: 45px;
   transition: all $common_anmt;
+
+  @include max(border-right-width, #{5px}, 5px);
+
+  @include max(font-size, #{16px}, 16px);
+
+  @include max(letter-spacing, #{1.2px}, 1.2px);
+
+  @include max(padding, #{45px}, 30px);
+
   *:not(.code_wrapper *, blockquote *, a) {
     color: rgba(white, 0.9);
   }
   & > * {
-    margin-top: 20px;
+    @include max(margin-top, #{20px}, 20px);
     &:first-child {
       margin-top: 0;
     }
@@ -28,34 +34,46 @@
   }
   h1 {
     border-bottom: 1px solid $lemon;
-    font-size: 28px;
     font-weight: 600;
-    margin-top: 60px;
-    padding-bottom: 7.5px;
+
+    @include max(font-size, #{28px}, 24px);
+
+    @include max(margin-top, #{60px}, 60px);
+
+    @include max(padding-bottom, #{7.5px}, 7.5px);
+
     code {
-      font-size: 24px;
       vertical-align: text-bottom;
+
+      @include max(font-size, #{24px}, 20px);
     }
   }
   h2 {
-    font-size: 24px;
     font-weight: 500;
-    margin-top: 40px;
+
+    @include max(font-size, #{24px}, 20px);
+
+    @include max(margin-top, #{40px}, 40px);
+
     code {
-      font-size: 20px;
       vertical-align: text-bottom;
+
+      @include max(font-size, #{20px}, 16px);
     }
   }
   h3 {
-    font-size: 20px;
     font-weight: 500;
-    margin-top: 30px;
+
+    @include max(font-size, #{20px}, 16px);
+
+    @include max(margin-top, #{30px}, 30px);
   }
   p {
     line-height: 1.8;
     code {
-      font-size: 15px;
       vertical-align: middle;
+
+      @include max(font-size, #{15px}, 15px);
     }
   }
   em {
@@ -67,33 +85,33 @@
   s {
     text-decoration: line-through;
   }
-  ul {
-    list-style: disc outside;
-    padding-left: 25px;
+  ul,
+  ol {
+    @include max(padding-left, #{25px}, 25px);
+
     li {
       ul,
+      ol,
       &:not(:first-of-type) {
-        margin-top: 10px;
+        @include max(margin-left, #{10px}, 10px);
       }
     }
   }
+  ul {
+    list-style: disc outside;
+  }
   ol {
     list-style: decimal outside;
-    padding-left: 25px;
-    li {
-      ul,
-      &:not(:first-of-type) {
-        margin-top: 10px;
-      }
-    }
   }
   & > img,
   & > p > img {
     display: block;
     height: auto;
     margin: 0 auto;
-    margin-top: 20px;
     max-width: 100%;
+
+    @include max(margin-top, #{20px}, 20px);
+
     & + br {
       display: none;
     }
@@ -102,10 +120,12 @@
       color: rgba(white, 0.1);
       display: block;
       font-family: $jp_font;
-      font-size: 14px;
       font-weight: 100;
-      margin-top: 7.5px;
       text-align: center;
+
+      @include max(font-size, #{14px}, 14px);
+
+      @include max(margin-top, #{7.5px}, 7.5px);
     }
   }
   & > a,
@@ -123,23 +143,31 @@
     thead tr th,
     tbody tr td {
       border: 1px solid $lemon;
-      padding: 10px;
+
+      @include max(padding, #{10px}, 10px);
     }
   }
   blockquote {
-    border-left: 3px solid $lemon;
-    padding-left: 10px;
+    border-left: solid $lemon;
+
+    @include max(border-left-width, #{3px}, 3px);
+
+    @include max(padding-left, #{10px}, 10px);
+
     p {
       color: rgba(white, 0.6);
       &:not(:first-of-type) {
-        margin-top: 20px;
+        @include max(margin-top, #{20px}, 20px);
       }
     }
   }
   hr {
     border-bottom: 0px;
     border-top: 1px solid $lemon;
-    margin: 40px 0;
+
+    @include max(margin-top, #{40px}, 40px);
+
+    @include max(margin-bottom, #{40px}, 40px);
   }
   details {
     border: 1px solid rgba(white, 0.08);
@@ -149,24 +177,35 @@
       user-select: none;
     }
     * {
-      padding: 10px 12px 12px;
+      @include max(padding-top, #{10px}, 10px);
+
+      @include max(padding-left, #{12px}, 12px);
+
+      @include max(padding-right, #{12px}, 12px);
+
+      @include max(padding-bottom, #{12px}, 12px);
     }
   }
   [class*='annotation'] {
     color: $lemon;
     cursor: pointer;
-    font-size: 10px;
-    margin-left: 2.5px;
     text-decoration: underline;
-    vertical-align: 7.5px;
+
+    @include max(font-size, #{10px}, 10px);
+
+    @include max(margin-left, #{2.5px}, 2.5px);
+
+    @include max(vertical-align, #{7.5px}, 7.5px);
   }
   [class*='link_card'] {
     background-color: $dark-gray;
     border: 1px solid rgba(white, 0.08);
-    border-radius: 5px;
     overflow: hidden;
     position: relative;
     width: 100%;
+
+    @include max(border-radius, #{5px}, 5px);
+
     &:hover {
       background-color: lighten($dark-gray, 1.5);
     }
@@ -176,11 +215,16 @@
       height: 100%;
       justify-content: space-between;
       width: 100%;
+
+      @include max(flex-direction, $sp_value: column);
       [class*='text_wrapper'] {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 20px;
+
+        @include max(order, $sp_value: 2);
+        @include max(padding, #{20px}, 20px);
+
         * {
           -webkit-box-orient: vertical;
           display: -webkit-box;
@@ -189,34 +233,52 @@
           position: relative;
         }
         [class*='title'] {
-          font-size: 18px;
           font-weight: 500;
+
+          @include max(font-size, #{18px}, 18px);
         }
         [class*='description'] {
           color: rgba(white, 0.6);
-          font-size: 14px;
+
+          @include max(font-size, #{14px}, 14px);
         }
         [class*='domain'] {
           align-items: flex-end;
           display: flex;
-          font-size: 12px;
+
+          @include max(font-size, #{12px}, 12px);
+
           img {
             height: 100%;
-            margin-right: 5px;
             width: auto;
+
+            @include max(margin-right, #{5px}, 5px);
           }
         }
       }
-      img[alt='ogp_image'] {
-        height: 120px;
+      img[alt='ogp_icon'] {
         width: auto;
+
+        @include max(height, #{120px}, 120px);
+        @include max(display, $sp_value: none);
+      }
+      img[alt='ogp_image'] {
+        @include max(display, none);
       }
     }
   }
   [class*='msg'] {
     background-color: rgba($lemon, 0.1);
-    padding: 20px 22px 22px 50px;
     position: relative;
+
+    @include max(padding-top, #{20px}, 20px);
+
+    @include max(padding-bottom, #{22px}, 22px);
+
+    @include max(padding-right, #{22px}, 22px);
+
+    @include max(padding-left, #{50px}, 50px);
+
     &::before {
       align-items: center;
       background-color: $lemon;
@@ -225,14 +287,17 @@
       content: '!';
       display: flex;
       font-weight: bold;
-      height: 20px;
       justify-content: center;
-      left: 20px;
       margin-right: 10px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 20px;
+
+      @include max(height, #{20px}, 20px);
+
+      @include max(left, #{20px}, 20px);
+
+      @include max(width, #{20px}, 20px);
     }
     &[class*='alert'] {
       background-color: rgba(255, 0, 0, 0.1);
@@ -244,7 +309,7 @@
   code {
     font-family: $code_font;
     font-weight: 500;
-    letter-spacing: -0.5px;
+    letter-spacing: 0px;
     line-height: 1.5;
   }
   h1,
@@ -256,31 +321,41 @@
   p {
     code {
       background-color: rgba($dark-gray, 0.5);
-      border-radius: 5px;
-      margin: 0 2px;
-      padding: 3px 8px 4px;
-      vertical-align: 0.5px;
+
+      @include max(border-radius, #{5px}, 5px);
+
+      @include max(margin-right, #{2px}, 2px);
+
+      @include max(margin-left, #{2px}, 2px);
+
+      @include max(padding-top, #{3px}, 3px);
+
+      @include max(padding-right, #{8px}, 8px);
+
+      @include max(padding-left, #{8px}, 8px);
+
+      @include max(padding-bottom, #{4px}, 4px);
+
+      @include max(vertical-align, #{0.5px}, 0.5px);
     }
   }
   pre {
     background-color: $dark-gray;
-    border-radius: 5px;
-    overflow: hidden;
-    padding: 20px;
+    overflow: scroll;
+    overflow-y: hidden;
     position: relative;
-    &::before {
-      background-color: $dark-gray;
-      content: '';
-      height: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 20px;
-      z-index: 2;
-    }
+
+    @include custom_scrollbar();
+
+    @include max(border-radius, #{5px}, 5px);
+
+    @include max(padding, #{20px}, 20px);
+
     code {
-      font-size: 15px;
       padding: 0;
+
+      @include max(font-size, #{15px}, 15px);
+
       span {
         &[class*='keyword'],
         &[class*='builtin'],
@@ -346,7 +421,7 @@
               left: 0;
               position: absolute;
               top: 0;
-              width: 100vw;
+              width: 100%;
               z-index: -1;
             }
             span:first-child {
@@ -362,7 +437,7 @@
               left: 0;
               position: absolute;
               top: 0;
-              width: 100vw;
+              width: 100%;
               z-index: -1;
             }
             span:first-child {
@@ -418,19 +493,31 @@
     }
     &[class*='named-fence-block'] {
       overflow: hidden;
-      padding-top: 45px;
+
+      @include max(padding-top, #{45px}, 45px);
+
       [class*='named-fence-filename'] {
         background-color: rgba(white, 0.05);
-        border-bottom-right-radius: 5px;
         font-family: $code_font;
-        font-size: 14px;
         font-weight: 100;
         left: 0;
-        letter-spacing: -0.5px;
         line-height: 1.5;
-        padding: 5px 7.5px;
         position: absolute;
         top: 0;
+
+        @include max(font-size, #{14px}, 14px);
+
+        @include max(border-bottom-right-radius, #{5px}, 5px);
+
+        @include max(letter-spacing, #{-0.5px}, -0.5px);
+
+        @include max(padding-top, #{5px}, 5px);
+
+        @include max(padding-bottom, #{5px}, 5px);
+
+        @include max(padding-right, #{7.5px}, 7.5px);
+
+        @include max(padding-left, #{7.5px}, 7.5px);
       }
     }
   }

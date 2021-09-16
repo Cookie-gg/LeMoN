@@ -10,7 +10,6 @@ function useForm<T>(initialState: T): [T, (e: ChangeEvent<HTMLInputElement | HTM
     if ((e.target as HTMLInputElement).files) {
       const { name, files } = e.target as HTMLInputElement;
       const encodedFile = await encodeImg(files![0]);
-      console.log(encodedFile);
       dispatch({ name: name, value: encodedFile as string });
     } else {
       const { name, value } = e.target;

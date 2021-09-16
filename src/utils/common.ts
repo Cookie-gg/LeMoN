@@ -1,3 +1,5 @@
+import { Maybe } from 'graphql/jsutils/Maybe';
+
 export const encodeImg = (file: File) => {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -59,8 +61,23 @@ export function compare<T>(prev: T, next: T) {
   return JSON.stringify(prev) === JSON.stringify(next);
 }
 
-export function section<T>(data: { section: string; text: T }[]): { [sectionName: string]: T } {
-  const titles: { [sectionName: string]: T } = {};
-  data.forEach((title) => (titles[title.section] = title.text));
+export function section<T>(data: { text: T; section: string; icon?: Maybe<string> | undefined }[]): {
+  [sectionName: string]: { text: T; icon?: string | null };
+} {
+  const titles: { [sectionName: string]: { text: T; icon?: string | null } } = {};
+  data.forEach((title) => {
+    titles[title.section] = {
+      icon: title.icon,
+      text: title.text,
+    };
+  });
   return titles;
+}
+
+export function list(data: { name: string; list: { title: string }[] }[]): { [sectionName: string]: string[] } {
+  const lists: { [sectionName: string]: string[] } = {};
+  data.forEach((obj) => {
+    lists[obj.name] = obj.list.map((list) => list.title);
+  });
+  return lists;
 }

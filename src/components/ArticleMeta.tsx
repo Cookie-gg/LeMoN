@@ -36,7 +36,7 @@ export default function ArticleMeta({
       }`}
       ref={_height}
     >
-      <Twemoji svg className={styles.emoji} text={emoji} options={{ protocol: 'https' }} />
+      <Twemoji svg onlyEmojiClassName={styles.emoji} text={emoji} options={{ protocol: 'https' }} />
       <h1 className={styles.title}>{title}</h1>
       {type === 'main' && (
         <div className={styles.time_header}>

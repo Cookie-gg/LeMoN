@@ -1,25 +1,23 @@
 .entire {
+  background-clip: content-box;
   background-color: $lemon;
   display: flex;
   font-style: italic;
   font-weight: bold;
-  letter-spacing: -4px;
-  position: relative;
-  transform: translateX(2%);
-  user-select: none;
-  width: 0;
   height: 85px;
-  svg {
-    height: 112.5%;
-    margin-top: -1%;
-    width: 100%;
-  }
+  position: relative;
+  width: 0;
+
+  @include max(padding-left, #{10px}, 10px);
+
+  @include custom_max(height, 85px, 725px);
+
   &::before {
     background-color: $lemon;
     content: '';
     height: 0;
+    left: 0;
     position: absolute;
-    right: 102%;
     top: 0;
     width: 2px;
   }
@@ -30,44 +28,51 @@
     position: absolute;
     top: 0;
     transform: translateX(-1px);
-    height: calc(85px * 1.02);
-    width: calc(85px * 1.02 / #{$route_3});
+
+    @include custom_max(width, 85px * 1.02 / $route_3, 725px);
+
+    @include custom_max(height, 85px * 1.02, 725px);
   }
-  .svg {
-    margin-left: 20px;
+  span {
     overflow: hidden;
     position: relative;
-    svg {
-      height: 112.5%;
-      margin-top: -1%;
-      width: 100%;
-      &:first-of-type path {
-        fill: transparent;
-        stroke: $dark-gray;
-        stroke-dasharray: 2000;
-        stroke-width: 3px;
-        stroke-dashoffset: 2000;
-      }
-      &:last-of-type {
-        left: 0;
-        position: absolute;
-        top: 0;
-        z-index: -2;
-        path {
-          fill: $dark-gray;
-        }
-      }
-    }
+
+    @include custom_max(margin-left, 20px, 725px);
+
     &::before {
       background-color: $lemon;
       content: '';
       height: 100%;
-      position: absolute;
       right: -5%;
       top: 0;
+      position: absolute;
       transform: skewX(-30deg);
-      z-index: -1;
       width: 110%;
+      z-index: 1;
+    }
+    svg {
+      height: 112.5%;
+      margin-top: -1%;
+      position: relative;
+      width: 100%;
+      &:first-of-type {
+        z-index: 2;
+        path {
+          fill: transparent;
+          stroke: $dark-gray;
+          stroke-dasharray: 2000;
+          stroke-dashoffset: 2000;
+          stroke-width: 3px;
+        }
+      }
+      &:last-of-type {
+        inset: 0 0;
+        position: absolute;
+        z-index: 0;
+        path {
+          fill: $dark-gray;
+        }
+      }
     }
   }
 }

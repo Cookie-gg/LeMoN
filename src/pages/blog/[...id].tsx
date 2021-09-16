@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     };
   } else {
-    return { props: { error: JSON.stringify(error) } };
+    return { props: { error: JSON.stringify(error) }, revalidate: 60 };
   }
 };
 
@@ -44,6 +44,9 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
   const isMounted = useMount();
   data = JSON.parse(String(data));
   const [table, _table] = useState<{ tagName: string; text: string; height: number }[]>([]);
+  // if (table[table.length - 1]) {
+  //   console.log(table[table.length - 1].height);
+  // }
   return (
     <>
       <Head>
@@ -51,7 +54,7 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </Head>
       <DataRes error={error} />
-      <PageFrame sectionClass={`${pages.post} ${isMounted && pages.mounted}`}>
+      <PageFrame classNmae={`${pages.post} ${pages.entire} ${isMounted && pages.mounted}`}>
         <>
           <ArticleMeta
             type="main"

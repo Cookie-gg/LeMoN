@@ -1,52 +1,42 @@
 .wrapper {
   display: flex;
-  height: calc(100% - 22px - 110px - 40px);
+  height: calc(100% - (11px + 110px + 40px + 11px));
   justify-content: center;
-  margin: 110px 40px 40px 40px;
   overflow-x: hidden;
   overflow-y: scroll;
   position: relative;
-  width: calc(100% - 22px - 40px - 40px);
+  width: calc(100% - (11px + 40px + 40px + 11px));
+
+  @include max(margin-top, #{110px}, 100px);
+
+  @include max(margin-bottom, #{40px}, 30px);
+
+  @include max(margin-left, #{40px}, 30px);
+
+  @include max(margin-right, #{40px});
+
+  @include diff(width, $sp_value: 30px, $add_term: '- 22px');
+
+  @include diff(height, $sp_value: 100px + 30px, $add_term: '- 22px');
 
   @include custom_scrollbar();
 
-  // max-width: 1400px;
-  // section {
-  //   box-sizing: border-box;
-  //   width: 100%;
-
-  //   @include max(padding-left, 50px);
-
-  //   @include max(padding-right, 50px);
-
-  //   @include max(padding-top, 30px);
-
-  //   @include max(padding-bottom, 30px);
-  // }
   .contents {
     height: 100%;
     max-width: 1400px;
     overflow: hidden;
     position: relative;
     width: 100%;
-    section {
-      box-sizing: border-box;
-      left: 0;
-      position: absolute;
-      transition: all $common_anmt;
-      width: 100%;
+  }
+  section {
+    box-sizing: border-box;
+    left: 0;
+    position: absolute;
+    transition: all $common_anmt;
+    width: 100%;
 
-      @include max(padding-left, 50px);
-
-      @include max(padding-right, 50px);
-
-      @include max(padding-top, 30px);
-
-      @include max(padding-bottom, 30px);
-
-      &.no_transition {
-        transition: all 0s;
-      }
+    &.no_transition {
+      transition: all 0s;
     }
   }
   .scrollbar {

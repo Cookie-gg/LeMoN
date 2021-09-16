@@ -2,32 +2,37 @@ query About {
   titles: findTitle(page: "about") {
     text
     section
+    icon
   }
   sentences: findSentence(page: "about") {
     text
     section
   }
-  info: findList(name: "info") {
+  info: findList(name: "info", section: "profile") {
     list {
       title
       icon
     }
   }
-  tools: findList(name: "tools") {
-    list {
-      title
-      icon
-      texts
-      background
-    }
-  }
-  langs: findList(name: "langs") {
-    list {
-      title
-      icon
-    }
-  }
-  featuredImage: findImage(name: "featured") {
+  feelingProud: findImage(name: "feeling proud") {
     data
+  }
+  front: findListBySection(section: "front") {
+    name
+    list {
+      title
+    }
+  }
+  back: findListBySection(section: "back") {
+    name
+    list {
+      title
+    }
+  }
+  others: findListBySection(section: "others") {
+    name
+    list {
+      title
+    }
   }
 }

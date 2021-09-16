@@ -2,195 +2,208 @@
   box-sizing: border-box;
   display: flex;
   padding: 11px;
-  position: absolute;
+  position: fixed;
+  z-index: 1;
 
-  @include max(top, 40px, 5vw, true);
+  @include max(top, #{30px}, 30px);
 
-  @include max(left, 40px, 5vw, true);
-
-  @include media(pc) {
-    z-index: 1;
-  }
-
-  @include media(sp) {
-    height: calc(100% - 10vw);
-    width: calc(100% - 10vw);
-    &.opened,
-    &.closing {
-      z-index: 3;
-    }
-  }
+  @include max(left, #{30px}, 30px);
 
   ul {
-    align-items: center;
-    display: flex;
-    font-size: 20px;
-    font-style: italic;
-    font-weight: 300;
-    transition: all $common_anmt;
-    width: 0;
+    @include media(sp) {
+      align-items: flex-end;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-evenly;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      transition: all $common_anmt;
 
-    @include max(left, -35px, 50%, true);
+      @include max(left, $sp_value: -70px);
 
-    @include max(background-color, rgba(#ffffff, 0.1), $lemon);
+      @include max(width, $sp_value: 70px);
 
-    @include max(height, 60px, 100vh, true);
+      border-left: 5px solid $lemon;
+      &::after {
+        background-color: rgba(white, 0.05);
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+      }
+      li {
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
 
-    @include max(position, relative, absolute);
+        @include max(padding-top, $sp_value: 10px);
 
-    @include max(top, 0, 50%);
+        @include max(padding-bottom, $sp_value: 10px);
+
+        @include hover(true) {
+          &:hover {
+            &::before {
+              width: 100%;
+            }
+            .name {
+              color: $dark-gray;
+              -webkit-font-smoothing: antialiased;
+              -webkit-text-stroke-color: $dark-gray;
+              -webkit-text-stroke-width: 1.25px;
+            }
+            svg path {
+              color: $dark-gray;
+            }
+          }
+        }
+
+        &::before {
+          background-color: $lemon;
+          content: '';
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          transition: width $common_anmt;
+          width: 0;
+          z-index: -1;
+        }
+        a {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          svg {
+            @include max(font-size, $sp_value: 25px);
+            path {
+              color: white;
+              transition: color $common_anmt;
+            }
+          }
+          .name {
+            display: none;
+            font-weight: 300;
+            position: relative;
+
+            @include max(font-size, $sp_value: 20px);
+
+            @include max(top, $sp_value: 2px);
+          }
+        }
+        &.active,
+        &.lower_active {
+          &::before {
+            width: 100%;
+          }
+          .name {
+            color: $dark-gray;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-color: $dark-gray;
+            -webkit-text-stroke-width: 1.25px;
+          }
+          svg path {
+            color: $dark-gray;
+          }
+          &.active {
+            pointer-events: none;
+          }
+        }
+      }
+      .arrow {
+        align-items: center;
+        box-sizing: border-box;
+        color: rgba(white, 0.5);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        transform: translateX(-2.5%) scaleY(1.5);
+        width: calc(100% - 4px);
+
+        @include max(letter-spacing, $sp_value: -5px);
+
+        @include max(font-size, $sp_value: 25px);
+      }
+      &.opened {
+        left: 0px;
+        &.expanded {
+          @include max(width, $sp_value: 200px);
+          .name {
+            display: inline-block;
+
+            @include max(margin-left, $sp_value: 12.5px);
+          }
+          .arrow {
+            transform: translateX(0%) scaleY(1.5) rotate(-180deg);
+          }
+        }
+      }
+    }
 
     @include media(pc) {
+      align-items: center;
       background-clip: content-box;
+      background-color: rgba(#ffffff, 0.1);
       border-bottom: 1px solid $lemon;
+      display: flex;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 300;
+      height: 60px;
+      left: -35px;
       padding-bottom: 10px;
-    }
-
-    @include media(sp) {
-      flex-direction: column;
-      justify-content: center;
-      overflow: hidden;
-      transform: translate(-50%, -50%) skewX(-30deg);
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-
-      @include max(height, 60px, calc(100vh + 100vw), true);
-
-      @include max(top, 0, 50%);
-
-      @include media(pc) {
-        background: linear-gradient(
-            to top left,
-            rgba(255, 255, 255, 0) 50%,
-            rgba(#ffffff, 0.1) 50.75%
-          )
-          no-repeat top left/100% 100%;
+      position: relative;
+      top: 0;
+      transition: all $common_anmt;
+      width: 0;
+      &::before {
+        background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, rgba(#ffffff, 0.1) 50.75%) no-repeat top
+          left/100% 100%;
+        content: '';
+        height: 60px;
+        position: absolute;
         right: 0;
-      }
-
-      @include media(sp) {
-        background-color: $dark-gray;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        top: 0;
+        transition: all $common_anmt order(2);
         width: 0;
-        z-index: 2;
       }
-    }
-    &::after {
-      content: '';
-      position: absolute;
-
-      @include max(top, 0, 50%);
-
-      @include max(transform, skewX(-30deg), translate(-50%, -50%) skewX(30deg) scale(0.05));
-
-      @include media(pc) {
+      &::after {
         background-color: $lemon;
+        content: '';
+        height: 0;
+        position: absolute;
+        right: -35px;
+        top: 0;
+        top: 2px;
+        transform: skewX(-30deg);
         transition: all $common_anmt order(1);
         width: 2.5px;
       }
-
-      @include media(sp) {
-        content: url(../../img/lemon_gray.svg);
-        left: 50%;
-        z-index: 1;
-      }
-    }
-    &.opened {
-      @include max(width, 650px, calc(100vw + 100vh), true);
-
-      @include media(sp) {
-        transition: all $bound_anmt;
-      }
-
-      &::before {
-        @include max(width, calc(60px / #{$route_3}), calc(100vh + 100vw));
-
-        @include media(pc) {
-          right: calc(-60px / #{$route_3});
-          transition: all $common_anmt order(1);
-        }
-
-        @include media(sp) {
-          transition: all $bound_anmt 0.45s;
-        }
-      }
-      &::after {
-        @include media(pc) {
-          height: 80px;
-          right: -25px;
-          top: 0;
-        }
-      }
       li {
-        @include media(pc) {
-          animation: flash_once 0.1s linear forwards order(2);
-        }
-
-        @include media(sp) {
-          animation: flash_once 0.1s linear forwards 1s;
-        }
-      }
-    }
-    &.closed {
-      width: 0px;
-
-      @include media(sp) {
-        transition: all $bound_anmt 0.45s;
-      }
-
-      &::before {
-        width: 0;
-
-        @include media(pc) {
-          right: 0;
-          transition: all $common_anmt order(2);
-        }
-
-        @include media(sp) {
-          transition: all $bound_anmt;
-        }
-      }
-      &::after {
-        @include media(pc) {
-          height: 0;
-          right: -35px;
-          top: 2px;
-        }
-      }
-    }
-    .sp_wrapper {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%) skewX(30deg);
-      z-index: 3;
-    }
-    li {
-      @include media(pc) {
         align-items: center;
         display: flex;
         opacity: 0;
         visibility: hidden;
 
         &:not(:first-of-type) {
-          @include max(margin-left, 30px, 30px, true);
+          margin-left: 30px;
           &::before {
             background-color: $lemon;
             content: '';
             height: 30px;
+            margin-right: 30px;
             opacity: 0.75;
             transform: rotate(30deg);
             width: 0.5px;
-
-            @include max(margin-right, 30px, 30px, true);
           }
         }
         &:first-of-type {
-          @include max(margin-left, 90px, 80px, true);
+          margin-left: 90px;
         }
         a {
           position: relative;
@@ -210,7 +223,7 @@
             width: 0%;
             z-index: -1;
 
-            @include max(left, -20%, -55%);
+            @include max(left, #{-10px}, -55%);
           }
         }
         &.active > a,
@@ -226,78 +239,95 @@
             color: $dark-gray;
           }
           &::before {
-            @include max(width, 140%, 225%);
+            width: calc(100% + 20px);
           }
         }
         &.active > a {
           pointer-events: none;
         }
       }
-
-      @include media(sp) {
-        align-items: center;
-        display: flex;
-        height: 100px;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
-        a {
-          align-items: center;
-          display: flex;
-          svg {
-            height: 25px;
-            margin-right: 20px;
-            width: 25px;
-          }
-          span {
-            align-items: flex-start;
-            display: flex;
-            font-size: 25px;
-            width: 100px;
-          }
+      &.opened {
+        width: 650px;
+        &::before {
+          right: calc(-60px / #{$route_3});
+          transition: all $common_anmt order(1);
+          width: calc(60px / #{$route_3});
         }
-        &.active {
-          span {
-            color: $lemon;
-            font-weight: bold;
-          }
-          path {
-            color: $lemon;
-          }
+        &::after {
+          height: 80px;
+          right: -25px;
+          top: 0;
+        }
+        li {
+          animation: flash_once 0.1s linear forwards order(2);
         }
       }
     }
   }
-
   button {
     border-top: 1px solid $lemon;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    height: 60px;
+    left: 0;
     position: relative;
     width: 0px;
     z-index: 1;
+
+    @include max(height, #{60px}, 60px);
+
+    @include max(
+      transition,
+      width $common_anmt entry_order(4),
+      #{width $common_anmt entry_order(4),
+      left $common_anmt}
+    );
+
+    &:hover,
+    &.opened,
+    &.closing:not(:hover) {
+      span {
+        @include max(height, #{120px}, 120px);
+
+        &::before {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      &.opened {
+        @include max(left, $sp_value: 70px);
+        &.expanded {
+          @include max(left, $sp_value: 200px);
+        }
+        span::before {
+          content: 'CLOSE';
+
+          @include max(letter-spacing, #{2px}, 2px);
+
+          @include max(top, #{30px}, 32px);
+        }
+      }
+    }
 
     &::before,
     &::after {
       background-color: $lemon;
       content: '';
       height: 1px;
+      transition: width $common_anmt entry_order(4);
       width: 0;
 
-      @include max(margin-top, 15px, 15px, true, false);
+      @include max(margin-top, #{15px}, 15px);
     }
     span {
-      background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%)
-        no-repeat top left/100% 100%;
+      background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%;
       box-sizing: border-box;
       height: 0;
       inset: -1px 0 0;
       position: absolute;
-      transition: all $common_anmt;
+      transition: height $common_anmt;
 
-      @include max(width, calc(120px /#{$route_3}), calc(calc(75px + 5.75vw) /#{$route_3}));
+      @include max(width, calc(120px / #{$route_3}), 120px / $route_3);
 
       &::before {
         color: $dark-gray;
@@ -309,74 +339,59 @@
         transition: all 0.2s $ex_ease_out;
         visibility: hidden;
 
-        @include max(font-size, 16px, 16px, true, false);
+        @include max(font-size, #{16px}, 17px);
 
-        @include max(left, -18px, -18px, true, false);
+        @include max(top, #{30px}, 32px);
 
-        @include max(letter-spacing, 4px, 4px, true, false);
+        @include max(letter-spacing, #{4px}, 4px);
 
-        @include max(top, 30px, 30px, true, false);
+        @include max(left, #{-18px}, -18px);
       }
     }
   }
   &.mounted {
     button {
-      transition: all $common_anmt entry_order(4);
+      @include max(width, #{60px}, 60px);
 
-      @include max(width, 60px, 60px, true, false);
-
-      @include media(mobile) {
+      @include hover(false) {
+        border-top: 0;
+        &::before,
+        &::after {
+          display: none;
+        }
         span {
-          transition: all $common_anmt entry_order(3);
+          transition: height $common_anmt entry_order(3);
 
-          @include max(height, 120px, calc(75px + 5.75vw), true);
+          @include max(height, #{120px}, 120px);
 
           &::before {
             opacity: 1;
-            transition: all 0.2s $ex_ease_out entry-order(3);
+            transition: opacity 0.2s $ex_ease_out entry_order(3), visibility 0.2s $ex_ease_out entry_order(3);
             visibility: visible;
-
-            @include max(font-size, 16px, 18px, true, false);
-
-            @include max(top, 30px, 35px, true, false);
           }
         }
       }
 
-      &::before,
-      &::after {
-        transition: all $common_anmt entry_order(4);
-      }
       &::before {
-        @include max(width, 45px, 40px, true, false);
+        @include max(width, #{45px}, 45px);
       }
       &::after {
-        @include max(width, 30px, 25px, true, false);
-      }
-      &:hover,
-      &.opened,
-      &.closing:not(:hover) {
-        span {
-          transition: all $common_anmt;
-
-          @include max(height, 120px, calc(75px + 5.75vw), true);
-
-          &::before {
-            opacity: 1;
-            transition: all 0.2s $ex_ease_out;
-            visibility: visible;
-          }
-        }
-        &.opened {
-          span::before {
-            content: 'CLOSE';
-
-            @include max(top, 30px, 28px, true, false);
-
-            @include max(letter-spacing, 2px, 1.5px, true, false);
-          }
-        }
+        @include max(width, #{30px}, 30px);
       }
     }
+  }
+}
+@keyframes flash_once {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  50% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
   }
 }

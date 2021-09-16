@@ -1,63 +1,64 @@
-.profile {
-  align-items: center;
-  display: flex;
-  .concept_img {
+.about {
+  @include max(padding-left, 30px);
+
+  @include max(padding-bottom, $sp_value: 30px);
+
+  @include max(padding-right, 30px, 30px);
+
+  .profile {
+    box-sizing: border-box;
     display: flex;
-    height: 85%;
-    position: relative;
-    width: 50%;
-    &::before {
-      background-color: rgba(white, 0.08);
-      border-right: 10px solid $lemon;
-      content: '';
-      height: 125%;
-      left: 0;
-      position: absolute;
-      top: 50%;
-      transform: translate(-36%, -50%) skewX(-30deg);
-      width: 90%;
-      z-index: -1;
+
+    .image_frame {
+      @include max(width, 50%);
+
+      @include diff(width, $sp_value: 30px);
+
+      @include max(margin-left, $sp_value: 30px);
+
+      &::before {
+        @include max(width, 100%, 125%);
+
+        @include max(transform, translate(-33.5%, -50%) skewX(-30deg), translate(-45%, -50%) skewX(-30deg));
+      }
     }
-    img {
-      height: auto;
-      opacity: 0;
-      transform: translateX(10%);
-      width: 100%;
+    .text_wrapper {
+      @include max(padding-top, 30px);
+
+      @include max(width, 50%, 100%);
+
+      .title {
+        @include max(margin-top, 65px, 30px);
+      }
+      .introduction,
+      .info {
+        @include max(margin-top, 50px);
+      }
+      .info {
+        @include max(margin-top, $sp_value: 30px);
+      }
     }
   }
-  .text_wrapper {
+  .skills {
     box-sizing: border-box;
-    height: 100%;
-    width: 50%;
 
-    @include max(padding-top, 30px);
+    @include max(padding-top, 50px);
 
-    @include max(padding-left, 50px);
+    @include max(margin-top, $sp_value: 65px);
 
-    .title {
-      @include max(margin-top, 65px);
-    }
-    .introduction,
-    .info {
-      margin-left: 2%;
-      width: 98%;
-
-      @include max(margin-top, 50px);
-    }
+    @include max(min-height, calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px)));
   }
   &.mounted {
-    .concept_img img {
+    .image_frame img {
       opacity: 1;
       transform: translateX(0%);
       transition: all ease-out $common_drtn order(1);
     }
-    .heading span {
-      transform: translateY(0%);
-      transition: transform $common_anmt order(2);
-    }
     .title {
       transition: width $common_anmt order(1);
-      width: 460px;
+
+      @include custom_max(width, 460px, 725px);
+
       span {
         &:first-of-type path {
           stroke-dashoffset: 0;
@@ -65,7 +66,7 @@
         }
         &::before {
           transition: width $common_anmt 2.8s;
-          width: 0%;
+          width: 0;
         }
       }
       &::before {
@@ -78,54 +79,9 @@
       transform: translateY(0%);
       transition: transform $common_anmt order(2);
     }
-  }
-}
-.skills {
-  box-sizing: border-box;
-
-  @include max(padding-left, 50px);
-
-  @include max(padding-top, 30px);
-
-  .heading:not(:first-of-type) {
-    @include max(margin-top, 65px);
-  }
-
-  & > *:not(.heading) {
-    @include max(margin-top, 25px);
-  }
-
-  &.active {
     .heading span {
       transform: translateY(0%);
-      transition: transform $common_anmt order(3);
-    }
-    .tools {
-      &::before {
-        height: 1px;
-        transition: all $common_anmt order(2);
-      }
-    }
-    .langs {
-      [class*='slick-slide'] {
-        &::before {
-          opacity: 0;
-          transition: opacity $common_anmt order(3);
-        }
-      }
-      [class*='slick-slide'] > div {
-        &::before {
-          height: 100%;
-          opacity: 1;
-          transition: opacity 0s order(3), width $common_anmt order(4), height $common_anmt order(4);
-          width: 100%;
-        }
-        &::after {
-          height: 30px;
-          transition: all $common_anmt order(3);
-          width: 30px;
-        }
-      }
+      transition: transform $common_anmt order(2);
     }
   }
 }
