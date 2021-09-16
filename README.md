@@ -65,9 +65,6 @@ npm run generate
   │   │   ├── page files...
   │   │   ├── _app.tsc (pagesのエントリーポイント)
   │   │   └── index.tsx (/)
-  │   ├── svg
-  │   │   ├── svg files (よく使用する型)
-  │   │   └── index.tsx (svgのエントリーポイント)
   │   ├── types
   │   │   ├── common.d.ts (よく使用する型)
   │   │   ├── global.d.ts (グローバル型)
