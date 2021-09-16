@@ -49,7 +49,7 @@ function PageFrame({ children, classNmae }: { children: ReactElement; classNmae:
       >
         {isMobile ? (
           <section
-            className={`${classNmae} ${noTransition && styles.no_transition}`}
+            className={`${classNmae} ${noTransition && styles.no_transition} ${isMobile && styles.mobile}`}
             style={{ top: `${scrollTop * -1}px` }}
           >
             {children}

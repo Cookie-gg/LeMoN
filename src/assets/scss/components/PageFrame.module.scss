@@ -32,8 +32,10 @@
     box-sizing: border-box;
     left: 0;
     position: absolute;
-    transition: all $common_anmt;
     width: 100%;
+    &:not(.mobile) {
+      transition: all $common_anmt;
+    }
 
     &.no_transition {
       transition: all 0s;
