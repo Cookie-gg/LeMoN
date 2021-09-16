@@ -1,11 +1,18 @@
-module.exports = {
+// @ts-check
+
+/**
+ * @type {import('next').NextConfig}
+ **/
+const nextConfig = {
   reactStrictMode: true,
+  optimizeFonts: true,
   sassOptions: {
     prependData: `
-    @import '../foundation/functions.scss';
-      @import '../foundation/mixins.scss';
-      @import '../foundation/colors.scss';
-      @import '../foundation/animations.scss';
-      @import '../foundation/variables.scss';`,
+    @import '../foundations/functions.scss';
+      @import '../foundations/mixins.scss';
+      @import '../foundations/colors.scss';
+      @import '../foundations/variables.scss';`,
   }
 }
+
+module.exports = nextConfig
