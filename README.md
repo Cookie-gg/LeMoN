@@ -3,7 +3,9 @@
 
 ## フロント
 https://github.com/Cookie-gg/LeMoN
-## バックエンド及び管理画面
+## バックエンド
+https://github.com/Cookie-gg/L_M_N
+## 管理画面
 https://github.com/Cookie-gg/NoMeL
 
 ## 構成
@@ -50,19 +52,28 @@ npm run generate
   │   ├── components
   │   │   ├── components files...
   │   │   └── index.tsx (componentsのエントリーポイント)
+  │   ├── data
+  │   │   └── ...Query.tsx (データ加工のファイル)
   │   ├── graphQL
   │   │   ├── mutations (mutationsファイル群)
-  │   │   └── queries (queriesファイル群)
+  │   │   ├── queries (queriesファイル群)
+  │   │   └── config.gql.ts (apollo clientの設定)
   │   ├── hooks
   │   │   ├── hooks files...
   │   │   └── index.tsx (custom hooksのエントリーポイント)
   │   ├── pages
-  │   │   ├── pages files...
+  │   │   ├── page files...
   │   │   ├── _app.tsc (pagesのエントリーポイント)
   │   │   └── index.tsx (/)
+  │   ├── svg
+  │   │   ├── svg files (よく使用する型)
+  │   │   └── index.tsx (svgのエントリーポイント)
+  │   ├── types
+  │   │   ├── common.d.ts (よく使用する型)
+  │   │   ├── global.d.ts (グローバル型)
+  │   │   ├── graphql.d.ts (graphql-code-generatorで生成された型定義)
+  │   │   └── modules.d.ts (型がないモジュールのための型)
   │   ├── utils
-  │   │   ├── api
-  │   │   │   └── hello.ts (API)
   │   │   ├── axios
   │   │   │   ├── get.axios.ts (GETリクエスト用の処理)
   │   │   │   └── post.axios.ts (POSTリクエスト用の処理)
@@ -71,10 +82,18 @@ npm run generate
   │   │   │   ├── config.firebase.ts (firebaseの設定)
   │   │   │   ├── get.firebase.ts (firebaseのGETリクエスト処理)
   │   │   │   └── post.firebase.ts (firebaseのPOSTリクエスト処理)
+  │   │   ├── github
+  │   │   │   ├── config.github.ts (githubの設定)
+  │   │   │   ├── get.github.ts (githubのGETリクエスト処理)
+  │   │   │   └── post.github.ts (githubのPOSTリクエスト処理)
+  │   │   ├── markdown
+  │   │   │   ├── linkCard.ts (リンクカードの変換)
+  │   │   │   ├── markdownIt.ts (markdownItの設定)
+  │   │   │   ├── prism.ts (prismの設定)
+  │   │   │   └── renderer.ts (markdownのレンダー)
   │   │   ├── common.ts (よく使用する関数)
-  │   │   └── next.ts (next/**のモジュールのエントリーポイント)
-  │   │       
-  │   │        
+  │   │   ├── next.ts (next/**のモジュールのエントリーポイント)
+  │   │   └── prototype.ts (追加メソッド)
   │   └── index.tsx (エントリーポイント)
   ├── .env.development (開発用の環境変数)
   ├── .env.local (ローカルでの環境変数) ※gitignore対象
@@ -82,7 +101,8 @@ npm run generate
   ├── .eslintrc.json (ESLintの設定)
   ├── .gitignore (git管理の設定)
   ├── .prettierrc.json (prettierの設定)
-  ├── .next-env.d.ts (next.jsの型定義ファイル)
+  ├── .codegen.yaml (graphql-code-generatorの設定ファイル)
+  ├── graphql.schema.json (graphql-code-generatorで自動生成されたスキーマ)
   ├── next.config.js (next.jsの設定)
   ├── package-lock.json (パッケージの状態など)
   ├── package.json (プロジェクトの状態など)
@@ -115,8 +135,6 @@ import { Component } "components";
 
 https://marketplace.visualstudio.com/items?itemName=clinyong.vscode-css-modules
 
-### 環境変数について (.env.development, .env.production)
-* REACT_APP_API_URL は API URL
 
 ### ReduxやHooksについて
 * HooksのuseContextでなるべく使用を避ける
@@ -129,19 +147,6 @@ import { useState } from 'react';
 // Dispatch関数において、set = _ とする
 const [variableName, _variableName] = useState<Types>(InitialState);
 ```
-
-### メモリリークについて
-* 下記のエラーが出た上で正常に動くことがあっても、解消する
-* 特にstate上でのsetIntervalやsetTimeOutの使用に注意する
-```
-Warning: Can't perform a React state update on an unmounted component.
-This is a no-op, but it indicates a memory leak in your application.
-To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-```
-
-### Propsについて
-* propsは基本、ファンクショナルコンポーネントの引数にオブジェクトとして取る
-* キー指定はしない
 
 ### リンター
 * ESLint 
@@ -157,17 +162,3 @@ function Component(Props: PropTypes) {
 }
 export default React.memo(Component);
 ```
-
-### material icon について
-* 拡張機能
-https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme
-* 設定
-.vscode/setting.json
-* 追加アイコン
-https://drive.google.com/drive/folders/1Hw_zv6DD84WD9bDpe38HtIBfey867zaD?usp=sharing
-
-## 追加modules
-* axios (HTTP通信のため)
-* firebase (認証及びデータベース使用のため)
-* sass (Scss使用のため)
-* sanitize-html (XSSの脆弱性対策)
