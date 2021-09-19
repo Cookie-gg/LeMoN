@@ -24,6 +24,10 @@ export interface ZennAdds {
   updateDate: Date;
   icons: string[];
   body: string;
+  headings?: {
+    level: 1 | 2;
+    text: string;
+  }[];
   relations: {
     articles: Zenn[];
     title: string;
