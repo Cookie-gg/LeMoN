@@ -81,7 +81,7 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
             <main>
               <ArticleBody
                 body={data.body}
-                headingTexts={data.headings?.map((heading) => heading.text)}
+                headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
                 _activeSection={(n: number) => _activeSection(n)}
               />
               <Heading rank={2} text={data.relations.title} className={pages.heading} />

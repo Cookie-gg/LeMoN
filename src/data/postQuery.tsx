@@ -28,10 +28,12 @@ export default async function postQuery(): Promise<{
           topics: obj.topicIcons.map((obj) => obj.displayName),
           icons: [...obj.topicIcons.map((obj) => obj.icon), obj.typeIcon.icon],
           body: obj.body,
-          headings: headings?.map((heading) => ({
-            level: heading.split('')[2] === '1' ? 1 : 2,
-            text: heading.replaceAll(/\<(.*?)\>/g, ''),
-          })),
+          headings: headings
+            ? headings.map((heading) => ({
+                level: heading.split('')[2] === '1' ? 1 : 2,
+                text: heading.replaceAll(/\<(.*?)\>/g, ''),
+              }))
+            : undefined,
           relations: {
             articles: obj.relations.map((obj) => ({
               id: obj.id,
