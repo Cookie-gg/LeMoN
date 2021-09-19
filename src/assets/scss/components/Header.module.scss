@@ -12,6 +12,7 @@
   ul {
     @include media(sp) {
       align-items: flex-end;
+      background-color: rgba(white, 0.05);
       border-left: 5px solid $lemon;
       box-sizing: border-box;
       display: flex;
@@ -27,16 +28,6 @@
 
       @include max(width, $sp_value: 70px);
 
-      &::after {
-        background-color: rgba(white, 0.05);
-        content: '';
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: -1;
-      }
       li {
         box-sizing: border-box;
         position: relative;
