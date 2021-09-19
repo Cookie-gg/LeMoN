@@ -53,8 +53,6 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
       window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.16 : 11 + 20 + 60) : 151)
     }px`,
   );
-
-  console.log(data.headings);
   return (
     <>
       <Head>
