@@ -15,9 +15,10 @@ declare module 'ogp-parser' {
     };
   }>;
 }
+declare module 'markdown-it-attrs';
 declare module 'markdown-it-katexx';
 declare module 'markdown-it-imsize';
+declare module 'markdown-it-footnote';
 declare module 'markdown-it-container';
 declare module 'markdown-it-sanitizer';
-declare module 'markdown-it-link-attributes';
 declare module 'markdown-it-named-code-blocks';
