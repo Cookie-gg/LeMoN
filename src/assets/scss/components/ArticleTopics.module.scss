@@ -3,7 +3,6 @@
   font-family: $jp_font;
   line-height: 1.4;
   position: relative;
-  transition: all $common_anmt;
 
   @include max(font-size, #{18px}, 18px);
 
@@ -53,23 +52,88 @@
     }
   }
   &.in_article {
-    background-color: rgba(white, 0.08);
+    $res: 1199px;
     width: 100%;
 
-    @include max(padding, #{25px}, 25px);
+    @include max(padding, #{25px}, $width: $res);
 
+    @include max(background-color, rgba(white, 0.08), $width: $res);
+
+    @media screen and (max-width: $res) {
+      @include max(margin-top, #{30px}, 30px);
+    }
+
+    .title {
+      @include max(display, block, none, $res);
+    }
     .body {
-      @include max(margin-top, #{20px}, 20px);
-      li {
-        width: 48%;
-        &:nth-of-type(n + 3) {
-          @include max(margin-top, #{20px}, 20px);
+      @include max(justify-content, space-between, center, $res);
+
+      @include max(margin-top, #{20px}, $width: $res);
+
+      @include max(row-gap, #{20px}, 15px, $res);
+
+      @media screen and (max-width: $res) {
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+
+        @include max(column-gap, #{15px}, 15px, $res);
+
+        li {
+          a {
+            position: relative;
+
+            @include max(padding-right, #{10px}, 10px);
+
+            @include max(padding-left, #{10px}, 10px);
+
+            @include max(padding-bottom, #{2px}, 2px);
+
+            @include max(font-size, #{16px}, 14px);
+
+            @include hover(true) {
+              &:hover::before {
+                border-color: white;
+              }
+            }
+
+            &::before {
+              border: 1px solid $lemon;
+              content: '';
+              height: 100%;
+              left: 50%;
+              position: absolute;
+              top: 50%;
+              transform: translate(-50%, -50%) skewX(-30deg);
+              transition: border-color $common_anmt;
+              width: 100%;
+            }
+
+            span {
+              border: 0;
+
+              @include max(height, #{30px}, 30px);
+
+              @include max(width, #{30px}, 30px);
+
+              svg {
+                @include max(font-size, #{16px}, 16px);
+              }
+            }
+          }
         }
+      }
+      li {
+        @include max(width, 48%, $width: $res);
         a {
           @include hover(both) {
             text-decoration: underline;
             text-decoration-color: rgba(white, 0.5);
             text-decoration-thickness: 1px;
+            @media screen and (max-width: $res) {
+              text-decoration: none;
+            }
           }
         }
       }
@@ -110,6 +174,25 @@
 
         @include max(padding-left, #{25px}, 25px);
 
+        @include hover(true) {
+          &:hover {
+            color: $dark-gray;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-color: $dark-gray;
+            -webkit-text-stroke-width: 0.5px;
+            &::before {
+              @include max(width, calc(100% - 46px));
+
+              @include diff(width, $sp_value: 46px);
+            }
+            &:last-of-type {
+              a {
+                color: $dark-gray;
+              }
+            }
+          }
+        }
+
         &::before {
           background-color: $lemon;
           content: '';
@@ -131,24 +214,6 @@
           &:last-of-type {
             a {
               color: $dark-gray;
-            }
-          }
-        }
-        @include hover(true) {
-          &:hover {
-            color: $dark-gray;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-color: $dark-gray;
-            -webkit-text-stroke-width: 0.5px;
-            &::before {
-              @include max(width, calc(100% - 46px));
-
-              @include diff(width, $sp_value: 46px);
-            }
-            &:last-of-type {
-              a {
-                color: $dark-gray;
-              }
             }
           }
         }

@@ -1,17 +1,21 @@
-$breakPoints: (
+$media_queries: (
   'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
   'sp': 'screen and (max-width: 819px)',
   'pc': 'screen and (min-width: 820px)',
   'dark': '(prefers-color-scheme: dark)',
 );
 @mixin media($bp: sp) {
-  @media #{map-get($breakPoints, $bp)} {
+  @media #{map-get($media_queries, $bp)} {
     @content;
   }
 }
-$fixed_point: (
+$fixed_points: (
   pc: 1562,
   sp: 500,
+);
+$break_points: (
+  pc: 820,
+  sp: 819,
 );
 
 @mixin diff($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
@@ -19,7 +23,7 @@ $fixed_point: (
     @include media(pc) {
       $value: number(str_replace('px', '', $value));
       #{$property}: calc((#{$from} - #{$value * 100 * 0.00064020486555697823303457106274008 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+      @media screen and (min-width: map-get($fixed_points, 'pc') + 0px) {
         #{$property}: calc((#{$from} - #{$value + 0px}) #{$add_term});
       }
     }
@@ -28,7 +32,7 @@ $fixed_point: (
     @include media(sp) {
       $sp_value: number(str_replace('px', '', $sp_value));
       #{$property}: calc((#{$from} - #{$sp_value * 100 * 0.002 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+      @media screen and (min-width: map-get($fixed_points, 'sp') + 0px) {
         #{$property}: calc((#{$from} - #{$sp_value + 0px}) #{$add_term});
       }
     }
@@ -40,7 +44,7 @@ $fixed_point: (
     @include media(pc) {
       $value: number(str_replace('px', '', $value));
       #{$property}: calc((#{$from} + #{$value * 100 * 0.00064020486555697823303457106274008 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+      @media screen and (min-width: map-get($fixed_points, 'pc') + 0px) {
         #{$property}: calc((#{$from} + #{$value + 0px}) #{$add_term});
       }
     }
@@ -49,7 +53,7 @@ $fixed_point: (
     @include media(sp) {
       $sp_value: number(str_replace('px', '', $sp_value));
       #{$property}: calc((#{$from} + #{$sp_value * 100 * 0.002 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+      @media screen and (min-width: map-get($fixed_points, 'sp') + 0px) {
         #{$property}: calc((#{$from} + #{$sp_value + 0px}) #{$add_term});
       }
     }
@@ -57,13 +61,13 @@ $fixed_point: (
 }
 
 // $sp_fixed: if($fixed == true, true, false);
-@mixin max($property, $value: initial, $sp_value: initial, $important: false) {
+@mixin max($property, $value: initial, $sp_value: initial, $width: 0, $important: false) {
   @if $value != initial {
-    @include media(pc) {
+    @media screen and (min-width: if($width == 0, map-get($break_points, 'pc') + 0px, $width + 1px)) {
       @if type-of($value) == number and unit($value) == 'px' {
         $value: number(str_replace('px', '', $value));
         #{$property}: $value * 100 * 0.00064020486555697823303457106274008 + 0vw#{if($important, !important, '')};
-        @media screen and (min-width: map-get($fixed_point, 'pc') + 0px) {
+        @media screen and (min-width: map-get($fixed_points, 'pc') + 0px) {
           #{$property}: $value + 0px#{if($important, !important, '')};
         }
       } @else {
@@ -72,11 +76,11 @@ $fixed_point: (
     }
   }
   @if $sp_value != initial {
-    @include media(sp) {
+    @media screen and (max-width: if($width == 0, map-get($break_points, 'sp') + 0px, $width + 0px)) {
       @if type-of($sp_value) == number and unit($sp_value) == 'px' {
         $sp_value: number(str_replace('px', '', $sp_value));
         #{$property}: $sp_value * 100 * 0.002 + 0vw#{if($important, !important, '')};
-        @media screen and (min-width: map-get($fixed_point, 'sp') + 0px) {
+        @media screen and (min-width: map-get($fixed_points, 'sp') + 0px) {
           #{$property}: $sp_value + 0px#{if($important, !important, '')};
         }
       } @else {

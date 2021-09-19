@@ -5,6 +5,7 @@
   font-family: $jp_font;
   font-weight: 300;
   line-height: 1.8;
+  $res: 1119px;
   transition: all $common_anmt;
 
   @include max(border-right-width, #{5px}, 5px);
@@ -35,13 +36,20 @@
   h1 {
     border-bottom: 1px solid $lemon;
     font-weight: 600;
+    margin-top: -100px;
+    padding-top: 100px;
 
     @include max(font-size, #{28px}, 24px);
 
-    @include max(margin-top, #{60px}, 60px);
-
     @include max(padding-bottom, #{7.5px}, 7.5px);
 
+    @media screen and (max-width: $res) {
+      margin-top: -150px;
+      padding-top: 150px;
+    }
+    &::before {
+      @include max(margin-top, #{60px}, 60px);
+    }
     code {
       vertical-align: text-bottom;
 
@@ -50,15 +58,72 @@
   }
   h2 {
     font-weight: 500;
+    margin-top: -120px;
+    padding-top: 120px;
 
     @include max(font-size, #{24px}, 20px);
 
-    @include max(margin-top, #{40px}, 40px);
+    @media screen and (max-width: $res) {
+      margin-top: -170px;
+      padding-top: 170px;
+    }
 
+    &::before {
+      @include max(margin-top, #{40px}, 40px);
+    }
     code {
       vertical-align: text-bottom;
 
       @include max(font-size, #{20px}, 16px);
+    }
+  }
+  h1,
+  h2 {
+    pointer-events: none;
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+    }
+    &:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      &::before {
+        content: '';
+        display: block;
+        height: 170px;
+        margin-top: -170px;
+        @media screen and (max-width: $res) {
+          height: 220px;
+          margin-top: -220px;
+        }
+      }
+    }
+  }
+  & > * + h1:first-of-type {
+    margin-top: -100px;
+    padding-top: 100px;
+    @media screen and (max-width: $res) {
+      margin-top: -150px;
+      padding-top: 150px;
+    }
+    &::before {
+      height: 0;
+
+      @include max(margin-top, #{40px}, 40px);
+    }
+  }
+  & > * + h2:first-of-type {
+    margin-top: -120px;
+    padding-top: 120px;
+    @media screen and (max-width: $res) {
+      margin-top: -170px;
+      padding-top: 170px;
+    }
+    &::before {
+      height: 0;
+
+      @include max(margin-top, #{40px}, 40px);
     }
   }
   h3 {
@@ -67,6 +132,82 @@
     @include max(font-size, #{20px}, 16px);
 
     @include max(margin-top, #{30px}, 30px);
+  }
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+
+    @include max(font-size, #{18px}, 14px);
+
+    @include max(margin-top, #{20px}, 20px);
+  }
+  [class*='footnote-ref'] {
+    display: inline-block;
+    a {
+      color: $lemon;
+      font-size: 10px;
+      height: 100%;
+      margin-left: 1.5px;
+      margin-right: 1.5px;
+      margin-top: -170px;
+      padding-top: 170px;
+      vertical-align: top;
+      width: 100%;
+
+      @include hover(both) {
+        text-decoration: underline;
+        text-decoration-color: rgba($lemon, 0.9);
+        text-decoration-thickness: 1px;
+      }
+
+      @media screen and (max-width: $res) {
+        margin-top: -220px;
+        padding-top: 220px;
+      }
+    }
+  }
+  [class*='footnotes'] {
+    @include max(margin-top, #{60px}, 60px);
+
+    [class*='footnotes-title'] {
+      border-bottom: 1px solid $lemon;
+      font-weight: 500;
+
+      @include max(font-size, #{20px}, 16px);
+
+      @include max(padding-bottom, #{7.5px}, 7.5px);
+    }
+    ol {
+      @include max(margin-top, #{5px}, 20px);
+
+      li {
+        &::marker {
+          color: $lemon;
+
+          @include max(font-size, #{16px}, 16px);
+        }
+        p {
+          @include max(font-size, #{16px}, 16px);
+          a {
+            color: $lemon;
+            margin-top: -170px;
+            padding-top: 170px;
+
+            @include hover(both) {
+              text-decoration: underline;
+              text-decoration-color: rgba($lemon, 0.9);
+              text-decoration-thickness: 1px;
+            }
+
+            @media screen and (max-width: $res) {
+              margin-top: -220px;
+              padding-top: 220px;
+            }
+          }
+        }
+      }
+    }
   }
   p {
     line-height: 1.8;
@@ -88,14 +229,6 @@
   ul,
   ol {
     @include max(padding-left, #{25px}, 25px);
-
-    li {
-      ul,
-      ol,
-      &:not(:first-of-type) {
-        @include max(margin-left, #{10px}, 10px);
-      }
-    }
   }
   ul {
     list-style: disc outside;
@@ -167,7 +300,9 @@
 
     @include max(margin-top, #{40px}, 40px);
 
-    @include max(margin-bottom, #{40px}, 40px);
+    &[class*='footnotes-sep'] {
+      @include max(margin-top, #{60px}, 60px);
+    }
   }
   details {
     border: 1px solid rgba(white, 0.08);
@@ -185,17 +320,6 @@
 
       @include max(padding-bottom, #{12px}, 12px);
     }
-  }
-  [class*='annotation'] {
-    color: $lemon;
-    cursor: pointer;
-    text-decoration: underline;
-
-    @include max(font-size, #{10px}, 10px);
-
-    @include max(margin-left, #{2.5px}, 2.5px);
-
-    @include max(vertical-align, #{7.5px}, 7.5px);
   }
   [class*='link_card'] {
     background-color: $dark-gray;
@@ -217,12 +341,14 @@
       width: 100%;
 
       @include max(flex-direction, $sp_value: column);
+
       [class*='text_wrapper'] {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
         @include max(order, $sp_value: 2);
+
         @include max(padding, #{20px}, 20px);
 
         * {
@@ -260,6 +386,7 @@
         width: auto;
 
         @include max(height, #{120px}, 120px);
+
         @include max(display, $sp_value: none);
       }
       img[alt='ogp_image'] {
@@ -404,74 +531,21 @@
         }
         &[class*='diff'] {
           position: relative;
-          z-index: 1;
+          z-index: 0;
           [class*='coord'],
           [class*='coord'] * {
             color: #66d9ef;
-            [class*='punctuation'] {
-              color: #66d9ef;
-            }
           }
           [class*='add'] {
-            position: relative;
-            &::before {
-              background-color: #3e4e21;
-              content: '';
-              height: 100%;
-              left: 0;
-              position: absolute;
-              top: 0;
-              width: 100%;
-              z-index: -1;
-            }
+            background-color: #3e4e21;
             span:first-child {
               color: #a4ff86;
             }
           }
           [class*='delete'] {
-            position: relative;
-            &::before {
-              background-color: #64273d;
-              content: '';
-              height: 100%;
-              left: 0;
-              position: absolute;
-              top: 0;
-              width: 100%;
-              z-index: -1;
-            }
+            background-color: #64273d;
             span:first-child {
               color: #ff7d7d;
-            }
-          }
-
-          [class*='coord'] + [class*='plus'] {
-            color: #a4ff86;
-          }
-          & > [class*='plus'] {
-            position: relative;
-            &::before {
-              background-color: #3e4e21;
-              content: '';
-              height: 100%;
-              left: 0;
-              position: absolute;
-              top: 0;
-              width: 100vw;
-              z-index: -1;
-            }
-          }
-          & > [class*='minus'] {
-            position: relative;
-            &::before {
-              background-color: #712a43;
-              content: '';
-              height: 100%;
-              left: 0;
-              position: absolute;
-              top: 0;
-              width: 100vw;
-              z-index: -1;
             }
           }
         }

@@ -8,4 +8,5 @@ export { default as useHeight } from './useHeight';
 export { default as useTop } from './useTop';
 export { default as useParent } from './useParent';
 export { default as useFirstPeriod } from './useFirstPeriod';
+export { default as useIntersect } from './useIntersect';
 export { default as useWindowDimensions } from './useWindowDimensions';

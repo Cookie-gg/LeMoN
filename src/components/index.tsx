@@ -20,6 +20,7 @@ export { default as Selection } from './Selection';
 export { default as Paragraph } from './Paragraph';
 export { default as ArticleToc } from './ArticleToc';
 export { default as ArticleMeta } from './ArticleMeta';
+export { default as ArticleMetaMini } from './ArticleMetaMini';
 export { default as ProfileInfo } from './ProfileInfo';
 export { default as ArticleList } from './ArticleList';
 export { default as ArticleTopics } from './ArticleTopics';

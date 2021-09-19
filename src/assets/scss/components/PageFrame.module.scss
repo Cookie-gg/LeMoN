@@ -1,56 +1,50 @@
-.wrapper {
-  display: flex;
-  height: calc(100% - (11px + 110px + 40px + 11px));
-  justify-content: center;
-  overflow-x: hidden;
-  overflow-y: scroll;
+.entire {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1400px;
   position: relative;
-  width: calc(100% - (11px + 40px + 40px + 11px));
+  width: 100%;
 
-  @include max(margin-top, #{110px}, 100px);
-
-  @include max(margin-bottom, #{40px}, 30px);
-
-  @include max(margin-left, #{40px}, 30px);
-
-  @include max(margin-right, #{40px});
-
-  @include diff(width, $sp_value: 30px, $add_term: '- 22px');
-
-  @include diff(height, $sp_value: 100px + 30px, $add_term: '- 22px');
-
-  @include custom_scrollbar();
-
-  .contents {
-    height: 100%;
-    max-width: 1400px;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
-  section {
+  &::before {
+    border: solid $dark-gray;
     box-sizing: border-box;
+    content: '';
+    height: 100%;
     left: 0;
-    position: absolute;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
     width: 100%;
-    &:not(.mobile) {
-      transition: all $common_anmt;
-    }
+    z-index: 9999;
 
-    &.no_transition {
-      transition: all 0s;
+    @include max(border-bottom-width, calc(30px + 11px + 40px));
+
+    @include max(border-left-width, calc(30px + 11px + 40px));
+
+    @include max(border-right-width, calc(30px + 11px + 40px));
+
+    @include max(border-top-width, calc(30px + 11px + 110px));
+
+    @include add(border-top-width, $sp_value: (20px + 60px), $from: 11px);
+
+    @include add(border-left-width, $sp_value: (20px + 30px), $from: 11px);
+
+    @include add(border-right-width, $sp_value: (20px + 30px), $from: 11px);
+
+    @include add(border-bottom-width, $sp_value: (20px + 30px), $from: 11px);
+
+    @include max(transition, $sp_value: border-width $common_anmt);
+  }
+  [class*='opened'] & {
+    &::before {
+      @include add(border-left-width, $sp_value: (20px + 30px + 70px), $from: 11px);
+      @include max(border-right-width, $sp_value: 0);
     }
   }
-  .scrollbar {
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    span {
-      background-color: $lemon;
-      border-radius: 2.5px;
-      transition: all $common_anmt;
-      width: 8px;
+  [class*='expanded'] & {
+    &::before {
+      @include add(border-left-width, $sp_value: (20px + 30px + 200px), $from: 11px);
+      @include max(border-right-width, $sp_value: 0);
     }
   }
 }

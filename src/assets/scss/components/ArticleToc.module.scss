@@ -1,17 +1,62 @@
 .entire {
   font-family: $jp_font;
-  letter-spacing: 1.2px;
   line-height: 1.4;
-  position: relative;
-  top: 0;
+  $res: 1199px;
   transition: top $common_anmt;
   width: 100%;
 
-  @include max(margin-top, 40px);
-  &.no_transition {
-    transition: top 0s;
-    .toc {
-      transition: margin-top 0s;
+  @include max(position, sticky, $width: $res);
+
+  @include max(top, calc(30px + 11px + 110px), $width: $res);
+
+  @include max(margin-top, 40px, $width: $res);
+
+  @include max(letter-spacing, #{1.2px}, 1.2px);
+
+  .meta {
+    align-items: center;
+    background-color: rgba(white, 0.04);
+    box-sizing: border-box;
+    font-family: $jp_font;
+    padding: 25px;
+    position: relative;
+    width: 100%;
+    z-index: -1;
+
+    @include max(display, flex, none, $res);
+
+    &::before {
+      background-color: $lemon;
+      bottom: 0;
+      content: '';
+      height: 1px;
+      left: 0;
+      position: absolute;
+      transition: width $common_anmt order(2);
+      width: 0;
+    }
+    &::after {
+      background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
+        100%;
+      bottom: 0;
+      content: '';
+      height: 0px;
+      position: absolute;
+      right: 0;
+      transition: all $common_anmt order(1);
+      width: 0px;
+    }
+    .emoji {
+      align-items: center;
+      display: flex;
+      font-size: 45px;
+      justify-content: center;
+      margin-right: 15px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.8;
     }
   }
   .toc {
@@ -20,17 +65,106 @@
     font-family: $jp_font;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 25px;
-    transition: margin-top $common_anmt order(3);
+    top: 0;
+    transition: top $common_anmt order(3);
     width: 100%;
+
     @include custom_scrollbar();
 
+    @include max(padding, #{25px}, $width: $res);
+
+    @include max(position, absolute, $width: $res);
+
+    @include max(background-color, #313131, $width: $res);
+
     .title {
-      font-size: 18px;
-      font-weight: 600;
+      @include max(font-size, 18px, $width: $res);
+
+      @include max(font-weight, 600, 400, $res);
+
+      @include max(cursor, $sp_value: pointer, $width: $res);
+
+      @include max(transition, $sp_value: background-color $common_anmt, $width: $res);
+
+      @media screen and (max-width: $res) {
+        border-bottom-width: 1px;
+        border-color: $lemon;
+        border-style: solid;
+        border-top-width: 1px;
+        color: white;
+        position: fixed;
+        user-select: none;
+        z-index: 99999;
+
+        @include max(writing-mode, vertical-rl);
+
+        @include max(padding-top, #{5px}, 5px);
+
+        @include max(display, $sp_value: flex);
+
+        @include max(align-items, $sp_value: center);
+
+        @include max(padding-bottom, #{5px}, 5px);
+
+        @include max(right, calc(30px + 11px));
+
+        @include add(right, $sp_value: (20px + 30px), $from: 11px);
+
+        @include max(font-size, #{18px}, 18px);
+
+        @include max(top, calc(30px + 11px + 110px));
+
+        @include add(top, $sp_value: 20px, $from: 11px);
+
+        @include hover(true) {
+          &:hover {
+            background-color: rgba(white, 0.08);
+          }
+        }
+
+        svg {
+          transition: transform $common_anmt;
+
+          @include max(margin-top, #{7.5px});
+        }
+      }
     }
     .body {
-      margin-top: 20px;
+      @include max(margin-top, 20px, $width: $res);
+
+      @media screen and (max-width: $res) {
+        background-color: #313131;
+        border: 2px solid rgba(white, 0.1);
+        box-sizing: border-box;
+        max-height: 50vh;
+        overflow-x: visible;
+        overflow-y: scroll;
+        position: fixed;
+        right: -50%;
+        transition: right $common_anmt;
+        z-index: 99999;
+
+        @include max(top, calc(30px + 11px + 110px + 75px + 11px));
+
+        @include add(top, $sp_value: (20px + 60px), $from: 11px);
+
+        @include max(padding, #{25px}, 25px);
+
+        @include custom_scrollbar();
+
+        &::before {
+          background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, rgba(white, 0.1) 50.75%) no-repeat top;
+          content: '';
+          left: 0;
+          position: absolute;
+          top: 0;
+          z-index: 0;
+
+          @include max(height, #{25px}, 25px);
+
+          @include max(width, #{25px}, 25px);
+        }
+      }
       li {
         align-items: center;
         color: rgba(white, 0.6);
@@ -91,11 +225,33 @@
         }
       }
     }
+    @media screen and (max-width: $res) {
+      &.opened {
+        .title svg {
+          transform: rotate(-180deg);
+        }
+        .body {
+          @include max(right, calc(30px + 11px));
+
+          @include add(right, $sp_value: (20px + 30px), $from: 11px);
+        }
+      }
+    }
   }
-  &:not(.mounted) .toc {
-    transition: margin-top 0s;
-  }
-  &.show .toc {
-    transition: margin-top $common_anmt order(2);
+  &.showed {
+    .meta {
+      &::before {
+        transition: width $common_anmt order(3);
+        width: 100%;
+      }
+      &::after {
+        height: 40px;
+        transition: all $common_anmt order(4);
+        width: 40px;
+      }
+    }
+    .toc {
+      transition: top $common_anmt order(2);
+    }
   }
 }

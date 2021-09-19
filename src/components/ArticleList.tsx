@@ -1,10 +1,10 @@
 import { useMount } from 'hooks';
-import { Nlink } from 'components';
 import { Zenn } from 'types/common';
 import { ReactElement } from 'react';
 import { displayDate } from 'utils/common';
 import { Twemoji } from 'react-emoji-render';
 import styles from '../assets/scss/components/ArticleList.module.scss';
+import { Link } from 'utils/next';
 
 interface PropsType {
   type?: 'latest' | 'related';
@@ -21,8 +21,8 @@ export default function ArticleList({ type, className, data, display, shiftList,
   const displayTopics = type ? 2 : 5;
   const listBody = (value: Zenn, i: number) => (
     <li key={i}>
-      <Nlink href={`/blog/${value.id}`}>
-        <>
+      <Link href={`/blog/${value.id}`}>
+        <a>
           <div className={styles.thumbnail}>
             {type && <span className={styles.type}>{value.type.toUpperCase()}</span>}
             <Twemoji svg className={styles.emoji} text={value.emoji} options={{ protocol: 'https' }} />
@@ -39,8 +39,8 @@ export default function ArticleList({ type, className, data, display, shiftList,
               </p>
             </div>
           </div>
-        </>
-      </Nlink>
+        </a>
+      </Link>
     </li>
   );
   return (

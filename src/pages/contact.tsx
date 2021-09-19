@@ -27,7 +27,7 @@ export default function Contact({ data, error }: { data: DataType; error?: strin
         <title>LeMoN | Contact</title>
       </Head>
       <DataRes error={error} />
-      <PageFrame classNmae={`${pages.contact} ${isMounted && pages.mount}`}>
+      <PageFrame classNmae={`${pages.contact} ${isMounted && pages.mounted}`}>
         <>
           <div className={pages.text_wrapper}>
             <Heading rank={2} text={data.form.title} className={pages.heading} />

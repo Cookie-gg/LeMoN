@@ -1,10 +1,8 @@
 .entire {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  transition: all $common_anmt entry_order(1);
-
-  @include max(z-index, 2, 1);
+  z-index: 4;
 
   @include max(left, -130vw, -400vw);
 
@@ -34,18 +32,26 @@
   }
   &.mounted {
     &:not(.home) {
-      transition: all $common_anmt;
+      transition: left $common_anmt, margin-left $common_anmt;
     }
     &.home {
-      transition: all $common_anmt entry_order(1);
+      transition: left $common_anmt entry_order(1), margin-left $common_anmt;
 
       @include max(left, 50%, 50vw);
 
-      @media screen and (max-width: map-get($fixed_point, 'sp') + 0px) {
+      [class*='opened'] & {
+        @include max(margin-left, $sp_value: 70px);
+      }
+      [class*='expanded'] & {
+        @include max(margin-left, $sp_value: 200px);
+      }
+
+      @media screen and (max-width: map-get($fixed_points, 'sp') + 0px) {
         .cover {
           left: 33vw;
         }
       }
+      
     }
   }
 }

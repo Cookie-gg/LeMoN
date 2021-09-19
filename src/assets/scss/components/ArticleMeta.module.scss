@@ -1,5 +1,6 @@
-.main {
+.entire {
   font-family: $jp_font;
+  $res: 1119px;
   transition: all $common_anmt;
 
   @include max(letter-spacing, #{1.2px}, 1.2px);
@@ -7,13 +8,11 @@
   .emoji {
     align-items: center;
     display: flex;
+    font-size: 80px;
     justify-content: center;
     width: 100%;
-    img {
-      @include max(height, #{80px}, 80px, true);
 
-      @include max(width, #{80px}, 80px, true);
-    }
+    @include max(font-size, #{80px}, 80px);
   }
   .title {
     color: rgba(white, 0.9);
@@ -23,7 +22,7 @@
     margin-right: auto;
     text-align: center;
 
-    @include max(width, 60%, 90%);
+    @include max(width, 65%, 90%);
 
     @include max(font-size, #{28px}, 24px);
 
@@ -39,7 +38,7 @@
 
     @include max(gap, #{30px}, 30px);
 
-    span {
+    div {
       align-items: center;
       display: flex;
       * {
@@ -51,61 +50,6 @@
       time {
         @include max(font-size, #{16px}, 14px);
       }
-    }
-  }
-}
-.aside {
-  align-items: center;
-  background-color: rgba(white, 0.04);
-  box-sizing: border-box;
-  display: flex;
-  font-family: $jp_font;
-  padding: 25px;
-  position: relative;
-  width: 100%;
-  z-index: -1;
-
-  &::before {
-    background-color: $lemon;
-    bottom: 0;
-    content: '';
-    height: 1px;
-    left: 0;
-    position: absolute;
-    transition: width $common_anmt order(2);
-    width: 0;
-  }
-  &::after {
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%;
-    bottom: 0;
-    content: '';
-    height: 0px;
-    position: absolute;
-    right: 0;
-    transition: all $common_anmt order(1);
-    width: 0px;
-  }
-  .emoji {
-    align-items: center;
-    display: flex;
-    font-size: 45px;
-    justify-content: center;
-    margin-right: 15px;
-  }
-  .title {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.8;
-  }
-  &.show {
-    &::before {
-      transition: width $common_anmt order(3);
-      width: 100%;
-    }
-    &::after {
-      height: 40px;
-      transition: all $common_anmt order(4);
-      width: 40px;
     }
   }
 }

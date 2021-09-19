@@ -1,5 +1,4 @@
-import { Nlink } from 'components';
-import { useRouter } from 'utils/next';
+import { Link, useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import { useFirstMount, usePeriod, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/Header.module.scss';
@@ -36,7 +35,7 @@ export default function Header({
         } ${!(windowWidth < 820) && isClosing && styles.closing}`}
         onClick={() => clickEvent()}
       >
-        <span></span>
+        {!(windowWidth < 820) && <span></span>}
       </button>
       <ul
         className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
@@ -51,12 +50,12 @@ export default function Header({
             }`}
             onClick={() => windowWidth < 820 && clickEvent()}
           >
-            <Nlink href={el.path}>
-              <>
+            <Link href={el.path}>
+              <a>
                 <Iconify className="sp" icon={el.icon} />
                 <span className={styles.name}>{el.name}</span>
-              </>
-            </Nlink>
+              </a>
+            </Link>
           </li>
         ))}
         <div

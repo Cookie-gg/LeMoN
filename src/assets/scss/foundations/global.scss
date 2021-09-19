@@ -15,17 +15,10 @@
   }
 }
 *,
-html,
 body {
   color: white;
   font-family: $en_font;
   font-weight: 200;
-}
-html,
-body {
-  background-color: $dark-gray;
-  overflow: hidden;
-  position: relative;
 }
 span {
   display: inline-block;

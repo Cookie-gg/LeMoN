@@ -1,9 +1,7 @@
 .entire {
   @include max(padding-left, 30px);
 
-  @include max(padding-bottom, 30px, 30px);
-
-  @include max(padding-right, 30px, 30px);
+  @include max(padding-right, 30px);
 }
 .blog {
   @include max(padding-top, 30px);
@@ -24,19 +22,70 @@
   }
 }
 .post {
+  $res: 1199px;
+  .fixed_meta {
+    align-items: center;
+    background-color: $lemon;
+    box-sizing: border-box;
+    display: flex;
+    font-family: $jp_font;
+    position: fixed;
+    top: 0;
+    transition: top $common_anmt;
+    z-index: 1;
+
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    @include max(padding, #{10px}, 10px);
+
+    @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
+
+    @include diff(width, $sp_value: (20px + 20px + 30px + 30px), $add_term: '- 11px - 11px');
+
+    &.showed {
+      @include max(top, calc(30px + 11px + 110px));
+
+      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+    }
+
+    .emoji {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      @include max(font-size, #{30px}, 30px);
+
+      @include max(margin-right, #{15px}, 15px);
+    }
+    .title {
+      color: rgba($dark-gray, 0.9);
+      font-weight: 700;
+      line-height: 1.8;
+
+      @include max(font-size, #{17.5px}, 17.5px);
+    }
+  }
   .contents {
     display: flex;
 
-    @include max(margin-top, #{40px}, 30px);
+    @include max(margin-top, #{40px}, $width: $res);
 
+    @include max(flex-direction, $sp_value: column, $width: $res);
+
+    @media screen and (max-width: $res) {
+      @include max(margin-top, #{40px}, 30px);
+    }
     main {
-      @include max(margin-right, 40px);
+      @include max(margin-right, 40px, $width: $res);
 
       @include diff(width, 40px, $from: calc(100% - 360px));
 
-      @media screen and (max-width: 1200px) {
+      @include max(order, 1, 2, $res);
+
+      @media screen and (max-width: $res) {
         width: 100%;
       }
+
       .heading {
         @include max(margin-top, 65px, 65px);
       }
@@ -49,10 +98,10 @@
     }
     aside {
       position: relative;
-      width: 360px;
-      @media screen and (max-width: 1200px) {
-        display: none;
-      }
+
+      @include max(width, #{360px}, 100%, $res);
+
+      @include max(order, 2, 1, $res);
     }
   }
   &.mounted {

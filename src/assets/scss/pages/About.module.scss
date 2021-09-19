@@ -1,9 +1,7 @@
 .about {
   @include max(padding-left, 30px);
 
-  @include max(padding-bottom, $sp_value: 30px);
-
-  @include max(padding-right, 30px, 30px);
+  @include max(padding-right, 30px);
 
   .profile {
     box-sizing: border-box;
@@ -39,6 +37,7 @@
       }
     }
   }
+  
   .skills {
     box-sizing: border-box;
 

@@ -1,6 +1,6 @@
+import { Link } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/ArticleTopics.module.scss';
-import Nlink from './Nlink';
 
 interface PropsType {
   type?: string;
@@ -33,8 +33,8 @@ export default function ArticleTopics({
             onClick={() => !inArticle && (clickEvent as (n: number) => void)(i)}
           >
             {inArticle ? (
-              <Nlink href={`/topics/${value.toLowerCase()}`}>
-                <>
+              <Link href={`/topics/${value.toLowerCase()}`}>
+                <a>
                   <span>
                     <Iconify
                       icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
@@ -42,8 +42,8 @@ export default function ArticleTopics({
                     />
                   </span>
                   {value}
-                </>
-              </Nlink>
+                </a>
+              </Link>
             ) : (
               <>
                 <span>
@@ -59,25 +59,25 @@ export default function ArticleTopics({
         ))}
         {inArticle ? (
           <li>
-            <Nlink href="/blog/topics">
-              <>
+            <Link href="/blog/topics">
+              <a>
                 <span>
                   <Iconify icon={icons[icons.length - 1]} />
                 </span>
                 {(type as string).slice(0, 1).toUpperCase() + (type as string).slice(1)}
-              </>
-            </Nlink>
+              </a>
+            </Link>
           </li>
         ) : (
           <li>
-            <Nlink href="/blog/topics">
-              <>
+            <Link href="/blog/topics">
+              <a>
                 <span>
                   <Iconify icon={'fa-solid:arrow-right'} />
                 </span>
                 トピックごとに表示
-              </>
-            </Nlink>
+              </a>
+            </Link>
           </li>
         )}
       </ul>

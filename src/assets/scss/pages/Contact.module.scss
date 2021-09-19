@@ -1,11 +1,11 @@
 .contact {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
 
   @include max(padding-left, 30px);
 
-  @include max(padding-right, 30px, 30px);
-
-  @include max(padding-bottom, $sp_value: 30px);
+  @include max(padding-right, 30px);
 
   .image_frame {
     @include max(width, 60%, 120%);
@@ -27,16 +27,12 @@
 
     @include max(padding-top, 30px);
 
-    @include max(padding-bottom, 30px);
-
     .form {
       @include max(margin-top, 30px);
-
-      // @include max(margin-right, 30px);
     }
   }
 
-  &.mount {
+  &.mounted {
     .form {
       &.sent {
         & > *:not(.thanks) {

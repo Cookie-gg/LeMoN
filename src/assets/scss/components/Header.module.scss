@@ -3,15 +3,16 @@
   display: flex;
   padding: 11px;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
 
-  @include max(top, #{30px}, 30px);
+  @include max(top, #{30px}, 20px);
 
-  @include max(left, #{30px}, 30px);
+  @include max(left, #{30px}, 20px);
 
   ul {
     @include media(sp) {
       align-items: flex-end;
+      border-left: 5px solid $lemon;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -26,7 +27,6 @@
 
       @include max(width, $sp_value: 70px);
 
-      border-left: 5px solid $lemon;
       &::after {
         background-color: rgba(white, 0.05);
         content: '';
@@ -40,6 +40,7 @@
       li {
         box-sizing: border-box;
         position: relative;
+        user-select: none;
         width: 100%;
 
         @include hover(true) {
@@ -71,13 +72,15 @@
           z-index: -1;
         }
         a {
-          @include max(padding-top, $sp_value: 10px);
-
-          @include max(padding-bottom, $sp_value: 10px);
           align-items: center;
           display: flex;
           justify-content: center;
           width: 100%;
+
+          @include max(padding-top, $sp_value: 10px);
+
+          @include max(padding-bottom, $sp_value: 10px);
+
           svg {
             @include max(font-size, $sp_value: 25px);
             path {
@@ -270,17 +273,11 @@
     flex-direction: column;
     left: 0;
     position: relative;
+    transition: width $common_anmt entry_order(4), left $common_anmt;
     width: 0px;
     z-index: 1;
 
     @include max(height, #{60px}, 60px);
-
-    @include max(
-      transition,
-      width $common_anmt entry_order(4),
-      #{width $common_anmt entry_order(4),
-      left $common_anmt}
-    );
 
     &:hover,
     &.opened,
@@ -298,6 +295,12 @@
         &.expanded {
           @include max(left, $sp_value: 200px);
         }
+        &::before {
+          @include max(margin-left, $sp_value: 15px);
+        }
+        &::after {
+          @include max(margin-left, $sp_value: 30px);
+        }
         span::before {
           content: 'CLOSE';
 
@@ -313,7 +316,7 @@
       background-color: $lemon;
       content: '';
       height: 1px;
-      transition: width $common_anmt entry_order(4);
+      transition: width $common_anmt entry_order(4), margin-left $common_anmt;
       width: 0;
 
       @include max(margin-top, #{15px}, 15px);
@@ -351,25 +354,6 @@
   &.mounted {
     button {
       @include max(width, #{60px}, 60px);
-
-      @include hover(false) {
-        border-top: 0;
-        &::before,
-        &::after {
-          display: none;
-        }
-        span {
-          transition: height $common_anmt entry_order(3);
-
-          @include max(height, #{120px}, 120px);
-
-          &::before {
-            opacity: 1;
-            transition: opacity 0.2s $ex_ease_out entry_order(3), visibility 0.2s $ex_ease_out entry_order(3);
-            visibility: visible;
-          }
-        }
-      }
 
       &::before {
         @include max(width, #{45px}, 45px);

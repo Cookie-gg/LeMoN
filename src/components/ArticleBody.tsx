@@ -1,40 +1,37 @@
-import { useRouter } from 'utils/next';
+import { useEffect, useRef } from 'react';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
-import { useEffect, useRef, Dispatch, SetStateAction } from 'react';
 
 interface PropsType {
   body: string;
-  _table: Dispatch<SetStateAction<{ tagName: string; text: string; height: number }[]>>;
+  headingTexts?: string[];
+  _activeSection: (n: number) => void;
 }
 
-export default function ArticleBody({ body, _table }: PropsType) {
-  const router = useRouter();
+export default function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = ref.current as HTMLDivElement;
-    const getToc = () => {
-      _table(
-        Array.from(el.querySelectorAll('h1, h2')).map((el) => {
-          return {
-            tagName: el.tagName,
-            text: el.textContent as string,
-            height: el.getBoundingClientRect().top,
-          };
-        }),
+    const el = ref.current;
+    if (headingTexts && el) {
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries.forEach(
+            (el) =>
+              el.isIntersecting &&
+              headingTexts.forEach((text, i) => text === el.target.textContent && _activeSection(i)),
+          ),
+        {
+          root: null, // document
+          rootMargin: `0px -71px -99%`,
+          threshold: 0,
+        },
       );
-    };
-    getToc();
-    const resizeObserver = new ResizeObserver(() => getToc());
-    resizeObserver.observe(el);
-    el.addEventListener('transitionstart', () => resizeObserver.disconnect());
-    el.addEventListener('transitionrun', () => getToc());
-    // window.addEventListener('resize', () => getToc());
-    return () => {
-      el.removeEventListener('transitionstart', () => resizeObserver.disconnect());
-      el.removeEventListener('transitionrun', () => getToc());
-      // window.removeEventListener('resize', () => getToc());
-    };
-  }, [router.asPath, _table]);
+      Array.from(el.querySelectorAll('h1, h2')).map((heading) => observer.observe(heading));
+      return () => {
+        observer.unobserve(el);
+        observer.disconnect();
+      };
+    }
+  }, [headingTexts, _activeSection]);
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }

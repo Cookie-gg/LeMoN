@@ -39,7 +39,9 @@ export default function About({ data, error }: { data: DataType; error?: string 
             </div>
             {windowWidth > 820 && featuredImage}
           </div>
-          <Skills data={data.skills} className={pages.skills} />
+          <div className={pages.skills}>
+            <Skills data={data.skills}/>
+          </div>
         </>
       </PageFrame>
     </>

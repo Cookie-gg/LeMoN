@@ -16,28 +16,35 @@ export default async function postQuery(): Promise<{
   if (data) {
     const titles = section<string>(data.titles);
     const shapedData: DataType = {
-      allArticles: data.allArticles.map((obj) => ({
-        id: obj.id,
-        releaseDate: new Date(obj.releaseDate),
-        updateDate: new Date(obj.updateDate),
-        title: obj.title,
-        emoji: obj.emoji,
-        type: obj.typeIcon.displayName,
-        topics: obj.topicIcons.map((obj) => obj.displayName),
-        icons: [...obj.topicIcons.map((obj) => obj.icon), obj.typeIcon.icon],
-        body: obj.body,
-        relations: {
-          articles: obj.relations.map((obj) => ({
-            id: obj.id,
-            releaseDate: new Date(obj.releaseDate),
-            title: obj.title,
-            emoji: obj.emoji,
-            type: obj.type,
-            topics: obj.topicIcons.map((obj) => obj.displayName),
+      allArticles: data.allArticles.map((obj) => {
+        const headings = obj.body.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
+        return {
+          id: obj.id,
+          releaseDate: new Date(obj.releaseDate),
+          updateDate: new Date(obj.updateDate),
+          title: obj.title,
+          emoji: obj.emoji,
+          type: obj.typeIcon.displayName,
+          topics: obj.topicIcons.map((obj) => obj.displayName),
+          icons: [...obj.topicIcons.map((obj) => obj.icon), obj.typeIcon.icon],
+          body: obj.body,
+          headings: headings?.map((heading) => ({
+            level: heading.split('')[2] === '1' ? 1 : 2,
+            text: heading.replaceAll(/\<(.*?)\>/g, ''),
           })),
-          title: titles.relations.text,
-        },
-      })),
+          relations: {
+            articles: obj.relations.map((obj) => ({
+              id: obj.id,
+              releaseDate: new Date(obj.releaseDate),
+              title: obj.title,
+              emoji: obj.emoji,
+              type: obj.type,
+              topics: obj.topicIcons.map((obj) => obj.displayName),
+            })),
+            title: titles.relations.text,
+          },
+        };
+      }),
     };
     return { data: shapedData, error };
   } else {

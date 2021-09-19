@@ -12,31 +12,28 @@ interface PropsType {
       list: string[];
     }[];
   }[];
-  className: string;
 }
-export default function Skills({ data, className }: PropsType) {
+export default function Skills({ data }: PropsType) {
   return (
-    <div className={className}>
-      <ul className={styles.cards}>
-        {data.map((skill, i) => (
-          <li key={i} className={styles.card}>
-            <Iconify icon={skill.icon} className={styles.icon} />
-            <h2>{skill.title}</h2>
-            <p>{skill.explanation}</p>
-            {skill.contents.map((content, j) => (
-              <_ key={j}>
-                <hr />
-                <h3>{content.title}</h3>
-                <ul>
-                  {content.list.map((text, k) => (
-                    <li key={k}>{text}</li>
-                  ))}
-                </ul>
-              </_>
-            ))}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={styles.cards}>
+      {data.map((skill, i) => (
+        <li key={i} className={styles.card}>
+          <Iconify icon={skill.icon} className={styles.icon} />
+          <h2>{skill.title}</h2>
+          <p>{skill.explanation}</p>
+          {skill.contents.map((content, j) => (
+            <_ key={j}>
+              <hr />
+              <h3>{content.title}</h3>
+              <ul>
+                {content.list.map((text, k) => (
+                  <li key={k}>{text}</li>
+                ))}
+              </ul>
+            </_>
+          ))}
+        </li>
+      ))}
+    </ul>
   );
 }

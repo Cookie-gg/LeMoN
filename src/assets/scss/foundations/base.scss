@@ -1,17 +1,20 @@
 @import '../foundations/variables.scss';
-// Background
 body {
-  z-index: 1;
+  background-color: $dark-gray;
+  overflow-x: hidden;
+  position: relative;
+  scroll-behavior: smooth;
   &::before,
   &::after {
     background-color: rgba(255, 255, 255, 0.01);
     content: '';
     height: 100vh;
-    position: absolute;
+    pointer-events: none;
+    position: fixed;
     top: 0;
     transform: skewX(-30deg);
     width: 600px;
-    z-index: -1;
+    z-index: 2;
   }
   &::before {
     left: 150px;
@@ -19,4 +22,5 @@ body {
   &::after {
     left: 0px;
   }
+  @include custom_scrollbar();
 }
