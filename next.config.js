@@ -12,6 +12,9 @@ const nextConfig = {
       @import '../foundations/mixins.scss';
       @import '../foundations/colors.scss';
       @import '../foundations/variables.scss';`,
+  },
+  experimental: {
+    scrollRestoration: true
   }
 }
 
