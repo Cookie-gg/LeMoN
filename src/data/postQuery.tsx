@@ -29,9 +29,9 @@ export default async function postQuery(): Promise<{
           icons: [...obj.topicIcons.map((obj) => obj.icon), obj.typeIcon.icon],
           body: obj.body,
           headings: headings
-            ? headings.map((heading: string) => ({
-                level: String(heading).split('')[2] === '1' ? 1 : 2,
-                text: String(heading).replaceAll(/\<(.*?)\>/g, ''),
+            ? headings.map((heading) => ({
+                level: heading.split('')[2] === '1' ? 1 : 2,
+                text: heading.replace(/\<(.*?)\>/g, ''),
               }))
             : undefined,
           relations: {
