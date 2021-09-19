@@ -1,10 +1,9 @@
 import OgLite from 'ogp-parser';
 
-export default async function linkCard(data: string, links: string[]) {
+export default async function linkCard(data: string, links: string[]): Promise<string> {
   await Promise.all(
     links.map(async (url: string) => {
       const ogLite = await OgLite(url);
-      console.log(ogLite);
       data = data.replace(
         `<p>${url}</p>`,
         `<div class="link_card"><a href="${url}" target="_blank" rel="noopener noreferrer"><div class="text_wrapper"><div class="title">${

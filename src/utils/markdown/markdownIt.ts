@@ -1,9 +1,10 @@
 import MarkdownIt from 'markdown-it';
+import * as MarkdownItAttrs from 'markdown-it-attrs';
 import * as MarkdownItImsize from 'markdown-it-imsize';
 import * as MarkdownItKatexx from 'markdown-it-katexx';
+import * as MarkdownItFootnote from 'markdown-it-footnote';
 import * as MarkdownItContainer from 'markdown-it-container';
 import * as MarkdownItSanitizer from 'markdown-it-sanitizer';
-import * as MarkdownItLinkAttribute from 'markdown-it-link-attributes';
 import * as MarkdownItNamedCodeBlocks from 'markdown-it-named-code-blocks';
 
 const md = new MarkdownIt({
@@ -49,7 +50,23 @@ const md = new MarkdownIt({
       }
     },
   })
-  .use(MarkdownItLinkAttribute, { target: '_blank', rel: 'noopener' })
+  .use(MarkdownItAttrs)
+  .use(MarkdownItFootnote)
   .use(MarkdownItSanitizer);
+
+const linkOpenRender =
+  md.renderer.rules.link_open ||
+  function (tokens, idx, options, env, self) {
+    return self.renderToken(tokens, idx, options);
+  };
+
+md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+  tokens[idx].attrPush(['target', '_blank']);
+  tokens[idx].attrPush(['rel', 'noopner']);
+  return linkOpenRender(tokens, idx, options, env, self);
+};
+
+md.renderer.rules.footnote_block_open = () =>
+  '<section class="footnotes">\n' + '<div class="footnotes-title">脚注</div>' + '<ol class="footnotes-list">\n';
 
 export default md;
