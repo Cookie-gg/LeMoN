@@ -21,7 +21,7 @@
       overflow: hidden;
       position: fixed;
       top: 0;
-      transition: width $common_anmt, left $common_anmt, height linear 0.2s;
+      transition: width $common_anmt, left $common_anmt, height linear 0.01s;
 
       @include max(left, $sp_value: -70px);
 
