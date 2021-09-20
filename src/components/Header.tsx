@@ -41,7 +41,6 @@ export default function Header({
         className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
           headerState === 'expand' && styles.expanded
         }`}
-        style={{ height: window.width < 820 ? `${window.height}px` : undefined }}
       >
         {data.map((el: { name: string; path: string; icon: string }, i: number) => (
           <li

@@ -19,17 +19,11 @@ const useWindowDimensions = (): WindowDimentions => {
     }
     handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('touchstart', handleResize);
     window.addEventListener('touchmove', handleResize);
-    window.addEventListener('touchend', handleResize);
-    window.addEventListener('touchcancel', handleResize);
     window.addEventListener('scroll', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('touchstart', handleResize);
       window.removeEventListener('touchmove', handleResize);
-      window.removeEventListener('touchend', handleResize);
-      window.removeEventListener('touchcancel', handleResize);
       window.removeEventListener('scroll', handleResize);
     };
   }, []);

@@ -2,6 +2,8 @@
 body {
   background-color: $dark-gray;
   overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   scroll-behavior: smooth;
   &::before,
