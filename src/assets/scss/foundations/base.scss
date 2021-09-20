@@ -1,6 +1,8 @@
 @import '../foundations/variables.scss';
 body {
   background-color: $dark-gray;
+  position: relative;
+  overflow: hidden;
   &::before,
   &::after {
     background-color: rgba(255, 255, 255, 0.01);
