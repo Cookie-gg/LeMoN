@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Link } from 'utils/next';
 import { Twemoji } from 'react-emoji-render';
 import { useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
 import { Icon as Iconify } from '@iconify/react';
+import { TocClickState } from './PageFrame';
 
 interface PropsType {
   meta: {
@@ -25,6 +26,7 @@ export default function ArticleToc({ meta, activeSection, headings }: PropsType)
   const [height, _height] = useHeight<HTMLDivElement>();
   const isIntersecting = useIntersect(tocRef.current, `0px 0px -${window.height - paddingTop}px`);
   const [isOpened, _isOpened] = useState(false);
+  const tocClickEvent = useContext(TocClickState);
   return (
     <div className={`${styles.entire} ${isIntersecting && styles.showed}`} ref={tocRef}>
       <div className={styles.meta} ref={_height}>
@@ -50,6 +52,7 @@ export default function ArticleToc({ meta, activeSection, headings }: PropsType)
                   className={`${activeSection === i && styles.active} ${
                     heading.level === 1 ? styles.heading_1 : styles.heading_2
                   }`}
+                  onClick={() => tocClickEvent()}
                 >
                   {heading.text}
                 </li>

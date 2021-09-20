@@ -8,13 +8,15 @@
   position: relative;
   width: 100%;
 
-  // @include max(padding, #{30px + 11px});
-
-  // @include add(padding, $sp_value: 20px, $from: 11px);
-
-
-
   @include max(transition, $sp_value: left $common_anmt);
+
+  @include media(mobile) {
+    &.toc_clicked {
+      @include max(top, calc(30px + 11px + 110px));
+
+      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+    }
+  }
 
   [class*='header_opened'] + & {
     @include max(left, $sp_value: 70px);
