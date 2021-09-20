@@ -1,12 +1,6 @@
 @import '../foundations/variables.scss';
 body {
   background-color: $dark-gray;
-  // overflow: hidden;
-  position: relative;
-  // scroll-behavior: smooth;
-  // height: 100vh;
-  overflow: hidden;
-  width: 100%;
 
   &::before,
   &::after {
@@ -31,6 +25,6 @@ body {
 #__next {
   position: relative;
   overflow: hidden;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
