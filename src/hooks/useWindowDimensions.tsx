@@ -18,8 +18,12 @@ const useWindowDimensions = (): WindowDimentions => {
       });
     }
     handleResize();
-    window.addEventListener('resize touchmove', handleResize);
-    return (): void => window.removeEventListener('resize touchmove', handleResize);
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('touchmove', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('touchmove', handleResize);
+    };
   }, []);
 
   return windowDimensions;
