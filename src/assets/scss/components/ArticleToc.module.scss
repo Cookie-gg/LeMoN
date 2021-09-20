@@ -139,7 +139,7 @@
         overflow-x: visible;
         overflow-y: scroll;
         position: fixed;
-        right: -50%;
+        right: -50vw;
         transition: right $common_anmt;
         z-index: 99999;
 
@@ -174,19 +174,31 @@
         user-select: none;
 
         &.heading_1 {
-          font-size: 16px;
           font-weight: 500;
+
+          @include max(font-size, #{16px}, 16px);
+
           &::before {
-            margin: 2px 10px 0 0;
+            @include max(margin-top, #{2px}, 2px);
+
+            @include max(margin-right, #{10px}, 10px);
           }
         }
         &.heading_2 {
-          font-size: 13px;
           font-weight: 400;
+
+          @include max(font-size, #{13px}, 13px);
+
           &::before {
-            height: 7px;
-            margin: 2px 10px 0 1.5px;
-            width: 7px;
+            @include max(height, #{7px}, 7px);
+
+            @include max(margin-top, #{2px}, 2px);
+
+            @include max(margin-right, #{10px}, 10px);
+
+            @include max(margin-bottom, #{1.5px}, 1.5px);
+
+            @include max(width, #{7px}, 7px);
           }
         }
         &::before {
@@ -194,11 +206,13 @@
           box-sizing: border-box;
           content: '';
           display: block;
-          height: 10px;
           transform: rotate(-45deg);
           transition: all $common_anmt;
-          width: 10px;
           z-index: 1;
+
+          @include max(width, #{10px}, 10px);
+
+          @include max(height, #{10px}, 10px);
         }
         &:not(:first-of-type) {
           margin-top: 10px;
@@ -206,11 +220,14 @@
             background-color: #6f6f6f;
             bottom: 50%;
             content: '';
-            height: 30px;
-            left: 4px;
             position: absolute;
-            width: 1px;
             z-index: 0;
+
+            @include max(left, #{4px}, 4px);
+
+            @include max(width, #{1px}, 1px);
+
+            @include max(height, #{30px}, 30px);
           }
         }
         &.active {
@@ -219,7 +236,9 @@
           &::before {
             background-clip: content-box;
             background-color: $lemon;
-            border: 2px solid rgba($lemon, 0.5);
+            border: solid rgba($lemon, 0.5);
+
+            @include max(border-width, #{2px}, 2px);
           }
         }
       }
@@ -244,9 +263,11 @@
         width: 100%;
       }
       &::after {
-        height: 40px;
         transition: all $common_anmt order(4);
-        width: 40px;
+
+        @include max(width, #{40px}, 40px);
+
+        @include max(height, #{40px}, 40px);
       }
     }
     .toc {
