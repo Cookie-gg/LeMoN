@@ -29,10 +29,7 @@
   @include max(transition, $sp_value: left $common_anmt);
 
   &.home {
-    height: 100vh;
     padding: 0;
-    width: 100%;
-    overflow: hidden;
   }
   &.opened {
     @include max(left, $sp_value: 70px);
