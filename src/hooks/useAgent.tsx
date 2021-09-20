@@ -1,13 +1,30 @@
-import { useWindowDimensions } from 'hooks';
 import { useState, useEffect } from 'react';
 
-const useAgent = () => {
-  const [isMobile, _isMobile] = useState<boolean>(false);
-  const windowWidth = useWindowDimensions().width as number;
+const useAgent = (
+  args:
+    | { device: 'windows' | 'iphone' | 'android'; browser: 'msie' | 'edge' | 'chrome' | 'safari' | 'firefox' | 'opera' }
+    | 'windows'
+    | 'iphone'
+    | 'android'
+    | 'msie'
+    | 'edge'
+    | 'chrome'
+    | 'safari'
+    | 'firefox'
+    | 'opera',
+) => {
+  const [isCorrect, _isCorrect] = useState<boolean>(false);
   useEffect(() => {
-    _isMobile(navigator.userAgent.match(/iPhone|Android.+Mobile/) ? true : false);
-  }, [windowWidth]);
-  return isMobile;
+    if (typeof args === 'string') {
+      _isCorrect(navigator.userAgent.toLowerCase().includes(args));
+    } else {
+      _isCorrect(
+        navigator.userAgent.toLowerCase().includes(args.device) &&
+          navigator.userAgent.toLowerCase().includes(args.browser),
+      );
+    }
+  }, [args]);
+  return isCorrect;
 };
 
 export default useAgent;

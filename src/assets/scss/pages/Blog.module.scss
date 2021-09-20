@@ -1,8 +1,3 @@
-.entire {
-  @include max(padding-left, 30px);
-
-  @include max(padding-right, 30px);
-}
 .blog {
   @include max(padding-top, 30px);
   .articles {
@@ -25,27 +20,62 @@
   $res: 1199px;
   .fixed_meta {
     align-items: center;
-    background-color: $lemon;
     box-sizing: border-box;
     display: flex;
     font-family: $jp_font;
+    pointer-events: none;
     position: fixed;
-    top: 0;
-    transition: top $common_anmt;
     z-index: 1;
 
     @include max(letter-spacing, #{1.2px}, 1.2px);
 
-    @include max(padding, #{10px}, 10px);
-
     @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
 
-    @include diff(width, $sp_value: (20px + 20px + 30px + 30px), $add_term: '- 11px - 11px');
+    @include diff(width, $sp_value: (20px + 30px + 30px + 20px), $add_term: '- 11px - 11px');
 
+    @include max(top, calc(30px + 11px + 110px));
+
+    @include add(top, $sp_value: (20px + 60px), $from: 11px);
+
+    .inner {
+      display: flex;
+      position: relative;
+      top: 0;
+      transform: translateY(-100%);
+      width: 100%;
+      z-index: 1;
+
+      @include max(padding, #{10px}, 10px);
+      transition: transform $common_anmt;
+    }
     &.showed {
-      @include max(top, calc(30px + 11px + 110px));
-
-      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+      pointer-events: auto;
+      .inner {
+        transform: translateY(0);
+      }
+      &::after {
+        height: 100%;
+      }
+    }
+    &::before {
+      background-color: $dark-gray;
+      bottom: 100%;
+      content: '';
+      height: 100%;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+    }
+    &::after {
+      background-color: $lemon;
+      content: '';
+      height: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      transition: height $common_anmt;
     }
 
     .emoji {

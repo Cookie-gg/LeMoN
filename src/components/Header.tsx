@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { Link, useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import { useFirstMount, usePeriod, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/Header.module.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 const data = [
   { name: 'Home', path: '/', icon: 'fa-solid:home' },
@@ -12,30 +12,29 @@ const data = [
   { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
 ];
 
-export default function Header({
-  headerState,
-  _headerState,
-}: {
-  headerState: 'close' | 'open' | 'expand';
-  _headerState: Dispatch<SetStateAction<'close' | 'open' | 'expand'>>;
-}) {
+export default function Header() {
   const router = useRouter();
   const isMounted = useFirstMount();
   const [isClosing, _isClosing] = usePeriod(false);
-  const windowWidth = useWindowDimensions().width as number;
+  const window = useWindowDimensions() as { width: number; height: number };
+  const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   const clickEvent = () => {
-    if (!(windowWidth < 820)) _isClosing(950);
+    if (!(window.width < 820)) _isClosing(950);
     _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
   };
   return (
-    <header className={`${styles.entire} ${isMounted && styles.mounted}`}>
+    <header
+      className={`${styles.entire} ${isMounted && styles.mounted} ${
+        (headerState === 'open' || headerState === 'expand') && 'header_opened'
+      } ${headerState === 'expand' && 'header_expanded'}`}
+    >
       <button
         className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
           headerState === 'expand' && styles.expanded
-        } ${!(windowWidth < 820) && isClosing && styles.closing}`}
+        } ${!(window.width < 820) && isClosing && styles.closing}`}
         onClick={() => clickEvent()}
       >
-        {!(windowWidth < 820) && <span></span>}
+        {!(window.width < 820) && <span></span>}
       </button>
       <ul
         className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
@@ -48,7 +47,7 @@ export default function Header({
             className={`${router.pathname === el.path && styles.active} ${
               router.pathname.includes(`${el.path}/`) && styles.lower_active
             }`}
-            onClick={() => windowWidth < 820 && clickEvent()}
+            onClick={() => window.width < 820 && clickEvent()}
           >
             <Link href={el.path}>
               <a>

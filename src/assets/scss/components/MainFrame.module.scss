@@ -4,33 +4,14 @@
   display: flex;
   justify-content: center;
   left: 0;
+  overflow: hidden;
   position: relative;
-
-  @include max(padding-top, calc(30px + 11px + 110px));
-
-  @include max(padding-left, calc(30px + 11px + 40px));
-
-  @include max(padding-right, calc(30px + 11px + 40px));
-
-  @include max(padding-bottom, calc(30px + 11px + 40px));
-
-  @include add(padding-top, $sp_value: (20px + 60px), $from: 11px);
-
-  @include add(padding-left, $sp_value: (20px + 30px), $from: 11px);
-
-  @include add(padding-right, $sp_value: (20px + 30px), $from: 11px);
-
-  @include add(padding-bottom, $sp_value: (20px + 30px), $from: 11px);
+  width: 100%;
 
   @include max(transition, $sp_value: left $common_anmt);
 
-  &.home {
-    height: 100vh;
-    padding: 0;
-    width: 100%;
-    overflow: hidden;
-  }
-  &.opened {
+
+  [class*='header_opened'] + & {
     @include max(left, $sp_value: 70px);
     &::before {
       @include max(right, $sp_value: -50px);
@@ -38,14 +19,14 @@
     &::after {
       @include max(left, $sp_value: 90px);
     }
-    &.expanded {
-      @include max(left, $sp_value: 200px);
-      &::before {
-        @include max(right, $sp_value: -180px);
-      }
-      &::after {
-        @include max(left, $sp_value: 220px);
-      }
+  }
+  [class*='header_expanded'] + & {
+    @include max(left, $sp_value: 200px);
+    &::before {
+      @include max(right, $sp_value: -180px);
+    }
+    &::after {
+      @include max(left, $sp_value: 220px);
     }
   }
 
@@ -83,13 +64,16 @@
   &.mounted {
     &::before,
     &::after {
-      height: calc(100% - 30px * 2);
+      @include max(width, calc(100% - (30px * 2)));
+
+      @include max(height, calc(100% - (30px * 2)));
+
+      @include diff(width, $sp_value: (20px * 2));
+
+      @include diff(height, $sp_value: (20px * 2));
+    }
+    &::after {
       opacity: 1;
-      width: calc(100% - 30px * 2);
-
-      @include diff(width, $sp_value: 20px * 2);
-
-      @include diff(height, $sp_value: 20px * 2);
     }
   }
   & > *:not([class*='exclude']) {

@@ -1,11 +1,6 @@
 .contact {
-  width: 100%;
   box-sizing: border-box;
   display: flex;
-
-  @include max(padding-left, 30px);
-
-  @include max(padding-right, 30px);
 
   .image_frame {
     @include max(width, 60%, 120%);

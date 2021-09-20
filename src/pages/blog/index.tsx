@@ -37,7 +37,7 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
         <title>LeMoN | Blog</title>
       </Head>
       <DataRes error={error} />
-      <PageFrame classNmae={`${pages.blog} ${pages.entire} ${isMounted && pages.mounted}`}>
+      <PageFrame classNmae={`${pages.blog} ${isMounted && pages.mounted}`}>
         <>
           <Heading className={pages.heading} rank={1} text={data.latest.title} />
           <ArticleList

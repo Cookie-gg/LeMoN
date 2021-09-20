@@ -16,13 +16,13 @@
       border-left: 5px solid $lemon;
       box-sizing: border-box;
       display: flex;
-      flex-direction: column;
       height: 100%;
+      flex-direction: column;
       justify-content: space-evenly;
       overflow: hidden;
       position: fixed;
       top: 0;
-      transition: all $common_anmt;
+      transition: width $common_anmt, left $common_anmt;
 
       @include max(left, $sp_value: -70px);
 
@@ -65,13 +65,12 @@
           align-items: center;
           display: flex;
           justify-content: center;
-          width: 100%;
           user-select: none;
+          width: 100%;
 
           @include max(padding-top, $sp_value: 10px);
 
           @include max(padding-bottom, $sp_value: 10px);
-
           svg {
             @include max(font-size, $sp_value: 25px);
             path {
