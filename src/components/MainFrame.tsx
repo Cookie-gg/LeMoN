@@ -8,7 +8,9 @@ export default function MainFrame({ children }: { children: ReactElement }) {
   const windowHeight = useWindowDimensions().height as number;
   return (
     <>
-      <main className={`${styles.main} ${isMounted && styles.mounted}`} style={{ height: `${windowHeight}px` }}>
+      <main className={`${styles.main} ${isMounted && styles.mounted}`} style={{ height: `${windowHeight}px` }} onScroll={() => {
+        console.log("object");
+      }}>
         <PageTransition />
         {children}
       </main>
