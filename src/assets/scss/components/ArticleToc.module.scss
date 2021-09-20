@@ -97,7 +97,7 @@
 
         @include max(writing-mode, vertical-rl);
 
-        @include max(padding-top, #{5px}, 5px);
+        @include max(padding-top, #{5px}, 2.5px);
 
         @include max(display, $sp_value: flex);
 
@@ -125,6 +125,8 @@
           transition: transform $common_anmt;
 
           @include max(margin-top, #{7.5px});
+
+          @include max(margin-left, $sp_value: 5px);
         }
       }
     }
@@ -139,7 +141,7 @@
         overflow-x: visible;
         overflow-y: scroll;
         position: fixed;
-        right: -50vw;
+        right: -100vw;
         transition: right $common_anmt;
         z-index: 99999;
 
