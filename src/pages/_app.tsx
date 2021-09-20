@@ -5,10 +5,8 @@ import 'assets/scss/foundations/base.scss';
 import 'assets/scss/foundations/reset.scss';
 import 'assets/scss/foundations/global.scss';
 import { Header, MainFrame, ProgressBar } from 'components';
-import { useState } from 'react';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   return (
     <>
       <Head>
@@ -17,8 +15,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <ProgressBar />
-      <Header headerState={headerState} _headerState={_headerState} />
-      <MainFrame headerState={headerState}>
+      <Header />
+      <MainFrame >
         <Component {...pageProps} />
       </MainFrame>
     </>

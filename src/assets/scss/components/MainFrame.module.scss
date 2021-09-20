@@ -14,7 +14,7 @@
 
   @include max(transition, $sp_value: left $common_anmt);
 
-  &.opened {
+  [class*='header_opened'] + & {
     @include max(left, $sp_value: 70px);
     &::before {
       @include max(right, $sp_value: -50px);
@@ -22,14 +22,14 @@
     &::after {
       @include max(left, $sp_value: 90px);
     }
-    &.expanded {
-      @include max(left, $sp_value: 200px);
-      &::before {
-        @include max(right, $sp_value: -180px);
-      }
-      &::after {
-        @include max(left, $sp_value: 220px);
-      }
+  }
+  [class*='header_expanded'] + & {
+    @include max(left, $sp_value: 200px);
+    &::before {
+      @include max(right, $sp_value: -180px);
+    }
+    &::after {
+      @include max(left, $sp_value: 220px);
     }
   }
 
@@ -57,7 +57,8 @@
     border-left: 1px solid $lemon;
     content: '';
     opacity: 0;
-    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4), left $common_anmt;
+    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
+      left $common_anmt;
 
     @include max(left, #{30px}, 20px);
 

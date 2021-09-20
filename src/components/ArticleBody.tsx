@@ -10,11 +10,10 @@ interface PropsType {
 
 export default function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
-  const windowHeight = useWindowDimensions().height as number;
-  console.log(`-${windowHeight - 151}px`);
+  const windowHeight = useWindowDimensions().height;
   useEffect(() => {
     const el = ref.current;
-    if (headingTexts && el) {
+    if (headingTexts && el && windowHeight) {
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(

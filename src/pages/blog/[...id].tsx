@@ -60,7 +60,7 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </Head>
       <DataRes error={error} />
-      <PageFrame classNmae={`${pages.post} ${pages.entire} ${isMounted && pages.mounted}`}>
+      <PageFrame classNmae={`${pages.post} ${isMounted && pages.mounted}`}>
         <>
           <ArticleMeta
             emoji={data.emoji}
@@ -71,8 +71,10 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
           {window.width < 1200 && (
             <>
               <div className={`${pages.fixed_meta} ${isIntersecting && pages.showed}`}>
-                <Twemoji svg onlyEmojiClassName={pages.emoji} text={data.emoji} options={{ protocol: 'https' }} />
-                <h1 className={pages.title}>{data.title}</h1>
+                <div className={pages.inner}>
+                  <Twemoji svg onlyEmojiClassName={pages.emoji} text={data.emoji} options={{ protocol: 'https' }} />
+                  <h1 className={pages.title}>{data.title}</h1>
+                </div>
               </div>
               <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
             </>

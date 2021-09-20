@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { Link, useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import { useFirstMount, usePeriod, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/Header.module.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 const data = [
   { name: 'Home', path: '/', icon: 'fa-solid:home' },
@@ -12,23 +12,22 @@ const data = [
   { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
 ];
 
-export default function Header({
-  headerState,
-  _headerState,
-}: {
-  headerState: 'close' | 'open' | 'expand';
-  _headerState: Dispatch<SetStateAction<'close' | 'open' | 'expand'>>;
-}) {
+export default function Header() {
   const router = useRouter();
   const isMounted = useFirstMount();
   const [isClosing, _isClosing] = usePeriod(false);
   const window = useWindowDimensions() as { width: number; height: number };
+  const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   const clickEvent = () => {
     if (!(window.width < 820)) _isClosing(950);
     _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
   };
   return (
-    <header className={`${styles.entire} ${isMounted && styles.mounted}`}>
+    <header
+      className={`${styles.entire} ${isMounted && styles.mounted} ${
+        (headerState === 'open' || headerState === 'expand') && 'header_opened'
+      } ${headerState === 'expand' && 'header_expanded'}`}
+    >
       <button
         className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
           headerState === 'expand' && styles.expanded

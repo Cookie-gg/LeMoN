@@ -72,6 +72,8 @@
       height: 10px;
       margin-top: -10px;
       @media screen and (max-width: $res) {
+        @include max(height, #{60px}, 60px);
+        @include max(margin-top, #{-60px}, -60px);
       }
     }
   }
@@ -111,6 +113,8 @@
       }
 
       @media screen and (max-width: $res) {
+        @include max(padding-top, #{60px}, 60px);
+        @include max(margin-top, #{-60px}, -60px);
       }
     }
   }
@@ -148,7 +152,8 @@
             }
 
             @media screen and (max-width: $res) {
-
+              @include max(padding-top, #{60px}, 60px);
+              @include max(margin-top, #{-60px}, -60px);
             }
           }
         }
