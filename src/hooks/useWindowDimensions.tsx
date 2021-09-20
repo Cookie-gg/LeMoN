@@ -19,10 +19,10 @@ const useWindowDimensions = (): WindowDimentions => {
     }
     handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('touchmove', handleResize);
+    window.addEventListener('touchstart', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('touchmove', handleResize);
+      window.removeEventListener('touchstart', handleResize);
     };
   }, []);
 
