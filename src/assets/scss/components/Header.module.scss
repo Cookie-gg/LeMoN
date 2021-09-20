@@ -31,7 +31,6 @@
       li {
         box-sizing: border-box;
         position: relative;
-        user-select: none;
         width: 100%;
 
         @include hover(true) {
@@ -67,6 +66,7 @@
           display: flex;
           justify-content: center;
           width: 100%;
+          user-select: none;
 
           @include max(padding-top, $sp_value: 10px);
 

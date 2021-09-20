@@ -1,5 +1,5 @@
 .entire {
-  position: fixed;
+  position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 4;
@@ -33,8 +33,10 @@
   &.mounted {
     &:not(.home) {
       transition: left $common_anmt, margin-left $common_anmt;
+      position: fixed;
     }
     &.home {
+      position: absolute;
       transition: left $common_anmt entry_order(1), margin-left $common_anmt;
 
       @include max(left, 50%, 50vw);
