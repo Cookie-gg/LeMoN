@@ -21,7 +21,7 @@ export default function ArticleList({ type, className, data, display, shiftList,
   const displayTopics = type ? 2 : 5;
   const listBody = (value: Zenn, i: number) => (
     <li key={i}>
-      <Link href={`/blog/${value.id}`}>
+      <Link href="/blog/[...id]" as={`/blog/${value.id}`}>
         <a>
           <div className={styles.thumbnail}>
             {type && <span className={styles.type}>{value.type.toUpperCase()}</span>}

@@ -12,7 +12,7 @@ export default async function linkCard(data: string, links: string[]): Promise<s
           ogLite.seo.description
             ? ogLite.seo.description[0]
             : ogLite.seo[`${ogLite.ogp['og:site_name'][0].toLowerCase()}:description`][0]
-        }</div><div class="domain"><img src="http://www.google.com/s2/favicons?domain=${
+        }</div><div class="domain"><img src="https://www.google.com/s2/favicons?domain=${
           url.split('/')[2]
         }" alt="favicon" />${url.split('/')[2]}</div></div><img src="${
           ogLite.seo[`${ogLite.ogp['og:site_name'][0].toLowerCase()}:image`][0]
