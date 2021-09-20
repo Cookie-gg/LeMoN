@@ -1,6 +1,6 @@
 .entire {
   font-family: $jp_font;
-  $res: 1119px;
+  $res: 1199px;
   transition: all $common_anmt;
 
   @include max(letter-spacing, #{1.2px}, 1.2px);

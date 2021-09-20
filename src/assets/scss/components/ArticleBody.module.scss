@@ -5,7 +5,7 @@
   font-family: $jp_font;
   font-weight: 300;
   line-height: 1.8;
-  $res: 1119px;
+  $res: 1199px;
   transition: all $common_anmt;
 
   @include max(border-right-width, #{5px}, 5px);
