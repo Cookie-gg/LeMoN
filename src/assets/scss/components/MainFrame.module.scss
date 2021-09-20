@@ -6,6 +6,7 @@
   left: 0;
   position: relative;
   overflow: hidden;
+  height: 100vh;
 
   @include max(padding-top, calc(30px + 11px + 110px));
 
