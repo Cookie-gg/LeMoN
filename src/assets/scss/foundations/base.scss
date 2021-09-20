@@ -1,7 +1,6 @@
 @import '../foundations/variables.scss';
 body {
   background-color: $dark-gray;
-
   &::before,
   &::after {
     background-color: rgba(255, 255, 255, 0.01);
@@ -20,11 +19,4 @@ body {
   &::after {
     left: 0px;
   }
-  @include custom_scrollbar();
-}
-#__next {
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
 }

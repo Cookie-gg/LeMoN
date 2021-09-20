@@ -2,13 +2,11 @@
   align-items: center;
   box-sizing: border-box;
   display: flex;
+  height: 100vh;
   justify-content: center;
   left: 0;
+  overflow: hidden;
   position: relative;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 100%;
-  @include custom_scrollbar();
 
   @include max(padding-top, calc(30px + 11px + 110px));
 
@@ -86,9 +84,9 @@
     &::after {
       height: calc(100% - 30px * 2);
       width: calc(100% - 30px * 2);
-      
+
       @include diff(width, $sp_value: 20px * 2);
-      
+
       @include diff(height, $sp_value: 20px * 2);
     }
     &::after {
