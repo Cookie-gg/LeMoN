@@ -1,27 +1,33 @@
 @import '../foundations/variables.scss';
-body {
-  background-color: $dark-gray;
+html {
   height: 100%;
   overflow: hidden;
   position: relative;
   width: 100%;
+  body {
+    background-color: $dark-gray;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
 
-  &::before,
-  &::after {
-    background-color: rgba(255, 255, 255, 0.01);
-    content: '';
-    height: 100vh;
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    transform: skewX(-30deg);
-    width: 600px;
-    z-index: 2;
-  }
-  &::before {
-    left: 150px;
-  }
-  &::after {
-    left: 0px;
+    &::before,
+    &::after {
+      background-color: rgba(255, 255, 255, 0.01);
+      content: '';
+      height: 100vh;
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      transform: skewX(-30deg);
+      width: 600px;
+      z-index: 2;
+    }
+    &::before {
+      left: 150px;
+    }
+    &::after {
+      left: 0px;
+    }
   }
 }
