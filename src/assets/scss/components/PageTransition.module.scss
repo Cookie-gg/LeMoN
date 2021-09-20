@@ -32,21 +32,14 @@
   }
   &.mounted {
     &:not(.home) {
-      transition: left $common_anmt, margin-left $common_anmt;
+      transition: left $common_anmt;
       position: fixed;
     }
     &.home {
       position: absolute;
-      transition: left $common_anmt entry_order(1), margin-left $common_anmt;
+      transition: left $common_anmt entry_order(1);
 
       @include max(left, 50%, 50vw);
-
-      [class*='opened'] & {
-        @include max(margin-left, $sp_value: 70px);
-      }
-      [class*='expanded'] & {
-        @include max(margin-left, $sp_value: 200px);
-      }
 
       @media screen and (max-width: map-get($fixed_points, 'sp') + 0px) {
         .cover {
