@@ -4,6 +4,8 @@
   max-width: 1400px;
   position: relative;
   width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   &::before {
     border: solid $dark-gray;
@@ -38,12 +40,14 @@
   [class*='opened'] & {
     &::before {
       @include add(border-left-width, $sp_value: (20px + 30px + 70px), $from: 11px);
+
       @include max(border-right-width, $sp_value: 0);
     }
   }
   [class*='expanded'] & {
     &::before {
       @include add(border-left-width, $sp_value: (20px + 30px + 200px), $from: 11px);
+
       @include max(border-right-width, $sp_value: 0);
     }
   }

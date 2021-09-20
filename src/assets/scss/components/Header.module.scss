@@ -4,7 +4,6 @@
   padding: 11px;
   position: fixed;
   z-index: 3;
-  overflow: hidden;
 
   @include max(top, #{30px}, 20px);
 
@@ -23,7 +22,7 @@
       overflow: hidden;
       position: fixed;
       top: 0;
-      transition: width $common_anmt, left $common_anmt, height linear 0.05s;
+      transition: width $common_anmt, left $common_anmt;
 
       @include max(left, $sp_value: -70px);
 

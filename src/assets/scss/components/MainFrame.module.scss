@@ -5,6 +5,7 @@
   justify-content: center;
   left: 0;
   position: relative;
+  overflow: hidden;
 
   @include max(padding-top, calc(30px + 11px + 110px));
 
@@ -84,12 +85,14 @@
     &::before,
     &::after {
       height: calc(100% - 30px * 2);
-      opacity: 1;
       width: calc(100% - 30px * 2);
-
+      
       @include diff(width, $sp_value: 20px * 2);
-
+      
       @include diff(height, $sp_value: 20px * 2);
+    }
+    &::after {
+      opacity: 1;
     }
   }
   & > *:not([class*='exclude']) {

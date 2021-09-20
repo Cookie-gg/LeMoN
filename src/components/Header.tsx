@@ -2,7 +2,7 @@ import { Link, useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import { useFirstMount, usePeriod, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/Header.module.scss';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 const data = [
   { name: 'Home', path: '/', icon: 'fa-solid:home' },
