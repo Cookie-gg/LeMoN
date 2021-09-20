@@ -1,4 +1,4 @@
-import { useBrowser, useWindowDimensions } from 'hooks';
+import { useWindowDimensions } from 'hooks';
 import { useEffect, useRef } from 'react';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
 
@@ -7,11 +7,10 @@ interface PropsType {
   headingTexts?: string[];
   _activeSection: (n: number) => void;
 }
+
 export default function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const windowHeight = useWindowDimensions().height;
-  const isChrome = useBrowser('chrome');
-  console.log(isChrome);
   useEffect(() => {
     const el = ref.current;
     if (headingTexts && el && windowHeight) {
@@ -36,5 +35,5 @@ export default function ArticleBody({ body, _activeSection, headingTexts }: Prop
     }
   }, [windowHeight, headingTexts, _activeSection]);
 
-  return <div className={`${styles.body} ${isChrome && styles.chrome}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
+  return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }

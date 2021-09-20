@@ -4,7 +4,6 @@ export default function useBrowser(browserName: 'msie' | 'edge' | 'chrome' | 'sa
   const [isCorrect, _isCorrect] = useState(false);
   useEffect(() => {
     const userAgent = window.navigator.userAgent.toLowerCase();
-    console.log(userAgent);
     _isCorrect(userAgent.indexOf(browserName) != -1);
   }, [browserName]);
   return isCorrect;
