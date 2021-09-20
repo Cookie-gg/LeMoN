@@ -22,7 +22,7 @@
       overflow: hidden;
       position: fixed;
       top: 0;
-      transition: all $common_anmt;
+      transition: width $common_anmt, left $common_anmt;
 
       @include max(left, $sp_value: -70px);
 
