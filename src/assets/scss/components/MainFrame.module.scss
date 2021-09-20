@@ -2,6 +2,7 @@
   align-items: center;
   box-sizing: border-box;
   display: flex;
+
   // height: 100vh;
   justify-content: center;
   left: 0;
@@ -17,20 +18,9 @@
 
   &.opened {
     @include max(left, $sp_value: 70px);
-    &::before {
-      @include max(right, $sp_value: -50px);
-    }
-    &::after {
-      @include max(left, $sp_value: 90px);
-    }
+
     &.expanded {
       @include max(left, $sp_value: 200px);
-      &::before {
-        @include max(right, $sp_value: -180px);
-      }
-      &::after {
-        @include max(left, $sp_value: 220px);
-      }
     }
   }
 
@@ -39,7 +29,7 @@
     box-sizing: border-box;
     height: 0;
     pointer-events: none;
-    position: fixed;
+    position: absolute;
     width: 0;
     z-index: 3;
   }
@@ -47,7 +37,7 @@
     border-right: 1px solid $lemon;
     border-top: 1px solid $lemon;
     content: '';
-    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
+    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2);
 
     @include max(bottom, #{30px}, 20px);
 
@@ -58,7 +48,7 @@
     border-left: 1px solid $lemon;
     content: '';
     opacity: 0;
-    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4), left $common_anmt;
+    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4);
 
     @include max(left, #{30px}, 20px);
 
