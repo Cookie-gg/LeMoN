@@ -25,6 +25,6 @@ export default function PageFrame({ children, classNmae }: { children: ReactElem
       <div className={`${classNmae} ${styles.entire} ${tocClicked && styles.toc_clicked}`}>{children}</div>;
     </TocClickState.Provider>
   ) : (
-    <div className={`${classNmae} ${styles.entire} ${tocClicked && styles.tocClicked}`}>{children}</div>
+    <div className={`${classNmae} ${styles.entire}`}>{children}</div>
   );
 }

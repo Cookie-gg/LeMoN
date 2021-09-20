@@ -5,6 +5,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
+
   @include max(box-sizing, border-box);
 
   @include max(padding-left, 30px);
@@ -28,4 +29,12 @@
   @include add(margin-top, $sp_value: (20px + 60px), $from: 11px);
 
   @include add(margin-bottom, $sp_value: (20px + 30px), $from: 11px);
+
+  @include media(mobile) {
+    &.toc_clicked {
+      @include max(top, calc(30px + 11px + 110px));
+
+      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+    }
+  }
 }
