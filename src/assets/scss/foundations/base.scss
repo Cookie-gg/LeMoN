@@ -17,7 +17,7 @@ html {
       content: '';
       height: 100vh;
       pointer-events: none;
-      position: fixed;
+      position: absolute;
       top: 0;
       transform: skewX(-30deg);
       width: 600px;

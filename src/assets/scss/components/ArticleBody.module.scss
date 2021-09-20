@@ -36,20 +36,13 @@
   h1 {
     border-bottom: 1px solid $lemon;
     font-weight: 600;
-    margin-top: -100px;
-    padding-top: 100px;
 
     @include max(font-size, #{28px}, 24px);
 
     @include max(padding-bottom, #{7.5px}, 7.5px);
 
-    @media screen and (max-width: $res) {
-      margin-top: -150px;
-      padding-top: 150px;
-    }
-    &::before {
-      @include max(margin-top, #{60px}, 60px);
-    }
+    @include max(margin-top, #{60px}, 60px);
+
     code {
       vertical-align: text-bottom;
 
@@ -58,19 +51,11 @@
   }
   h2 {
     font-weight: 500;
-    margin-top: -120px;
-    padding-top: 120px;
 
     @include max(font-size, #{24px}, 20px);
 
-    @media screen and (max-width: $res) {
-      margin-top: -170px;
-      padding-top: 170px;
-    }
+    @include max(margin-top, #{40px}, 40px);
 
-    &::before {
-      @include max(margin-top, #{40px}, 40px);
-    }
     code {
       vertical-align: text-bottom;
 
@@ -84,46 +69,10 @@
     &::before {
       content: '';
       display: block;
-    }
-    &:first-of-type {
-      margin-top: 0;
-      padding-top: 0;
-      &::before {
-        content: '';
-        display: block;
-        height: 170px;
-        margin-top: -170px;
-        @media screen and (max-width: $res) {
-          height: 220px;
-          margin-top: -220px;
-        }
+      height: 10px;
+      margin-top: -10px;
+      @media screen and (max-width: $res) {
       }
-    }
-  }
-  & > * + h1:first-of-type {
-    margin-top: -100px;
-    padding-top: 100px;
-    @media screen and (max-width: $res) {
-      margin-top: -150px;
-      padding-top: 150px;
-    }
-    &::before {
-      height: 0;
-
-      @include max(margin-top, #{40px}, 40px);
-    }
-  }
-  & > * + h2:first-of-type {
-    margin-top: -120px;
-    padding-top: 120px;
-    @media screen and (max-width: $res) {
-      margin-top: -170px;
-      padding-top: 170px;
-    }
-    &::before {
-      height: 0;
-
-      @include max(margin-top, #{40px}, 40px);
     }
   }
   h3 {
@@ -150,8 +99,8 @@
       height: 100%;
       margin-left: 1.5px;
       margin-right: 1.5px;
-      margin-top: -170px;
-      padding-top: 170px;
+      margin-top: -10px;
+      padding-top: 10px;
       vertical-align: top;
       width: 100%;
 
@@ -162,8 +111,6 @@
       }
 
       @media screen and (max-width: $res) {
-        margin-top: -220px;
-        padding-top: 220px;
       }
     }
   }
@@ -191,8 +138,8 @@
           @include max(font-size, #{16px}, 16px);
           a {
             color: $lemon;
-            margin-top: -170px;
-            padding-top: 170px;
+            margin-top: -10px;
+            padding-top: 10px;
 
             @include hover(both) {
               text-decoration: underline;
@@ -201,8 +148,7 @@
             }
 
             @media screen and (max-width: $res) {
-              margin-top: -220px;
-              padding-top: 220px;
+
             }
           }
         }

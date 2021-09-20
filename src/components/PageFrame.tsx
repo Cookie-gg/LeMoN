@@ -7,4 +7,3 @@ export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache(
 export default function PageFrame({ children, classNmae }: { children: ReactElement; classNmae?: string }) {
   return <div className={`${classNmae} ${styles.entire}`}>{children}</div>;
 }
-

@@ -1,3 +1,4 @@
+import { useWindowDimensions } from 'hooks';
 import { useEffect, useRef } from 'react';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
 
@@ -9,6 +10,8 @@ interface PropsType {
 
 export default function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
+  const windowHeight = useWindowDimensions().height as number;
+  console.log(`-${windowHeight - 151}px`);
   useEffect(() => {
     const el = ref.current;
     if (headingTexts && el) {
@@ -21,7 +24,7 @@ export default function ArticleBody({ body, _activeSection, headingTexts }: Prop
           ),
         {
           root: null, // document
-          rootMargin: `0px -71px -99%`,
+          rootMargin: `0px -71px -${windowHeight - 151}px`,
           threshold: 0,
         },
       );
@@ -31,7 +34,7 @@ export default function ArticleBody({ body, _activeSection, headingTexts }: Prop
         observer.disconnect();
       };
     }
-  }, [headingTexts, _activeSection]);
+  }, [windowHeight, headingTexts, _activeSection]);
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }

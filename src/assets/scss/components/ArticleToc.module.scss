@@ -2,12 +2,11 @@
   font-family: $jp_font;
   line-height: 1.4;
   $res: 1199px;
+  top: 0;
   transition: top $common_anmt;
   width: 100%;
 
   @include max(position, sticky, $width: $res);
-
-  @include max(top, calc(30px + 11px + 110px), $width: $res);
 
   @include max(margin-top, 40px, $width: $res);
 

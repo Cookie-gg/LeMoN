@@ -7,44 +7,18 @@
   left: 0;
   overflow: hidden;
   position: relative;
+  width: 100%;
 
-  @include max(padding-top, calc(30px + 11px + 110px));
+  @include max(padding, #{30px + 11px});
 
-  @include max(padding-left, calc(30px + 11px + 40px));
-
-  @include max(padding-right, calc(30px + 11px + 40px));
-
-  @include max(padding-bottom, calc(30px + 11px + 40px));
-
-  @include add(padding-top, $sp_value: (20px + 60px), $from: 11px);
-
-  @include add(padding-left, $sp_value: (20px + 30px), $from: 11px);
-
-  @include add(padding-right, $sp_value: (20px + 30px), $from: 11px);
-
-  @include add(padding-bottom, $sp_value: (20px + 30px), $from: 11px);
+  @include add(padding, $sp_value: 20px, $from: 11px);
 
   @include max(transition, $sp_value: left $common_anmt);
 
-  &.home {
-    padding: 0;
-  }
   &.opened {
     @include max(left, $sp_value: 70px);
-    &::before {
-      @include max(right, $sp_value: -50px);
-    }
-    &::after {
-      @include max(left, $sp_value: 90px);
-    }
     &.expanded {
       @include max(left, $sp_value: 200px);
-      &::before {
-        @include max(right, $sp_value: -180px);
-      }
-      &::after {
-        @include max(left, $sp_value: 220px);
-      }
     }
   }
 
@@ -53,7 +27,7 @@
     box-sizing: border-box;
     height: 0;
     pointer-events: none;
-    position: fixed;
+    position: absolute;
     width: 0;
     z-index: 3;
   }
@@ -61,7 +35,7 @@
     border-right: 1px solid $lemon;
     border-top: 1px solid $lemon;
     content: '';
-    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
+    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2);
 
     @include max(bottom, #{30px}, 20px);
 
@@ -72,8 +46,7 @@
     border-left: 1px solid $lemon;
     content: '';
     opacity: 0;
-    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
-      left $common_anmt;
+    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4);
 
     @include max(left, #{30px}, 20px);
 
@@ -82,12 +55,13 @@
   &.mounted {
     &::before,
     &::after {
-      height: calc(100% - 30px * 2);
-      width: calc(100% - 30px * 2);
+      @include max(width, calc(100% - (30px * 2)));
 
-      @include diff(width, $sp_value: 20px * 2);
+      @include max(height, calc(100% - (30px * 2)));
 
-      @include diff(height, $sp_value: 20px * 2);
+      @include diff(width, $sp_value: (20px * 2));
+
+      @include diff(height, $sp_value: (20px * 2));
     }
     &::after {
       opacity: 1;

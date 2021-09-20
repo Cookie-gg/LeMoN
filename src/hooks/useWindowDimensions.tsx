@@ -19,9 +19,7 @@ const useWindowDimensions = (): WindowDimentions => {
     }
     handleResize();
     window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    return (): void => window.removeEventListener('resize', handleResize);
   }, []);
 
   return windowDimensions;
