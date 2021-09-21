@@ -7,5 +7,5 @@ export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache(
 
 export default function PageFrame({ children, classNmae }: { children: ReactElement; classNmae?: string }) {
   const agent = useAgent({ device: 'android', browser: 'chrome' });
-  return <div className={`${classNmae} ${styles.entire} ${agent && styles.agent}`}>{children}</div>;
+  return <div className={`${styles.entire} ${classNmae} ${agent && styles.agent}`}>{children}</div>;
 }

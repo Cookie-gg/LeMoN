@@ -18,29 +18,29 @@ export default function Header() {
   const [isClosing, _isClosing] = usePeriod(false);
   const window = useWindowDimensions() as { width: number; height: number };
   const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
+
   const clickEvent = () => {
     if (!(window.width < 820)) _isClosing(950);
     _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
   };
+  const stateClass = (openClass: string, expandClass: string) => {
+    return `${(headerState === 'open' || headerState === 'expand') && openClass} ${
+      headerState === 'expand' && expandClass
+    }`;
+  };
   return (
     <header
-      className={`${styles.entire} ${isMounted && styles.mounted} ${
-        (headerState === 'open' || headerState === 'expand') && 'header_opened'
-      } ${headerState === 'expand' && 'header_expanded'}`}
+      className={`${styles.entire} ${isMounted && styles.mounted} ${stateClass('header_opened', 'header_expanded')}`}
     >
       <button
-        className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
-          headerState === 'expand' && styles.expanded
-        } ${!(window.width < 820) && isClosing && styles.closing}`}
+        className={` ${stateClass(styles.opened, styles.expanded)} ${
+          !(window.width < 820) && isClosing && styles.closing
+        }`}
         onClick={() => clickEvent()}
       >
         {!(window.width < 820) && <span></span>}
       </button>
-      <ul
-        className={`${(headerState === 'open' || headerState === 'expand') && styles.opened} ${
-          headerState === 'expand' && styles.expanded
-        }`}
-      >
+      <ul className={`${stateClass(styles.opened, styles.expanded)}`}>
         {data.map((el: { name: string; path: string; icon: string }, i: number) => (
           <li
             key={i}

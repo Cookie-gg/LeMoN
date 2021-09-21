@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ProgressBar />
       <Header />
-      <MainFrame >
+      <MainFrame>
         <Component {...pageProps} />
       </MainFrame>
     </>

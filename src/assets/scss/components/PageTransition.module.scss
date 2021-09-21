@@ -4,7 +4,7 @@
   transform: translate(-50%, -50%);
   z-index: 4;
 
-  @include max(left, -130vw, -400vw);
+  @include max(left, -120vw, -1350px);
 
   .cover {
     background-color: $lemon;
@@ -16,7 +16,7 @@
     transform-origin: 0% 50%;
     user-select: none;
 
-    @include max(width, 55vw, 180vw);
+    @include max(width, 55.5vw, 500px);
 
     span {
       display: block;
@@ -33,20 +33,16 @@
   &.mounted {
     &:not(.home) {
       transition: left $common_anmt;
-      position: fixed;
     }
     &.home {
-      position: absolute;
+      left: 50%;
       transition: left $common_anmt entry_order(1);
-
-      @include max(left, 50%, 50vw);
 
       @media screen and (max-width: map-get($fixed_points, 'sp') + 0px) {
         .cover {
           left: 33vw;
         }
       }
-      
     }
   }
 }
