@@ -17,7 +17,7 @@
   @include max(padding, #{45px}, 30px);
 
   *:not(.code_wrapper *, blockquote *, a) {
-    color: rgba(white, 0.9);
+    color: white;
   }
   & > * {
     @include max(margin-top, #{20px}, 20px);
