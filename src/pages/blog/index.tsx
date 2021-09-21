@@ -2,8 +2,8 @@ import { useMount } from 'hooks';
 import blogQuery, { DataType } from 'data/blogQuery';
 import { useState, useEffect, useCallback } from 'react';
 import pages from '../../assets/scss/pages/Blog.module.scss';
-import { GetStaticProps, Head, Link, useRouter } from 'utils/next';
-import { Heading, PageFrame, ArticleList, Button, ArticleTopics, DataRes } from 'components';
+import { GetStaticProps, Link, useRouter } from 'utils/next';
+import { Heading, PageFrame, ArticleList, Button, ArticleTopics, DataRes, HeadMeta } from 'components';
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data, error } = await blogQuery();
@@ -30,12 +30,10 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
       });
     }
   }, [router, displayNum, data]);
-  
+
   return (
     <>
-      <Head>
-        <title>LeMoN | Blog</title>
-      </Head>
+      <HeadMeta title="Blog" />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.blog} ${isMounted && pages.mounted}`}>
         <>

@@ -4,7 +4,8 @@
   max-width: 1400px;
   overflow-x: hidden;
   overflow-y: auto;
-  position: relative;
+  position: fixed;
+  top: 0;
 
   @include max(box-sizing, border-box);
 
@@ -29,9 +30,4 @@
   @include add(margin-top, $sp_value: (20px + 60px), $from: 11px);
 
   @include add(margin-bottom, $sp_value: (20px + 30px), $from: 11px);
-
-  &.agent {
-    position: fixed;
-    top: 0;
-  }
 }

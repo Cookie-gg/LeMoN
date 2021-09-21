@@ -20,8 +20,8 @@ export default async function postQuery(): Promise<{
         const headings = obj.body.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
         return {
           id: obj.id,
-          releaseDate: new Date(obj.releaseDate),
-          updateDate: new Date(obj.updateDate),
+          releaseDate: obj.releaseDate,
+          updateDate: obj.updateDate,
           title: obj.title,
           emoji: obj.emoji,
           type: obj.typeIcon.displayName,
@@ -37,7 +37,7 @@ export default async function postQuery(): Promise<{
           relations: {
             articles: obj.relations.map((obj) => ({
               id: obj.id,
-              releaseDate: new Date(obj.releaseDate),
+              releaseDate: obj.releaseDate,
               title: obj.title,
               emoji: obj.emoji,
               type: obj.type,

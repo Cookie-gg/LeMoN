@@ -18,11 +18,11 @@ export default function ArticleMeta({ emoji, title, releaseDate, updateDate }: P
       <div className={styles.time_header}>
         <div className={styles.release_date}>
           <Iconify icon={'fa-solid:calendar-day'} />
-          <time>{displayDate(new Date(releaseDate), '.')}</time>
+          <time>{displayDate(new Date(releaseDate), '.', false)}</time>
         </div>
         <div className={styles.update_date}>
           <Iconify icon={'fa-solid:sync'} />
-          <time>{displayDate(new Date(updateDate), '.')}</time>
+          <time>{displayDate(new Date(updateDate), '.', false)}</time>
         </div>
       </div>
     </div>

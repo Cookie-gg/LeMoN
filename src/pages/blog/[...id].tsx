@@ -3,8 +3,8 @@ import { useIntersect, useMount, useWindowDimensions } from 'hooks';
 import postQuery from 'data/postQuery';
 import postIdQuery from 'data/postIdQuery';
 import { Zenn, ZennAdds } from 'types/common';
+import { GetStaticPaths, GetStaticProps } from 'utils/next';
 import pages from '../../assets/scss/pages/Blog.module.scss';
-import { GetStaticPaths, GetStaticProps, Head } from 'utils/next';
 import {
   ArticleMeta,
   PageFrame,
@@ -14,6 +14,7 @@ import {
   Heading,
   ArticleList,
   DataRes,
+  HeadMeta,
 } from 'components';
 import { Twemoji } from 'react-emoji-render';
 
@@ -55,10 +56,9 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
   );
   return (
     <>
-      <Head>
-        <title>LeMoN | {data.title}</title>
+      <HeadMeta title={data.title}>
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
-      </Head>
+      </HeadMeta>
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.post} ${isMounted && pages.mounted}`}>
         <>

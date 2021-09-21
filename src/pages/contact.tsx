@@ -1,6 +1,6 @@
+import { GetStaticProps } from 'utils/next';
 import { useMount, useWindowDimensions } from 'hooks';
-import { GetStaticProps, Head } from 'utils/next';
-import { DataRes, Form, Heading, ImageFrame, PageFrame } from 'components';
+import { DataRes, Form, Heading, HeadMeta, ImageFrame, PageFrame } from 'components';
 import pages from '../assets/scss/pages/Contact.module.scss';
 import contactQuery, { DataType } from 'data/contactQuery';
 
@@ -23,9 +23,7 @@ export default function Contact({ data, error }: { data: DataType; error?: strin
   );
   return (
     <>
-      <Head>
-        <title>LeMoN | Contact</title>
-      </Head>
+      <HeadMeta title="Contact" />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.contact} ${isMounted && pages.mounted}`}>
         <>

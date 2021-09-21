@@ -34,7 +34,7 @@ export default async function blogQuery(): Promise<{
         title: titles.latest.text,
         articles: data.latest.map((obj) => ({
           id: obj.id,
-          releaseDate: new Date(obj.releaseDate),
+          releaseDate: obj.releaseDate,
           title: obj.title,
           emoji: obj.emoji,
           type: obj.type,
@@ -48,7 +48,7 @@ export default async function blogQuery(): Promise<{
         articles: topTopics.map((obj) =>
           obj.someArticles.map((_obj) => ({
             id: _obj.id,
-            releaseDate: new Date(_obj.releaseDate),
+            releaseDate: _obj.releaseDate,
             title: _obj.title,
             emoji: _obj.emoji,
             type: _obj.type,
@@ -60,7 +60,7 @@ export default async function blogQuery(): Promise<{
         title: titles.all.text,
         articles: data.all.map((obj) => ({
           id: obj.id,
-          releaseDate: new Date(obj.releaseDate),
+          releaseDate: obj.releaseDate,
           title: obj.title,
           emoji: obj.emoji,
           type: obj.type,

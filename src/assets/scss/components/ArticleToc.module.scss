@@ -196,7 +196,9 @@
 
             @include max(margin-top, #{2px}, 2px);
 
-            @include max(margin-right, #{10px}, 10px);
+            @include max(margin-right, #{11px}, 11px);
+
+            @include max(margin-left, #{1px}, 1px);
 
             @include max(margin-bottom, #{1.5px}, 1.5px);
 

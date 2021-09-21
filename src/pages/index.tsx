@@ -1,5 +1,5 @@
+import { HeadMeta } from 'components';
 import { useFirstMount } from 'hooks';
-import { Head } from 'utils/next';
 import { specifor } from 'utils/common';
 import pages from '../assets/scss/pages/Home.module.scss';
 
@@ -7,9 +7,7 @@ export default function Home() {
   const isMounted = useFirstMount();
   return (
     <>
-      <Head>
-        <title>LeMoN | Home</title>
-      </Head>
+      <HeadMeta title="Home" />
       <h1 className={`${pages.title} ${isMounted && pages.mounted} exclude`}>
         <span className={pages.text_wrapper}>
           <span className={pages.text}>LeMoN</span>
