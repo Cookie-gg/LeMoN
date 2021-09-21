@@ -1,6 +1,5 @@
 import { useMount } from 'hooks';
-import { Head } from 'utils/next';
-import { PageFrame, Heading } from 'components';
+import { PageFrame, Heading, HeadMeta } from 'components';
 import pages from '../assets/scss/pages/Works.module.scss';
 import useForm from 'hooks/useForm';
 
@@ -12,9 +11,7 @@ export default function Works() {
   const [formData, _formData] = useForm(initialState);
   return (
     <>
-      <Head>
-        <title>LeMoN | Works</title>
-      </Head>
+      <HeadMeta title="Works" />
       <p>Coming soon...</p>
       {/* <PageFrame classNmae={`${pages.portfolio} ${isMounted && pages.mounted}`}>
         <>

@@ -1,8 +1,18 @@
+import { GetStaticProps } from 'utils/next';
 import { useMount, useWindowDimensions } from 'hooks';
-import { GetStaticProps, Head } from 'utils/next';
 import aboutQuery, { DataType } from 'data/aboutQuery';
 import pages from '../assets/scss/pages/About.module.scss';
-import { Heading, Paragraph, NamePlate, ProfileInfo, DataRes, ImageFrame, PageFrame, Skills } from 'components';
+import {
+  Heading,
+  Paragraph,
+  NamePlate,
+  ProfileInfo,
+  DataRes,
+  ImageFrame,
+  PageFrame,
+  Skills,
+  HeadMeta,
+} from 'components';
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data, error } = await aboutQuery();
@@ -23,9 +33,7 @@ export default function About({ data, error }: { data: DataType; error?: string 
   );
   return (
     <>
-      <Head>
-        <title>LeMoN | About</title>
-      </Head>
+      <HeadMeta title="About" />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.about} ${isMounted && pages.mounted}`}>
         <>
@@ -40,7 +48,7 @@ export default function About({ data, error }: { data: DataType; error?: string 
             {windowWidth > 820 && featuredImage}
           </div>
           <div className={pages.skills}>
-            <Skills data={data.skills}/>
+            <Skills data={data.skills} />
           </div>
         </>
       </PageFrame>

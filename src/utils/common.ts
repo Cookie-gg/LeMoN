@@ -35,10 +35,22 @@ export function sortByDate<T extends { releaseDate: Date }[]>(type: 'asc' | 'des
   return data;
 }
 
-export function displayDate(date: Date, split = '/'): string {
-  return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth() + 1))}${split}${displayDigit(
-    String(date.getDate()),
-  )}`;
+export function displayDate(date: Date, split = '/', compare = true): string {
+  if (compare) {
+    const now = new Date();
+    if (
+      now.getFullYear().toString() === date.getFullYear().toString() &&
+      now.getMonth().toString() === date.getMonth().toString()
+    ) {
+      return `${now.getDate() - date.getMonth()} days ago`;
+    } else
+      return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth() + 1))}${split}${displayDigit(
+        String(date.getDate()),
+      )}`;
+  } else
+    return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth() + 1))}${split}${displayDigit(
+      String(date.getDate()),
+    )}`;
 }
 
 export function specifor<T>(times: number, func: (index: number) => T): T[] {

@@ -10,10 +10,11 @@ interface PropsType {
 
 export default function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
-  const windowHeight = useWindowDimensions().height;
+  const window = useWindowDimensions();
+
   useEffect(() => {
     const el = ref.current;
-    if (headingTexts && el && windowHeight) {
+    if (headingTexts && el && window.height && window.width) {
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(
@@ -23,7 +24,9 @@ export default function ArticleBody({ body, _activeSection, headingTexts }: Prop
           ),
         {
           root: null, // document
-          rootMargin: `0px -71px -${windowHeight - 151}px`,
+          rootMargin: `0px -71px -${
+            window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60) : 152)
+          }px`,
           threshold: 0,
         },
       );
@@ -33,7 +36,7 @@ export default function ArticleBody({ body, _activeSection, headingTexts }: Prop
         observer.disconnect();
       };
     }
-  }, [windowHeight, headingTexts, _activeSection]);
+  }, [window, headingTexts, _activeSection]);
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }

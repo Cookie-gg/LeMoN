@@ -50,11 +50,11 @@
           position: absolute;
         }
         h2 {
-          -webkit-box-orient: vertical;
-          display: -webkit-box;
           font-family: $jp_font;
           font-weight: 400;
           line-height: 1.4;
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
           overflow: hidden;
           position: relative;
           width: 100%;
@@ -68,7 +68,6 @@
           font-weight: 200;
 
           @include max(font-size, #{15px}, 16px);
-
           p {
             @include max(margin-top, #{5px}, 5px);
             span {
@@ -91,6 +90,24 @@
     @include max(gap, 40px, 30px);
     & > li {
       @include diff(width, 120px, $add_term: '/ 4');
+
+      @include hover(true) {
+        &:hover {
+          .text_wrapper::after {
+            width: 100%;
+          }
+          .thumbnail {
+            .type {
+              background-color: $dark-gray;
+              color: $lemon;
+            }
+            &::before {
+              height: 100%;
+            }
+          }
+        }
+      }
+
       @media screen and (max-width: 1300px) {
         @include diff(width, 40px, 30px, $add_term: '/ 2');
         @media screen and (max-width: 650px) {
@@ -166,22 +183,6 @@
           }
         }
       }
-      @include hover(true) {
-        &:hover {
-          .text_wrapper::after {
-            width: 100%;
-          }
-          .thumbnail {
-            .type {
-              background-color: $dark-gray;
-              color: $lemon;
-            }
-            &::before {
-              height: 100%;
-            }
-          }
-        }
-      }
     }
   }
   &.horizontal {
@@ -190,6 +191,17 @@
       animation: fade_in 1s both;
 
       @include diff(width, 40px, $from: 100%, $add_term: '/ 2');
+
+      @include hover(true) {
+        &:hover {
+          .text_wrapper::before {
+            width: 100%;
+          }
+          .thumbnail::before {
+            width: 100%;
+          }
+        }
+      }
 
       @media screen and (max-width: 1300px) {
         width: 100%;
@@ -243,16 +255,6 @@
                 }
               }
             }
-          }
-        }
-      }
-      @include hover(true) {
-        &:hover {
-          .text_wrapper::before {
-            width: 100%;
-          }
-          .thumbnail::before {
-            width: 100%;
           }
         }
       }
