@@ -33,7 +33,7 @@ export default function About({ data, error }: { data: DataType; error?: string 
   );
   return (
     <>
-      <HeadMeta title="About" ogImage={data.ogImage} />
+      <HeadMeta title="About" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/About`} />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.about} ${isMounted && pages.mounted}`}>
         <>

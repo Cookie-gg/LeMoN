@@ -23,7 +23,7 @@ export default function Contact({ data, error }: { data: DataType; error?: strin
   );
   return (
     <>
-      <HeadMeta title="Contact" />
+      <HeadMeta title="Contact" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Contact`} />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.contact} ${isMounted && pages.mounted}`}>
         <>

@@ -56,7 +56,7 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
   );
   return (
     <>
-      <HeadMeta title={data.title}>
+      <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </HeadMeta>
       <DataRes error={error} />

@@ -2,10 +2,8 @@ import { list, section } from 'utils/common';
 import { client } from 'graphql/config.gql';
 import { ApolloError } from '@apollo/client';
 import { AboutDocument, AboutQuery } from 'types/graphql.d';
-import axios from 'axios';
 
 export interface DataType {
-  ogImage?: string;
   profile: {
     title: string;
     introduction: string;
@@ -28,8 +26,6 @@ export default async function aboutQuery(): Promise<{
   error: ApolloError | undefined;
 }> {
   const { error, data } = await client.query<AboutQuery>({ query: AboutDocument });
-  const ogImage = await axios.get<string>(`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/About`);
-
   if (data) {
     const titles = section<string>(data.titles);
     const sentences = section<string[]>(data.sentences);
@@ -38,7 +34,6 @@ export default async function aboutQuery(): Promise<{
     const others = list(data.others);
 
     const shapedData: DataType = {
-      ogImage: ogImage ? ogImage.data : undefined,
       profile: {
         title: titles.profile.text,
         introduction: sentences.profile.text[0],

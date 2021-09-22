@@ -33,7 +33,7 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
 
   return (
     <>
-      <HeadMeta title="Blog" />
+      <HeadMeta title="Blog" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Blog`} />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.blog} ${isMounted && pages.mounted}`}>
         <>
