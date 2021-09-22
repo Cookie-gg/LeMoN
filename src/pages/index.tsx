@@ -1,5 +1,5 @@
-import { HeadMeta } from 'components';
 import { memo } from 'react';
+import { HeadMeta } from 'components';
 import { specifor } from 'utils/common';
 import pages from '../assets/scss/pages/Home.module.scss';
 
