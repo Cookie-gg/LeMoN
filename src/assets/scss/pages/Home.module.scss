@@ -57,11 +57,10 @@
     position: absolute;
     right: 0;
     top: 0;
-    transition: opacity $moment entry_order(4), width $common_anmt entry_order(4),
-      height $common_anmt entry_order(4);
+    transition: opacity $moment entry_order(4), width $common_anmt entry_order(4), height $common_anmt entry_order(4);
     width: 100%;
   }
-  &.mounted {
+  #{$mount} & {
     padding-right: 0;
 
     @include max(width, #{380px}, 380px);
@@ -93,7 +92,6 @@
   @include max(font-size, #{50px}, 40px);
 
   @include max(left, #{185px}, 25vw);
-
 
   & > div {
     overflow-y: hidden;

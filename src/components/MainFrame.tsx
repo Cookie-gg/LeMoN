@@ -1,17 +1,16 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import PageTransition from './PageTransition';
-import { useFirstMount, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/MainFrame.module.scss';
 
-export default function MainFrame({ children }: { children: ReactElement }) {
-  const isMounted = useFirstMount();
-  const windowHeight = useWindowDimensions().height as number;
+function MainFrame({ children }: { children: ReactElement }) {
+  console.log("main");
   return (
     <>
-      <main className={`${styles.main} ${isMounted && styles.mounted}`} style={{ height: `${windowHeight}px` }}>
+      <main className={`${styles.main}`}>
         <PageTransition />
         {children}
       </main>
     </>
   );
 }
+export default memo(MainFrame);

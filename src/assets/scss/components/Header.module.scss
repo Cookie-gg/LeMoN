@@ -268,30 +268,36 @@
     z-index: 1;
 
     @include max(height, #{60px}, 60px);
+    @include hover(true) {
+      &:hover,
+      &.closing:not(:hover) {
+        span {
+          @include max(height, #{120px}, 120px);
 
-    &:hover,
-    &.opened,
-    &.closing:not(:hover) {
+          &::before {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+    &.opened {
+      @include max(left, $sp_value: 70px);
+      &.expanded {
+        @include max(left, $sp_value: 200px);
+      }
+      &::before {
+        @include max(margin-left, $sp_value: 15px);
+      }
+      &::after {
+        @include max(margin-left, $sp_value: 30px);
+      }
       span {
         @include max(height, #{120px}, 120px);
 
         &::before {
           opacity: 1;
           visibility: visible;
-        }
-      }
-      &.opened {
-        @include max(left, $sp_value: 70px);
-        &.expanded {
-          @include max(left, $sp_value: 200px);
-        }
-        &::before {
-          @include max(margin-left, $sp_value: 15px);
-        }
-        &::after {
-          @include max(margin-left, $sp_value: 30px);
-        }
-        span::before {
           content: 'CLOSE';
 
           @include max(letter-spacing, #{2px}, 2px);
@@ -341,7 +347,7 @@
       }
     }
   }
-  &.mounted {
+  [class*='mounted'] + & {
     button {
       @include max(width, #{60px}, 60px);
 
