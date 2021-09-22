@@ -11,7 +11,7 @@ export default function Works() {
   const [formData, _formData] = useForm(initialState);
   return (
     <>
-      <HeadMeta title="Works" />
+      <HeadMeta title="Works" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Works`} />
       <p>Coming soon...</p>
       {/* <PageFrame classNmae={`${pages.portfolio} ${isMounted && pages.mounted}`}>
         <>

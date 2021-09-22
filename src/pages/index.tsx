@@ -7,7 +7,7 @@ export default function Home() {
   const isMounted = useFirstMount();
   return (
     <>
-      <HeadMeta title="Home" />
+      <HeadMeta title="Home" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Home`} />
       <h1 className={`${pages.title} ${isMounted && pages.mounted} exclude`}>
         <span className={pages.text_wrapper}>
           <span className={pages.text}>LeMoN</span>

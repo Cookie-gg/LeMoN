@@ -23,9 +23,9 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 export default function About({ data, error }: { data: DataType; error?: string }) {
-  const windowWidth = useWindowDimensions().width as number;
-  const isMounted = useMount();
   data = JSON.parse(String(data));
+  const isMounted = useMount();
+  const windowWidth = useWindowDimensions().width as number;
   const featuredImage = (
     <ImageFrame className={pages.image_frame}>
       <img src={data.profile.feelingProud} alt={`${data.profile.title.toLowerCase()}_featured_image`} />
@@ -33,7 +33,7 @@ export default function About({ data, error }: { data: DataType; error?: string 
   );
   return (
     <>
-      <HeadMeta title="About" />
+      <HeadMeta title="About" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/About`} />
       <DataRes error={error} />
       <PageFrame classNmae={`${pages.about} ${isMounted && pages.mounted}`}>
         <>
