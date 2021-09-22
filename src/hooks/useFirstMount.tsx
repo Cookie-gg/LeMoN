@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 const useFirstMount = function () {
   const [isMounted, _isMounted] = useState<boolean>(false);
+  // console.log("usemout");
   useEffect(() => {
     setTimeout(() => _isMounted(true), 0);
     return () => {

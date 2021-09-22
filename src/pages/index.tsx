@@ -1,14 +1,13 @@
 import { HeadMeta } from 'components';
-import { useFirstMount } from 'hooks';
+import { memo } from 'react';
 import { specifor } from 'utils/common';
 import pages from '../assets/scss/pages/Home.module.scss';
 
-export default function Home() {
-  const isMounted = useFirstMount();
+function Home() {
   return (
     <>
       <HeadMeta title="Home" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Home`} />
-      <h1 className={`${pages.title} ${isMounted && pages.mounted} exclude`}>
+      <h1 className={`${pages.title} exclude`}>
         <span className={pages.text_wrapper}>
           <span className={pages.text}>LeMoN</span>
         </span>
@@ -24,3 +23,4 @@ export default function Home() {
     </>
   );
 }
+export default memo(Home);
