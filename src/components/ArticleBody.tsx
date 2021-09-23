@@ -1,5 +1,6 @@
 import { useWindowDimensions } from 'hooks';
 import { memo, useEffect, useRef } from 'react';
+import { useRouter } from 'utils/next';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
 
 interface PropsType {
@@ -11,7 +12,7 @@ interface PropsType {
 function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const window = useWindowDimensions();
-
+  const asPath = useRouter().asPath;
   useEffect(() => {
     const el = ref.current;
     if (headingTexts && el && window.height && window.width) {
@@ -25,7 +26,7 @@ function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
         {
           root: null, // document
           rootMargin: `0px -71px -${
-            window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60) : 152)
+            window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60 + 1) : 152)
           }px`,
           threshold: 0,
         },
@@ -36,7 +37,7 @@ function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
         observer.disconnect();
       };
     }
-  }, [window, headingTexts, _activeSection]);
+  }, [asPath, window, headingTexts, _activeSection]);
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }

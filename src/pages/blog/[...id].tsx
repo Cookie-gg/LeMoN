@@ -3,7 +3,7 @@ import { useIntersect, useWindowDimensions } from 'hooks';
 import postQuery from 'data/postQuery';
 import postIdQuery from 'data/postIdQuery';
 import { Zenn, ZennAdds } from 'types/common';
-import { GetStaticPaths, GetStaticProps } from 'utils/next';
+import { GetStaticPaths, GetStaticProps, Router } from 'utils/next';
 import pages from '../../assets/scss/pages/Blog.module.scss';
 import {
   ArticleMeta,
@@ -53,7 +53,7 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
       window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60) : 151)
     }px`,
   );
-  console.log("Post");
+  Router.events.on('routeChangeComplete', () => _activeSection(0));
   return (
     <>
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>

@@ -166,13 +166,16 @@
           @include max(width, #{25px}, 25px);
         }
       }
+      &.toc {
+        transition: 0;
+      }
       li {
         align-items: center;
         color: rgba(white, 0.6);
         cursor: pointer;
         display: flex;
         position: relative;
-        transition: all $common_anmt;
+        transition: color $common_anmt;
         user-select: none;
 
         &.heading_1 {
@@ -211,7 +214,7 @@
           content: '';
           display: block;
           transform: rotate(-45deg);
-          transition: all $common_anmt;
+          transition: background-color $common_anmt, border $common_anmt;
           z-index: 1;
 
           @include max(width, #{10px}, 10px);
@@ -258,6 +261,13 @@
           @include add(right, $sp_value: (20px + 30px), $from: 11px);
         }
       }
+    }
+  }
+  &.init {
+    .meta::before,
+    .meta::after,
+    .toc {
+      transition: all 0s;
     }
   }
   &.showed {

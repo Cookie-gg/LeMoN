@@ -1,9 +1,9 @@
-import { memo, useRef, useState } from 'react';
 import { Link } from 'utils/next';
+import { memo, useRef, useState } from 'react';
 import { Twemoji } from 'react-emoji-render';
-import { useHeight, useIntersect, useWindowDimensions } from 'hooks';
-import styles from '../assets/scss/components/ArticleToc.module.scss';
 import { Icon as Iconify } from '@iconify/react';
+import { useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
+import styles from '../assets/scss/components/ArticleToc.module.scss';
 
 interface PropsType {
   meta: {
@@ -20,13 +20,17 @@ interface PropsType {
 function ArticleToc({ meta, activeSection, headings }: PropsType) {
   const paddingTop = 151;
   const paddingBottom = 81;
-  const window = useWindowDimensions() as { width: number; height: number };
+  const initTransition = useFirstPeriod(0);
   const tocRef = useRef<HTMLDivElement>(null);
-  const [height, _height] = useHeight<HTMLDivElement>();
-  const isIntersecting = useIntersect(tocRef.current, `0px 0px -${window.height - paddingTop}px`);
   const [isOpened, _isOpened] = useState(false);
+  const [height, _height] = useHeight<HTMLDivElement>();
+  const window = useWindowDimensions() as { width: number; height: number };
+  const isIntersecting = useIntersect(tocRef.current, `0px 0px -${window.height - paddingTop}px`);
   return (
-    <div className={`${styles.entire} ${isIntersecting && styles.showed}`} ref={tocRef}>
+    <div
+      className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init}`}
+      ref={tocRef}
+    >
       <div className={styles.meta} ref={_height}>
         <Twemoji svg onlyEmojiClassName={styles.emoji} text={meta.emoji} options={{ protocol: 'https' }} />
         <h1 className={styles.title}>{meta.title}</h1>
@@ -62,4 +66,4 @@ function ArticleToc({ meta, activeSection, headings }: PropsType) {
   );
 }
 
-export default memo(ArticleToc, (prev, next) => prev.activeSection === next.activeSection);
+export default memo(ArticleToc);
