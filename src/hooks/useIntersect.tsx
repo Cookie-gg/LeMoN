@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'utils/next';
 
 export default function useIntersect(el: HTMLElement | null, rootMargin: string): boolean {
   const [isIntersecting, _isIntersecting] = useState(false);
+  const asPath = useRouter().asPath;
   useEffect(() => {
+    _isIntersecting(false);
     if (el) {
       const observer = new IntersectionObserver(
         (entries) =>
@@ -21,6 +24,6 @@ export default function useIntersect(el: HTMLElement | null, rootMargin: string)
         observer.disconnect();
       };
     }
-  }, [el, rootMargin]);
+  }, [asPath, el, rootMargin]);
   return isIntersecting;
 }
