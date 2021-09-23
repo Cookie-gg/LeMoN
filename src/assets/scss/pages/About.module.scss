@@ -24,16 +24,19 @@
       .title {
         @include max(margin-top, 65px, 30px);
       }
-      .introduction,
-      .info {
-        @include max(margin-top, 50px);
+      .introduction {
+        @include max(margin-top, 45px);
+
+        @include max(width, 90%);
+
+        @include max(margin-left, 1%);
       }
       .info {
-        @include max(margin-top, $sp_value: 30px);
+        @include max(margin-top, 50px, 30px);
       }
     }
   }
-  
+
   .skills {
     box-sizing: border-box;
 

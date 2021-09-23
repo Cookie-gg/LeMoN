@@ -79,24 +79,6 @@ $code_font: 'Source Code Pro', monospace;
       }
     }
   }
-  &.chrome {
-    @media screen and (max-width: $res) {
-      @include media(mobile) {
-        h1::before,
-        h2::before,
-        [class*='footnote-ref'] a,
-        [class*='footnotes-title'] ol li p a {
-          @include max(height, calc(30px + 11px + 110px + 60px));
-
-          @include max(margin-top, calc(- 30px - 11px - 110px - 60px));
-
-          @include add(height, $sp_value: (20px + 60px + 60px), $from: 11px);
-
-          @include add(margin-top, $sp_value: (20px + 60px + 60px), $from: 11px, $add_term: '* -1');
-        }
-      }
-    }
-  }
   h3 {
     font-weight: 500;
 

@@ -8,6 +8,12 @@
 
   @include max(row-gap, #{25px}, 20px);
 
+  @media screen and (max-width: 950px) {
+    @include diff(width, (30px * 2), $from: #{calc(100vw - 162px)});
+    li:nth-of-type(2n) {
+      @include max(mix-blend-mode, difference);
+    }
+  }
   li {
     align-items: center;
     display: flex;
@@ -15,7 +21,6 @@
     overflow: hidden;
     position: relative;
     vertical-align: middle;
-
     @include max(width, #{230px}, 230px);
 
     @include max(height, #{27.5px}, 35px);

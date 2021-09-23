@@ -1,14 +1,22 @@
 .entire {
-  line-height: 1.75;
+  font-family: $jp_font;
+  font-weight: 200;
+  line-height: 1.8;
   overflow: hidden;
   position: relative;
+
   span {
-    display: inline-block;
     font-size: 20px;
     transform: translateY(-100%);
 
-    @include max(font-size, #{20px}, 22.5px);
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    @include max(font-size, #{16px}, 16px);
 
     @include max(text-align, $sp_value: center);
+
+    &:not(:first-of-type) {
+      @include max(margin-top, 12.5px, 12.5px);
+    }
   }
 }

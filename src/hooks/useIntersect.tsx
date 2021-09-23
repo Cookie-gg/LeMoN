@@ -3,7 +3,7 @@ import { useRouter } from 'utils/next';
 
 export default function useIntersect(el: HTMLElement | null, rootMargin: string): boolean {
   const [isIntersecting, _isIntersecting] = useState(false);
-  const asPath = useRouter().asPath;
+  const query = (useRouter().query as { id: string[] }).id[0];
   useEffect(() => {
     _isIntersecting(false);
     if (el) {
@@ -24,6 +24,6 @@ export default function useIntersect(el: HTMLElement | null, rootMargin: string)
         observer.disconnect();
       };
     }
-  }, [asPath, el, rootMargin]);
+  }, [query, el, rootMargin]);
   return isIntersecting;
 }
