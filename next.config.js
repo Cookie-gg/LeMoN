@@ -17,11 +17,11 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true
   },
-  // pwa: {
-  //   dest: 'public',
-  //   runtimeCaching,
-  // },
+  pwa: {
+    dest: 'public',
+    runtimeCaching,
+  },
 }
 
-// module.exports = withPWA(nextConfig)
-module.exports = nextConfig
+module.exports = withPWA(nextConfig)
+// module.exports = nextConfig
