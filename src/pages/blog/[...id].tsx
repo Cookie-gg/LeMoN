@@ -1,9 +1,9 @@
-import { memo, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useIntersect, useWindowDimensions } from 'hooks';
 import postQuery from 'data/postQuery';
 import postIdQuery from 'data/postIdQuery';
 import { Zenn, ZennAdds } from 'types/common';
-import { GetStaticPaths, GetStaticProps, Router } from 'utils/next';
+import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/next';
 import pages from '../../assets/scss/pages/Blog.module.scss';
 import {
   ArticleMeta,
@@ -47,13 +47,14 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
   const [activeSection, _activeSection] = useState(0);
   const contentsRef = useRef<HTMLDivElement>(null);
   const window = useWindowDimensions() as { width: number; height: number };
+  const query = (useRouter().query as { id: string[] }).id[0];
   const isIntersecting = useIntersect(
     contentsRef.current,
     `0px 0px -${
       window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60) : 151)
     }px`,
   );
-  Router.events.on('routeChangeComplete', () => _activeSection(0));
+  useEffect(() => _activeSection(0), [query]);
   return (
     <>
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>

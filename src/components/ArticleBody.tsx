@@ -12,7 +12,7 @@ interface PropsType {
 function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const window = useWindowDimensions();
-  const asPath = useRouter().asPath;
+  const query = (useRouter().query as { id: string[] }).id[0];
   useEffect(() => {
     const el = ref.current;
     if (headingTexts && el && window.height && window.width) {
@@ -26,7 +26,8 @@ function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
         {
           root: null, // document
           rootMargin: `0px -71px -${
-            window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60 + 1) : 152)
+            window.height -
+            (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60 + 1) : 152)
           }px`,
           threshold: 0,
         },
@@ -37,7 +38,7 @@ function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
         observer.disconnect();
       };
     }
-  }, [asPath, window, headingTexts, _activeSection]);
+  }, [query, window, headingTexts, _activeSection]);
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }
