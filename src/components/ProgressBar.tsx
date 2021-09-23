@@ -1,8 +1,9 @@
-import { Router } from 'next/router';
 import Nprogress from 'nprogress';
+import { useEffect, useState } from 'react';
+import { Router, useRouter } from 'next/router';
 
 Nprogress.configure({ showSpinner: false, speed: 500, minimum: 0.25 });
-export default function ProgressBar({ isMounted }: { isMounted: boolean }) {
+export default function ProgressBar() {
   Router.events.on('routeChangeStart', () => {
     Nprogress.start();
   });
@@ -14,5 +15,13 @@ export default function ProgressBar({ isMounted }: { isMounted: boolean }) {
   Router.events.on('routeChangeError', () => {
     Nprogress.done();
   });
-  return <span className={`${isMounted && 'mounted'}`}></span>;
+
+  const asPath = useRouter().asPath;
+  const [isMounted, _isMounted] = useState(false);
+  useEffect(() => {
+    setTimeout(() => _isMounted(true), 0);
+    return () => _isMounted(false);
+  }, [asPath]);
+
+  return <noscript className={`${isMounted ? 'mounted' : 'yet'}`}></noscript>;
 }

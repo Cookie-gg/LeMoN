@@ -4,6 +4,7 @@ const useAgent = (
   args:
     | { device: 'windows' | 'iphone' | 'android'; browser: 'msie' | 'edge' | 'chrome' | 'safari' | 'firefox' | 'opera' }
     | 'windows'
+    | 'mobile'
     | 'iphone'
     | 'android'
     | 'msie'

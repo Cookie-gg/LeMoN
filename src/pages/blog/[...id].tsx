@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { useIntersect, useMount, useWindowDimensions } from 'hooks';
+import { memo, useRef, useState } from 'react';
+import { useIntersect, useWindowDimensions } from 'hooks';
 import postQuery from 'data/postQuery';
 import postIdQuery from 'data/postIdQuery';
 import { Zenn, ZennAdds } from 'types/common';
@@ -42,8 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 };
 
-export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
-  const isMounted = useMount();
+function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
   data = JSON.parse(String(data));
   const [activeSection, _activeSection] = useState(0);
   const contentsRef = useRef<HTMLDivElement>(null);
@@ -54,13 +53,14 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
       window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60) : 151)
     }px`,
   );
+  console.log("Post");
   return (
     <>
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </HeadMeta>
       <DataRes error={error} />
-      <PageFrame classNmae={`${pages.post} ${isMounted && pages.mounted}`}>
+      <PageFrame classNmae={pages.post}>
         <>
           <ArticleMeta
             emoji={data.emoji}
@@ -111,3 +111,5 @@ export default function Post({ data, error }: { data: Zenn & ZennAdds; error?: s
     </>
   );
 }
+
+export default memo(Post);

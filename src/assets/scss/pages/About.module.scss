@@ -43,7 +43,7 @@
 
     @include max(min-height, calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px)));
   }
-  &.mounted {
+  #{$mount} & {
     .image_frame img {
       opacity: 1;
       transform: translateX(0%);

@@ -2,6 +2,7 @@ import { displayDate } from 'utils/common';
 import { Twemoji } from 'react-emoji-render';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/ArticleMeta.module.scss';
+import { memo } from 'react';
 
 interface PropsType {
   emoji: string;
@@ -10,7 +11,7 @@ interface PropsType {
   updateDate: Date;
 }
 
-export default function ArticleMeta({ emoji, title, releaseDate, updateDate }: PropsType) {
+function ArticleMeta({ emoji, title, releaseDate, updateDate }: PropsType) {
   return (
     <div className={styles.entire}>
       <Twemoji svg onlyEmojiClassName={styles.emoji} text={emoji} options={{ protocol: 'https' }} />
@@ -28,3 +29,5 @@ export default function ArticleMeta({ emoji, title, releaseDate, updateDate }: P
     </div>
   );
 }
+
+export default memo(ArticleMeta);

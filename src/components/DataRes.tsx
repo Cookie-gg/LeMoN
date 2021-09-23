@@ -1,6 +1,7 @@
 import { ApolloError } from '@apollo/client';
+import { memo } from 'react';
 
-export default function DataRes({ loading, error }: { loading?: boolean; error?: ApolloError | string }) {
+function DataRes({ loading, error }: { loading?: boolean; error?: ApolloError | string }) {
   if (typeof error === 'string') {
     error = JSON.parse(error);
   }
@@ -11,3 +12,5 @@ export default function DataRes({ loading, error }: { loading?: boolean; error?:
     </>
   );
 }
+
+export default memo(DataRes);

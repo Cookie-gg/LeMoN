@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { Link } from 'utils/next';
 import { Twemoji } from 'react-emoji-render';
 import { useHeight, useIntersect, useWindowDimensions } from 'hooks';
@@ -17,7 +17,7 @@ interface PropsType {
   activeSection: number;
 }
 
-export default function ArticleToc({ meta, activeSection, headings }: PropsType) {
+function ArticleToc({ meta, activeSection, headings }: PropsType) {
   const paddingTop = 151;
   const paddingBottom = 81;
   const window = useWindowDimensions() as { width: number; height: number };
@@ -61,3 +61,5 @@ export default function ArticleToc({ meta, activeSection, headings }: PropsType)
     </div>
   );
 }
+
+export default memo(ArticleToc, (prev, next) => prev.activeSection === next.activeSection);

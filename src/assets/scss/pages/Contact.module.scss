@@ -26,8 +26,7 @@
       @include max(margin-top, 30px);
     }
   }
-
-  &.mounted {
+  #{$mount} & {
     .form {
       &.sent {
         & > *:not(.thanks) {

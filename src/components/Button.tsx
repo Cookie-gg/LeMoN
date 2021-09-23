@@ -27,4 +27,4 @@ function Button({ children, className, isInteractive = false, switching, clickEv
   );
 }
 
-export default memo(Button);
+export default memo(Button, (prev, next) => prev.switching === next.switching);

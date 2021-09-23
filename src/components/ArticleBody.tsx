@@ -1,5 +1,5 @@
 import { useWindowDimensions } from 'hooks';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
 
 interface PropsType {
@@ -8,7 +8,7 @@ interface PropsType {
   _activeSection: (n: number) => void;
 }
 
-export default function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
+function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const window = useWindowDimensions();
 
@@ -40,3 +40,5 @@ export default function ArticleBody({ body, _activeSection, headingTexts }: Prop
 
   return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
 }
+
+export default memo(ArticleBody);

@@ -1,6 +1,5 @@
-import { useMount } from 'hooks';
 import blogQuery, { DataType } from 'data/blogQuery';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import pages from '../../assets/scss/pages/Blog.module.scss';
 import { GetStaticProps, Link, useRouter } from 'utils/next';
 import { Heading, PageFrame, ArticleList, Button, ArticleTopics, DataRes, HeadMeta } from 'components';
@@ -13,13 +12,11 @@ export const getStaticProps: GetStaticProps = async () => {
   return { props: { data: JSON.stringify(data) }, revalidate: 60 };
 };
 
-export default function Blog({ data, error }: { data: DataType; error?: string }) {
+function Blog({ data, error }: { data: DataType; error?: string }) {
   const router = useRouter();
-  const isMounted = useMount();
   data = JSON.parse(String(data));
   const [displayNum, _displayNum] = useState(2);
   const [selectedTopic, _selectedTopic] = useState(0);
-
   useEffect(() => _displayNum(router.query.display ? Number(router.query.display) : 2), [router.query.display]);
   const _displayNumHandler = useCallback(() => {
     if (!(data.all.articles.length === displayNum)) {
@@ -30,12 +27,11 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
       });
     }
   }, [router, displayNum, data]);
-
   return (
     <>
       <HeadMeta title="Blog" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Blog`} />
       <DataRes error={error} />
-      <PageFrame classNmae={`${pages.blog} ${isMounted && pages.mounted}`}>
+      <PageFrame classNmae={pages.blog}>
         <>
           <Heading className={pages.heading} rank={1} text={data.latest.title} />
           <ArticleList
@@ -77,3 +73,5 @@ export default function Blog({ data, error }: { data: DataType; error?: string }
     </>
   );
 }
+
+export default memo(Blog);

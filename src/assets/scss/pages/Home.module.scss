@@ -60,7 +60,7 @@
     transition: opacity $moment entry_order(4), width $common_anmt entry_order(4), height $common_anmt entry_order(4);
     width: 100%;
   }
-  #{$mount} & {
+  &.mounted {
     padding-right: 0;
 
     @include max(width, #{380px}, 380px);

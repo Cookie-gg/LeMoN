@@ -16,7 +16,7 @@
     height: 50%;
     width: 100%;
   }
-  &.mounted {
+  #{$mount} & {
     .heading span {
       transform: translateY(0);
       transition: transform $common_anmt order(2);

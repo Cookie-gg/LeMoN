@@ -1,6 +1,7 @@
 import { Link } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/ArticleTopics.module.scss';
+import { memo } from 'react';
 
 interface PropsType {
   type?: string;
@@ -12,15 +13,7 @@ interface PropsType {
   clickEvent?: (n: number) => void;
 }
 
-export default function ArticleTopics({
-  type,
-  topics,
-  icons,
-  inArticle = false,
-  className,
-  activeNumber,
-  clickEvent,
-}: PropsType) {
+function ArticleTopics({ type, topics, icons, inArticle = false, className, activeNumber, clickEvent }: PropsType) {
   const Tag = inArticle ? 'div' : 'li';
   return (
     <Tag className={`${styles.entire} ${inArticle && styles.in_article} ${className}`}>
@@ -84,3 +77,5 @@ export default function ArticleTopics({
     </Tag>
   );
 }
+
+export default memo(ArticleTopics, (prev, next) => prev.activeNumber === next.activeNumber);

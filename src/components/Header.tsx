@@ -21,9 +21,7 @@ function Header() {
     }`;
   };
   return (
-    <header
-      className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}
-    >
+    <header className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}>
       <button
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
@@ -40,7 +38,11 @@ function Header() {
             className={`${router.pathname === el.path && styles.active} ${
               router.pathname.includes(`${el.path}/`) && styles.lower_active
             }`}
-            onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'))}
+            onClick={() => {
+              if (window.innerWidth < 820) {
+                _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
+              }
+            }}
           >
             <Link href={el.path}>
               <a>

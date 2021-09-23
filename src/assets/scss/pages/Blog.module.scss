@@ -8,8 +8,9 @@
   }
   .more {
     @include max(margin-top, 45px, 30px);
+    @include max(margin-bottom, 45px, 30px);
   }
-  &.mounted {
+  #{$mount} & {
     .heading span {
       transform: translateY(0);
       transition: transform $common_anmt order(1);
@@ -134,7 +135,7 @@
       @include max(order, 2, 1, $res);
     }
   }
-  &.mounted {
+  #{$mount} & {
     .heading span {
       transform: translateY(0);
       transition: transform $common_anmt order(2);
