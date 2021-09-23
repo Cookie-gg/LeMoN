@@ -7,12 +7,16 @@ interface PropsType {
 }
 
 export default function Paragraph({ text, className }: PropsType) {
-  const replacedText = text.split(/(\n)/).map((el) => {
-    return <_ key={el}>{el.match(/\n/) ? <br /> : el}</_>;
-  });
   return (
     <p className={`${className} ${styles.entire}`}>
-      <span>{replacedText}</span>
+      <span>
+        {text.split(/\n/).map((text, i) => (
+          <span key={i}>
+            {text}
+            <br />
+          </span>
+        ))}
+      </span>
     </p>
   );
 }

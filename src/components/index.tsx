@@ -1,5 +1,4 @@
 // component
-export { default as PWA } from './PWA';
 export { default as Skills } from './Skills';
 export { default as NamePlate } from './NamePlate';
 export { default as MainFrame } from './MainFrame';
