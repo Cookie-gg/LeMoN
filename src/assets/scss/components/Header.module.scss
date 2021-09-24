@@ -10,17 +10,22 @@
   @include max(left, #{30px}, 20px);
 
   .swiper {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    @include diff(right, $sp_value: 20px, $add_term: '- 11px');
-    @include add(width, $sp_value: 20px, $from: 11px);
-    &.opened {
-      right: 0;
-      z-index: 999;
-      @include diff(width, $sp_value: (70px));
-      &.expanded {
-        @include diff(width, $sp_value: (200px));
+    @include hover(true) {
+      display: none;
+    }
+    @include hover(false) {
+      height: 100%;
+      position: fixed;
+      top: 0;
+      @include diff(right, $sp_value: 20px, $add_term: '- 11px');
+      @include add(width, $sp_value: 20px, $from: 11px);
+      &.opened {
+        right: 0;
+        z-index: 999;
+        @include diff(width, $sp_value: (70px));
+        &.expanded {
+          @include diff(width, $sp_value: (200px));
+        }
       }
     }
   }

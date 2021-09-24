@@ -31,7 +31,7 @@ function Header() {
     <header className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}>
       <div
         {...swipeOptions}
-        className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper} sp`}
+        className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper}`}
         onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : prev))}
       />
       <button
