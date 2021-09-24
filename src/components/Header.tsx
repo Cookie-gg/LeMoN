@@ -3,6 +3,7 @@ import { memo, useState } from 'react';
 import { Link, useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/Header.module.scss';
+import { useSwipeable } from 'react-swipeable';
 
 function Header() {
   const paths = [
@@ -20,8 +21,19 @@ function Header() {
       headerState === 'expand' && expandClass
     }`;
   };
+  const swipeOptions = useSwipeable({
+    trackMouse: true,
+    trackTouch: true,
+    onSwipedRight: () => _headerState('open'),
+    onSwipedLeft: () => _headerState('close'),
+  });
   return (
     <header className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}>
+      <div
+        {...swipeOptions}
+        className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper} sp`}
+        onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : prev))}
+      />
       <button
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
@@ -38,11 +50,7 @@ function Header() {
             className={`${router.pathname === el.path && styles.active} ${
               router.pathname.includes(`${el.path}/`) && styles.lower_active
             }`}
-            onClick={() => {
-              if (window.innerWidth < 820) {
-                _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
-              }
-            }}
+            onClick={() => window.innerWidth < 820 && _headerState('close')}
           >
             <Link href={el.path}>
               <a>

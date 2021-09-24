@@ -30,4 +30,8 @@
   @include add(margin-top, $sp_value: (20px + 60px), $from: 11px);
 
   @include add(margin-bottom, $sp_value: (20px + 30px), $from: 11px);
+
+  [class*='header_opened'] + main & {
+    overflow-y: hidden;
+  }
 }
