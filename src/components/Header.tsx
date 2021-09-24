@@ -22,10 +22,7 @@ function Header() {
     }`;
   };
   const swipeOptions = useSwipeable({
-    trackMouse: true,
-    trackTouch: true,
     onSwipedRight: () => _headerState('open'),
-    onSwipedLeft: () => _headerState('close'),
   });
   return (
     <header className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}>

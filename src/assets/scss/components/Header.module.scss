@@ -17,10 +17,11 @@
       height: 100%;
       position: fixed;
       top: 0;
-      right: 0;
-      width: 100%;
+      left: 0;
+      @include add(width, $sp_value: (20px + 30px), $from: 11px);
       &.opened {
         right: 0;
+        left: initial;
         z-index: 999;
         @include diff(width, $sp_value: (70px));
         &.expanded {
