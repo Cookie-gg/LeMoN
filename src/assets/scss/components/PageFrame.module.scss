@@ -19,9 +19,9 @@
 
   @include max(height, calc(100% - (30px + 11px + 110px) - (30px + 11px + 40px)));
 
-  @include diff(width, $sp_value: (20px + 30px + 30px + 20px), $add_term: '- 11px - 3px');
+  @include diff(width, $sp_value: (20px + 20px + 20px + 20px + 8px), $add_term: '- 11px');
 
-  @include diff(height, $sp_value: (20px + 60px + 30px + 20px), $add_term: '- 11px - 11px');
+  @include diff(height, $sp_value: (20px + 60px + 20px + 20px), $add_term: '- 11px - 11px');
 
   @include max(margin-bottom, calc(30px + 11px + 40px));
 
@@ -29,9 +29,10 @@
 
   @include add(margin-top, $sp_value: (20px + 60px), $from: 11px);
 
-  @include add(margin-bottom, $sp_value: (20px + 30px), $from: 11px);
+  @include add(margin-bottom, $sp_value: (20px + 20px), $from: 11px);
 
-  [class*='header_opened'] + main & {
-    overflow-y: hidden;
-  }
+  @include max(margin-right, $sp_value: (20px + 20px + 8px));
+
+  @include add(margin-left, $sp_value: (20px + 20px), $from: 11px);
+
 }
