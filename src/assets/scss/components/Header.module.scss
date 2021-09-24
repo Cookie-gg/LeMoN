@@ -17,8 +17,8 @@
       height: 100%;
       position: fixed;
       top: 0;
-      @include diff(right, $sp_value: 20px, $add_term: '- 11px');
-      @include add(width, $sp_value: 20px, $from: 11px);
+      right: 0;
+      width: 100%;
       &.opened {
         right: 0;
         z-index: 999;
