@@ -19,85 +19,6 @@
 }
 .post {
   $res: 1199px;
-  .fixed_meta {
-    align-items: center;
-    box-sizing: border-box;
-    display: flex;
-    font-family: $jp_font;
-    pointer-events: none;
-    position: fixed;
-    z-index: 1;
-
-    @include max(letter-spacing, #{1.2px}, 1.2px);
-
-    @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
-
-    @include diff(width, $sp_value: (20px + 20px + 20px + 20px + 8px + 8px), $add_term: '- 11px');
-
-    @include add(left, $sp_value: (20px + 20px), $from: 11px);
-
-    @include max(top, calc(30px + 11px + 110px));
-
-    @include add(top, $sp_value: (20px + 60px), $from: 11px);
-
-    .inner {
-      display: flex;
-      position: relative;
-      top: 0;
-      transform: translateY(-100%);
-      width: 100%;
-      z-index: 1;
-
-      @include max(padding, #{10px}, 10px);
-      transition: transform $common_anmt;
-    }
-    &.showed {
-      pointer-events: auto;
-      .inner {
-        transform: translateY(0);
-      }
-      &::after {
-        height: 100%;
-      }
-    }
-    &::before {
-      background-color: $dark-gray;
-      bottom: 100%;
-      content: '';
-      height: 100%;
-      left: 0;
-      position: absolute;
-      width: 100%;
-      z-index: 2;
-    }
-    &::after {
-      background-color: $lemon;
-      content: '';
-      height: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      transition: height $common_anmt;
-    }
-
-    .emoji {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-
-      @include max(font-size, #{30px}, 30px);
-
-      @include max(margin-right, #{15px}, 15px);
-    }
-    .title {
-      color: rgba($dark-gray, 0.9);
-      font-weight: 700;
-      line-height: 1.8;
-
-      @include max(font-size, #{17.5px}, 17.5px);
-    }
-  }
   .contents {
     display: flex;
 
@@ -131,6 +52,8 @@
     }
     aside {
       position: relative;
+
+      @include max(display, $sp_value: none, $width: $res);
 
       @include max(width, #{360px}, 100%, $res);
 

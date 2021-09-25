@@ -1,5 +1,5 @@
 import { useWindowDimensions } from 'hooks';
-import { memo, useEffect, useRef } from 'react';
+import { memo, ReactElement, useEffect, useRef } from 'react';
 import { useRouter } from 'utils/next';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
 
@@ -7,9 +7,10 @@ interface PropsType {
   body: string;
   headingTexts?: string[];
   _activeSection: (n: number) => void;
+  children?: ReactElement;
 }
 
-function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
+function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const window = useWindowDimensions();
   const query = (useRouter().query as { id: string[] }).id[0];
@@ -40,7 +41,14 @@ function ArticleBody({ body, _activeSection, headingTexts }: PropsType) {
     }
   }, [query, window, headingTexts, _activeSection]);
 
-  return <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />;
+  return children ? (
+    <div className={styles.wrapper}>
+      <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+      {children}
+    </div>
+  ) : (
+    <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+  );
 }
 
 export default memo(ArticleBody);

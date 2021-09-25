@@ -9,7 +9,7 @@ $code_font: 'Source Code Pro', monospace;
   $res: 1199px;
   transition: all $common_anmt;
 
-  @include max(border-right-width, #{5px}, 5px);
+  @include max(border-right-width, #{5px}, 0px, $res);
 
   @include max(font-size, #{16px}, 16px);
 
@@ -550,4 +550,8 @@ $code_font: 'Source Code Pro', monospace;
       }
     }
   }
+}
+
+.wrapper {
+  position: relative;
 }

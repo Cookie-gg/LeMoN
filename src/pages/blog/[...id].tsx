@@ -1,5 +1,4 @@
 import { memo, useEffect, useRef, useState } from 'react';
-import { useIntersect, useWindowDimensions } from 'hooks';
 import postQuery from 'data/postQuery';
 import postIdQuery from 'data/postIdQuery';
 import { Zenn, ZennAdds } from 'types/common';
@@ -16,7 +15,6 @@ import {
   DataRes,
   HeadMeta,
 } from 'components';
-import { Twemoji } from 'react-emoji-render';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await postIdQuery();
@@ -46,14 +44,7 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
   data = JSON.parse(String(data));
   const [activeSection, _activeSection] = useState(0);
   const contentsRef = useRef<HTMLDivElement>(null);
-  const window = useWindowDimensions() as { width: number; height: number };
   const query = (useRouter().query as { id: string[] }).id[0];
-  const isIntersecting = useIntersect(
-    contentsRef.current,
-    `0px 0px -${
-      window.height - (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60) : 151)
-    }px`,
-  );
   useEffect(() => _activeSection(0), [query]);
   return (
     <>
@@ -69,24 +60,19 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
             releaseDate={data.releaseDate}
             updateDate={data.updateDate}
           />
-          {window.width < 1200 && (
-            <>
-              <div className={`${pages.fixed_meta} ${isIntersecting && pages.showed}`}>
-                <div className={pages.inner}>
-                  <Twemoji svg onlyEmojiClassName={pages.emoji} text={data.emoji} options={{ protocol: 'https' }} />
-                  <h1 className={pages.title}>{data.title}</h1>
-                </div>
-              </div>
-              <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
-            </>
-          )}
           <div className={pages.contents} ref={contentsRef}>
             <main>
               <ArticleBody
                 body={data.body}
                 headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
                 _activeSection={(n: number) => _activeSection(n)}
-              />
+              >
+                <ArticleToc
+                  meta={{ title: data.title, emoji: data.emoji }}
+                  activeSection={activeSection}
+                  headings={data.headings}
+                />
+              </ArticleBody>
               <Heading rank={2} text={data.relations.title} className={pages.heading} />
               <ArticleList
                 className={pages.relations}
@@ -97,9 +83,7 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
               />
             </main>
             <aside>
-              {!(window.width < 1200) && (
-                <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
-              )}
+              <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
               <ArticleToc
                 meta={{ title: data.title, emoji: data.emoji }}
                 activeSection={activeSection}
