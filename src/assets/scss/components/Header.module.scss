@@ -9,6 +9,27 @@
 
   @include max(left, #{30px}, 20px);
 
+  .swiper {
+    @include hover(true) {
+      display: none;
+    }
+    @include hover(false) {
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      @include add(width, $sp_value: (20px + 20px), $from: 11px);
+      &.opened {
+        right: 0;
+        left: initial;
+        z-index: 999;
+        @include diff(width, $sp_value: (70px));
+        &.expanded {
+          @include diff(width, $sp_value: (200px));
+        }
+      }
+    }
+  }
   ul {
     @include media(sp) {
       align-items: flex-end;
@@ -16,8 +37,8 @@
       border-left: 5px solid $lemon;
       box-sizing: border-box;
       display: flex;
-      height: 100%;
       flex-direction: column;
+      height: 100%;
       justify-content: space-evenly;
       overflow: hidden;
       position: fixed;
@@ -31,6 +52,7 @@
       li {
         box-sizing: border-box;
         position: relative;
+        user-select: none;
         width: 100%;
 
         @include hover(true) {
@@ -49,7 +71,6 @@
             }
           }
         }
-
         &::before {
           background-color: $lemon;
           content: '';
@@ -65,12 +86,12 @@
           align-items: center;
           display: flex;
           justify-content: center;
-          user-select: none;
           width: 100%;
 
           @include max(padding-top, $sp_value: 10px);
 
           @include max(padding-bottom, $sp_value: 10px);
+
           svg {
             @include max(font-size, $sp_value: 25px);
             path {
@@ -115,6 +136,7 @@
         display: flex;
         justify-content: center;
         transform: translateX(-2.5%) scaleY(1.5);
+        user-select: none;
         width: calc(100% - 4px);
 
         @include max(letter-spacing, $sp_value: -5px);
@@ -181,6 +203,7 @@
         display: flex;
         opacity: 0;
         visibility: hidden;
+        user-select: none;
 
         &:not(:first-of-type) {
           margin-left: 30px;
@@ -265,9 +288,9 @@
     position: relative;
     transition: width $common_anmt entry_order(4), left $common_anmt;
     width: 0px;
-    z-index: 1;
 
     @include max(height, #{60px}, 60px);
+
     @include hover(true) {
       &:hover,
       &.closing:not(:hover) {
@@ -281,7 +304,10 @@
         }
       }
     }
+
     &.opened {
+      z-index: 1000;
+
       @include max(left, $sp_value: 70px);
       &.expanded {
         @include max(left, $sp_value: 200px);
@@ -296,9 +322,9 @@
         @include max(height, #{120px}, 120px);
 
         &::before {
+          content: 'CLOSE';
           opacity: 1;
           visibility: visible;
-          content: 'CLOSE';
 
           @include max(letter-spacing, #{2px}, 2px);
 

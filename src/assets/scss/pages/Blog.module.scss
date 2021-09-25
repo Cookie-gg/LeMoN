@@ -32,7 +32,9 @@
 
     @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
 
-    @include diff(width, $sp_value: (20px + 30px + 30px + 20px), $add_term: '- 11px - 11px');
+    @include diff(width, $sp_value: (20px + 20px + 20px + 20px + 8px + 8px), $add_term: '- 11px');
+
+    @include add(left, $sp_value: (20px + 20px), $from: 11px);
 
     @include max(top, calc(30px + 11px + 110px));
 
