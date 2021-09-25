@@ -30,10 +30,10 @@
       transform: rotate(-90deg);
     }
   }
+  &:not(.home) {
+    transition: left $common_anmt;
+  }
   #{$mount} & {
-    &:not(.home) {
-      transition: left $common_anmt;
-    }
     &.home {
       left: 50%;
       transition: left $common_anmt entry_order(1);

@@ -52,7 +52,7 @@ function ArticleToc({ meta, activeSection, headings }: PropsType) {
       className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init}`}
       ref={tocRef}
       onMouseEnter={(e) => window.width < 1200 && !isMobile && getMousePosition(e)}
-      onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
+      // onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
       onClick={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
     >
       <div className={styles.meta} ref={_height}>
