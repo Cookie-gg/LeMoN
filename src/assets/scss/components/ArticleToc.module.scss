@@ -19,7 +19,9 @@
   @include max(height, $sp_value: 100%, $width: $res);
 
   [class*='header_opened'] + main & {
-    @include max(padding-left, #{100px}, (100px));
+    @media screen and (max-width: $res) {
+      @include max(padding-left, #{100px}, (100px));
+    }
   }
 
   .meta {
@@ -30,7 +32,8 @@
       display: flex;
       font-family: $jp_font;
       padding: 25px;
-      position: relative;
+      position: sticky;
+      top: 0;
       width: 100%;
       z-index: -1;
 
@@ -378,6 +381,7 @@
     @media screen and (max-width: $res) {
       &.opened {
         @include max(width, #{300px}, 300px);
+
         .body {
           transform: translateX(0%);
         }
@@ -393,7 +397,7 @@
   }
   &.showed {
     .meta {
-      @media screen and (min-width: $res) {
+      @media screen and (min-width: $res + 1px) {
         &::before {
           transition: width $common_anmt order(3);
           width: 100%;

@@ -12,7 +12,7 @@ interface PropsType {
 
 function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
-  const window = useWindowDimensions();
+  const window = useWindowDimensions() as { width: number; height: number };
   const query = (useRouter().query as { id: string[] }).id[0];
   useEffect(() => {
     const el = ref.current;
@@ -41,7 +41,7 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
     }
   }, [query, window, headingTexts, _activeSection]);
 
-  return children ? (
+  return window.width < 1200 ? (
     <div className={styles.wrapper}>
       <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
       {children}
