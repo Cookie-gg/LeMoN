@@ -21,6 +21,7 @@
   [class*='header_opened'] + main & {
     @include max(padding-left, #{100px}, (100px));
   }
+
   .meta {
     @media screen and (min-width: $res + 1px) {
       align-items: center;

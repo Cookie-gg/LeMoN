@@ -93,6 +93,11 @@ function ArticleToc({ meta, activeSection, headings }: PropsType) {
                     ? `${height + window.width * 0.05}px`
                     : `${height + 25}px`
                   : undefined,
+              height: isMobile
+                ? window.width < 500
+                  ? window.height - window.width * 0.24 - 11 - 11
+                  : window.height - 20 - 60 - 20 - 20 - 11 - 11
+                : undefined,
             }}
           >
             {headings.map((heading, i) => (
