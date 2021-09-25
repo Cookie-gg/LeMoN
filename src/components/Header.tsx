@@ -22,8 +22,8 @@ function Header() {
     }`;
   };
   const swipeOptions = useSwipeable({
-    onSwipedRight: () => _headerState('open'),
-    onSwipedLeft: () => _headerState('close'),
+    onSwipedRight: () => _headerState((prev) => (prev === 'close' ? 'open' : 'expand')),
+    onSwipedLeft: () => _headerState((prev) => (prev === 'expand' ? 'open' : 'close')),
   });
   return (
     <header className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}>
