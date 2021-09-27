@@ -1,9 +1,10 @@
 import { usePeriod } from 'hooks';
 import { memo, useState } from 'react';
-import { Link, useRouter } from 'utils/next';
+import { useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/Header.module.scss';
 import { useSwipeable } from 'react-swipeable';
+import { Nlink } from 'components';
 
 function Header() {
   const paths = [
@@ -50,12 +51,12 @@ function Header() {
             }`}
             onClick={() => window.innerWidth < 820 && _headerState('close')}
           >
-            <Link href={el.path}>
-              <a>
+            <Nlink href={el.path}>
+              <>
                 <Iconify className="sp" icon={el.icon} />
                 <span className={styles.name}>{el.name}</span>
-              </a>
-            </Link>
+              </>
+            </Nlink>
           </li>
         ))}
         <div

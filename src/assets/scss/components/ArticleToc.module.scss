@@ -6,8 +6,6 @@
 
   @include max(position, sticky, absolute, $res);
 
-  @include max(margin-top, 40px, $width: $res);
-
   @include max(width, 100%, $width: $res);
 
   @include max(transition, top $common_anmt, padding-left $common_anmt, $res);
@@ -85,7 +83,7 @@
 
       @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
 
-      @include diff(width, $sp_value: (20px + 20px + 20px + 20px + 8px + 8px), $add_term: '- 11px');
+      @include diff(width, $sp_value: (20px + 20px + 20px + 20px), $add_term: '- 11px - 11px');
 
       @include add(left, $sp_value: (20px + 20px), $from: 11px);
 
@@ -305,6 +303,7 @@
         position: relative;
         transition: color $common_anmt;
         user-select: none;
+        width: 100%;
 
         &.heading_1 {
           font-weight: 500;

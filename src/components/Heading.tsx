@@ -5,12 +5,13 @@ interface PropsType {
   rank: number;
   text: string;
   className?: string;
+  id?: string;
 }
 
-function Heading({ rank, text, className }: PropsType) {
+function Heading({ rank, text, className, id }: PropsType) {
   const Tag = `h${rank}` as React.ElementType;
   return (
-    <Tag className={`${styles.entire} ${className}`}>
+    <Tag className={`${styles.entire} ${className}`} id={id}>
       <span>{text}</span>
     </Tag>
   );

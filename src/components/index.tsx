@@ -1,4 +1,5 @@
 // component
+export { default as Nlink } from './Nlink';
 export { default as Skills } from './Skills';
 export { default as NamePlate } from './NamePlate';
 export { default as MainFrame } from './MainFrame';

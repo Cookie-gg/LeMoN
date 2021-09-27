@@ -15,9 +15,10 @@ interface PropsType {
     text: string;
   }[];
   activeSection: number;
+  className?: string;
 }
 
-function ArticleToc({ meta, activeSection, headings }: PropsType) {
+function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const paddingTop = 151;
   const paddingBottom = 81;
   const initTransition = useFirstPeriod(0);
@@ -49,7 +50,7 @@ function ArticleToc({ meta, activeSection, headings }: PropsType) {
   const isMobile = useAgent('mobile');
   return (
     <div
-      className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init}`}
+      className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init} ${className}`}
       ref={tocRef}
       onMouseEnter={(e) => window.width < 1200 && !isMobile && getMousePosition(e)}
       // onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}

@@ -60,6 +60,7 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
             releaseDate={data.releaseDate}
             updateDate={data.updateDate}
           />
+          <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} className={pages.topics} inArticle />
           <div className={pages.contents} ref={contentsRef}>
             <main>
               <ArticleBody
@@ -75,8 +76,8 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
               </ArticleBody>
               <Heading rank={2} text={data.relations.title} className={pages.heading} />
               <ArticleList
+                vertical
                 className={pages.relations}
-                type="related"
                 data={data.relations.articles}
                 display={data.relations.articles.length}
                 needDateParse
@@ -88,6 +89,7 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
                 meta={{ title: data.title, emoji: data.emoji }}
                 activeSection={activeSection}
                 headings={data.headings}
+                className={pages.toc}
               />
             </aside>
           </div>

@@ -1,38 +1,48 @@
 .entire {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1400px;
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
   top: 0;
 
-  @include max(box-sizing, border-box);
-
-  @include max(padding-left, 30px);
-
-  @include diff(padding-right, 30px, $from: 8px, $add_term: '* -1');
-
   @include custom_scrollbar();
 
-  @include max(width, calc(100% - (30px + 11px + 40px) - (30px + 11px + 40px)));
+  @include max(width, calc(100% - (30px + 11px + 40px) - (30px + 11px + 40px - 8px)));
 
   @include max(height, calc(100% - (30px + 11px + 110px) - (30px + 11px + 40px)));
-
-  @include diff(width, $sp_value: (20px + 20px + 20px + 20px + 8px), $add_term: '- 11px');
-
-  @include diff(height, $sp_value: (20px + 60px + 20px + 20px), $add_term: '- 11px - 11px');
 
   @include max(margin-bottom, calc(30px + 11px + 40px));
 
   @include max(margin-top, calc(30px + 11px + 110px));
 
+  @include max(margin-right, #{30px + 11px});
+
+  @include max(margin-left, #{30px + 11px});
+
+  @include max(padding-left, #{40px}, 20px);
+
+  @include max(padding-right, #{40px - 8px}, (20px - 8px));
+
+  @include diff(width, $sp_value: (20px + 20px + 20px + 20px - 8px), $add_term: '- 11px - 11px');
+
+  @include diff(height, $sp_value: (20px + 60px + 20px + 20px), $add_term: '- 11px - 11px');
+
   @include add(margin-top, $sp_value: (20px + 60px), $from: 11px);
 
   @include add(margin-bottom, $sp_value: (20px + 20px), $from: 11px);
 
-  @include max(margin-right, $sp_value: (20px + 20px + 8px));
+  @include add(margin-right, $sp_value: (20px), $from: 11px);
 
-  @include add(margin-left, $sp_value: (20px + 20px), $from: 11px);
+  @include add(margin-left, $sp_value: (20px), $from: 11px);
 
+  .inner {
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1400px;
+    position: relative;
+
+    @include max(padding-left, 30px);
+
+    @include max(padding-right, 30px);
+  }
 }

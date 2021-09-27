@@ -1,7 +1,7 @@
-import { Link } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/ArticleTopics.module.scss';
 import { memo } from 'react';
+import { Nlink } from 'components';
 
 interface PropsType {
   type?: string;
@@ -26,8 +26,8 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
             onClick={() => !inArticle && (clickEvent as (n: number) => void)(i)}
           >
             {inArticle ? (
-              <Link href={`/topics/${value.toLowerCase()}`}>
-                <a>
+              <Nlink href={`/blog/topics#${value.toLowerCase()}`}>
+                <>
                   <span>
                     <Iconify
                       icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
@@ -35,8 +35,8 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
                     />
                   </span>
                   {value}
-                </a>
-              </Link>
+                </>
+              </Nlink>
             ) : (
               <>
                 <span>
@@ -52,25 +52,25 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
         ))}
         {inArticle ? (
           <li>
-            <Link href="/blog/topics">
-              <a>
+            <Nlink href="/blog/topics">
+              <>
                 <span>
                   <Iconify icon={icons[icons.length - 1]} />
                 </span>
                 {(type as string).slice(0, 1).toUpperCase() + (type as string).slice(1)}
-              </a>
-            </Link>
+              </>
+            </Nlink>
           </li>
         ) : (
           <li>
-            <Link href="/blog/topics">
-              <a>
+            <Nlink href="/blog/topics">
+              <>
                 <span>
                   <Iconify icon={'fa-solid:arrow-right'} />
                 </span>
                 トピックごとに表示
-              </a>
-            </Link>
+              </>
+            </Nlink>
           </li>
         )}
       </ul>

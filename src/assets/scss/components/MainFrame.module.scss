@@ -62,6 +62,7 @@
 
     @include max(top, #{30px}, 20px);
   }
+  &.isAlready,
   [class*="mounted"] + header + & {
     &::before,
     &::after {
@@ -75,6 +76,12 @@
     }
     &::after {
       opacity: 1;
+    }
+  }
+  &.isAlready {
+    &::before,
+    &::after {
+      transition: 0;
     }
   }
   & > *:not([class*='exclude']) {

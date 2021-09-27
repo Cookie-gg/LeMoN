@@ -1,16 +1,72 @@
 .topics {
+  @include max(padding-top, 30px);
+
+  .heading:not(:first-of-type) {
+    @include max(margin-top, 65px, 65px);
+  }
   .articles {
+    @include max(margin-top, 65px, 65px);
     &:first-of-type {
-      @include max(margin-top, 30px);
+      @include max(margin-top, 30px, 30px);
     }
-    &:not(:first-of-type) {
-      @include max(margin-top, 65px);
+    .card {
+      align-items: center;
+      background-color: rgba(white, 0.04);
+      border-left: solid $lemon;
+      box-sizing: border-box;
+      display: flex;
+      font-family: $jp_font;
+      font-weight: 400;
+      justify-content: space-between;
+      line-height: 1.8;
+      position: relative;
+
+      @include max(border-left-width, #{5px}, 5px);
+
+      @include max(height, #{125px}, 125px);
+
+      @include max(letter-spacing, #{1.2px}, 1.2px);
+
+      @include max(padding-right, #{25px}, 25px);
+
+      @include max(padding-left, #{25px}, 25px);
+
+      @include diff(width, 120px, $add_term: '/ 4');
+
+      .icon {
+        @include max(font-size, #{40px}, 40px);
+        path {
+          color: $lemon;
+        }
+      }
+      h2 {
+        font-weight: 400;
+
+        @include max(font-size, #{19px}, 19px);
+      }
+      @media screen and (max-width: 1300px) {
+        @include diff(width, 80px, $add_term: '/ 3');
+        @media screen and (max-width: 1000px) {
+          justify-content: flex-start;
+          width: 100%;
+
+          @include max(height, #{55px}, 55px);
+
+          .icon {
+            @include max(font-size, #{30px}, 30px);
+          }
+          h2 {
+            @include max(margin-left, #{30px}, 30px);
+          }
+        }
+      }
     }
   }
-  &.mounted {
+
+  #{$mount} & {
     .heading span {
       transform: translateY(0);
-      transition: transform $common_anmt order(2);
+      transition: transform $common_anmt;
     }
   }
 }

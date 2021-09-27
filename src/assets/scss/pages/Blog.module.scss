@@ -1,5 +1,8 @@
 .blog {
   @include max(padding-top, 30px);
+
+  @include max(padding-bottom, 30px);
+
   .articles {
     @include max(margin-top, 30px, 30px);
   }
@@ -8,7 +11,6 @@
   }
   .more {
     @include max(margin-top, 45px, 30px);
-    @include max(margin-bottom, 45px, 30px);
   }
   #{$mount} & {
     .heading span {
@@ -19,6 +21,9 @@
 }
 .post {
   $res: 1199px;
+  .topics {
+    @include max(display, none,  $width: $res);
+  }
   .contents {
     display: flex;
 
@@ -58,6 +63,10 @@
       @include max(width, #{360px}, 100%, $res);
 
       @include max(order, 2, 1, $res);
+
+      .toc {
+        @include max(margin-top, 40px, $width: $res);
+      }
     }
   }
   #{$mount} & {

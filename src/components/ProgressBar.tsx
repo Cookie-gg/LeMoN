@@ -16,12 +16,13 @@ export default function ProgressBar() {
     Nprogress.done();
   });
 
-  const asPath = useRouter().asPath;
+  const router = useRouter();
+  const dependencies = router.pathname === '/blog/[...id]' ? (router.query as { id: string[] }).id[0] : router.asPath;
   const [isMounted, _isMounted] = useState(false);
   useEffect(() => {
     setTimeout(() => _isMounted(true), 0);
     return () => _isMounted(false);
-  }, [asPath]);
+  }, [dependencies]);
 
   return <noscript className={`${isMounted ? 'mounted' : 'yet'}`}></noscript>;
 }
