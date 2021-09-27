@@ -3,7 +3,6 @@
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
-
 const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: true,
@@ -14,9 +13,9 @@ const nextConfig = {
       @import '../foundations/colors.scss';
       @import '../foundations/variables.scss';`,
   },
-  experimental: {
-    scrollRestoration: true
-  },
+  // experimental: {
+  //   scrollRestoration: true
+  // },
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
