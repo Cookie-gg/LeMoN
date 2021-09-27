@@ -17,6 +17,7 @@ export type Scalars = {
 };
 
 export type ArticleInput = {
+  articleId: Scalars['String'];
   releaseDate: Scalars['Timestamp'];
   updateDate: Scalars['Timestamp'];
   title: Scalars['String'];
@@ -29,6 +30,7 @@ export type ArticleInput = {
 export type ArticleObject = {
   __typename?: 'ArticleObject';
   id: Scalars['ID'];
+  articleId: Scalars['String'];
   releaseDate: Scalars['Timestamp'];
   updateDate: Scalars['Timestamp'];
   title: Scalars['String'];
@@ -308,11 +310,6 @@ export type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ContactQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, adressDelivery: { __typename?: 'ImageObject', data: string } };
 
-export type HeaderQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type HeaderQuery = { __typename?: 'Query', paths: Array<{ __typename?: 'PathObject', name: string, path: string, icon: string, order?: Maybe<number> }> };
-
 export type PostQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -322,6 +319,11 @@ export type PostIdQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PostIdQuery = { __typename?: 'Query', articleId: Array<{ __typename?: 'ArticleObject', id: string }> };
+
+export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TopicsQuery = { __typename?: 'Query', topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
 
 export const AboutDocument = gql`
@@ -501,43 +503,6 @@ export function useContactLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Co
 export type ContactQueryHookResult = ReturnType<typeof useContactQuery>;
 export type ContactLazyQueryHookResult = ReturnType<typeof useContactLazyQuery>;
 export type ContactQueryResult = Apollo.QueryResult<ContactQuery, ContactQueryVariables>;
-export const HeaderDocument = gql`
-    query Header {
-  paths: findAllPaths {
-    name
-    path
-    icon
-    order
-  }
-}
-    `;
-
-/**
- * __useHeaderQuery__
- *
- * To run a query within a React component, call `useHeaderQuery` and pass it any options that fit your needs.
- * When your component renders, `useHeaderQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHeaderQuery({
- *   variables: {
- *   },
- * });
- */
-export function useHeaderQuery(baseOptions?: Apollo.QueryHookOptions<HeaderQuery, HeaderQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<HeaderQuery, HeaderQueryVariables>(HeaderDocument, options);
-      }
-export function useHeaderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HeaderQuery, HeaderQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<HeaderQuery, HeaderQueryVariables>(HeaderDocument, options);
-        }
-export type HeaderQueryHookResult = ReturnType<typeof useHeaderQuery>;
-export type HeaderLazyQueryHookResult = ReturnType<typeof useHeaderLazyQuery>;
-export type HeaderQueryResult = Apollo.QueryResult<HeaderQuery, HeaderQueryVariables>;
 export const PostDocument = gql`
     query Post {
   titles: findTitle(page: "post") {
@@ -633,3 +598,48 @@ export function usePostIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Pos
 export type PostIdQueryHookResult = ReturnType<typeof usePostIdQuery>;
 export type PostIdLazyQueryHookResult = ReturnType<typeof usePostIdLazyQuery>;
 export type PostIdQueryResult = Apollo.QueryResult<PostIdQuery, PostIdQueryVariables>;
+export const TopicsDocument = gql`
+    query Topics {
+  topics: findAllTopics {
+    displayName
+    icon
+    allArticles {
+      id
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useTopicsQuery__
+ *
+ * To run a query within a React component, call `useTopicsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTopicsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTopicsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTopicsQuery(baseOptions?: Apollo.QueryHookOptions<TopicsQuery, TopicsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TopicsQuery, TopicsQueryVariables>(TopicsDocument, options);
+      }
+export function useTopicsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TopicsQuery, TopicsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TopicsQuery, TopicsQueryVariables>(TopicsDocument, options);
+        }
+export type TopicsQueryHookResult = ReturnType<typeof useTopicsQuery>;
+export type TopicsLazyQueryHookResult = ReturnType<typeof useTopicsLazyQuery>;
+export type TopicsQueryResult = Apollo.QueryResult<TopicsQuery, TopicsQueryVariables>;
