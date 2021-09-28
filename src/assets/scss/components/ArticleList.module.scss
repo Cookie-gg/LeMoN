@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
-  @include max(gap, 40px, 25px);
+  @include max(gap, 40px, 30px);
   li:not([class*='ArticleTopics_body'] li) {
     & > a {
       display: block;
@@ -162,7 +162,7 @@
     }
   }
   &:not(.horizontal) {
-    li:not([class*='ArticleTopics_body'] li) {
+    li:not([class*='ArticleTopics_body'] li)  {
       @include diff(width, 120px, $add_term: '/ 4');
 
       @include hover(true) {
@@ -201,9 +201,9 @@
 
             @include max(top, #{10px}, 10px);
 
-            @include max(font-size, #{16px}, 18px);
+            @include max(font-size, #{16px}, 16px);
 
-            @include max(padding-top, #{6px}, 7px);
+            @include max(padding-top, #{6px}, 6px);
 
             @include max(padding-bottom, #{2px}, 2px);
 
@@ -245,14 +245,9 @@
             width: 0%;
           }
           h2 {
-            @include max(-webkit-line-clamp, 2, 3);
-            @include max(height, #{20px * 1.4 * 2}, 16px * 1.4 * 3);
-            @include max(font-size, #{20px}, 16px);
-          }
-          @include media(sp) {
-            div p span:not(:first-of-type) {
-              display: none;
-            }
+            -webkit-line-clamp: 2;
+            @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
+            @include max(font-size, #{20px}, 20px);
           }
         }
       }
@@ -262,10 +257,10 @@
     justify-content: space-between;
     li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1300px) {
-        @include diff(width, 40px, 25px, $add_term: '/ 2');
-        // @media screen and (max-width: 650px) {
-        //   width: 100%;
-        // }
+        @include diff(width, 40px, 30px, $add_term: '/ 2');
+        @media screen and (max-width: 650px) {
+          width: 100%;
+        }
       }
     }
   }

@@ -96,7 +96,7 @@
       font-weight: 400;
       position: relative;
 
-      @include max(font-size, #{20px}, 22px);
+      @include max(font-size, #{20px}, 24px);
 
       @include max(margin-top, #{27.5px}, 27.5px);
 
@@ -115,7 +115,7 @@
         justify-content: center;
         text-align: center;
 
-        @include max(font-size, #{18px}, 20px);
+        @include max(font-size, #{18px}, 22px);
 
         &:not(:first-of-type) {
           @include max(margin-top, #{15px}, 15px);
