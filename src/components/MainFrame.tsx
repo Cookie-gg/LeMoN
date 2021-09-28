@@ -1,10 +1,8 @@
 import { useAgent } from 'hooks';
 import { useRouter } from 'utils/next';
 import { dynamic } from 'utils/next';
-// import PageTransition from './PageTransition';
 import { ReactElement, useEffect, useState } from 'react';
 import styles from '../assets/scss/components/MainFrame.module.scss';
-
 const PageTransition = dynamic(() => import('components/PageTransition'));
 
 export default function MainFrame({ children }: { children: ReactElement }) {
