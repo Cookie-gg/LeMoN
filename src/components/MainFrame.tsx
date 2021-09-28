@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useState } from 'react';
-import PageTransition from './PageTransition';
-import styles from '../assets/scss/components/MainFrame.module.scss';
 import { useAgent } from 'hooks';
 import { useRouter } from 'utils/next';
+import PageTransition from './PageTransition';
+import { ReactElement, useEffect, useState } from 'react';
+import styles from '../assets/scss/components/MainFrame.module.scss';
 
 export default function MainFrame({ children }: { children: ReactElement }) {
   const isMobile = useAgent('mobile');
-  const [windowHeight, _windowHeight] = useState(0);
   const pathname = useRouter().pathname;
+  const [windowHeight, _windowHeight] = useState(0);
   useEffect(() => {
     if (isMobile) _windowHeight(window.innerHeight);
   }, [isMobile]);
