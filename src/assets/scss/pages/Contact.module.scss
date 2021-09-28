@@ -1,6 +1,6 @@
 .contact {
-  box-sizing: border-box;
   display: flex;
+  overflow: hidden;
 
   .image_frame {
     @include max(width, 60%, 120%);

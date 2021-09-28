@@ -22,17 +22,21 @@
 
   @include max(padding-right, #{40px - 8px}, (20px - 8px));
 
-  @include diff(width, $sp_value: (20px + 20px + 20px + 20px - 8px), $add_term: '- 11px - 11px');
+  @include diff(width, $sp_value: (20px + 20px + 20px + 20px - 8px));
 
-  @include diff(height, $sp_value: (20px + 60px + 20px + 20px), $add_term: '- 11px - 11px');
+  @include diff(height, $sp_value: (20px + 80px + 20px + 20px));
 
-  @include add(margin-top, $sp_value: (20px + 60px), $from: 11px);
+  @include max(margin-top, $sp_value: (20px + 80px));
 
-  @include add(margin-bottom, $sp_value: (20px + 20px), $from: 11px);
+  @include max(margin-bottom, $sp_value: (20px + 20px));
 
-  @include add(margin-right, $sp_value: (20px), $from: 11px);
+  @include max(margin-right, $sp_value: (20px));
 
-  @include add(margin-left, $sp_value: (20px), $from: 11px);
+  @include max(margin-left, $sp_value: (20px));
+
+  @include max(padding-left, $sp_value: 20px);
+
+  @include max(padding-right, $sp_value: (20px - 8px));
 
   .inner {
     box-sizing: border-box;

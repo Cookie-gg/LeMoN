@@ -81,17 +81,17 @@
 
       @include max(letter-spacing, #{1.2px}, 1.2px);
 
-      @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
-
-      @include diff(width, $sp_value: (20px + 20px + 20px + 20px), $add_term: '- 11px - 11px');
-
-      @include add(left, $sp_value: (20px + 20px), $from: 11px);
+      @include max(top, calc(30px + 11px + 110px));
 
       @include add(left, 30px, $from: (30px + 11px + 40px));
 
-      @include max(top, calc(30px + 11px + 110px));
+      @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
 
-      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+      @include max(top, $sp_value: (20px + 80px));
+      
+      @include max(left, $sp_value: (20px + 20px));
+      
+      @include diff(width, $sp_value: (20px + 20px + 20px + 20px));
 
       .inner {
         display: flex;
