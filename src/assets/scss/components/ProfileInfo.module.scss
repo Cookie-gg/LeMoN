@@ -21,7 +21,7 @@
     overflow: hidden;
     position: relative;
     vertical-align: middle;
-    @include max(width, #{230px}, 240px);
+    @include max(width, #{230px}, 250px);
 
     @include max(height, #{27.5px}, 35px);
 
