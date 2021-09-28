@@ -81,16 +81,18 @@
 
       @include max(letter-spacing, #{1.2px}, 1.2px);
 
+      // pc
       @include max(top, calc(30px + 11px + 110px));
 
-      @include add(left, 30px, $from: (30px + 11px + 40px));
+      @include max(left, #{30px + 11px + 30px});
 
-      @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
+      @include max(width, calc(100% - (30px + 11px + 30px) - (30px + 30px + 11px)));
 
+      //sp
       @include max(top, $sp_value: (20px + 75px));
-      
+
       @include max(left, $sp_value: (20px + 20px));
-      
+
       @include diff(width, $sp_value: (20px + 20px + 20px + 20px));
 
       .inner {

@@ -28,7 +28,7 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
           root: null, // document
           rootMargin: `0px -71px -${
             window.height -
-            (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.165 : 11 + 20 + 60 - 65) : 152)
+            (window.width < 820 ? (window.width < 500 ? 11 + window.width * 0.19 : 20 + 75) : 30 + 11 + 110)
           }px`,
           threshold: 0,
         },

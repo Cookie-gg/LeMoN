@@ -6,37 +6,39 @@
 
   @include custom_scrollbar();
 
-  @include max(width, calc(100% - (30px + 11px + 40px) - (30px + 11px + 40px - 8px)));
+  // pc
+  @include max(margin-left, #{30px + 11px});
 
-  @include max(height, calc(100% - (30px + 11px + 110px) - (30px + 11px + 40px)));
+  @include max(padding-left, #{30px});
 
-  @include max(margin-bottom, calc(30px + 11px + 40px));
+  @include max(width, calc(100% - (30px + 11px + 30px) - (30px - 8px + 30px + 11px)));
 
-  @include max(margin-top, calc(30px + 11px + 110px));
+  @include max(padding-right, #{30px - 8px});
 
   @include max(margin-right, #{30px + 11px});
 
-  @include max(margin-left, #{30px + 11px});
+  @include max(margin-top, calc(30px + 11px + 110px));
 
-  @include max(padding-left, #{40px}, 20px);
+  @include max(height, calc(100% - (30px + 11px + 110px) - (30px + 11px + 30px)));
 
-  @include max(padding-right, #{40px - 8px}, (20px - 8px));
+  @include max(margin-bottom, calc(30px + 11px + 30px));
 
-  @include diff(width, $sp_value: (20px + 20px + 20px + 20px - 8px));
-
-  @include diff(height, $sp_value: (20px + 75px + 20px + 20px));
-
-  @include max(margin-top, $sp_value: (20px + 75px));
-
-  @include max(margin-bottom, $sp_value: (20px + 20px));
-
-  @include max(margin-right, $sp_value: (20px));
-
-  @include max(margin-left, $sp_value: (20px));
+  // sp
+  @include max(margin-left, $sp_value: 20px);
 
   @include max(padding-left, $sp_value: 20px);
 
-  @include max(padding-right, $sp_value: (20px - 8px));
+  @include diff(width, $sp_value: (20px + 20px + 20px - 8px + 20px));
+
+  @include max(padding-right, $sp_value: 20px - 8px);
+
+  @include max(margin-right, $sp_value: 20px);
+
+  @include max(margin-top, $sp_value: (20px + 75px));
+  
+  @include diff(height, $sp_value: (20px + 75px + 20px + 20px));
+
+  @include max(margin-bottom, $sp_value: (20px + 20px));
 
   .inner {
     box-sizing: border-box;
@@ -44,9 +46,5 @@
     margin-right: auto;
     max-width: 1400px;
     position: relative;
-
-    @include max(padding-left, 30px);
-
-    @include max(padding-right, 30px);
   }
 }

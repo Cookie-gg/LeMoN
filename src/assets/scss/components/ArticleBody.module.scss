@@ -11,13 +11,11 @@ $code_font: 'Source Code Pro', monospace;
 
   @include max(border-right-width, #{5px}, 0px, $res);
 
-  @include max(font-size, #{16px}, 18px);
+  @include max(font-size, #{16px}, 16px);
 
   @include max(letter-spacing, #{1.2px}, 1.2px);
 
-  @include max(padding, #{45px}, 25px);
-
-  @include max(padding-right, $sp_value: 25px + 8px);
+  @include max(padding, #{45px}, 30px);
 
   *:not(.code_wrapper *, blockquote *, a) {
     color: white;
@@ -160,6 +158,7 @@ $code_font: 'Source Code Pro', monospace;
               text-decoration-color: rgba($lemon, 0.9);
               text-decoration-thickness: 1px;
             }
+
           }
         }
       }
@@ -170,7 +169,7 @@ $code_font: 'Source Code Pro', monospace;
     code {
       vertical-align: middle;
 
-      @include max(font-size, #{15px}, 17px);
+      @include max(font-size, #{15px}, 15px);
     }
   }
   em {
@@ -437,7 +436,7 @@ $code_font: 'Source Code Pro', monospace;
     code {
       padding: 0;
 
-      @include max(font-size, #{15px}, 17px);
+      @include max(font-size, #{15px}, 15px);
 
       span {
         &[class*='keyword'],

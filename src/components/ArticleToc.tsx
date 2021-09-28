@@ -19,8 +19,8 @@ interface PropsType {
 }
 
 function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
-  const paddingTop = 151;
-  const paddingBottom = 81;
+  const paddingTop = 30 + 11 + 110;
+  const paddingBottom = 30 + 11 + 30;
   const initTransition = useFirstPeriod(0);
   const tocRef = useRef<HTMLDivElement>(null);
   const [isOpened, _isOpened] = useState(false);

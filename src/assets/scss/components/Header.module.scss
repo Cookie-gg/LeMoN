@@ -5,7 +5,7 @@
   position: fixed;
   z-index: 3;
 
-  @include max(padding, #{11px}, 20px);
+  @include max(padding, #{11px}, 19px);
 
   @include max(top, #{30px}, 20px);
 
