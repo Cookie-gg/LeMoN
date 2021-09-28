@@ -1,6 +1,6 @@
 import { Router, useRouter } from 'utils/next';
-import { ReactElement, useEffect, useRef, useState } from 'react';
 import memoryCache, { CacheClass } from 'memory-cache';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 
 export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache();
@@ -9,20 +9,22 @@ export default function PageFrame({ children, classNmae }: { children: ReactElem
   const router = useRouter();
   const [scrollTop, _scrollTop] = useState(0);
   const scroller = useRef<HTMLDivElement>(null);
-  Router.events.on('routeChangeComplete', () => {
-    if (scroller.current) {
-      scrollTopCashe.get(router.asPath)
-        ? scroller.current.scrollTo(0, Number(scrollTopCashe.get(router.asPath)))
-        : router.pathname === '/blog/[...id]' && scroller.current.scrollTo(0, 0);
-    }
-  });
 
   useEffect(() => {
-    Router.events.on('routeChangeStart', () => scroller.current && _scrollTop(scroller.current.scrollTop));
+    const getScrollTop = () => scroller.current && _scrollTop(scroller.current.scrollTop);
+    const setScrollTop = () =>
+      scrollTopCashe.get(router.asPath)
+        ? scroller.current && scroller.current.scrollTo(0, Number(scrollTopCashe.get(router.asPath)))
+        : scroller.current && router.pathname === '/blog/[...id]' && scroller.current.scrollTo(0, 0);
+    Router.events.on('routeChangeComplete', () => setScrollTop());
+    Router.events.on('routeChangeStart', () => getScrollTop());
     return () => {
       scrollTopCashe.put(router.asPath, scrollTop);
+      Router.events.on('routeChangeComplete', () => setScrollTop());
+      Router.events.off('routeChangeStart', () => getScrollTop());
     };
-  }, [router.asPath, scrollTop]);
+  }, [router, scrollTop]);
+
   return (
     <div className={styles.entire} ref={scroller}>
       <div className={`${styles.inner} ${classNmae}`}>{children}</div>

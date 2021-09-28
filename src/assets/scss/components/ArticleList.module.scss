@@ -349,6 +349,7 @@
       }
       [class*='slick-list'] {
         @include max(margin-right, -40px, -30px);
+        @include add(width, 40px, 30px);
         [class*='slick-track'] {
           &::before,
           &::after {

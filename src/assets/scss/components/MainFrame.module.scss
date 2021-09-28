@@ -1,4 +1,4 @@
-.main {
+.entire {
   align-items: center;
   box-sizing: border-box;
   display: flex;
@@ -10,7 +10,6 @@
   height: 100vh;
 
   @include max(transition, $sp_value: left $common_anmt);
-
 
   [class*='header_opened'] + & {
     @include max(left, $sp_value: 70px);
@@ -62,8 +61,8 @@
 
     @include max(top, #{30px}, 20px);
   }
-  &.isAlready,
-  [class*="mounted"] + header + & {
+  &:not(.home),
+  [class*='mounted'] + header + & {
     &::before,
     &::after {
       @include max(width, calc(100% - (30px * 2)));
@@ -78,11 +77,9 @@
       opacity: 1;
     }
   }
-  &.isAlready {
-    &::before,
-    &::after {
-      transition: 0;
-    }
+  &:not(.home)::before,
+  &:not(.home)::after {
+    transition: 0;
   }
   & > *:not([class*='exclude']) {
     animation: fade_in 1s both;

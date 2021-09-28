@@ -34,7 +34,7 @@ function ArticleList({
 }: PropsType) {
   const listBody = (value: Zenn, i: number) => (
     <li key={i}>
-      <Nlink href={`/blog/${value.id}`}>
+      <Nlink href="/blog/[...id]" as={`/blog/${value.id}`}>
         <>
           <div className={styles.thumbnail}>
             {vertical && <span className={styles.type}>{value.type.toUpperCase()}</span>}

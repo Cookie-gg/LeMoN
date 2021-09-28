@@ -373,6 +373,7 @@
       }
     }
   }
+  &:not(.home),
   [class*='mounted'] + & {
     button {
       @include max(width, #{60px}, 60px);
@@ -384,6 +385,11 @@
         @include max(width, #{30px}, 30px);
       }
     }
+  }
+  &:not(.home) button,
+  &:not(.home) button::before,
+  &:not(.home) button::after {
+    transition: 0;
   }
 }
 @keyframes flash_once {
