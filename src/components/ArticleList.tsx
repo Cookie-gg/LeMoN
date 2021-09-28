@@ -3,26 +3,41 @@ import { memo, ReactElement } from 'react';
 import { compare, displayDate } from 'utils/common';
 import { Twemoji } from 'react-emoji-render';
 import styles from '../assets/scss/components/ArticleList.module.scss';
-import { Link } from 'utils/next';
+import Slider, { Settings } from 'react-slick';
+import { Nlink } from 'components';
 
 interface PropsType {
-  type?: 'latest' | 'related';
-  className: string;
+  className?: string;
+  id?: string;
   data: Zenn[];
   display: number;
   shiftList?: ReactElement;
   pushList?: ReactElement;
   needDateParse?: boolean;
+  vertical?: boolean;
+  horizontal?: boolean;
+  slider?: boolean;
+  settings?: Settings;
 }
 
-function ArticleList({ type, className, data, display, shiftList, pushList }: PropsType) {
-  const displayTopics = type ? 2 : 5;
+function ArticleList({
+  className,
+  id,
+  data,
+  display,
+  shiftList,
+  pushList,
+  vertical,
+  horizontal,
+  slider,
+  settings,
+}: PropsType) {
   const listBody = (value: Zenn, i: number) => (
     <li key={i}>
-      <Link href="/blog/[...id]" as={`/blog/${value.id}`}>
-        <a>
+      <Nlink href="/blog/[...id]" as={`/blog/${value.id}`}>
+        <>
           <div className={styles.thumbnail}>
-            {type && <span className={styles.type}>{value.type.toUpperCase()}</span>}
+            {vertical && <span className={styles.type}>{value.type.toUpperCase()}</span>}
             <Twemoji svg className={styles.emoji} text={value.emoji} options={{ protocol: 'https' }} />
           </div>
           <div className={styles.text_wrapper}>
@@ -31,21 +46,30 @@ function ArticleList({ type, className, data, display, shiftList, pushList }: Pr
               <time>{displayDate(new Date(value.releaseDate))}</time>
               <p>
                 {value.topics.specifor(
-                  displayTopics,
+                  vertical || slider ? 2 : 5,
                   (topic: string, i: number) => topic && <span key={i}>{topic}</span>,
                 )}
               </p>
             </div>
           </div>
-        </a>
-      </Link>
+        </>
+      </Nlink>
     </li>
   );
   return (
     <>
-      <ul className={`${styles.articles} ${type ? styles.vertical : styles.horizontal} ${className}`}>
+      <ul
+        className={`${styles.articles} ${vertical && styles.vertical} ${horizontal && styles.horizontal} ${
+          slider && styles.slider
+        } ${className}`}
+        id={id}
+      >
         {shiftList}
-        {data.specifor(display, (value: Zenn, i: number) => listBody(value, i))}
+        {slider && display > 2 ? (
+          <Slider {...settings}>{data.specifor(display, (value: Zenn, i: number) => listBody(value, i))}</Slider>
+        ) : (
+          data.specifor(display, (value: Zenn, i: number) => listBody(value, i))
+        )}
         {pushList}
       </ul>
     </>

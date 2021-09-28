@@ -3,171 +3,297 @@
   line-height: 1.4;
   $res: 1199px;
   top: 0;
-  transition: top $common_anmt;
-  width: 100%;
 
-  @include max(position, sticky, $width: $res);
+  @include max(position, sticky, absolute, $res);
 
-  @include max(margin-top, 40px, $width: $res);
+  @include max(width, 100%, $width: $res);
+
+  @include max(transition, top $common_anmt, padding-left $common_anmt, $res);
 
   @include max(letter-spacing, #{1.2px}, 1.2px);
 
+  @include max(right, $sp_value: 0, $width: $res);
+
+  @include max(height, $sp_value: 100%, $width: $res);
+
+  [class*='header_opened'] + main & {
+    @media screen and (max-width: $res) {
+      @include max(padding-left, #{100px}, (100px));
+    }
+  }
+
   .meta {
-    align-items: center;
-    background-color: rgba(white, 0.04);
-    box-sizing: border-box;
-    font-family: $jp_font;
-    padding: 25px;
-    position: relative;
-    width: 100%;
-    z-index: -1;
-
-    @include max(display, flex, none, $res);
-
-    &::before {
-      background-color: $lemon;
-      bottom: 0;
-      content: '';
-      height: 1px;
-      left: 0;
-      position: absolute;
-      transition: width $common_anmt order(2);
-      width: 0;
-    }
-    &::after {
-      background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
-        100%;
-      bottom: 0;
-      content: '';
-      height: 0px;
-      position: absolute;
-      right: 0;
-      transition: all $common_anmt order(1);
-      width: 0px;
-    }
-    .emoji {
+    @media screen and (min-width: $res + 1px) {
       align-items: center;
+      background-color: rgba(white, 0.04);
+      box-sizing: border-box;
       display: flex;
-      font-size: 45px;
-      justify-content: center;
-      margin-right: 15px;
+      font-family: $jp_font;
+      padding: 25px;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: -1;
+
+      &::before {
+        background-color: $lemon;
+        bottom: 0;
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        transition: width $common_anmt order(2);
+        width: 0;
+      }
+      &::after {
+        background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
+          100%;
+        bottom: 0;
+        content: '';
+        height: 0px;
+        position: absolute;
+        right: 0;
+        transition: all $common_anmt order(1);
+        width: 0px;
+      }
+      .emoji {
+        align-items: center;
+        display: flex;
+        font-size: 45px;
+        justify-content: center;
+        margin-right: 15px;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.8;
+      }
     }
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.8;
+    @media screen and (max-width: $res) {
+      align-items: center;
+      box-sizing: border-box;
+      display: flex;
+      font-family: $jp_font;
+      pointer-events: none;
+      position: fixed;
+      transition: left $common_anmt;
+      z-index: 2;
+
+      @include max(letter-spacing, #{1.2px}, 1.2px);
+
+      @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
+
+      @include diff(width, $sp_value: (20px + 20px + 20px + 20px), $add_term: '- 11px - 11px');
+
+      @include add(left, $sp_value: (20px + 20px), $from: 11px);
+
+      @include add(left, 30px, $from: (30px + 11px + 40px));
+
+      @include max(top, calc(30px + 11px + 110px));
+
+      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+
+      .inner {
+        display: flex;
+        position: relative;
+        top: 0;
+        transform: translateY(-100%);
+        transition: transform $common_anmt;
+        width: 100%;
+        z-index: 1;
+
+        @include max(padding, #{10px}, 10px);
+      }
+      &::before {
+        background-color: $dark-gray;
+        bottom: 100%;
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+      }
+      &::after {
+        background-color: $lemon;
+        content: '';
+        height: 0;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: height $common_anmt;
+        width: 100%;
+      }
+      .emoji {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        @include max(font-size, #{30px}, 30px);
+
+        @include max(margin-right, #{15px}, 15px);
+      }
+      .title {
+        color: rgba($dark-gray, 0.9);
+        font-weight: 700;
+        line-height: 1.8;
+
+        @include max(font-size, #{17.5px}, 17.5px);
+      }
+      [class*='header_opened'] + main & {
+        @include add(left, $sp_value: (20px + 20px + 70px), $from: 11px);
+      }
+      [class*='header_expanded'] + main & {
+        @include add(left, $sp_value: (20px + 20px + 200px), $from: 11px);
+      }
     }
   }
   .toc {
-    background-color: #313131;
     box-sizing: border-box;
     font-family: $jp_font;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    top: 0;
-    transition: top $common_anmt order(3);
     width: 100%;
 
     @include custom_scrollbar();
+
+    @include max(background-color, #313131, $width: $res);
+
+    @include max(overflow-x, hidden, $width: $res);
+
+    @include max(overflow-y, scroll, $width: $res);
 
     @include max(padding, #{25px}, $width: $res);
 
     @include max(position, absolute, $width: $res);
 
-    @include max(background-color, #313131, $width: $res);
+    @include max(top, 0, $width: $res);
 
-    .title {
-      @include max(font-size, 18px, $width: $res);
+    @include max(transition, top $common_anmt order(3), width $common_anmt, $res);
 
-      @include max(font-weight, 600, 400, $res);
+    @include max(cursor, $sp_value: pointer, $width: $res);
 
-      @include max(cursor, $sp_value: pointer, $width: $res);
+    @include max(height, $sp_value: 100%, $width: $res);
 
-      @include max(transition, $sp_value: background-color $common_anmt, $width: $res);
+    @media screen and (max-width: $res) {
+      @include max(width, #{45px}, 45px);
 
-      @media screen and (max-width: $res) {
-        border-bottom-width: 1px;
-        border-color: $lemon;
-        border-style: solid;
-        border-top-width: 1px;
-        color: white;
-        position: fixed;
-        user-select: none;
-        z-index: 99999;
-
-        @include max(writing-mode, vertical-rl);
-
-        @include max(padding-top, #{5px}, 2.5px);
-
-        @include max(display, $sp_value: flex);
-
-        @include max(align-items, $sp_value: center);
-
-        @include max(padding-bottom, #{5px}, 5px);
-
-        @include max(right, calc(30px + 11px));
-
-        @include add(right, $sp_value: (20px + 20px), $from: 11px);
-
-        @include max(font-size, #{18px}, 18px);
-
-        @include max(top, calc(30px + 11px + 110px));
-
-        @include add(top, $sp_value: 20px, $from: 11px);
-
-        @include hover(true) {
-          &:hover {
-            background-color: rgba(white, 0.08);
+      @include hover(true) {
+        &:hover {
+          .title {
+            @include max(width, #{30px}, 30px);
           }
         }
+      }
 
-        svg {
-          transition: transform $common_anmt;
+      &::before {
+        background-color: $lemon;
+        content: '';
+        height: 100%;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
 
-          @include max(margin-top, #{7.5px});
+        @include max(width, #{5px}, 5px);
+      }
+      &::after {
+        background-color: $dark-gray;
+        content: '';
+        height: 100%;
+        left: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 2;
 
-          @include max(margin-left, $sp_value: 5px);
-        }
+        @include max(width, #{300px}, 300px);
+      }
+    }
+
+    .title {
+      font-weight: 600;
+
+      @include max(font-size, #{18px}, $width: $res);
+
+      @include max(position, $sp_value: absolute, $width: $res);
+
+      @include max(align-items, $sp_value: center, $width: $res);
+
+      @include max(display, $sp_value: flex, $width: $res);
+
+      @include max(writing-mode, $sp_value: vertical-lr, $width: $res);
+
+      @include max(transition, $sp_value: width $common_anmt, $width: $res);
+
+      @include max(transform, $sp_value: translateY(-50%), $width: $res);
+
+      @include max(justify-content, $sp_value: center, $width: $res);
+
+      @include max(color, $sp_value: $dark-gray, $width: $res);
+
+      @include max(background-color, $sp_value: $lemon, $width: $res);
+
+      @include max(z-index, $sp_value: 2, $width: $res);
+
+      @media screen and (max-width: $res) {
+        width: 0;
+
+        @include max(
+          clip-path,
+          polygon(100% 0, 100% 100%, 0% 75%, 0 25%),
+          polygon(100% 0, 100% 100%, 0% 85%, 0 15%),
+          $res
+        );
+
+        @include max(right, #{4.5px}, 4.5px);
+
+        @include max(height, #{200px}, 200px);
+
+        @include max(font-size, #{18px}, 18px);
       }
     }
     .body {
       @include max(margin-top, 20px, $width: $res);
 
+      @include max(background-color, $sp_value: #313131, $width: $res);
+
+      @include max(box-sizing, $sp_value: border-box, $width: $res);
+
+      @include max(overflow-x, $sp_value: visible, $width: $res);
+
+      @include max(overflow-y, $sp_value: scroll, $width: $res);
+
+      @include max(position, $sp_value: sticky, $width: $res);
+
+      @include max(z-index, $sp_value: 1, $width: $res);
+
+      @include max(transition, $sp_value: all $common_anmt, $width: $res);
+
+      @include max(top, $sp_value: 0, $width: $res);
+
+      @include max(border-left, $sp_value: solid rgba(white, 0.4), $width: $res);
+
+      @include max(transform, $sp_value: translateX(45px), $width: $res);
+
       @media screen and (max-width: $res) {
-        background-color: #313131;
-        border: 2px solid rgba(white, 0.1);
-        box-sizing: border-box;
-        max-height: 50vh;
-        overflow-x: visible;
-        overflow-y: scroll;
-        position: fixed;
-        right: -100vw;
-        transition: right $common_anmt;
-        z-index: 99999;
+        @include max(border-left-width, #{5px}, 5px);
 
-        @include max(top, calc(30px + 11px + 110px + 75px + 11px));
+        @include max(margin-right, #{5px}, 5px);
 
-        @include add(top, $sp_value: (20px + 60px), $from: 11px);
+        @include max(max-height, calc(100vh - 30px - 11px - 110px - 30px - 11px - 40px));
 
-        @include max(padding, #{25px}, 25px);
+        @include diff(max-height, $sp_value: (20px + 60px + 20px + 20px), $from: 100vh, $add_term: '- 11px - 11px');
+
+        @include max(width, #{295px}, 295px);
+
+        @include max(padding-left, #{25px}, 25px);
+
+        @include max(padding-right, #{25px}, 25px);
+
+        @include max(padding-top, #{25px}, 25px);
+
+        @include max(padding-bottom, #{25px}, 25px);
 
         @include custom_scrollbar();
-
-        &::before {
-          background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, rgba(white, 0.1) 50.75%) no-repeat top;
-          content: '';
-          left: 0;
-          position: absolute;
-          top: 0;
-          z-index: 0;
-
-          @include max(height, #{25px}, 25px);
-
-          @include max(width, #{25px}, 25px);
-        }
-      }
-      &.toc {
-        transition: 0;
       }
       li {
         align-items: center;
@@ -177,6 +303,7 @@
         position: relative;
         transition: color $common_anmt;
         user-select: none;
+        width: 100%;
 
         &.heading_1 {
           font-weight: 500;
@@ -252,13 +379,10 @@
     }
     @media screen and (max-width: $res) {
       &.opened {
-        .title svg {
-          transform: rotate(-180deg);
-        }
-        .body {
-          @include max(right, calc(30px + 11px));
+        @include max(width, #{300px}, 300px);
 
-          @include add(right, $sp_value: (20px + 20px), $from: 11px);
+        .body {
+          transform: translateX(0%);
         }
       }
     }
@@ -272,20 +396,31 @@
   }
   &.showed {
     .meta {
-      &::before {
-        transition: width $common_anmt order(3);
-        width: 100%;
+      @media screen and (min-width: $res + 1px) {
+        &::before {
+          transition: width $common_anmt order(3);
+          width: 100%;
+        }
+        &::after {
+          transition: all $common_anmt order(4);
+
+          @include max(width, #{40px}, 40px);
+
+          @include max(height, #{40px}, 40px);
+        }
       }
-      &::after {
-        transition: all $common_anmt order(4);
-
-        @include max(width, #{40px}, 40px);
-
-        @include max(height, #{40px}, 40px);
+      @media screen and (max-width: $res) {
+        pointer-events: auto;
+        .inner {
+          transform: translateY(0);
+        }
+        &::after {
+          height: 100%;
+        }
       }
     }
     .toc {
-      transition: top $common_anmt order(2);
+      @include max(transition, top $common_anmt order(2), width $common_anmt, $res);
     }
   }
 }

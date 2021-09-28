@@ -4,7 +4,7 @@
   transform: translate(-50%, -50%);
   z-index: 4;
 
-  @include max(left, -120vw, -1350px);
+  @include max(left, -120vw, -2000px);
 
   .cover {
     background-color: $lemon;
@@ -30,10 +30,10 @@
       transform: rotate(-90deg);
     }
   }
+  &:not(.home) {
+    transition: left $common_anmt;
+  }
   #{$mount} & {
-    &:not(.home) {
-      transition: left $common_anmt;
-    }
     &.home {
       left: 50%;
       transition: left $common_anmt entry_order(1);

@@ -1,9 +1,9 @@
 import { Link } from 'utils/next';
-import { memo, useRef, useState } from 'react';
+import { memo, MouseEvent, useRef, useState } from 'react';
 import { Twemoji } from 'react-emoji-render';
-import { Icon as Iconify } from '@iconify/react';
-import { useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
+import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
+import { useSwipeable } from 'react-swipeable';
 
 interface PropsType {
   meta: {
@@ -15,9 +15,10 @@ interface PropsType {
     text: string;
   }[];
   activeSection: number;
+  className?: string;
 }
 
-function ArticleToc({ meta, activeSection, headings }: PropsType) {
+function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const paddingTop = 151;
   const paddingBottom = 81;
   const initTransition = useFirstPeriod(0);
@@ -26,28 +27,80 @@ function ArticleToc({ meta, activeSection, headings }: PropsType) {
   const [height, _height] = useHeight<HTMLDivElement>();
   const window = useWindowDimensions() as { width: number; height: number };
   const isIntersecting = useIntersect(tocRef.current, `0px 0px -${window.height - paddingTop}px`);
+  const [cursorY, _cursorY] = useState(0);
+  const swipeOptions = useSwipeable({
+    onSwipedRight: () => _isOpened(false),
+    onSwipedLeft: () => _isOpened(true),
+  });
+  const getMousePosition = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+    if (
+      e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100) <
+      e.clientY - e.currentTarget.getBoundingClientRect().top
+    ) {
+      _cursorY(e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100));
+    } else if (
+      (window.width < 500 ? window.width * 0.2 : 100) >
+      e.clientY - e.currentTarget.getBoundingClientRect().top
+    ) {
+      _cursorY(window.width < 500 ? window.width * 0.2 : 100);
+    } else {
+      _cursorY(e.clientY - e.currentTarget.getBoundingClientRect().top);
+    }
+  };
+  const isMobile = useAgent('mobile');
   return (
     <div
-      className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init}`}
+      className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init} ${className}`}
       ref={tocRef}
+      onMouseEnter={(e) => window.width < 1200 && !isMobile && getMousePosition(e)}
+      // onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
+      onClick={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
     >
       <div className={styles.meta} ref={_height}>
-        <Twemoji svg onlyEmojiClassName={styles.emoji} text={meta.emoji} options={{ protocol: 'https' }} />
-        <h1 className={styles.title}>{meta.title}</h1>
+        {window.width < 1200 ? (
+          <div className={styles.inner}>
+            <Twemoji svg onlyEmojiClassName={styles.emoji} text={meta.emoji} options={{ protocol: 'https' }} />
+            <h1 className={styles.title}>{meta.title}</h1>
+          </div>
+        ) : (
+          <>
+            <Twemoji svg onlyEmojiClassName={styles.emoji} text={meta.emoji} options={{ protocol: 'https' }} />
+            <h1 className={styles.title}>{meta.title}</h1>
+          </>
+        )}
       </div>
       <div
         className={`${styles.toc} ${isOpened && styles.opened}`}
         style={{
-          maxHeight: `calc(100vh - ${paddingTop + paddingBottom + height}px)`,
+          maxHeight: window.width < 1200 ? undefined : `calc(100vh - ${paddingTop + paddingBottom + height}px)`,
           top: window.width < 1200 ? undefined : isIntersecting ? `${1 * height}px` : '0px',
         }}
+        {...swipeOptions}
       >
-        <div className={styles.title} onClick={() => _isOpened((prev) => !prev)}>
-          目次
-          {window.width < 1200 && <Iconify icon="ri:menu-fold-fill" />}
+        <div
+          className={styles.title}
+          onClick={() => _isOpened((prev) => !prev)}
+          style={{ top: window.width < 1200 ? `${cursorY}px` : undefined }}
+        >
+          {window.width < 1200 && isOpened ? '閉じる' : '目次'}
         </div>
         {headings && (
-          <ul className={styles.body}>
+          <ul
+            className={styles.body}
+            style={{
+              paddingTop:
+                window.width < 1200 && isIntersecting
+                  ? window.width < 500
+                    ? `${height + window.width * 0.05}px`
+                    : `${height + 25}px`
+                  : undefined,
+              height: isMobile
+                ? window.width < 500
+                  ? window.height - window.width * 0.24 - 11 - 11
+                  : window.height - 20 - 60 - 20 - 20 - 11 - 11
+                : undefined,
+            }}
+          >
             {headings.map((heading, i) => (
               <Link href={`#${encodeURI(heading.text)}`} key={i}>
                 <li

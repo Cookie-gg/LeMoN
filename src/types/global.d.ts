@@ -7,6 +7,6 @@ declare global {
     specifor<U>(times: number, func: (value: T, index: number, array: T[]) => U): U[];
     exSpecifor<U>(times: number, func: (value: T, index: number, array: T[]) => U): U[];
     rangeMap<U>(start: number, end: number, func: (value: T, index: number, array: T[]) => U): U[];
-    sortObj<U>(key: string, type: 'asc' | 'desc' = 'desc', length?: boolean): T[];
+    sortObj(key: string, type: 'asc' | 'desc' = 'desc', length?: boolean): T[];
   }
 }

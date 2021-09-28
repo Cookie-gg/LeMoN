@@ -1,9 +1,10 @@
 import { usePeriod } from 'hooks';
+import { Nlink } from 'components';
 import { memo, useState } from 'react';
-import { Link, useRouter } from 'utils/next';
+import { useRouter } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
-import styles from '../assets/scss/components/Header.module.scss';
 import { useSwipeable } from 'react-swipeable';
+import styles from '../assets/scss/components/Header.module.scss';
 
 function Header() {
   const paths = [
@@ -13,7 +14,7 @@ function Header() {
     { name: 'Blog', path: '/blog', icon: 'fa-solid:newspaper' },
     { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
   ];
-  const router = useRouter();
+  const pathname = useRouter().pathname;
   const [isClosing, _isClosing] = usePeriod(false);
   const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   const stateClass = (openClass: string, expandClass: string) => {
@@ -22,11 +23,11 @@ function Header() {
     }`;
   };
   const swipeOptions = useSwipeable({
-    onSwipedRight: () => _headerState('open'),
-    onSwipedLeft: () => _headerState('close'),
+    onSwipedRight: () => _headerState((prev) => (prev === 'close' ? 'open' : 'expand')),
+    onSwipedLeft: () => _headerState((prev) => (prev === 'expand' ? 'open' : 'close')),
   });
   return (
-    <header className={`${styles.entire} ${stateClass('header_opened', 'header_expanded')}`}>
+    <header className={`${styles.entire} ${pathname === '/' && styles.home} ${stateClass('header_opened', 'header_expanded')}`}>
       <div
         {...swipeOptions}
         className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper}`}
@@ -45,17 +46,17 @@ function Header() {
         {paths.map((el: { name: string; path: string; icon: string }, i: number) => (
           <li
             key={i}
-            className={`${router.pathname === el.path && styles.active} ${
-              router.pathname.includes(`${el.path}/`) && styles.lower_active
+            className={`${pathname === el.path && styles.active} ${
+              pathname.includes(`${el.path}/`) && styles.lower_active
             }`}
             onClick={() => window.innerWidth < 820 && _headerState('close')}
           >
-            <Link href={el.path}>
-              <a>
+            <Nlink href={el.path}>
+              <>
                 <Iconify className="sp" icon={el.icon} />
                 <span className={styles.name}>{el.name}</span>
-              </a>
-            </Link>
+              </>
+            </Nlink>
           </li>
         ))}
         <div

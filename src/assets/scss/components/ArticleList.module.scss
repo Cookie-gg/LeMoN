@@ -1,9 +1,10 @@
 .articles {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  overflow: hidden;
   width: 100%;
-  & > li {
+  @include max(gap, 40px, 30px);
+  li:not([class*='ArticleTopics_body'] li) {
     & > a {
       display: block;
       height: 100%;
@@ -50,16 +51,14 @@
           position: absolute;
         }
         h2 {
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
           font-family: $jp_font;
           font-weight: 400;
           line-height: 1.4;
-          -webkit-box-orient: vertical;
-          display: -webkit-box;
           overflow: hidden;
           position: relative;
           width: 100%;
-
-          @include max(height, #{19px * 1.4 * 2}, 19px * 1.4 * 2);
         }
         div {
           align-items: flex-end;
@@ -68,6 +67,7 @@
           font-weight: 200;
 
           @include max(font-size, #{15px}, 16px);
+
           p {
             @include max(margin-top, #{5px}, 5px);
             span {
@@ -86,108 +86,9 @@
       }
     }
   }
-  &.vertical {
-    @include max(gap, 40px, 30px);
-    & > li {
-      @include diff(width, 120px, $add_term: '/ 4');
-
-      @include hover(true) {
-        &:hover {
-          .text_wrapper::after {
-            width: 100%;
-          }
-          .thumbnail {
-            .type {
-              background-color: $dark-gray;
-              color: $lemon;
-            }
-            &::before {
-              height: 100%;
-            }
-          }
-        }
-      }
-
-      @media screen and (max-width: 1300px) {
-        @include diff(width, 40px, 30px, $add_term: '/ 2');
-        @media screen and (max-width: 650px) {
-          width: 100%;
-        }
-      }
-      a {
-        .thumbnail {
-          &::before {
-            bottom: 0;
-            height: 1px;
-            left: 0;
-            width: 100%;
-          }
-          .type {
-            background-color: $lemon;
-            color: $dark-gray;
-            font-weight: 600;
-            position: absolute;
-            transition: all $common_anmt;
-
-            @include max(left, #{10px}, 10px);
-
-            @include max(top, #{10px}, 10px);
-
-            @include max(font-size, #{16px}, 16px);
-
-            @include max(padding-top, #{6px}, 6px);
-
-            @include max(padding-bottom, #{2px}, 2px);
-
-            @include max(padding-right, #{5px}, 5px);
-
-            @include max(padding-left, #{5px}, 5px);
-          }
-        }
-        .text_wrapper {
-          @include max(padding-right, #{15px}, 15px);
-
-          @include max(padding-left, #{15px}, 15px);
-
-          @include max(padding-top, #{15px}, 15px);
-
-          @include max(padding-bottom, #{12.5px}, 12.5px);
-
-          @include max(height, #{155px}, 155px);
-
-          &::before {
-            background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
-              100%;
-            right: 0;
-            top: 0;
-            transition: all $common_anmt;
-
-            @include max(width, #{30px}, 30px);
-
-            @include max(height, #{30px}, 30px);
-          }
-          &::after {
-            background-color: $lemon;
-            bottom: 0;
-            content: '';
-            height: 1px;
-            left: 0;
-            position: absolute;
-            transition: all $common_anmt;
-            width: 0%;
-          }
-          h2 {
-            -webkit-line-clamp: 2;
-
-            @include max(font-size, #{19px}, 19px);
-          }
-        }
-      }
-    }
-  }
   &.horizontal {
-    @include max(gap, 40px, 30px);
-    & > li {
+    justify-content: space-between;
+    li:not([class*='ArticleTopics_body'] li) {
       animation: fade_in 1s both;
 
       @include diff(width, 40px, $from: 100%, $add_term: '/ 2');
@@ -255,6 +156,207 @@
                 }
               }
             }
+          }
+        }
+      }
+    }
+  }
+  &:not(.horizontal) {
+    li:not([class*='ArticleTopics_body'] li)  {
+      @include diff(width, 120px, $add_term: '/ 4');
+
+      @include hover(true) {
+        &:hover {
+          .text_wrapper::after {
+            width: 100%;
+          }
+          .thumbnail {
+            .type {
+              background-color: $dark-gray;
+              color: $lemon;
+            }
+            &::before {
+              height: 100%;
+            }
+          }
+        }
+      }
+
+      a {
+        .thumbnail {
+          &::before {
+            bottom: 0;
+            height: 1px;
+            left: 0;
+            width: 100%;
+          }
+          .type {
+            background-color: $lemon;
+            color: $dark-gray;
+            font-weight: 600;
+            position: absolute;
+            transition: all $common_anmt;
+
+            @include max(left, #{10px}, 10px);
+
+            @include max(top, #{10px}, 10px);
+
+            @include max(font-size, #{16px}, 16px);
+
+            @include max(padding-top, #{6px}, 6px);
+
+            @include max(padding-bottom, #{2px}, 2px);
+
+            @include max(padding-right, #{5px}, 5px);
+
+            @include max(padding-left, #{5px}, 5px);
+          }
+        }
+        .text_wrapper {
+          @include max(padding-right, #{15px}, 15px);
+
+          @include max(padding-left, #{15px}, 15px);
+
+          @include max(padding-top, #{15px}, 15px);
+
+          @include max(padding-bottom, #{12.5px}, 12.5px);
+
+          @include max(height, #{155px}, 155px);
+
+          &::before {
+            background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
+              100%;
+            right: 0;
+            top: 0;
+            transition: all $common_anmt;
+
+            @include max(width, #{30px}, 30px);
+
+            @include max(height, #{30px}, 30px);
+          }
+          &::after {
+            background-color: $lemon;
+            bottom: 0;
+            content: '';
+            height: 1px;
+            left: 0;
+            position: absolute;
+            transition: all $common_anmt;
+            width: 0%;
+          }
+          h2 {
+            -webkit-line-clamp: 2;
+            @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
+            @include max(font-size, #{20px}, 20px);
+          }
+        }
+      }
+    }
+  }
+  &.vertical {
+    justify-content: space-between;
+    li:not([class*='ArticleTopics_body'] li) {
+      @media screen and (max-width: 1300px) {
+        @include diff(width, 40px, 30px, $add_term: '/ 2');
+        @media screen and (max-width: 650px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+  &.slider {
+    li {
+      @media screen and (max-width: 1300px) {
+        @include diff(width, 80px, $add_term: '/ 3');
+        @media screen and (max-width: 1000px) {
+          @include diff(width, 40px, 30px, $add_term: '/ 2');
+          @media screen and (max-width: 650px) {
+            width: 100%;
+          }
+        }
+      }
+    }
+    & > li:first-of-type,
+    & > li:not(:last-of-type),
+    [class*='slick-slider'] [class*='slick-list'] [class*='slick-slide']:not(:last-of-type) li {
+      position: relative;
+      &::before {
+        background-color: rgba(white, 0.08);
+        content: '';
+        left: 100%;
+        position: absolute;
+        transform: translateY(50%);
+
+        @include max(top, #{62.5px});
+
+        @include max(height, #{2.5px});
+
+        @include max(width, 40px);
+      }
+    }
+    [class*='slick-slider'] {
+      display: flex;
+      overflow: hidden;
+
+      @include diff(width, (40 / 3) + 0px, $add_term: '/ 4 * 3');
+
+      @media screen and (max-width: 1300px) {
+        @include diff(width, (40 / 2) + 0px, $add_term: '/ 3 * 2');
+        @media screen and (max-width: 1000px) {
+          width: 100%;
+        }
+      }
+
+      & > button {
+        align-items: center;
+        background-color: rgba($dark-gray, 0.6);
+        display: flex;
+        font-size: 0px !important;
+        height: 100%;
+        justify-content: center;
+        opacity: 0;
+        position: absolute;
+        transition: opacity $common_anmt;
+        z-index: 1;
+
+        @include max(width, #{50px}, 50px);
+
+        @include hover(both) {
+          opacity: 1;
+        }
+
+        &::before {
+          color: $lemon;
+          display: block;
+          font-weight: 500;
+          position: relative;
+          transform: scaleY(1.5);
+
+          @include max(font-size, #{40px}, 40px);
+        }
+        &[class*='slick-prev'] {
+          left: 0;
+          &::before {
+            content: '<';
+          }
+        }
+        &[class*='slick-next'] {
+          right: 0px;
+          &::before {
+            content: '>';
+          }
+        }
+      }
+      [class*='slick-list'] {
+        @include max(margin-right, -40px, -30px);
+        @include add(width, 40px, 30px);
+        [class*='slick-track'] {
+          &::before,
+          &::after {
+            display: none;
+          }
+          [class*='slick-slide'] > div {
+            @include max(margin-right, 40px, 30px);
           }
         }
       }

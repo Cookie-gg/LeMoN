@@ -1,8 +1,0 @@
-query Header {
-  paths: findAllPaths {
-    name
-    path
-    icon
-    order
-  }
-}

@@ -36,16 +36,16 @@ function Blog({ data, error }: { data: DataType; error?: string }) {
           <Heading className={pages.heading} rank={1} text={data.latest.title} />
           <ArticleList
             className={pages.articles}
-            type="latest"
             data={data.latest.articles}
             display={data.latest.articles.length}
+            vertical
           />
           <Heading className={pages.heading} rank={1} text={data.topTopics.title} />
           <ArticleList
             className={pages.articles}
-            type="latest"
             data={data.topTopics.articles[selectedTopic]}
             display={3}
+            vertical
             shiftList={
               <ArticleTopics
                 topics={data.topTopics.topics}
@@ -56,7 +56,7 @@ function Blog({ data, error }: { data: DataType; error?: string }) {
             }
           />
           <Heading className={pages.heading} rank={1} text={data.all.title} />
-          <ArticleList className={pages.articles} data={data.all.articles} display={displayNum} />
+          <ArticleList horizontal className={pages.articles} data={data.all.articles} display={displayNum} />
           <Button
             className={pages.more}
             isInteractive={true}

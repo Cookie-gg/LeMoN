@@ -9,7 +9,7 @@ $code_font: 'Source Code Pro', monospace;
   $res: 1199px;
   transition: all $common_anmt;
 
-  @include max(border-right-width, #{5px}, 5px);
+  @include max(border-right-width, #{5px}, 0px, $res);
 
   @include max(font-size, #{16px}, 16px);
 
@@ -143,10 +143,15 @@ $code_font: 'Source Code Pro', monospace;
         }
         p {
           @include max(font-size, #{16px}, 16px);
+          margin-top: -10px;
+          padding-top: 10px;
+          @media screen and (max-width: $res) {
+            @include max(padding-top, #{60px}, 60px);
+
+            @include max(margin-top, #{-60px}, -60px);
+          }
           a {
             color: $lemon;
-            margin-top: -10px;
-            padding-top: 10px;
 
             @include hover(both) {
               text-decoration: underline;
@@ -154,11 +159,6 @@ $code_font: 'Source Code Pro', monospace;
               text-decoration-thickness: 1px;
             }
 
-            @media screen and (max-width: $res) {
-              @include max(padding-top, #{60px}, 60px);
-
-              @include max(margin-top, #{-60px}, -60px);
-            }
           }
         }
       }
@@ -550,4 +550,8 @@ $code_font: 'Source Code Pro', monospace;
       }
     }
   }
+}
+
+.wrapper {
+  position: relative;
 }

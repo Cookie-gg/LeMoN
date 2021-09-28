@@ -157,7 +157,7 @@
       right: 0;
       top: 0;
 
-      @include max(width, #{2.5px}, 2.5px);
+      @include max(width, #{5px}, 5px);
     }
     ul {
       display: flex;
