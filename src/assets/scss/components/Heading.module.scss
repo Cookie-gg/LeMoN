@@ -6,7 +6,7 @@
   overflow: hidden;
   position: relative;
 
-  @include max(font-size, #{24px}, 24px);
+  @include max(font-size, #{24px}, 26px);
 
   &::before {
     background-color: $lemon;
