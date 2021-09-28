@@ -6,7 +6,7 @@ import 'assets/scss/foundations/reset.scss';
 import 'assets/scss/foundations/global.scss';
 import { MainFrame, ProgressBar } from 'components';
 
-const Header = dynamic(() => import('components/Header'));
+const Header = dynamic(() => import('components/Header'), { ssr: false });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
