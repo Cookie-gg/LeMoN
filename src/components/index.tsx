@@ -1,5 +1,4 @@
 // component
-export { default as Nlink } from './Nlink';
 export { default as Skills } from './Skills';
 export { default as NamePlate } from './NamePlate';
 export { default as MainFrame } from './MainFrame';
@@ -10,6 +9,7 @@ export { default as ProgressBar } from './ProgressBar';
 
 // memo-component
 export { default as Form } from './Form';
+export { default as Nlink } from './Nlink';
 export { default as Header } from './Header';
 export { default as Button } from './Button';
 export { default as DataRes } from './DataRes';
