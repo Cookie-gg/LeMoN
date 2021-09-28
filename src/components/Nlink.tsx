@@ -9,4 +9,4 @@ function Nlink({ href, as, children }: { href: string; as?: string; children?: R
     </Link>
   );
 }
-export default memo(Nlink);
+export default memo(Nlink, (prev, next) => String(prev) === String(next));
