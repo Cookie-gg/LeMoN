@@ -32,8 +32,8 @@ function ArticleList({
   slider,
   settings,
 }: PropsType) {
-  const listBody = (value: Zenn, i: number) => (
-    <li key={i}>
+  const listBody = data.specifor(display, (value: Zenn) => (
+    <li key={value.id}>
       <Nlink href="/blog/[...id]" as={`/blog/${value.id}`}>
         <>
           <div className={styles.thumbnail}>
@@ -46,8 +46,8 @@ function ArticleList({
               <time>{displayDate(new Date(value.releaseDate))}</time>
               <p>
                 {value.topics.specifor(
-                  vertical || slider ? 2 : 5,
-                  (topic: string, i: number) => topic && <span key={i}>{topic}</span>,
+                  horizontal ? 5 : 2,
+                  (topic: string) => topic && <span key={topic}>{topic}</span>,
                 )}
               </p>
             </div>
@@ -55,7 +55,7 @@ function ArticleList({
         </>
       </Nlink>
     </li>
-  );
+  ));
   return (
     <>
       <ul
@@ -65,11 +65,7 @@ function ArticleList({
         id={id}
       >
         {shiftList}
-        {slider && display > 2 ? (
-          <Slider {...settings}>{data.specifor(display, (value: Zenn, i: number) => listBody(value, i))}</Slider>
-        ) : (
-          data.specifor(display, (value: Zenn, i: number) => listBody(value, i))
-        )}
+        {slider && display > 2 ? <Slider {...settings}>{listBody}</Slider> : listBody}
         {pushList}
       </ul>
     </>

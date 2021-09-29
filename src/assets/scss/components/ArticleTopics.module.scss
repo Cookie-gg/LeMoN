@@ -22,6 +22,10 @@
 
       @include max(font-size, #{16px}, 16px);
 
+      @include media(mobile) {
+        font-weight: 300;
+      }
+
       a {
         align-items: center;
         display: flex;
@@ -78,7 +82,7 @@
         margin-right: auto;
         width: 95%;
 
-        @include max(column-gap, #{15px}, 15px, $res);
+        @include max(column-gap, #{15px}, 16px, $res);
 
         li {
           a {
@@ -90,7 +94,7 @@
 
             @include max(padding-bottom, #{2px}, 2px);
 
-            @include max(font-size, #{16px}, 14px);
+            @include max(font-size, #{16px}, 16px);
 
             @include hover(true) {
               &:hover::before {
@@ -118,7 +122,7 @@
               @include max(width, #{30px}, 30px);
 
               svg {
-                @include max(font-size, #{16px}, 16px);
+                @include max(font-size, #{16px}, 20px);
               }
             }
           }
@@ -143,9 +147,9 @@
     background-color: rgba(white, 0.04);
     overflow: hidden;
 
-    @include max(padding-top, #{22.5px}, 22.5px);
+    @include max(padding-top, #{22.5px}, 17.5px);
 
-    @include max(padding-bottom, #{22.5px}, 22.5px);
+    @include max(padding-bottom, #{22.5px}, 17.5px);
 
     @include max(height, $sp_value: 280px);
 
@@ -170,20 +174,20 @@
         position: relative;
         transition: all $common_anmt;
 
-        @include max(padding-right, #{25px}, 25px);
+        @include max(padding-right, #{25px}, 15px);
 
-        @include max(padding-left, #{25px}, 25px);
+        @include max(padding-left, #{25px}, 15px);
 
         @include hover(true) {
           &:hover {
             color: $dark-gray;
             -webkit-font-smoothing: antialiased;
             -webkit-text-stroke-color: $dark-gray;
-            -webkit-text-stroke-width: 0.5px;
+            @include max(-webkit-text-stroke-width, #{1px}, 1px);
             &::before {
               @include max(width, calc(100% - 46px));
 
-              @include diff(width, $sp_value: 46px);
+              @include diff(width, $sp_value: 35px);
             }
             &:last-of-type {
               a {
@@ -207,7 +211,7 @@
           color: $dark-gray;
           -webkit-font-smoothing: antialiased;
           -webkit-text-stroke-color: $dark-gray;
-          -webkit-text-stroke-width: 0.5px;
+          @include max(-webkit-text-stroke-width, #{1px}, 1px);
           &::before {
             width: 100%;
           }
@@ -223,7 +227,7 @@
         &:last-of-type {
           font-family: $jp_font;
 
-          @include max(font-size, #{14px}, 14px);
+          @include max(font-size, #{15px}, 15px);
 
           a {
             transition: all $common_anmt;

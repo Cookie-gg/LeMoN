@@ -29,12 +29,6 @@ export default function Topics({ data, error }: { data: DataType; error?: string
           slidesToShow: 2,
         },
       },
-      {
-        breakpoint: 650,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
     ],
   };
   return (

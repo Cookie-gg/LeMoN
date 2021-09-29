@@ -6,7 +6,11 @@
   overflow: hidden;
   position: relative;
 
-  @include max(font-size, #{24px}, 24px);
+  @include media(mobile) {
+    font-weight: 600;
+  }
+
+  @include max(font-size, #{24px}, 26px);
 
   &::before {
     background-color: $lemon;

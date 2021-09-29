@@ -95,7 +95,7 @@ export type Mutation = {
   addImage: ImageObject;
   updateImage: ImageObject;
   addPath: PathObject;
-  update: PathObject;
+  updatePath: PathObject;
 };
 
 
@@ -165,7 +165,7 @@ export type MutationAddPathArgs = {
 };
 
 
-export type MutationUpdateArgs = {
+export type MutationUpdatePathArgs = {
   args: PathInput;
   name: Scalars['String'];
 };
@@ -323,7 +323,7 @@ export type PostIdQuery = { __typename?: 'Query', articleId: Array<{ __typename?
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TopicsQuery = { __typename?: 'Query', topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type TopicsQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
 
 export const AboutDocument = gql`
@@ -600,6 +600,10 @@ export type PostIdLazyQueryHookResult = ReturnType<typeof usePostIdLazyQuery>;
 export type PostIdQueryResult = Apollo.QueryResult<PostIdQuery, PostIdQueryVariables>;
 export const TopicsDocument = gql`
     query Topics {
+  titles: findTitle(page: "topics") {
+    text
+    section
+  }
   topics: findAllTopics {
     displayName
     icon

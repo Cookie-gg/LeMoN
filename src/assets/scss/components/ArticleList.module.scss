@@ -3,7 +3,9 @@
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
-  @include max(gap, 40px, 30px);
+
+  @include max(gap, 40px, 20px);
+
   li:not([class*='ArticleTopics_body'] li) {
     & > a {
       display: block;
@@ -59,12 +61,20 @@
           overflow: hidden;
           position: relative;
           width: 100%;
+
+          @include media(mobile) {
+            font-weight: 600;
+          }
         }
         div {
           align-items: flex-end;
           display: flex;
           flex-direction: column;
           font-weight: 200;
+
+          @include media(mobile) {
+            font-weight: 300;
+          }
 
           @include max(font-size, #{15px}, 16px);
 
@@ -125,13 +135,19 @@
 
           @include diff(width, $sp_value: 125px);
 
-          @include max(padding-top, #{17.5px}, 17.5px);
+          @include max(padding-top, #{17.5px}, 15px);
 
-          @include max(padding-left, #{17.5px}, 17.5px);
+          @include max(padding-left, #{17.5px}, 15px);
 
-          @include max(padding-right, #{17.5px}, 17.5px);
+          @include max(padding-right, #{17.5px}, 15px);
 
-          @include max(padding-bottom, #{15px}, 15px);
+          @include max(padding-bottom, #{15px}, 12.5px);
+
+          @include media(sp) {
+            div p span:nth-of-type(n + 3) {
+              display: none;
+            }
+          }
 
           &::before {
             background-color: $lemon;
@@ -148,21 +164,12 @@
 
             @include max(height, #{18px * 1.4 * 2}, 18px * 1.4 * 2);
           }
-          div {
-            p {
-              @include media(sp) {
-                span:not(:first-of-type) {
-                  display: none;
-                }
-              }
-            }
-          }
         }
       }
     }
   }
   &:not(.horizontal) {
-    li:not([class*='ArticleTopics_body'] li)  {
+    li:not([class*='ArticleTopics_body'] li) {
       @include diff(width, 120px, $add_term: '/ 4');
 
       @include hover(true) {
@@ -197,6 +204,10 @@
             position: absolute;
             transition: all $common_anmt;
 
+            @include media(mobile) {
+              font-weight: 800;
+            }
+
             @include max(left, #{10px}, 10px);
 
             @include max(top, #{10px}, 10px);
@@ -213,15 +224,21 @@
           }
         }
         .text_wrapper {
-          @include max(padding-right, #{15px}, 15px);
+          @include max(padding-right, #{15px}, 12.5px);
 
-          @include max(padding-left, #{15px}, 15px);
+          @include max(padding-left, #{15px}, 12.5px);
 
-          @include max(padding-top, #{15px}, 15px);
+          @include max(padding-top, #{15px}, 12.5px);
 
-          @include max(padding-bottom, #{12.5px}, 12.5px);
+          @include max(padding-bottom, #{12.5px}, 10px);
 
           @include max(height, #{155px}, 155px);
+
+          @include media(sp) {
+            div p span:not(:first-of-type) {
+              display: none;
+            }
+          }
 
           &::before {
             background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
@@ -245,9 +262,10 @@
             width: 0%;
           }
           h2 {
-            -webkit-line-clamp: 2;
-            @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
-            @include max(font-size, #{20px}, 20px);
+            @include max(-webkit-line-clamp, 2, 3);
+
+            // @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
+            @include max(font-size, #{20px}, 18px);
           }
         }
       }
@@ -257,20 +275,17 @@
     justify-content: space-between;
     li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1300px) {
-        @include diff(width, 40px, 30px, $add_term: '/ 2');
-        @media screen and (max-width: 650px) {
-          width: 100%;
-        }
+        @include diff(width, 40px, 20px, $add_term: '/ 2');
       }
     }
   }
   &.slider {
-    li {
+    li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1300px) {
         @include diff(width, 80px, $add_term: '/ 3');
         @media screen and (max-width: 1000px) {
-          @include diff(width, 40px, 30px, $add_term: '/ 2');
-          @media screen and (max-width: 650px) {
+          @include diff(width, 40px, 20px, $add_term: '/ 2');
+          &:first-of-type {
             width: 100%;
           }
         }
@@ -348,15 +363,17 @@
         }
       }
       [class*='slick-list'] {
-        @include max(margin-right, -40px, -30px);
-        @include add(width, 40px, 30px);
+        @include max(margin-right, -40px, -20px);
+
+        @include add(width, 40px, 20px);
+
         [class*='slick-track'] {
           &::before,
           &::after {
             display: none;
           }
           [class*='slick-slide'] > div {
-            @include max(margin-right, 40px, 30px);
+            @include max(margin-right, 40px, 20px);
           }
         }
       }

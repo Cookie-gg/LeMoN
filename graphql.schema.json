@@ -1183,7 +1183,7 @@
             "deprecationReason": null
           },
           {
-            "name": "update",
+            "name": "updatePath",
             "description": null,
             "args": [
               {

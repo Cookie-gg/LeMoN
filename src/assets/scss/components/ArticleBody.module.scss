@@ -11,11 +11,13 @@ $code_font: 'Source Code Pro', monospace;
 
   @include max(border-right-width, #{5px}, 0px, $res);
 
-  @include max(font-size, #{16px}, 16px);
+  @include max(font-size, #{16px}, 18px);
 
   @include max(letter-spacing, #{1.2px}, 1.2px);
 
   @include max(padding, #{45px}, 30px);
+
+  @include max(padding-right, $sp_value: 30px + 8px);
 
   *:not(.code_wrapper *, blockquote *, a) {
     color: white;
@@ -38,7 +40,7 @@ $code_font: 'Source Code Pro', monospace;
     border-bottom: 1px solid $lemon;
     font-weight: 600;
 
-    @include max(font-size, #{28px}, 24px);
+    @include max(font-size, #{28px}, 26px);
 
     @include max(padding-bottom, #{7.5px}, 7.5px);
 
@@ -47,20 +49,20 @@ $code_font: 'Source Code Pro', monospace;
     code {
       vertical-align: text-bottom;
 
-      @include max(font-size, #{24px}, 20px);
+      @include max(font-size, #{24px}, 22px);
     }
   }
   h2 {
     font-weight: 500;
 
-    @include max(font-size, #{24px}, 20px);
+    @include max(font-size, #{24px}, 22px);
 
     @include max(margin-top, #{40px}, 40px);
 
     code {
       vertical-align: text-bottom;
 
-      @include max(font-size, #{20px}, 16px);
+      @include max(font-size, #{20px}, 18px);
     }
   }
   h1,
@@ -82,18 +84,29 @@ $code_font: 'Source Code Pro', monospace;
   h3 {
     font-weight: 500;
 
-    @include max(font-size, #{20px}, 16px);
+    @include max(font-size, #{20px}, 18px);
 
     @include max(margin-top, #{30px}, 30px);
+    code {
+      vertical-align: text-bottom;
+
+      @include max(font-size, #{18px}, 16px);
+    }
   }
   h4,
   h5,
   h6 {
     font-weight: 500;
 
-    @include max(font-size, #{18px}, 14px);
+    @include max(font-size, #{18px}, 16px);
 
     @include max(margin-top, #{20px}, 20px);
+    
+    code {
+      vertical-align: text-bottom;
+
+      @include max(font-size, #{16px}, 14px);
+    }
   }
   [class*='footnote-ref'] {
     display: inline-block;
@@ -128,7 +141,7 @@ $code_font: 'Source Code Pro', monospace;
       border-bottom: 1px solid $lemon;
       font-weight: 500;
 
-      @include max(font-size, #{20px}, 16px);
+      @include max(font-size, #{20px}, 18px);
 
       @include max(padding-bottom, #{7.5px}, 7.5px);
     }
@@ -139,10 +152,10 @@ $code_font: 'Source Code Pro', monospace;
         &::marker {
           color: $lemon;
 
-          @include max(font-size, #{16px}, 16px);
+          @include max(font-size, #{16px}, 18px);
         }
         p {
-          @include max(font-size, #{16px}, 16px);
+          @include max(font-size, #{16px}, 18px);
           margin-top: -10px;
           padding-top: 10px;
           @media screen and (max-width: $res) {
@@ -169,7 +182,7 @@ $code_font: 'Source Code Pro', monospace;
     code {
       vertical-align: middle;
 
-      @include max(font-size, #{15px}, 15px);
+      @include max(font-size, #{15px}, 17px);
     }
   }
   em {
@@ -211,7 +224,7 @@ $code_font: 'Source Code Pro', monospace;
       font-weight: 100;
       text-align: center;
 
-      @include max(font-size, #{14px}, 14px);
+      @include max(font-size, #{14px}, 16px);
 
       @include max(margin-top, #{7.5px}, 7.5px);
     }
@@ -316,18 +329,18 @@ $code_font: 'Source Code Pro', monospace;
         [class*='title'] {
           font-weight: 500;
 
-          @include max(font-size, #{18px}, 18px);
+          @include max(font-size, #{18px}, 20px);
         }
         [class*='description'] {
           color: rgba(white, 0.6);
 
-          @include max(font-size, #{14px}, 14px);
+          @include max(font-size, #{14px}, 16px);
         }
         [class*='domain'] {
           align-items: flex-end;
           display: flex;
 
-          @include max(font-size, #{12px}, 12px);
+          @include max(font-size, #{12px}, 14px);
 
           img {
             height: 100%;
@@ -436,7 +449,7 @@ $code_font: 'Source Code Pro', monospace;
     code {
       padding: 0;
 
-      @include max(font-size, #{15px}, 15px);
+      @include max(font-size, #{15px}, 17px);
 
       span {
         &[class*='keyword'],
@@ -534,7 +547,7 @@ $code_font: 'Source Code Pro', monospace;
         position: absolute;
         top: 0;
 
-        @include max(font-size, #{14px}, 14px);
+        @include max(font-size, #{14px}, 16px);
 
         @include max(border-bottom-right-radius, #{5px}, 5px);
 

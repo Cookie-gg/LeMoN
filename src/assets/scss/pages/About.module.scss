@@ -18,7 +18,7 @@
       }
     }
     .text_wrapper {
-      @include max(padding-top, 30px);
+      @include max(padding-top, 20px);
 
       @include max(width, 50%, 100%);
 
@@ -33,6 +33,8 @@
         @include max(margin-left, 1%);
       }
       .info {
+        @include max(margin-left, 1.25%);
+
         @include max(margin-top, 50px, 30px);
       }
     }
@@ -41,11 +43,11 @@
   .skills {
     box-sizing: border-box;
 
-    @include max(padding-top, 50px);
+    @include max(padding-top, 65px);
 
     @include max(margin-top, $sp_value: 65px);
 
-    @include max(min-height, calc(100vh - (30px + 11px + 110px) - (40px + 11px + 30px)));
+    @include max(min-height, calc(100vh - (30px + 11px + 110px) - (30px + 11px + 30px)));
   }
   #{$mount} & {
     .image_frame img {

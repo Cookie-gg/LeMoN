@@ -55,7 +55,7 @@
     top: 0;
     width: 100%;
   }
-  #{$mount} & {
+  &.mounted {
     padding-right: 0;
     transition: all $common_anmt entry_order(2);
 
@@ -79,21 +79,6 @@
       @include max(width, calc(100% + 15px), calc(100% + 2.25vw));
     }
   }
-  // #{$yet} & {
-  //   width: 0;
-  //   .text {
-  //     top: -70px;
-  //   }
-  //   &::before {
-  //     opacity: 0;
-  //     top: 0;
-  //   }
-  //   &::after {
-  //     opacity: 0;
-  //     height: 100%;
-  //     width: 100%;
-  //   }
-  // }
 }
 .phrase {
   font-weight: 700;

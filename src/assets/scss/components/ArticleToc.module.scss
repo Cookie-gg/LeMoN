@@ -81,17 +81,19 @@
 
       @include max(letter-spacing, #{1.2px}, 1.2px);
 
-      @include diff(width, (30px + 30px), $add_term: '- 30px - 11px - 40px - 30px - 11px - 40px');
-
-      @include diff(width, $sp_value: (20px + 20px + 20px + 20px), $add_term: '- 11px - 11px');
-
-      @include add(left, $sp_value: (20px + 20px), $from: 11px);
-
-      @include add(left, 30px, $from: (30px + 11px + 40px));
-
+      // pc
       @include max(top, calc(30px + 11px + 110px));
 
-      @include add(top, $sp_value: (20px + 60px), $from: 11px);
+      @include max(left, #{30px + 11px + 30px});
+
+      @include max(width, calc(100% - (30px + 11px + 30px) - (30px + 30px + 11px)));
+
+      //sp
+      @include max(top, $sp_value: (20px + 75px));
+
+      @include max(left, $sp_value: (20px + 20px));
+
+      @include diff(width, $sp_value: (20px + 20px + 20px + 20px));
 
       .inner {
         display: flex;
@@ -129,7 +131,7 @@
         display: flex;
         justify-content: center;
 
-        @include max(font-size, #{30px}, 30px);
+        @include max(font-size, #{30px}, 32px);
 
         @include max(margin-right, #{15px}, 15px);
       }
@@ -138,13 +140,13 @@
         font-weight: 700;
         line-height: 1.8;
 
-        @include max(font-size, #{17.5px}, 17.5px);
+        @include max(font-size, #{17.5px}, 19.5px);
       }
       [class*='header_opened'] + main & {
-        @include add(left, $sp_value: (20px + 20px + 70px), $from: 11px);
+        @include max(left, $sp_value: (20px + 20px + 70px));
       }
       [class*='header_expanded'] + main & {
-        @include add(left, $sp_value: (20px + 20px + 200px), $from: 11px);
+        @include max(left, $sp_value: (20px + 20px + 200px));
       }
     }
   }
@@ -279,9 +281,9 @@
 
         @include max(margin-right, #{5px}, 5px);
 
-        @include max(max-height, calc(100vh - 30px - 11px - 110px - 30px - 11px - 40px));
+        @include max(max-height, calc(100vh - 30px - 11px - 110px - 30px - 11px - 30px));
 
-        @include diff(max-height, $sp_value: (20px + 60px + 20px + 20px), $from: 100vh, $add_term: '- 11px - 11px');
+        @include diff(max-height, $sp_value: (20px + 75px + 20px + 20px), $from: 100vh);
 
         @include max(width, #{295px}, 295px);
 
@@ -308,7 +310,7 @@
         &.heading_1 {
           font-weight: 500;
 
-          @include max(font-size, #{16px}, 16px);
+          @include max(font-size, #{16px}, 18px);
 
           &::before {
             @include max(margin-top, #{2px}, 2px);
@@ -319,20 +321,20 @@
         &.heading_2 {
           font-weight: 400;
 
-          @include max(font-size, #{13px}, 13px);
+          @include max(font-size, #{13px}, 15px);
 
           &::before {
-            @include max(height, #{7px}, 7px);
+            @include max(height, #{7px}, 9px);
 
             @include max(margin-top, #{2px}, 2px);
 
             @include max(margin-right, #{11px}, 11px);
 
-            @include max(margin-left, #{1px}, 1px);
+            @include max(margin-left, #{1px}, 2px);
 
             @include max(margin-bottom, #{1.5px}, 1.5px);
 
-            @include max(width, #{7px}, 7px);
+            @include max(width, #{7px}, 9px);
           }
         }
         &::before {
@@ -344,9 +346,9 @@
           transition: background-color $common_anmt, border $common_anmt;
           z-index: 1;
 
-          @include max(width, #{10px}, 10px);
+          @include max(width, #{10px}, 12px);
 
-          @include max(height, #{10px}, 10px);
+          @include max(height, #{10px}, 12px);
         }
         &:not(:first-of-type) {
           margin-top: 10px;
@@ -357,11 +359,11 @@
             position: absolute;
             z-index: 0;
 
-            @include max(left, #{4px}, 4px);
+            @include max(left, #{4px}, 6px);
 
             @include max(width, #{1px}, 1px);
 
-            @include max(height, #{30px}, 30px);
+            @include max(height, #{30px}, 160%);
           }
         }
         &.active {

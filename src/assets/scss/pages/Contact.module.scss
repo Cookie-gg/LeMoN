@@ -1,7 +1,6 @@
 .contact {
-  box-sizing: border-box;
   display: flex;
-
+  overflow: hidden;
   .image_frame {
     @include max(width, 60%, 120%);
 
@@ -20,7 +19,9 @@
 
     @include max(width, 40%, 100%);
 
-    @include max(padding-top, 30px);
+    @include max(padding-top, 20px);
+
+    @include max(padding-bottom, 20px);
 
     .form {
       @include max(margin-top, 30px);
