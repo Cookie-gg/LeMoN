@@ -45,10 +45,8 @@
         @include max(font-size, #{19px}, 19px);
       }
       @media screen and (max-width: 1300px) {
-        @include diff(width, 80px, $add_term: '/ 3');
         @media screen and (max-width: 1000px) {
           justify-content: flex-start;
-          width: 100%;
 
           @include max(height, #{55px}, 55px);
 

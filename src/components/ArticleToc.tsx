@@ -131,4 +131,4 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   );
 }
 
-export default memo(ArticleToc);
+export default memo(ArticleToc, (prev, next) => prev.activeSection === next.activeSection);

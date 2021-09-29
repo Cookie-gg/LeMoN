@@ -1,7 +1,7 @@
 .blog {
   @include max(padding-top, 20px);
 
-  @include max(padding-bottom, 20px);
+  @include max(padding-bottom, 20px, 20px);
 
   .articles {
     @include max(margin-top, 30px, 30px);

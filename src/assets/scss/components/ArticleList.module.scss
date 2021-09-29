@@ -276,19 +276,16 @@
     li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1300px) {
         @include diff(width, 40px, 20px, $add_term: '/ 2');
-        // @media screen and (max-width: 650px) {
-        //   width: 100%;
-        // }
       }
     }
   }
   &.slider {
-    li {
+    li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1300px) {
         @include diff(width, 80px, $add_term: '/ 3');
         @media screen and (max-width: 1000px) {
-          @include diff(width, 40px, 30px, $add_term: '/ 2');
-          @media screen and (max-width: 650px) {
+          @include diff(width, 40px, 20px, $add_term: '/ 2');
+          &:first-of-type {
             width: 100%;
           }
         }
@@ -366,9 +363,9 @@
         }
       }
       [class*='slick-list'] {
-        @include max(margin-right, -40px, -30px);
+        @include max(margin-right, -40px, -20px);
 
-        @include add(width, 40px, 30px);
+        @include add(width, 40px, 20px);
 
         [class*='slick-track'] {
           &::before,
@@ -376,7 +373,7 @@
             display: none;
           }
           [class*='slick-slide'] > div {
-            @include max(margin-right, 40px, 30px);
+            @include max(margin-right, 40px, 20px);
           }
         }
       }
