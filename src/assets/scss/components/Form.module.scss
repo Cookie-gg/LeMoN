@@ -39,7 +39,7 @@
     font-weight: 400;
     position: relative;
 
-    @include max(font-size, #{20px}, 20px);
+    @include max(font-size, #{20px}, 22px);
 
     &:not(:first-of-type) {
       @include max(margin-top, #{35px}, 35px);
@@ -70,7 +70,7 @@
 
       @include max(letter-spacing, #{1.2px}, 1.2px);
 
-      @include max(font-size, #{14px}, 14px);
+      @include max(font-size, #{14px}, 16px);
 
       @include max(margin-top, #{10px}, 10px);
 
@@ -126,7 +126,7 @@
       width: 100%;
       z-index: 3;
 
-      @include max(font-size, #{20px}, 20px);
+      @include max(font-size, #{20px}, 22px);
 
       @include max(padding-top, #{10px}, 10px);
 
@@ -180,7 +180,7 @@
     transform: translate(-50%, -50%);
     width: calc(100% - 100px);
 
-    @include max(font-size, #{22.5px}, 22.5px);
+    @include max(font-size, #{22.5px}, 24.5px);
 
     & > * {
       @include max(margin-right, #{30px}, 30px);
