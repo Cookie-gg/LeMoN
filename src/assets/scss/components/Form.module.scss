@@ -183,7 +183,7 @@
     @include max(font-size, #{22.5px}, 24.5px);
 
     & > * {
-      @include max(margin-right, #{30px}, 30px);
+      @include max(margin-top, #{30px}, 30px);
     }
   }
   @keyframes onAutoFillStart {

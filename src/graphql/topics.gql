@@ -1,4 +1,8 @@
 query Topics {
+  titles: findTitle(page: "topics") {
+    text
+    section
+  }
   topics: findAllTopics {
     displayName
     icon

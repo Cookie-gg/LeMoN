@@ -35,14 +35,15 @@ function Form({ className }: { className: string[] }) {
     message: '',
   });
   const [isSent, _isSent] = useState(false);
-  function submit(e: React.MouseEvent<HTMLInputElement, MouseEvent>) {
+  const submit = async (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     if (formValue.name === '' || formValue.email === '' || formValue.subject === '') {
       alert('Required fields must not be empty.');
       return;
     }
+    
     _isSent(true);
-  }
+  };
   return (
     <form className={`${className[0]} ${styles.entire} ${isSent && className[1]}`}>
       <label htmlFor="name">
