@@ -24,7 +24,7 @@
 
     @include max(width, 65%, 90%);
 
-    @include max(font-size, #{28px}, 24px);
+    @include max(font-size, #{28px}, 26px);
 
     @include max(margin-top, #{30px}, 30px);
   }
@@ -48,7 +48,7 @@
         @include max(margin-right, #{7.5px}, 7.5px);
       }
       time {
-        @include max(font-size, #{16px}, 14px);
+        @include max(font-size, #{16px}, 16px);
       }
     }
   }

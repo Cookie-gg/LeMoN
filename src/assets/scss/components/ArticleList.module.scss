@@ -73,7 +73,7 @@
           font-weight: 200;
 
           @include media(mobile) {
-            font-weight: 400;
+            font-weight: 300;
           }
 
           @include max(font-size, #{15px}, 16px);

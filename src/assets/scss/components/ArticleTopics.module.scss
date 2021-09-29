@@ -23,15 +23,14 @@
       @include max(font-size, #{16px}, 16px);
 
       @include media(mobile) {
-        font-weight: 400;
+        font-weight: 300;
       }
 
       a {
         align-items: center;
         display: flex;
       }
-      &:last-of-type span:first-of-type,
-      &:not(:last-of-type) span {
+      span:not([class*='pc']):not([class*='sp']) {
         align-items: center;
         background-color: $dark-gray;
         border: 1px solid $lemon;
@@ -83,7 +82,7 @@
         margin-right: auto;
         width: 95%;
 
-        @include max(column-gap, #{15px}, 15px, $res);
+        @include max(column-gap, #{15px}, 16px, $res);
 
         li {
           a {
@@ -95,7 +94,7 @@
 
             @include max(padding-bottom, #{2px}, 2px);
 
-            @include max(font-size, #{16px}, 14px);
+            @include max(font-size, #{16px}, 16px);
 
             @include hover(true) {
               &:hover::before {
@@ -115,7 +114,7 @@
               width: 100%;
             }
 
-            span {
+            span:not([class*='pc']):not([class*='sp']) {
               border: 0;
 
               @include max(height, #{30px}, 30px);
@@ -123,7 +122,7 @@
               @include max(width, #{30px}, 30px);
 
               svg {
-                @include max(font-size, #{16px}, 16px);
+                @include max(font-size, #{16px}, 20px);
               }
             }
           }
@@ -232,7 +231,7 @@
 
           a {
             transition: all $common_anmt;
-            span:first-of-type {
+            span:not([class*='pc']):not([class*='sp']) {
               background-color: $lemon;
               path {
                 color: $dark-gray;
