@@ -3,7 +3,9 @@
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
+
   @include max(gap, 40px, 20px);
+
   li:not([class*='ArticleTopics_body'] li) {
     & > a {
       display: block;
@@ -59,12 +61,19 @@
           overflow: hidden;
           position: relative;
           width: 100%;
+
+          @include media(mobile) {
+            font-weight: 600;
+          }
         }
         div {
           align-items: flex-end;
           display: flex;
           flex-direction: column;
           font-weight: 200;
+          // @include media(mobile) {
+          //   font-weight: 300;
+          // }
 
           @include max(font-size, #{15px}, 16px);
 
@@ -133,6 +142,12 @@
 
           @include max(padding-bottom, #{15px}, 12.5px);
 
+          @include media(sp) {
+            div p span:nth-of-type(n + 3) {
+              display: none;
+            }
+          }
+
           &::before {
             background-color: $lemon;
             bottom: 0;
@@ -147,11 +162,6 @@
             @include max(font-size, #{18px}, 18px);
 
             @include max(height, #{18px * 1.4 * 2}, 18px * 1.4 * 2);
-          }
-          @include media(sp) {
-            div p span:nth-of-type(n + 3) {
-              display: none;
-            }
           }
         }
       }
@@ -219,6 +229,12 @@
 
           @include max(height, #{155px}, 155px);
 
+          @include media(sp) {
+            div p span:not(:first-of-type) {
+              display: none;
+            }
+          }
+
           &::before {
             background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
               100%;
@@ -242,13 +258,9 @@
           }
           h2 {
             @include max(-webkit-line-clamp, 2, 3);
+
             // @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
             @include max(font-size, #{20px}, 18px);
-          }
-          @include media(sp) {
-            div p span:not(:first-of-type) {
-              display: none;
-            }
           }
         }
       }
@@ -350,7 +362,9 @@
       }
       [class*='slick-list'] {
         @include max(margin-right, -40px, -30px);
+
         @include add(width, 40px, 30px);
+
         [class*='slick-track'] {
           &::before,
           &::after {

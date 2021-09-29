@@ -7,7 +7,7 @@
   position: relative;
 
   @include media(mobile) {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   @include max(font-size, #{24px}, 26px);
