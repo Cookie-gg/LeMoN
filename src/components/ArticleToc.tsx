@@ -26,7 +26,19 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const [isOpened, _isOpened] = useState(false);
   const [height, _height] = useHeight<HTMLDivElement>();
   const window = useWindowDimensions() as { width: number; height: number };
-  const isIntersecting = useIntersect(tocRef.current, `0px 0px -${window.height - paddingTop}px`);
+  const isIntersecting = useIntersect(
+    tocRef.current,
+    `0px 0px -${
+      window.height -
+      (window.width < 820
+        ? window.width < 500
+          ? window.width < 400
+            ? 20 + 75 - 20
+            : 20 + 75 - 10
+          : 20 + 75
+        : 30 + 11 + 110)
+    }px`,
+  );
   const [cursorY, _cursorY] = useState(0);
   const swipeOptions = useSwipeable({
     onSwipedRight: () => _isOpened(false),
@@ -96,8 +108,8 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
                   : undefined,
               height: isMobile
                 ? window.width < 500
-                  ? window.height - window.width * 0.24 - 11 - 11
-                  : window.height - 20 - 60 - 20 - 20 - 11 - 11
+                  ? window.height - window.width * 0.27
+                  : window.height - 20 - 75 - 20 - 20
                 : undefined,
             }}
           >
