@@ -18,7 +18,7 @@ export default async function topicsQuery(): Promise<{ data: DataType | undefine
   if (data) {
     const titles = section(data.titles);
     const shapedData: DataType = {
-      title: titles.all,
+      title: titles.all.text,
       topics: data.topics
         .filter((obj) => obj.allArticles.length > 0)
         .sortObj('displayName', 'desc')
