@@ -1,0 +1,91 @@
+.entire {
+  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) skewX(-30deg);
+  user-select: none;
+  z-index: -1;
+
+  @include max(font-size, #{50px}, 40px);
+
+  @include max(left, #{185px}, 25vw);
+
+  & > div {
+    overflow-y: hidden;
+    position: relative;
+    transform: skewX(30deg);
+    white-space: nowrap;
+    @for $i from 1 through 10 {
+      &:nth-of-type(#{$i}) {
+        @include max(height, calc(40px * #{$i} * 0.1), calc(40px * #{$i} * 0.1));
+        span {
+          @include max(
+            animation,
+            text_gradient 4s forwards 0.1 * ($i - 1) + 0s + order(5),
+            text_gradient 2.5s forwards 0.1 * ($i - 1) + 0s + order(5)
+          );
+        }
+      }
+    }
+    &:not(:last-of-type) {
+      @include max(margin-bottom, #{10px}, #{5px});
+    }
+    span {
+      color: rgba(white, 0.05);
+      position: relative;
+      top: -40px;
+    }
+  }
+}
+@include media(pc) {
+  @keyframes text_gradient {
+    0% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+    5% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    40% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    50% {
+      color: rgba(white, 0.75);
+      top: 0;
+    }
+    60% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    95% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    100% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+  }
+}
+@include media(sp) {
+  @keyframes text_gradient {
+    0% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+    20% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    80% {
+      color: rgba(white, 0.05);
+      top: 0;
+    }
+    100% {
+      color: rgba(white, 0.05);
+      top: -40px;
+    }
+  }
+}
