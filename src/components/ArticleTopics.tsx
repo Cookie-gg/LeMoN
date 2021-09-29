@@ -68,7 +68,8 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
                 <span>
                   <Iconify icon={'fa-solid:arrow-right'} />
                 </span>
-                トピックごとに表示
+                <span className="pc">トピックごとに表示</span>
+                <span className="sp">全て表示</span>
               </>
             </Nlink>
           </li>

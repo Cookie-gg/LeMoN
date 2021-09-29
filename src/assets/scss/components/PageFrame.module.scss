@@ -30,9 +30,9 @@
 
   @include diff(width, $sp_value: (20px + 20px + 20px - 8px + 20px));
 
-  @include max(padding-right, $sp_value: 6px); // (20px - 8px) / 2
+  @include max(padding-right, $sp_value: 4px); // (20px - 8px) / 2
 
-  @include max(margin-right, $sp_value: 20px + 6px);
+  @include max(margin-right, $sp_value: 20px + 8px);
 
   @include max(margin-top, $sp_value: (20px + 75px));
   

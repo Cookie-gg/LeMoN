@@ -26,7 +26,8 @@
         align-items: center;
         display: flex;
       }
-      span {
+      &:last-of-type span:first-of-type,
+      &:not(:last-of-type) span {
         align-items: center;
         background-color: $dark-gray;
         border: 1px solid $lemon;
@@ -143,11 +144,11 @@
     background-color: rgba(white, 0.04);
     overflow: hidden;
 
-    @include max(padding-top, #{22.5px}, 22.5px);
+    @include max(padding-top, #{22.5px}, 20px);
 
-    @include max(padding-bottom, #{22.5px}, 22.5px);
+    @include max(padding-bottom, #{22.5px}, 20px);
 
-    @include max(height, $sp_value: 280px);
+    @include max(height, $sp_value: 295px);
 
     &::before {
       background-color: $lemon;
@@ -170,9 +171,9 @@
         position: relative;
         transition: all $common_anmt;
 
-        @include max(padding-right, #{25px}, 25px);
+        @include max(padding-right, #{25px}, 15px);
 
-        @include max(padding-left, #{25px}, 25px);
+        @include max(padding-left, #{25px}, 15px);
 
         @include hover(true) {
           &:hover {
@@ -183,7 +184,7 @@
             &::before {
               @include max(width, calc(100% - 46px));
 
-              @include diff(width, $sp_value: 46px);
+              @include diff(width, $sp_value: 35px);
             }
             &:last-of-type {
               a {
@@ -227,7 +228,7 @@
 
           a {
             transition: all $common_anmt;
-            span {
+            span:first-of-type {
               background-color: $lemon;
               path {
                 color: $dark-gray;

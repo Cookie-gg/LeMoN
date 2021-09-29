@@ -125,13 +125,13 @@
 
           @include diff(width, $sp_value: 125px);
 
-          @include max(padding-top, #{17.5px}, 17.5px);
+          @include max(padding-top, #{17.5px}, 15px);
 
-          @include max(padding-left, #{17.5px}, 17.5px);
+          @include max(padding-left, #{17.5px}, 15px);
 
-          @include max(padding-right, #{17.5px}, 17.5px);
+          @include max(padding-right, #{17.5px}, 15px);
 
-          @include max(padding-bottom, #{15px}, 15px);
+          @include max(padding-bottom, #{15px}, 12.5px);
 
           &::before {
             background-color: $lemon;
@@ -217,7 +217,7 @@
 
           @include max(padding-bottom, #{12.5px}, 10px);
 
-          @include max(height, #{155px}, 175px);
+          @include max(height, #{155px}, 170px);
 
           &::before {
             background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
