@@ -144,11 +144,11 @@
     background-color: rgba(white, 0.04);
     overflow: hidden;
 
-    @include max(padding-top, #{22.5px}, 20px);
+    @include max(padding-top, #{22.5px}, 17.5px);
 
-    @include max(padding-bottom, #{22.5px}, 20px);
+    @include max(padding-bottom, #{22.5px}, 17.5px);
 
-    @include max(height, $sp_value: 295px);
+    @include max(height, $sp_value: 280px);
 
     &::before {
       background-color: $lemon;

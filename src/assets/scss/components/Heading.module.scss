@@ -6,6 +6,10 @@
   overflow: hidden;
   position: relative;
 
+  @include media(mobile) {
+    font-weight: 500;
+  }
+
   @include max(font-size, #{24px}, 26px);
 
   &::before {

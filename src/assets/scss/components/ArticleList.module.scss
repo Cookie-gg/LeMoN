@@ -217,7 +217,7 @@
 
           @include max(padding-bottom, #{12.5px}, 10px);
 
-          @include max(height, #{155px}, 170px);
+          @include max(height, #{155px}, 155px);
 
           &::before {
             background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
