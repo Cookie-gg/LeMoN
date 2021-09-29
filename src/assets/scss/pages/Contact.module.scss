@@ -21,6 +21,8 @@
 
     @include max(padding-top, 20px);
 
+    @include max(padding-bottom, 20px);
+
     .form {
       @include max(margin-top, 30px);
     }

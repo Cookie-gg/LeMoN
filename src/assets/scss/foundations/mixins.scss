@@ -123,7 +123,7 @@ $break_points: (
 @mixin custom_scrollbar() {
   &::-webkit-scrollbar {
     @include max(width, #{8px}, 8px);
-    height: 8px;
+    @include max(height, #{8px}, 8px);
   }
   // &::-webkit-scrollbar-track {
   // }
