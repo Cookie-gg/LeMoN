@@ -2,10 +2,10 @@ import { memo } from 'react';
 import { HeadMeta } from 'components';
 import { specifor } from 'utils/common';
 import pages from '../assets/scss/pages/Home.module.scss';
-import { useFirstMount } from 'hooks';
+import { useMount } from 'hooks';
 
 function Home() {
-  const isMounted = useFirstMount();
+  const isMounted = useMount();
   return (
     <>
       <HeadMeta title="Home" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Home`} />

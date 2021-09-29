@@ -28,34 +28,6 @@
     }
   }
   #{$mount} & {
-    .form {
-      &.sent {
-        & > *:not(.thanks) {
-          opacity: 0;
-          transition: all $common_anmt order(1);
-          visibility: hidden;
-        }
-        .thanks {
-          opacity: 1;
-          transition: all $common_anmt order(2);
-          visibility: visible;
-        }
-      }
-      & > *:not(.thanks) {
-        opacity: 1;
-        transition: all $common_anmt order(4);
-        visibility: visible;
-      }
-      &::before {
-        transition: width $common_anmt order(3);
-        width: 100%;
-      }
-      &::after {
-        height: 100%;
-        right: 0;
-        transition: height $common_anmt order(2), right $common_anmt order(3);
-      }
-    }
     .heading span {
       transform: translateY(0);
       transition: transform $common_anmt order(1);

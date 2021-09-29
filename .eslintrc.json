@@ -9,7 +9,6 @@
   "ignorePatterns": "next.config.js",
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@next/next/no-img-element": "off"
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }

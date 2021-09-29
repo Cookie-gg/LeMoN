@@ -16,6 +16,7 @@
       background-color: rgba(white, 0.08);
       display: block;
       position: relative;
+      z-index: 0;
 
       @include max(padding-top, #{10px}, 10px);
 
