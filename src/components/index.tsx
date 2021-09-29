@@ -1,9 +1,11 @@
 // component
+export { default as LeMoN } from './LeMoN';
 export { default as Skills } from './Skills';
 export { default as NamePlate } from './NamePlate';
 export { default as MainFrame } from './MainFrame';
 export { default as Paragraph } from './Paragraph';
 export { default as PageFrame } from './PageFrame';
+export { default as PhraseTypo } from './PhraseTypo';
 export { default as ProfileInfo } from './ProfileInfo';
 export { default as ProgressBar } from './ProgressBar';
 

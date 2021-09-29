@@ -1,0 +1,82 @@
+.entire {
+  align-items: center;
+  background-clip: content-box;
+  display: flex;
+  font-style: italic;
+  font-weight: 700;
+  justify-content: center;
+  position: relative;
+  user-select: none;
+  width: 0px;
+  z-index: 4;
+
+  @include max(padding-right, #{380px}, 380px);
+
+  @include max(font-size, #{100px}, 100px);
+
+  @include max(height, #{75px}, 75px);
+
+  .text {
+    align-items: center;
+    color: $dark-gray;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    position: relative;
+    top: -70px;
+    width: 100%;
+    z-index: 1;
+    &_wrapper {
+      background-color: $lemon;
+      height: 100%;
+      overflow: hidden;
+      width: 100%;
+    }
+  }
+  &::before {
+    content: 'Cookie_gg';
+    font-weight: 200;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0%;
+    z-index: -1;
+
+    @include max(font-size, #{20px}, 20px);
+  }
+  &::after {
+    border-bottom: 1px solid $lemon;
+    border-left: 1px solid $lemon;
+    content: '';
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+  #{$mount} & {
+    padding-right: 0;
+    transition: all $common_anmt entry_order(2);
+
+    @include max(width, #{380px}, 380px);
+
+    .text {
+      top: 0;
+      transition: all $common_anmt entry_order(3);
+    }
+    &::before {
+      opacity: 1;
+      top: -30%;
+      transition: opacity $moment entry_order(4), top $common_anmt entry_order(4);
+    }
+    &::after {
+      opacity: 1;
+      transition: opacity $moment entry_order(4), width $common_anmt entry_order(4), height $common_anmt entry_order(4);
+
+      @include max(height, calc(100% + 15px), calc(100% + 2.25vw));
+
+      @include max(width, calc(100% + 15px), calc(100% + 2.25vw));
+    }
+  }
+}
