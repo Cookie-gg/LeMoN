@@ -71,9 +71,10 @@
           display: flex;
           flex-direction: column;
           font-weight: 200;
-          // @include media(mobile) {
-          //   font-weight: 300;
-          // }
+
+          @include media(mobile) {
+            font-weight: 400;
+          }
 
           @include max(font-size, #{15px}, 16px);
 
@@ -202,6 +203,10 @@
             font-weight: 600;
             position: absolute;
             transition: all $common_anmt;
+
+            @include media(mobile) {
+              font-weight: 800;
+            }
 
             @include max(left, #{10px}, 10px);
 
