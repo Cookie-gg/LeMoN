@@ -1,10 +1,10 @@
+import axios from 'axios';
+import { Link } from 'utils/next';
 import { Button } from 'components';
 import useForm from 'hooks/useForm';
-import { memo, useEffect, useState } from 'react';
-import styles from '../assets/scss/components/Form.module.scss';
-import axios from 'axios';
+import { memo, useState } from 'react';
 import { Icon as Iconify } from '@iconify/react';
-import { Link } from 'utils/next';
+import styles from '../assets/scss/components/Form.module.scss';
 
 const data = {
   name: {
@@ -45,7 +45,7 @@ function Form({ className }: { className: string }) {
     }
     _formState('sending');
     await axios
-      .post(process.env.NEXT_PUBLIC_MAILER, {
+      .post(`${process.env.NEXT_PUBLIC_MAILER}`, {
         name: formValue.name,
         email: formValue.email,
         subject: formValue.subject,
