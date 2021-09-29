@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
-  @include max(gap, 40px, 30px);
+  @include max(gap, 40px, 20px);
   li:not([class*='ArticleTopics_body'] li) {
     & > a {
       display: block;
@@ -148,13 +148,9 @@
 
             @include max(height, #{18px * 1.4 * 2}, 18px * 1.4 * 2);
           }
-          div {
-            p {
-              @include media(sp) {
-                span:not(:first-of-type) {
-                  display: none;
-                }
-              }
+          @include media(sp) {
+            div p span:nth-of-type(n + 3) {
+              display: none;
             }
           }
         }
@@ -162,7 +158,7 @@
     }
   }
   &:not(.horizontal) {
-    li:not([class*='ArticleTopics_body'] li)  {
+    li:not([class*='ArticleTopics_body'] li) {
       @include diff(width, 120px, $add_term: '/ 4');
 
       @include hover(true) {
@@ -213,15 +209,15 @@
           }
         }
         .text_wrapper {
-          @include max(padding-right, #{15px}, 15px);
+          @include max(padding-right, #{15px}, 12.5px);
 
-          @include max(padding-left, #{15px}, 15px);
+          @include max(padding-left, #{15px}, 12.5px);
 
-          @include max(padding-top, #{15px}, 15px);
+          @include max(padding-top, #{15px}, 12.5px);
 
-          @include max(padding-bottom, #{12.5px}, 12.5px);
+          @include max(padding-bottom, #{12.5px}, 10px);
 
-          @include max(height, #{155px}, 155px);
+          @include max(height, #{155px}, 175px);
 
           &::before {
             background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
@@ -245,9 +241,14 @@
             width: 0%;
           }
           h2 {
-            -webkit-line-clamp: 2;
-            @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
-            @include max(font-size, #{20px}, 20px);
+            @include max(-webkit-line-clamp, 2, 3);
+            // @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
+            @include max(font-size, #{20px}, 18px);
+          }
+          @include media(sp) {
+            div p span:not(:first-of-type) {
+              display: none;
+            }
           }
         }
       }
@@ -257,10 +258,10 @@
     justify-content: space-between;
     li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1300px) {
-        @include diff(width, 40px, 30px, $add_term: '/ 2');
-        @media screen and (max-width: 650px) {
-          width: 100%;
-        }
+        @include diff(width, 40px, 20px, $add_term: '/ 2');
+        // @media screen and (max-width: 650px) {
+        //   width: 100%;
+        // }
       }
     }
   }
