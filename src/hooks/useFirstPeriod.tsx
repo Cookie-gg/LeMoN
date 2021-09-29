@@ -9,7 +9,7 @@ export default function useFirstPeriod(duration: number): boolean {
     setTimeout(() => _period(false), duration);
     return () => {
       _period(true);
-    }
+    };
   }, [asPath, duration]);
   return period;
 }

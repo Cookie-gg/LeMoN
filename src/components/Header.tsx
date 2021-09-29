@@ -27,7 +27,12 @@ function Header() {
     onSwipedLeft: () => _headerState((prev) => (prev === 'expand' ? 'open' : 'close')),
   });
   return (
-    <header className={`${styles.entire} ${pathname === '/' && styles.home} ${stateClass('header_opened', 'header_expanded')}`}>
+    <header
+      className={`${styles.entire} ${pathname === '/' && styles.home} ${stateClass(
+        'header_opened',
+        'header_expanded',
+      )}`}
+    >
       <div
         {...swipeOptions}
         className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper}`}
@@ -36,7 +41,7 @@ function Header() {
       <button
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
-          if (window.innerWidth > 820) _isClosing(950);
+          if (window.innerWidth > 820) _isClosing(true, 950);
           _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
         }}
       >

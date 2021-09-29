@@ -1,4 +1,3 @@
-import { Fragment as _ } from 'react';
 import styles from '../assets/scss/components/Paragraph.module.scss';
 
 interface PropsType {
