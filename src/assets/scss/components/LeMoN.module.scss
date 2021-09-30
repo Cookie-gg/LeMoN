@@ -9,6 +9,7 @@
   user-select: none;
   width: 0px;
   z-index: 4;
+  opacity: 0;
 
   @include max(padding-right, #{380px}, 380px);
 
@@ -55,9 +56,10 @@
     top: 0;
     width: 100%;
   }
-  #{$mount} & {
+  &.mounted {
     padding-right: 0;
-    transition: all $common_anmt entry_order(2);
+    opacity: 1;
+    transition: opacity 0s, width $common_anmt entry_order(2), padding-right $common_anmt entry_order(2);
 
     @include max(width, #{380px}, 380px);
 

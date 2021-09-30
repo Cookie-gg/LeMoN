@@ -6,7 +6,7 @@ function Home() {
     <>
       <HeadMeta title="Home" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Home`} />
       <LeMoN />
-      <PhraseTypo />
+      {/* <PhraseTypo /> */}
     </>
   );
 }

@@ -82,7 +82,7 @@
             @include max(margin-top, #{5px}, 5px);
             span {
               &:first-of-type::before {
-                content: 'Topic: ';
+                content: 'Topics: ';
               }
               &:not(:first-of-type)::before {
                 content: ',';
@@ -114,7 +114,7 @@
         }
       }
 
-      @media screen and (max-width: 1300px) {
+      @media screen and (max-width: 1200px) {
         width: 100%;
       }
 
@@ -274,16 +274,16 @@
   &.vertical {
     justify-content: space-between;
     li:not([class*='ArticleTopics_body'] li) {
-      @media screen and (max-width: 1300px) {
+      @media screen and (max-width: 1200px) {
         @include diff(width, 40px, 20px, $add_term: '/ 2');
       }
     }
   }
   &.slider {
     li:not([class*='ArticleTopics_body'] li) {
-      @media screen and (max-width: 1300px) {
+      @media screen and (max-width: 1200px) {
         @include diff(width, 80px, $add_term: '/ 3');
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 900px) {
           @include diff(width, 40px, 20px, $add_term: '/ 2');
           &:first-of-type {
             width: 100%;
@@ -315,9 +315,9 @@
 
       @include diff(width, (40 / 3) + 0px, $add_term: '/ 4 * 3');
 
-      @media screen and (max-width: 1300px) {
+      @media screen and (max-width: 1200px) {
         @include diff(width, (40 / 2) + 0px, $add_term: '/ 3 * 2');
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 900px) {
           width: 100%;
         }
       }

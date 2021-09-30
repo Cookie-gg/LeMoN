@@ -44,18 +44,16 @@
 
         @include max(font-size, #{19px}, 19px);
       }
-      @media screen and (max-width: 1300px) {
-        @media screen and (max-width: 1000px) {
-          justify-content: flex-start;
+      @media screen and (max-width: 900px) {
+        justify-content: flex-start;
 
-          @include max(height, #{55px}, 55px);
+        @include max(height, #{55px}, 55px);
 
-          .icon {
-            @include max(font-size, #{30px}, 30px);
-          }
-          h2 {
-            @include max(margin-left, #{30px}, 30px);
-          }
+        .icon {
+          @include max(font-size, #{30px}, 30px);
+        }
+        h2 {
+          @include max(margin-left, #{30px}, 30px);
         }
       }
     }
