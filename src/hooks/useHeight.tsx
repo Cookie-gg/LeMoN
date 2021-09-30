@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, RefObject } from 'react';
 import { useRouter } from 'utils/next';
 
 export default function useHeight<T extends HTMLElement>(init = 0, isInteractive = true): [number, RefObject<T>] {
-  const router = useRouter();
+  const query = (useRouter().query as { id: string[] }).id[0];
   const ref = useRef<T>(null);
   const [height, _height] = useState(init);
   useEffect(() => {
@@ -12,6 +12,6 @@ export default function useHeight<T extends HTMLElement>(init = 0, isInteractive
       el.addEventListener('transitionrun', () => _height(el.clientHeight as number));
       return (): void => el.removeEventListener('transitionrun', () => _height(el.clientHeight as number));
     }
-  }, [router.asPath, isInteractive]);
+  }, [query, isInteractive]);
   return [height, ref];
 }

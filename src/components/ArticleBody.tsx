@@ -57,4 +57,4 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
   );
 }
 
-export default memo(ArticleBody);
+export default memo(ArticleBody, (prev, next) => prev.body === next.body);

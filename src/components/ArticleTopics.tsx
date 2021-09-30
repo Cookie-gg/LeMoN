@@ -21,7 +21,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
       <ul className={styles.body}>
         {topics.map((value: string, i: number) => (
           <li
-            key={i}
+            key={value}
             className={`${activeNumber === i && styles.active}`}
             onClick={() => !inArticle && (clickEvent as (n: number) => void)(i)}
           >
@@ -78,4 +78,4 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
   );
 }
 
-export default memo(ArticleTopics, (prev, next) => prev.activeNumber === next.activeNumber);
+export default memo(ArticleTopics);

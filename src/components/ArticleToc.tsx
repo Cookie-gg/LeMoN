@@ -22,12 +22,12 @@ interface PropsType {
 function ArticleToc({ meta, activeSection, _activeSection, headings, className }: PropsType) {
   const paddingTop = 30 + 11 + 110;
   const paddingBottom = 30 + 11 + 30;
-  const initTransition = useFirstPeriod(0);
-  const tocRef = useRef<HTMLDivElement>(null);
+  const initTransition = useFirstPeriod(0); //
+  const tocRef = useRef<HTMLDivElement>(null); //
   const [isOpened, _isOpened] = useState(false);
-  const [height, _height] = useHeight<HTMLDivElement>();
-  const window = useWindowDimensions() as { width: number; height: number };
-  const isIntersecting = useIntersect(
+  const [height, _height] = useHeight<HTMLDivElement>(); //
+  const window = useWindowDimensions() as { width: number; height: number }; //
+  const isIntersecting = useIntersect( //
     tocRef.current,
     `0px  -71px -${
       window.height -
@@ -115,11 +115,9 @@ function ArticleToc({ meta, activeSection, _activeSection, headings, className }
             }}
           >
             {headings.map((heading, i) => (
-              <Link href={`#${encodeURI(heading.text)}`} key={i}>
+              <Link href={`#${encodeURI(heading.text)}`} key={heading.text}>
                 <li
-                  className={`${activeSection === i && styles.active} ${
-                    heading.level === 1 ? styles._1 : styles._2
-                  }`}
+                  className={`${activeSection === i && styles.active} ${heading.level === 1 ? styles._1 : styles._2}`}
                   onClick={() => _activeSection(i)}
                 >
                   {heading.text}
