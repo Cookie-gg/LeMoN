@@ -29,7 +29,7 @@
       box-sizing: border-box;
       display: flex;
       font-family: $jp_font;
-      padding: 25px;
+      padding: 25px 20px;
       position: sticky;
       top: 0;
       width: 100%;
@@ -64,7 +64,7 @@
         margin-right: 15px;
       }
       .title {
-        font-size: 16px;
+        font-size: 17.5px;
         font-weight: 500;
         line-height: 1.8;
       }
@@ -212,9 +212,9 @@
     }
 
     .title {
-      font-weight: 600;
+      font-weight: 500;
 
-      @include max(font-size, #{18px}, $width: $res);
+      @include max(font-size, #{17.5px}, $width: $res);
 
       @include max(position, $sp_value: absolute, $width: $res);
 
@@ -254,6 +254,9 @@
       }
     }
     .body {
+      display: flex;
+      flex-direction: column;
+
       @include max(margin-top, 20px, $width: $res);
 
       @include max(background-color, $sp_value: #313131, $width: $res);
@@ -275,6 +278,8 @@
       @include max(border-left, $sp_value: solid rgba(white, 0.4), $width: $res);
 
       @include max(transform, $sp_value: translateX(45px), $width: $res);
+
+      @include max(row-gap, #{10px}, 10px);
 
       @media screen and (max-width: $res) {
         @include max(border-left-width, #{5px}, 5px);
@@ -302,39 +307,34 @@
         color: rgba(white, 0.6);
         cursor: pointer;
         display: flex;
+        line-height: 1.4;
         position: relative;
         transition: color $common_anmt;
         user-select: none;
         width: 100%;
 
-        &.heading_1 {
+        &._1 {
           font-weight: 500;
 
           @include max(font-size, #{16px}, 18px);
 
           &::before {
-            @include max(margin-top, #{2px}, 2px);
-
             @include max(margin-right, #{10px}, 10px);
           }
         }
-        &.heading_2 {
+        &._2 {
           font-weight: 400;
 
-          @include max(font-size, #{13px}, 15px);
+          @include max(font-size, #{14px}, 16px);
 
           &::before {
-            @include max(height, #{7px}, 9px);
+            @include max(margin-left, #{2px}, 2px);
 
-            @include max(margin-top, #{2px}, 2px);
+            @include max(margin-right, #{12px}, 12px);
 
-            @include max(margin-right, #{11px}, 11px);
+            @include max(height, #{9px}, 9px);
 
-            @include max(margin-left, #{1px}, 2px);
-
-            @include max(margin-bottom, #{1.5px}, 1.5px);
-
-            @include max(width, #{7px}, 9px);
+            @include max(width, #{9px}, 9px);
           }
         }
         &::before {
@@ -343,28 +343,24 @@
           content: '';
           display: block;
           transform: rotate(-45deg);
-          transition: background-color $common_anmt, border $common_anmt;
+          transition: all ease-in-out 0.3s;
           z-index: 1;
 
-          @include max(width, #{10px}, 12px);
+          @include max(margin-top, #{2px}, 2px);
 
-          @include max(height, #{10px}, 12px);
+          @include max(width, #{13px}, 13px);
+
+          @include max(height, #{13px}, 13px);
         }
-        &:not(:first-of-type) {
-          margin-top: 10px;
-          &::after {
-            background-color: #6f6f6f;
-            bottom: 50%;
-            content: '';
-            position: absolute;
-            z-index: 0;
-
-            @include max(left, #{4px}, 6px);
-
-            @include max(width, #{1px}, 1px);
-
-            @include max(height, #{30px}, 160%);
-          }
+        &:not(:first-of-type)::after {
+          background-color: #6f6f6f;
+          content: '';
+          height: 100%;
+          position: absolute;
+          width: 1px;
+          bottom: 50%;
+          @include max(left, #{5.6px}, 5.6px);
+          height: 150%;
         }
         &.active {
           color: white;
@@ -373,6 +369,8 @@
             background-clip: content-box;
             background-color: $lemon;
             border: solid rgba($lemon, 0.5);
+
+            @include max(padding, #{0.5px}, 0.5px);
 
             @include max(border-width, #{2px}, 2px);
           }

@@ -29,7 +29,7 @@ function ArticleToc({ meta, activeSection, _activeSection, headings, className }
   const window = useWindowDimensions() as { width: number; height: number };
   const isIntersecting = useIntersect(
     tocRef.current,
-    `0px 0px -${
+    `0px  -71px -${
       window.height -
       (window.width < 820
         ? window.width < 500
@@ -118,7 +118,7 @@ function ArticleToc({ meta, activeSection, _activeSection, headings, className }
               <Link href={`#${encodeURI(heading.text)}`} key={i}>
                 <li
                   className={`${activeSection === i && styles.active} ${
-                    heading.level === 1 ? styles.heading_1 : styles.heading_2
+                    heading.level === 1 ? styles._1 : styles._2
                   }`}
                   onClick={() => _activeSection(i)}
                 >
