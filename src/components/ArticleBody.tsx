@@ -14,8 +14,8 @@ interface PropsType {
 function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const scroller = useContext(ScrollerContext);
-  const window = useWindowDimensions() as { width: number; height: number };
   const query = (useRouter().query as { id: string[] }).id[0];
+  const window = useWindowDimensions() as { width: number; height: number };
   useEffect(() => {
     const el = ref.current;
     if (headingTexts && el && window.height && window.width) {
@@ -50,4 +50,4 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
   );
 }
 
-export default memo(ArticleBody, (prev, next) => prev.body === next.body);
+export default memo(ArticleBody, (prev, next) => prev.body === next.body && prev.children === next.children);
