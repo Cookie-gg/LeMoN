@@ -15,10 +15,11 @@ interface PropsType {
     text: string;
   }[];
   activeSection: number;
+  _activeSection: (n: number) => void;
   className?: string;
 }
 
-function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
+function ArticleToc({ meta, activeSection, _activeSection, headings, className }: PropsType) {
   const paddingTop = 30 + 11 + 110;
   const paddingBottom = 30 + 11 + 30;
   const initTransition = useFirstPeriod(0);
@@ -119,6 +120,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
                   className={`${activeSection === i && styles.active} ${
                     heading.level === 1 ? styles.heading_1 : styles.heading_2
                   }`}
+                  onClick={() => _activeSection(i)}
                 >
                   {heading.text}
                 </li>
