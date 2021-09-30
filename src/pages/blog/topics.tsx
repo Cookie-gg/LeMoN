@@ -24,7 +24,7 @@ export default function Topics({ data, error }: { data: DataType; error?: string
     swipeToSlide: true,
     responsive: [
       {
-        breakpoint: 1300,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 2,
         },

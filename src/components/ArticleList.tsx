@@ -46,7 +46,7 @@ function ArticleList({
               <time>{displayDate(new Date(value.releaseDate))}</time>
               <p>
                 {value.topics.specifor(
-                  horizontal ? 5 : 2,
+                  horizontal ? 3 : 2,
                   (topic: string) => topic && <span key={topic}>{topic}</span>,
                 )}
               </p>

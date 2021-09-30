@@ -1,15 +1,16 @@
 import { Router, useRouter } from 'utils/next';
 import memoryCache, { CacheClass } from 'memory-cache';
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { createContext, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
 
 export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache();
+
+export const ScrollerContext = createContext<RefObject<HTMLDivElement> | null>(null);
 
 export default function PageFrame({ children, classNmae }: { children: ReactElement; classNmae?: string }) {
   const router = useRouter();
   const [scrollTop, _scrollTop] = useState(0);
   const scroller = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const getScrollTop = () => scroller.current && _scrollTop(scroller.current.scrollTop);
     const setScrollTop = () =>
@@ -26,8 +27,10 @@ export default function PageFrame({ children, classNmae }: { children: ReactElem
   }, [router, scrollTop]);
 
   return (
-    <div className={styles.entire} ref={scroller}>
-      <div className={`${styles.inner} ${classNmae}`}>{children}</div>
-    </div>
+    <ScrollerContext.Provider value={scroller}>
+      <div className={styles.entire} ref={scroller}>
+        <div className={`${styles.inner} ${classNmae}`}>{children}</div>
+      </div>
+    </ScrollerContext.Provider>
   );
 }
