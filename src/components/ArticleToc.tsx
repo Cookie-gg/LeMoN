@@ -1,9 +1,10 @@
 import { Link } from 'utils/next';
-import { memo, MouseEvent, useRef, useState } from 'react';
+import { memo, MouseEvent, useContext, useRef, useState } from 'react';
 import { Twemoji } from 'react-emoji-render';
 import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
 import { useSwipeable } from 'react-swipeable';
+import { ScrollerContext } from './PageFrame';
 
 interface PropsType {
   meta: {
@@ -15,31 +16,19 @@ interface PropsType {
     text: string;
   }[];
   activeSection: number;
-  _activeSection: (n: number) => void;
   className?: string;
 }
 
-function ArticleToc({ meta, activeSection, _activeSection, headings, className }: PropsType) {
+function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const paddingTop = 30 + 11 + 110;
   const paddingBottom = 30 + 11 + 30;
-  const initTransition = useFirstPeriod(0); //
-  const tocRef = useRef<HTMLDivElement>(null); //
+  const initTransition = useFirstPeriod(0);
+  const tocRef = useRef<HTMLDivElement>(null);
   const [isOpened, _isOpened] = useState(false);
-  const [height, _height] = useHeight<HTMLDivElement>(); //
-  const window = useWindowDimensions() as { width: number; height: number }; //
-  const isIntersecting = useIntersect( //
-    tocRef.current,
-    `0px  -71px -${
-      window.height -
-      (window.width < 820
-        ? window.width < 500
-          ? window.width < 400
-            ? 20 + 75 - 20
-            : 20 + 75 - 10
-          : 20 + 75
-        : 30 + 11 + 110)
-    }px`,
-  );
+  const [height, _height] = useHeight<HTMLDivElement>();
+  const window = useWindowDimensions() as { width: number; height: number };
+  const scroller = useContext(ScrollerContext);
+  const isIntersecting = useIntersect(scroller?.current, tocRef.current, `0px 0px -100%`);
   const [cursorY, _cursorY] = useState(0);
   const swipeOptions = useSwipeable({
     onSwipedRight: () => _isOpened(false),
@@ -118,7 +107,6 @@ function ArticleToc({ meta, activeSection, _activeSection, headings, className }
               <Link href={`#${encodeURI(heading.text)}`} key={heading.text}>
                 <li
                   className={`${activeSection === i && styles.active} ${heading.level === 1 ? styles._1 : styles._2}`}
-                  onClick={() => _activeSection(i)}
                 >
                   {heading.text}
                 </li>

@@ -74,6 +74,7 @@ $code_font: 'Source Code Pro', monospace;
       display: block;
       height: 10px;
       margin-top: -10px;
+      pointer-events: none;
       @media screen and (max-width: $res) {
         @include max(height, #{60px}, 60px);
 
@@ -101,7 +102,7 @@ $code_font: 'Source Code Pro', monospace;
     @include max(font-size, #{18px}, 16px);
 
     @include max(margin-top, #{20px}, 20px);
-    
+
     code {
       vertical-align: text-bottom;
 
@@ -171,7 +172,6 @@ $code_font: 'Source Code Pro', monospace;
               text-decoration-color: rgba($lemon, 0.9);
               text-decoration-thickness: 1px;
             }
-
           }
         }
       }

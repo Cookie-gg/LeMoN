@@ -71,7 +71,6 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
                 <ArticleToc
                   meta={{ title: data.title, emoji: data.emoji }}
                   activeSection={activeSection}
-                  _activeSection={(n: number) => _activeSection(n)}
                   headings={data.headings}
                 />
               </ArticleBody>
@@ -91,7 +90,6 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
                 activeSection={activeSection}
                 headings={data.headings}
                 className={pages.toc}
-                _activeSection={(n: number) => _activeSection(n)}
               />
             </aside>
           </div>

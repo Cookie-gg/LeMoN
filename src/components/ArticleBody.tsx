@@ -1,7 +1,8 @@
 import { useWindowDimensions } from 'hooks';
-import { memo, ReactElement, useEffect, useRef } from 'react';
+import { memo, ReactElement, useContext, useEffect, useRef } from 'react';
 import { useRouter } from 'utils/next';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
+import { ScrollerContext } from './PageFrame';
 
 interface PropsType {
   body: string;
@@ -12,6 +13,7 @@ interface PropsType {
 
 function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
+  const scroller = useContext(ScrollerContext);
   const window = useWindowDimensions() as { width: number; height: number };
   const query = (useRouter().query as { id: string[] }).id[0];
   useEffect(() => {
@@ -20,22 +22,13 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(
-            (el) =>
-              el.isIntersecting &&
-              headingTexts.forEach((text, i) => text === el.target.textContent && _activeSection(i)),
+            (entry) =>
+              entry.isIntersecting &&
+              headingTexts.forEach((text, i) => text === entry.target.textContent && _activeSection(i)),
           ),
         {
-          root: null, // document
-          rootMargin: `0px -71px -${
-            window.height -
-            (window.width < 820
-              ? window.width < 500
-                ? window.width < 400
-                  ? 20 + 75 - 20
-                  : 20 + 75 - 10
-                : 20 + 75
-              : 30 + 11 + 110)
-          }px`,
+          root: scroller?.current,
+          rootMargin: `0px 0px -95%`,
           threshold: 0,
         },
       );
@@ -45,7 +38,7 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
         observer.disconnect();
       };
     }
-  }, [query, window, headingTexts, _activeSection]);
+  }, [query, window, headingTexts, _activeSection, scroller]);
 
   return window.width < 1200 ? (
     <div className={styles.wrapper}>
