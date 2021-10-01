@@ -63,9 +63,10 @@
 
       @include max(margin-top, #{25px}, 25px);
 
-      @include max(font-size, #{14px}, 18px);
+      @include max(font-size, #{14px}, 16px);
       span {
         color: rgba(red, 0.9);
+        font-weight: 400;
         vertical-align: top;
         @include max(font-size, #{22px}, 22px);
       }
