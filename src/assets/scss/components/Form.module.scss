@@ -37,10 +37,10 @@
   .inner {
     grid-area: 1/-1;
     opacity: 0;
-    width: 100%;
-    visibility: hidden;
-    z-index: 0;
     position: relative;
+    visibility: hidden;
+    width: 100%;
+    z-index: 0;
 
     label {
       display: inline-block;
@@ -51,6 +51,23 @@
 
       &:not(:first-of-type) {
         @include max(margin-top, #{35px}, 35px);
+      }
+      &.required::after {
+        color: rgba(red, 0.9);
+        content: '*';
+        @include max(margin-left, #{5px}, 5px);
+      }
+    }
+    .caution {
+      color: rgba(red, 0.9);
+
+      @include max(margin-top, #{25px}, 25px);
+
+      @include max(font-size, #{14px}, 18px);
+      span {
+        color: rgba(red, 0.9);
+        vertical-align: top;
+        @include max(font-size, #{22px}, 22px);
       }
     }
     .text {
@@ -121,7 +138,7 @@
       overflow: hidden;
       position: relative;
 
-      @include max(margin-top, #{35px}, 35px);
+      @include max(margin-top, #{15px}, 15px);
 
       input {
         background-color: transparent;
@@ -182,10 +199,10 @@
   & > *:not(.inner) {
     grid-area: 1/-1;
     opacity: 0;
+    position: relative;
     visibility: hidden;
     z-index: 0;
-    position: relative;
-    
+
     &.sending {
       @include max(font-size, #{40px}, 40px);
     }
