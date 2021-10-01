@@ -65,9 +65,8 @@ function Form({ className }: { className: string }) {
           formState === 'yet' ? styles.visible : formState === 'init' ? styles.init : styles.hidden
         }`}
       >
-        <label htmlFor="name">
+        <label htmlFor="name" className={`${data.name.required && styles.required}`}>
           {data.name.label}
-          {data.name.required && '*'}
         </label>
         <div className={styles.text}>
           <input
@@ -80,9 +79,8 @@ function Form({ className }: { className: string }) {
           />
           <span className={styles.triangle}></span>
         </div>
-        <label htmlFor="email">
+        <label htmlFor="email" className={`${data.email.required && styles.required}`}>
           {data.email.label}
-          {data.email.required && '*'}
         </label>
         <div className={styles.text}>
           <input
@@ -95,9 +93,8 @@ function Form({ className }: { className: string }) {
           />
           <span className={styles.triangle}></span>
         </div>
-        <label htmlFor="subject">
+        <label htmlFor="subject" className={`${data.subject.required && styles.required}`}>
           {data.subject.label}
-          {data.subject.required && '*'}
         </label>
         <div className={styles.text}>
           <input
@@ -110,7 +107,7 @@ function Form({ className }: { className: string }) {
           />
           <span className={styles.triangle}></span>
         </div>
-        <label htmlFor="message">
+        <label htmlFor="message" className={`${data.message.required && styles.required}`}>
           {data.message.label}
           {data.message.required && '*'}
         </label>
@@ -123,6 +120,9 @@ function Form({ className }: { className: string }) {
             required
           />
           <span className={styles.triangle}></span>
+        </div>
+        <div className={styles.caution}>
+          ※「<span>*</span>」が付いている項目は入力必須です。
         </div>
         <div className={styles.submit}>
           <input type="submit" value="Send" onClick={(e) => submit(e)} />
