@@ -14,7 +14,7 @@
       &::before {
         @include max(width, 100%, 125%);
 
-        @include max(transform, translate(-33.5%, -50%) skewX(-30deg), translate(-45%, -50%) skewX(-30deg));
+        @include max(transform, translate(-33%, -50%) skewX(-30deg), translate(-45%, -50%) skewX(-30deg));
       }
     }
     .text_wrapper {

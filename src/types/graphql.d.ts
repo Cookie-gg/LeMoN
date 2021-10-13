@@ -18,6 +18,7 @@ export type Scalars = {
 
 export type ArticleInput = {
   articleId: Scalars['String'];
+  published: Scalars['Boolean'];
   releaseDate: Scalars['Timestamp'];
   updateDate: Scalars['Timestamp'];
   title: Scalars['String'];
@@ -31,6 +32,7 @@ export type ArticleObject = {
   __typename?: 'ArticleObject';
   id: Scalars['ID'];
   articleId: Scalars['String'];
+  published: Scalars['Boolean'];
   releaseDate: Scalars['Timestamp'];
   updateDate: Scalars['Timestamp'];
   title: Scalars['String'];
@@ -303,7 +305,7 @@ export type AboutQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'T
 export type BlogQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, latest: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, all: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string }>, someArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type BlogQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, latest: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, all: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean }>, someArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
 export type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -313,17 +315,17 @@ export type ContactQuery = { __typename?: 'Query', titles: Array<{ __typename?: 
 export type PostQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, updateDate: any, title: string, emoji: string, body: string, topicIcons: Array<{ __typename?: 'TopicObject', icon: string, displayName: string }>, typeIcon: { __typename?: 'TopicObject', icon: string, displayName: string }, relations: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type PostQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, allArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, updateDate: any, title: string, emoji: string, body: string, topicIcons: Array<{ __typename?: 'TopicObject', icon: string, displayName: string }>, typeIcon: { __typename?: 'TopicObject', icon: string, displayName: string }, relations: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
 export type PostIdQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostIdQuery = { __typename?: 'Query', articleId: Array<{ __typename?: 'ArticleObject', id: string }> };
+export type PostIdQuery = { __typename?: 'Query', articleId: Array<{ __typename?: 'ArticleObject', articleId: string }> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TopicsQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type TopicsQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
 
 export const AboutDocument = gql`
@@ -400,7 +402,8 @@ export const BlogDocument = gql`
     section
   }
   latest: findArticles(latest: true) {
-    id
+    articleId
+    published
     releaseDate
     title
     emoji
@@ -410,7 +413,8 @@ export const BlogDocument = gql`
     }
   }
   all: findArticles(latest: false) {
-    id
+    articleId
+    published
     releaseDate
     title
     emoji
@@ -423,10 +427,12 @@ export const BlogDocument = gql`
     displayName
     icon
     allArticles {
-      id
+      articleId
+      published
     }
     someArticles {
-      id
+      articleId
+      published
       releaseDate
       title
       emoji
@@ -510,7 +516,8 @@ export const PostDocument = gql`
     section
   }
   allArticles: findAllArticles {
-    id
+    articleId
+    published
     releaseDate
     updateDate
     title
@@ -525,7 +532,8 @@ export const PostDocument = gql`
     }
     body
     relations {
-      id
+      articleId
+      published
       releaseDate
       title
       emoji
@@ -567,7 +575,7 @@ export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
 export const PostIdDocument = gql`
     query PostId {
   articleId: findAllArticles {
-    id
+    articleId
   }
 }
     `;
@@ -608,7 +616,8 @@ export const TopicsDocument = gql`
     displayName
     icon
     allArticles {
-      id
+      articleId
+      published
       releaseDate
       title
       emoji

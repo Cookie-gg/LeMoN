@@ -1,0 +1,47 @@
+.state {
+  grid-area: 1/-1;
+  opacity: 0;
+  position: relative;
+  visibility: hidden;
+  z-index: 0;
+
+  &.sending {
+    @include max(font-size, #{40px}, 40px);
+  }
+  &.error,
+  &.complete {
+    font-family: $jp_font;
+    font-weight: 300;
+    line-height: 1.8;
+    text-align: center;
+
+    @include media(mobile) {
+      font-weight: 400;
+    }
+
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    @include max(font-size, #{16px}, 18px);
+
+    & > a {
+      @include hover(both) {
+        text-decoration: underline;
+        text-decoration-color: rgba(white, 0.5);
+        text-decoration-thickness: 1px;
+      }
+    }
+    .button {
+      @include max(margin-top, #{20px}, 20px);
+    }
+  }
+  &.visible {
+    opacity: 1;
+    transition: all $common_anmt order(2);
+    visibility: visible;
+  }
+  &.hidden {
+    opacity: 0;
+    transition: all $common_anmt order(1);
+    visibility: hidden;
+  }
+}

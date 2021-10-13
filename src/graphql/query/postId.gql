@@ -1,5 +1,5 @@
 query PostId {
   articleId: findAllArticles {
-    id
+    articleId
   }
 }

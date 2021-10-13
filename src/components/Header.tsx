@@ -1,9 +1,9 @@
 import { usePeriod } from 'hooks';
 import { Nlink } from 'components';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'utils/next';
-import { Icon as Iconify } from '@iconify/react';
 import { useSwipeable } from 'react-swipeable';
+import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/Header.module.scss';
 
 function Header() {
@@ -26,6 +26,12 @@ function Header() {
     onSwipedRight: () => _headerState((prev) => (prev === 'close' ? 'open' : 'expand')),
     onSwipedLeft: () => _headerState((prev) => (prev === 'expand' ? 'open' : 'close')),
   });
+  useEffect(() => {
+    pathname !== '/' &&
+      !(window.innerWidth < 820) &&
+      sessionStorage.getItem('header_state') &&
+      _headerState(sessionStorage.getItem('header_state') as 'close' | 'open' | 'expand');
+  }, [pathname]);
   return (
     <header
       className={`${styles.entire} ${pathname === '/' && styles.home} ${stateClass(
@@ -41,8 +47,12 @@ function Header() {
       <button
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
-          if (window.innerWidth > 820) _isClosing(true, 950);
-          _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
+          _isClosing(true, 950);
+          _headerState((prev) => {
+            window.innerWidth > 820 &&
+              sessionStorage.setItem('header_state', prev === 'open' || prev === 'expand' ? 'close' : 'open');
+            return prev === 'open' || prev === 'expand' ? 'close' : 'open';
+          });
         }}
       >
         <span className="pc"></span>

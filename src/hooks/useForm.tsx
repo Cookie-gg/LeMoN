@@ -1,7 +1,15 @@
 import { encodeImg } from 'utils/common';
-import { useReducer, ChangeEvent } from 'react';
+import { useReducer, ChangeEvent, Dispatch } from 'react';
 
-function useForm<T>(initialState: T): [T, (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => Promise<void>] { // 呼び出し側の型に依存
+function useForm<T>(
+  initialState: T,
+): [
+  T,
+  (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => Promise<void>,
+  Dispatch<{ name: string; value: string }>,
+  () => void,
+] {
+  // 呼び出し側の型に依存
   function reducer(currents: T, updates: { name: string; value: string }): T {
     return { ...currents, ...{ [updates.name]: updates.value } };
   }
@@ -16,6 +24,7 @@ function useForm<T>(initialState: T): [T, (e: ChangeEvent<HTMLInputElement | HTM
       dispatch({ name, value });
     }
   }
-  return [state, asyncReducer];
+  const reset = () => Object.keys(state).forEach((value) => dispatch({ name: value, value: '' }));
+  return [state, asyncReducer, dispatch, reset];
 }
 export default useForm;

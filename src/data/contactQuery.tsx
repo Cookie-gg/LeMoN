@@ -1,27 +1,26 @@
 import { section } from 'utils/common';
-import { client } from 'graphql/config.gql';
-import { ApolloError } from '@apollo/client';
+import { client } from 'graphql/query/config.gql';
 import { ContactDocument, ContactQuery } from 'types/graphql.d';
 
-export interface DataType {
+export interface ContactQueryType {
   form: {
     title: string;
     addressDelivery: string;
   };
 }
 
-export default async function contactQuery(): Promise<{ data: DataType | undefined; error: ApolloError | undefined }> {
+export default async function contactQuery(): Promise<ContactQueryType> {
   const { data, error } = await client.query<ContactQuery>({ query: ContactDocument });
   if (data) {
     const titles = section(data.titles);
-    const shapedData: DataType = {
+    const shapedData: ContactQueryType = {
       form: {
         title: titles.form.text,
         addressDelivery: data.adressDelivery.data,
       },
     };
-    return { data: shapedData, error: undefined };
+    return shapedData;
   } else {
-    return { data: undefined, error };
+    throw new Error(`error message: ${error}`);
   }
 }

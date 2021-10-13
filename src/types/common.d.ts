@@ -13,6 +13,7 @@ export type CMSTypes<T> = T extends 'get' ? GetCMS : PostCMS;
 
 export interface Zenn {
   id: string;
+  published: boolean;
   releaseDate: Date;
   title: string;
   emoji: string;
@@ -33,3 +34,4 @@ export interface ZennAdds {
     title: string;
   };
 }
+

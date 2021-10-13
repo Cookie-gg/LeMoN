@@ -11,5 +11,4 @@
     "**/next-env.d.ts": true,
     "**/node_modules": true
   },
-  "parameterHints.enabled": false
 }

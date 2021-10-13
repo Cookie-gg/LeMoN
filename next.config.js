@@ -13,9 +13,6 @@ const nextConfig = {
       @import '../foundations/colors.scss';
       @import '../foundations/variables.scss';`,
   },
-  // experimental: {
-  //   scrollRestoration: true
-  // },
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',

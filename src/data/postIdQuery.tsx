@@ -1,26 +1,22 @@
-import { client } from 'graphql/config.gql';
-import { ApolloError } from '@apollo/client';
+import { client } from 'graphql/query/config.gql';
 import { PostDocument, PostQuery } from 'types/graphql.d';
 
-interface DataType {
+interface PostIdQueryType {
   allArticles: {
     id: string[];
   }[];
 }
 
-export default async function postIdQuery(): Promise<{
-  data: DataType | undefined;
-  error: ApolloError | undefined;
-}> {
+export default async function postIdQuery(): Promise<PostIdQueryType> {
   const { data, error } = await client.query<PostQuery>({ query: PostDocument });
   if (data) {
-    const shapedData: DataType = {
+    const shapedData: PostIdQueryType = {
       allArticles: data.allArticles.map((obj) => ({
-        id: [obj.id],
+        id: [obj.articleId],
       })),
     };
-    return { data: shapedData, error };
+    return shapedData;
   } else {
-    return { data: undefined, error };
+    throw new Error(`error message ${error}`);
   }
 }

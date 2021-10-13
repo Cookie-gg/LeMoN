@@ -2,10 +2,10 @@ import { Base64 } from 'js-base64';
 import { github, GithubTypes } from './config.github';
 
 export async function createFile(
-  owener = 'Cookie-gg',
-  repo = 'zenn-content',
   path: string,
   message: string,
+  owener = 'Cookie-gg',
+  repo = 'zenn-content',
   data: {
     title: string;
     emoji: string;
@@ -34,10 +34,10 @@ export async function createFile(
 }
 
 export async function updateFile(
-  owener = 'Cookie-gg',
-  repo = 'zenn-content',
   path: string,
   message: string,
+  owener = 'Cookie-gg',
+  repo = 'zenn-content',
   data: {
     title: string;
     emoji: string;
@@ -77,10 +77,10 @@ export async function updateFile(
 }
 
 export async function deleteFile(
-  owener = 'Cookie-gg',
-  repo = 'zenn-content',
   path: string,
   message: string,
+  owener = 'Cookie-gg',
+  repo = 'zenn-content',
   data: {
     title: string;
     emoji: string;

@@ -1,0 +1,57 @@
+.entire {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+
+  .form {
+    label:first-of-type {
+      @include max(margin-top, #{25px}, 25px);
+    }
+    input[type='button'] {
+      @include max(margin-top, #{27.5px}, 27.5px);
+    }
+    .logo {
+      margin-left: -4%;
+      width: 90px;
+    }
+    h1 {
+      display: grid;
+      font-style: italic;
+      font-weight: 700;
+      overflow: hidden;
+      place-items: center;
+      position: relative;
+      width: 100%;
+      @include max(font-size, #{60px}, 60px);
+
+      @include max(margin-top, #{25px}, 25px);
+
+      span {
+        transform: translateY(-4.5%);
+      }
+    }
+    .divider {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+
+      @include max(margin-top, #{25px}, 25px);
+
+      @include max(font-size, #{20px}, 20px);
+
+      &::before,
+      &::after {
+        background-color: rgba(white, 0.25);
+        content: '';
+        display: block;
+        height: 1px;
+        position: relative;
+        width: 150px;
+      }
+    }
+  }
+}

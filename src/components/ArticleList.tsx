@@ -32,30 +32,34 @@ function ArticleList({
   slider,
   settings,
 }: PropsType) {
-  const listBody = data.specifor(display, (value: Zenn) => (
-    <li key={value.id}>
-      <Nlink href="/blog/[...id]" as={`/blog/${value.id}`}>
-        <>
-          <div className={styles.thumbnail}>
-            {vertical && <span className={styles.type}>{value.type.toUpperCase()}</span>}
-            <Twemoji svg className={styles.emoji} text={value.emoji} options={{ protocol: 'https' }} />
-          </div>
-          <div className={styles.text_wrapper}>
-            <h2>{value.title}</h2>
-            <div>
-              <time>{displayDate(new Date(value.releaseDate))}</time>
-              <p>
-                {value.topics.specifor(
-                  horizontal ? 3 : 2,
-                  (topic: string) => topic && <span key={topic}>{topic}</span>,
-                )}
-              </p>
-            </div>
-          </div>
-        </>
-      </Nlink>
-    </li>
-  ));
+  const listBody = data.specifor(
+    display,
+    (value: Zenn) =>
+      (process.env.NODE_ENV === 'production' ? value.published : true) && (
+        <li key={value.id}>
+          <Nlink href="/blog/[...id]" as={`/blog/${value.id}`}>
+            <>
+              <div className={styles.thumbnail}>
+                {vertical && <span className={styles.type}>{value.type.toUpperCase()}</span>}
+                <Twemoji svg className={styles.emoji} text={value.emoji} options={{ protocol: 'https' }} />
+              </div>
+              <div className={styles.text_wrapper}>
+                <h2>{value.title}</h2>
+                <div>
+                  <time>{displayDate(new Date(value.releaseDate))}</time>
+                  <p>
+                    {value.topics.specifor(
+                      horizontal ? 3 : 2,
+                      (topic: string) => topic && <span key={topic}>{topic}</span>,
+                    )}
+                  </p>
+                </div>
+              </div>
+            </>
+          </Nlink>
+        </li>
+      ),
+  );
   return (
     <>
       <ul

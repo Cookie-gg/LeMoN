@@ -1,9 +1,8 @@
 import { list, section } from 'utils/common';
-import { client } from 'graphql/config.gql';
-import { ApolloError } from '@apollo/client';
+import { client } from 'graphql/query/config.gql';
 import { AboutDocument, AboutQuery } from 'types/graphql.d';
 
-export interface DataType {
+export interface AboutQueryType {
   profile: {
     title: string;
     introduction: string;
@@ -21,10 +20,7 @@ export interface DataType {
   }[];
 }
 
-export default async function aboutQuery(): Promise<{
-  data: DataType | undefined;
-  error: ApolloError | undefined;
-}> {
+export default async function aboutQuery(): Promise<AboutQueryType> {
   const { error, data } = await client.query<AboutQuery>({ query: AboutDocument });
   if (data) {
     const titles = section<string>(data.titles);
@@ -33,7 +29,7 @@ export default async function aboutQuery(): Promise<{
     const back = list(data.back);
     const others = list(data.others);
 
-    const shapedData: DataType = {
+    const shapedData: AboutQueryType = {
       profile: {
         title: titles.profile.text,
         introduction: sentences.profile.text[0],
@@ -87,9 +83,8 @@ export default async function aboutQuery(): Promise<{
         },
       ],
     };
-
-    return { data: shapedData, error };
+    return shapedData;
   } else {
-    return { data: undefined, error };
+    throw new Error(`error message: ${error}`);
   }
 }

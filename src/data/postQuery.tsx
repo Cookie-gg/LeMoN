@@ -1,25 +1,22 @@
-import { client } from 'graphql/config.gql';
-import { ApolloError } from '@apollo/client';
-import { Zenn, ZennAdds } from 'types/common';
-import { PostDocument, PostQuery } from 'types/graphql.d';
 import { section } from 'utils/common';
+import { Zenn, ZennAdds } from 'types/common';
+import { client } from 'graphql/query/config.gql';
+import { PostDocument, PostQuery } from 'types/graphql.d';
 
-interface DataType {
+interface PostQueryType {
   allArticles: (Zenn & ZennAdds)[];
 }
 
-export default async function postQuery(): Promise<{
-  data: DataType | undefined;
-  error: ApolloError | undefined;
-}> {
+export default async function postQuery(): Promise<PostQueryType> {
   const { data, error } = await client.query<PostQuery>({ query: PostDocument });
   if (data) {
     const titles = section<string>(data.titles);
-    const shapedData: DataType = {
+    const shapedData: PostQueryType = {
       allArticles: data.allArticles.map((obj) => {
         const headings = obj.body.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
         return {
-          id: obj.id,
+          id: obj.articleId,
+          published: obj.published,
           releaseDate: obj.releaseDate,
           updateDate: obj.updateDate,
           title: obj.title,
@@ -36,7 +33,8 @@ export default async function postQuery(): Promise<{
             : undefined,
           relations: {
             articles: obj.relations.map((obj) => ({
-              id: obj.id,
+              id: obj.articleId,
+              published: obj.published,
               releaseDate: obj.releaseDate,
               title: obj.title,
               emoji: obj.emoji,
@@ -48,8 +46,8 @@ export default async function postQuery(): Promise<{
         };
       }),
     };
-    return { data: shapedData, error };
+    return shapedData;
   } else {
-    return { data: undefined, error };
+    throw new Error(`error message ${error}`);
   }
 }

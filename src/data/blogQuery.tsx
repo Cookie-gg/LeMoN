@@ -1,10 +1,9 @@
 import { Zenn } from 'types/common';
 import { section } from 'utils/common';
-import { client } from 'graphql/config.gql';
-import { ApolloError } from '@apollo/client';
+import { client } from 'graphql/query/config.gql';
 import { BlogDocument, BlogQuery } from 'types/graphql.d';
 
-export interface DataType {
+export interface BlogQueryType {
   latest: {
     title: string;
     articles: Zenn[];
@@ -21,19 +20,17 @@ export interface DataType {
   };
 }
 
-export default async function blogQuery(): Promise<{
-  data: DataType | undefined;
-  error: ApolloError | undefined;
-}> {
+export default async function blogQuery(): Promise<BlogQueryType> {
   const { error, data } = await client.query<BlogQuery>({ query: BlogDocument });
   if (data) {
     const titles = section<string>(data.titles);
     const topTopics = data.topics.sortObj('allArticles', 'asc', true).slice(0, 3);
-    const shapedData: DataType = {
+    const shapedData: BlogQueryType = {
       latest: {
         title: titles.latest.text,
         articles: data.latest.map((obj) => ({
-          id: obj.id,
+          id: obj.articleId,
+          published: obj.published,
           releaseDate: obj.releaseDate,
           title: obj.title,
           emoji: obj.emoji,
@@ -47,7 +44,8 @@ export default async function blogQuery(): Promise<{
         icons: topTopics.map((obj) => obj.icon),
         articles: topTopics.map((obj) =>
           obj.someArticles.map((_obj) => ({
-            id: _obj.id,
+            id: _obj.articleId,
+            published: _obj.published,
             releaseDate: _obj.releaseDate,
             title: _obj.title,
             emoji: _obj.emoji,
@@ -59,7 +57,8 @@ export default async function blogQuery(): Promise<{
       all: {
         title: titles.all.text,
         articles: data.all.map((obj) => ({
-          id: obj.id,
+          id: obj.articleId,
+          published: obj.published,
           releaseDate: obj.releaseDate,
           title: obj.title,
           emoji: obj.emoji,
@@ -68,8 +67,8 @@ export default async function blogQuery(): Promise<{
         })),
       },
     };
-    return { data: shapedData, error };
+    return shapedData;
   } else {
-    return { data: undefined, error };
+    throw new Error(`error message: ${error}`);
   }
 }

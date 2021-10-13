@@ -1,0 +1,74 @@
+.entire {
+  align-items: flex-end;
+  display: flex;
+  width: 100%;
+  input,
+  textarea {
+    background-color: rgba($dark-gray, 0.6);
+    border-bottom: 1px solid $lemon;
+    box-sizing: border-box;
+    color: rgba(white, 0.9);
+    font-family: $jp_font;
+    font-weight: 400;
+    line-height: 1.4;
+    outline-color: transparent;
+    transition: all 0.1s;
+    width: 100%;
+
+    @include max(padding-top, #{6.5px}, 6.5px);
+
+    @include max(padding-right, #{25px}, 25px);
+
+    @include max(padding-bottom, #{7.5px}, 7.5px);
+
+    @include max(padding-left, #{7.5px}, 7.5px);
+
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    @include max(font-size, #{14px}, 16px);
+
+    &:-webkit-autofill {
+      animation-name: onAutoFillStart;
+      caret-color: white;
+      -webkit-text-fill-color: white !important;
+      transition: background-color 0s;
+      transition-delay: 10000s;
+    }
+    &:focus + .triangle::before {
+      @include max(height, #{34px}, 34px);
+
+      @include max(width, #{34px}, 34px);
+    }
+    &:focus {
+      background-color: rgba($dark-gray, 0.75);
+    }
+  }
+  textarea {
+    resize: none;
+
+    @include max(height, #{100px}, 100px);
+
+    @include custom_scrollbar();
+  }
+  .triangle {
+    position: relative;
+    &::before {
+      background-color: $lemon;
+      bottom: 0;
+      clip-path: polygon(0 100%, 100% 100%, 100% 0%);
+      content: '';
+      height: 0;
+      position: absolute;
+      right: 0;
+      transition: all $common_anmt;
+      width: 0;
+    }
+  }
+}
+@keyframes onAutoFillStart {
+  from {
+  }
+  to {
+    background-color: rgba($dark-gray, 0.6);
+  }
+}

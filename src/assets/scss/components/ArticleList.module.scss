@@ -272,7 +272,7 @@
     }
   }
   &.vertical {
-    justify-content: space-between;
+    // justify-content: space-between;
     li:not([class*='ArticleTopics_body'] li) {
       @media screen and (max-width: 1200px) {
         @include diff(width, 40px, 20px, $add_term: '/ 2');

@@ -1,23 +1,23 @@
-import blogQuery, { DataType } from 'data/blogQuery';
-import { useState, useEffect, useCallback, memo } from 'react';
+import blogQuery, { BlogQueryType } from 'data/blogQuery';
 import pages from '../../assets/scss/pages/Blog.module.scss';
 import { GetStaticProps, Link, useRouter } from 'utils/next';
-import { Heading, PageFrame, ArticleList, Button, ArticleTopics, DataRes, HeadMeta } from 'components';
+import { useState, useEffect, useCallback, memo } from 'react';
+import { Heading, PageFrame, ArticleList, Button, ArticleTopics, HeadMeta } from 'components';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data, error } = await blogQuery();
-  if (error) {
-    return { props: { error: JSON.stringify(error) } };
-  }
-  return { props: { data: JSON.stringify(data) }, revalidate: 60 };
-};
+export const getStaticProps: GetStaticProps = async () => ({
+  props: { data: JSON.stringify(await blogQuery()) },
+  revalidate: 60,
+});
 
-function Blog({ data, error }: { data: DataType; error?: string }) {
-  const router = useRouter();
+function Blog({ data }: { data: BlogQueryType }) {
   data = JSON.parse(String(data));
-  const [displayNum, _displayNum] = useState(2);
+  const router = useRouter();
+  const [displayNum, _displayNum] = useState(data.all.articles.length);
   const [selectedTopic, _selectedTopic] = useState(0);
-  useEffect(() => _displayNum(router.query.display ? Number(router.query.display) : 2), [router.query.display]);
+  useEffect(
+    () => _displayNum(router.query.display ? Number(router.query.display) : data.all.articles.length),
+    [router.query.display, data.all.articles.length],
+  );
   const _displayNumHandler = useCallback(() => {
     if (!(data.all.articles.length === displayNum)) {
       _displayNum((prev) => {
@@ -30,7 +30,6 @@ function Blog({ data, error }: { data: DataType; error?: string }) {
   return (
     <>
       <HeadMeta title="Blog" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Blog`} />
-      <DataRes error={error} />
       <PageFrame classNmae={pages.blog}>
         <>
           <Heading className={pages.heading} rank={1} text={data.latest.title} />
@@ -44,7 +43,7 @@ function Blog({ data, error }: { data: DataType; error?: string }) {
           <ArticleList
             className={pages.articles}
             data={data.topTopics.articles[selectedTopic]}
-            display={3}
+            display={data.topTopics.articles[selectedTopic].length}
             vertical
             shiftList={
               <ArticleTopics

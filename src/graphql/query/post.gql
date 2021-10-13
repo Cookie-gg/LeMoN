@@ -4,7 +4,8 @@ query Post {
     section
   }
   allArticles: findAllArticles {
-    id
+    articleId
+    published
     releaseDate
     updateDate
     title
@@ -19,7 +20,8 @@ query Post {
     }
     body
     relations {
-      id
+      articleId
+      published
       releaseDate
       title
       emoji

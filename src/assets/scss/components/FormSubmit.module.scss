@@ -1,0 +1,31 @@
+.entire {
+  background-color: $lemon;
+  color: $dark-gray;
+  cursor: pointer;
+  font-family: $en_font;
+  font-weight: 900;
+  margin: 3px;
+  outline: 1px solid $lemon;
+  outline-offset: 2px;
+  position: relative;
+  transition: all $common_anmt;
+  width: calc(100% - 6px);
+  z-index: 3;
+
+  @include max(font-size, #{20px}, 22px);
+
+  @include max(padding-top, #{8px}, 8px);
+
+  @include max(padding-right, #{7.5px}, 7.5px);
+
+  @include max(padding-bottom, #{5px}, 5px);
+
+  @include max(padding-left, #{7.5px}, 7.5px);
+
+  &:hover {
+    background-color: darken($lemon, 12);
+  }
+  &:focus {
+    outline: 1px solid $lemon;
+  }
+}

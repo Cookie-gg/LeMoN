@@ -1,20 +1,17 @@
-import { ArticleList, DataRes, Heading, HeadMeta, PageFrame } from 'components';
-import pages from '../../assets/scss/pages/Topics.module.scss';
-import topicsQuery, { DataType } from 'data/topicsQuery';
-import { GetStaticProps } from 'utils/next';
-import { Fragment as _ } from 'react';
+import { Fragment as _, memo } from 'react';
 import { Settings } from 'react-slick';
+import { GetStaticProps } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
+import topicsQuery, { TopicQueryType } from 'data/topicsQuery';
+import pages from '../../assets/scss/pages/Topics.module.scss';
+import { ArticleList, Heading, HeadMeta, PageFrame } from 'components';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data, error } = await topicsQuery();
-  if (error) {
-    return { props: { error: JSON.stringify(error) } };
-  }
-  return { props: { data: JSON.stringify(data) }, revalidate: 60 };
-};
+export const getStaticProps: GetStaticProps = async () => ({
+  props: { data: JSON.stringify(await topicsQuery()) },
+  revalidate: 60,
+});
 
-export default function Topics({ data, error }: { data: DataType; error?: string }) {
+function Topics({ data }: { data: TopicQueryType }) {
   data = JSON.parse(String(data));
   const settings: Settings = {
     dots: false,
@@ -40,7 +37,6 @@ export default function Topics({ data, error }: { data: DataType; error?: string
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
         />
       </HeadMeta>
-      <DataRes error={error} />
       <PageFrame classNmae={pages.topics}>
         <>
           <Heading text="ALL TOPICS" rank={1} className={pages.heading} />
@@ -71,3 +67,5 @@ export default function Topics({ data, error }: { data: DataType; error?: string
     </>
   );
 }
+
+export default memo(Topics);

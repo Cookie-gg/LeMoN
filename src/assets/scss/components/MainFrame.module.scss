@@ -83,7 +83,7 @@
     transition: 0;
   }
   & > *:not([class*='exclude']) {
-    animation: fade_in 1s both;
+    animation: fade_in 0.6s both;
   }
 }
 @keyframes fade_in {

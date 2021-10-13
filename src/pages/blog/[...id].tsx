@@ -5,42 +5,28 @@ import { Zenn, ZennAdds } from 'types/common';
 import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/next';
 import pages from '../../assets/scss/pages/Blog.module.scss';
 import {
-  ArticleMeta,
+  Heading,
+  HeadMeta,
   PageFrame,
   ArticleToc,
-  ArticleTopics,
   ArticleBody,
-  Heading,
+  ArticleMeta,
   ArticleList,
-  DataRes,
-  HeadMeta,
+  ArticleTopics,
 } from 'components';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await postIdQuery();
-  const paths: { params: { id: string[] } }[] = [];
-  if (data) {
-    data.allArticles.map((obj) => {
-      paths.push({ params: { id: obj.id } });
-    });
-  }
-  return { paths, fallback: false };
-};
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: (await postIdQuery()).allArticles.map((obj) => ({ params: { id: obj.id } })),
+  fallback: false,
+});
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data, error } = await postQuery();
-  if (data) {
-    return {
-      props: {
-        data: JSON.stringify(data.allArticles.find((article) => article.id === params!.id![0])),
-      },
-    };
-  } else {
-    return { props: { error: JSON.stringify(error) }, revalidate: 60 };
-  }
-};
+export const getStaticProps: GetStaticProps = async ({ params }) => ({
+  props: {
+    data: JSON.stringify((await postQuery()).allArticles.find((article) => article.id === params!.id![0])),
+  },
+});
 
-function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
+function Post({ data }: { data: Zenn & ZennAdds }) {
   data = JSON.parse(String(data));
   const [activeSection, _activeSection] = useState(0);
   const contentsRef = useRef<HTMLDivElement>(null);
@@ -51,7 +37,6 @@ function Post({ data, error }: { data: Zenn & ZennAdds; error?: string }) {
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </HeadMeta>
-      <DataRes error={error} />
       <PageFrame classNmae={pages.post}>
         <>
           <ArticleMeta

@@ -10,13 +10,18 @@ export { default as ProfileInfo } from './ProfileInfo';
 export { default as ProgressBar } from './ProgressBar';
 
 // memo-component
-export { default as Form } from './Form';
+export { default as Img } from './Img';
 export { default as Nlink } from './Nlink';
 export { default as Header } from './Header';
 export { default as Button } from './Button';
 export { default as DataRes } from './DataRes';
 export { default as Heading } from './Heading';
 export { default as HeadMeta } from './HeadMeta';
+export { default as FormInput } from './FormInput';
+export { default as FormLabel } from './FormLabel';
+export { default as FormFrame } from './FormFrame';
+export { default as FormState } from './FormState';
+export { default as FormSubmit } from './FormSubmit';
 export { default as ArticleToc } from './ArticleToc';
 export { default as ImageFrame } from './ImageFrame';
 export { default as ArticleBody } from './ArticleBody';
