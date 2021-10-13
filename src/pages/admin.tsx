@@ -54,7 +54,7 @@ export default function Admin({ auth }: { auth: { state: boolean } }) {
                         )
                       ).data,
                     );
-                  }, 1000);
+                  }, 750);
                 }}
               >
                 <div>

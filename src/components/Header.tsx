@@ -1,4 +1,4 @@
-import { usePeriod } from 'hooks';
+import { useFirstPeriod, usePeriod } from 'hooks';
 import { Nlink } from 'components';
 import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'utils/next';
@@ -15,6 +15,7 @@ function Header() {
     { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
   ];
   const pathname = useRouter().pathname;
+  const noTransition = useFirstPeriod(0, false);
   const [isClosing, _isClosing] = usePeriod(false);
   const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   const stateClass = (openClass: string, expandClass: string) => {
@@ -37,7 +38,7 @@ function Header() {
       className={`${styles.entire} ${pathname === '/' && styles.home} ${stateClass(
         'header_opened',
         'header_expanded',
-      )}`}
+      )} ${noTransition && styles.init}`}
     >
       <div
         {...swipeOptions}

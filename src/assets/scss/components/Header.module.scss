@@ -32,6 +32,9 @@
       }
     }
   }
+  &.init * {
+    transition: all 0;
+  }
   ul {
     @include media(sp) {
       align-items: flex-end;

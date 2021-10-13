@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'utils/next';
 
-export default function useFirstPeriod(duration: number): boolean {
-  const query = (useRouter().query as { id: string[] }).id[0];
+export default function useFirstPeriod(duration: number, useQuery = true): boolean {
+  const router = useRouter();
+  const dep = useQuery ? (router.query as { id: string[] }).id[0] : router.pathname;
   const [period, _period] = useState<boolean>(true);
   useEffect(() => {
     _period(true);
@@ -10,6 +11,6 @@ export default function useFirstPeriod(duration: number): boolean {
     return () => {
       _period(true);
     };
-  }, [query, duration]);
+  }, [dep, duration]);
   return period;
 }
