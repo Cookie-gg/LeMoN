@@ -69,7 +69,7 @@ export default function Contact({ data }: { data: ContactQueryType }) {
           subject: formValue.subject,
           message: formValue.message,
         },
-        { headers: { authorization: process.env.NEXT_PUBLIC_MAILER_KEY } },
+        { headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` } },
       )
       .then(() => {
         _formState('complete');
@@ -79,18 +79,6 @@ export default function Contact({ data }: { data: ContactQueryType }) {
       });
     return false;
   };
-  const FeaturedImage = ({ className }: { className: string }) => (
-    <ImageFrame className={`${pages.image_frame} ${className}`}>
-      <Image
-        src={data.form.addressDelivery}
-        alt={`${data.form.title.toLowerCase()}_featured_image`}
-        width={913}
-        height={680}
-        loading="lazy"
-        lazyBoundary="819"
-      />
-    </ImageFrame>
-  );
   return (
     <>
       <HeadMeta title="Contact" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Contact`} />
@@ -98,7 +86,6 @@ export default function Contact({ data }: { data: ContactQueryType }) {
         <>
           <div className={pages.text_wrapper}>
             <Heading rank={2} text={data.form.title} className={pages.heading} />
-            <FeaturedImage className="sp" />
             <FormFrame className={pages.form} onSubmit={async (e) => submit(e)}>
               <div className={`${pages.inner} ${formState === 'yet' ? pages.visible : pages.hidden}`}>
                 {formData.map((value, i) => (
@@ -118,7 +105,16 @@ export default function Contact({ data }: { data: ContactQueryType }) {
               <FormState formState={formState} _formState={(arg: typeof formState) => _formState(arg)} />
             </FormFrame>
           </div>
-          <FeaturedImage className="pc" />
+          <ImageFrame className={pages.image_frame}>
+            <Image
+              src={data.form.addressDelivery}
+              alt={`${data.form.title.toLowerCase()}_featured_image`}
+              width={913}
+              height={680}
+              loading="lazy"
+              lazyBoundary="819"
+            />
+          </ImageFrame>
         </>
       </PageFrame>
     </>

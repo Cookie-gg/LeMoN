@@ -1,5 +1,5 @@
 import { list, section } from 'utils/common';
-import { client } from 'graphql/query/config.gql';
+import { client } from 'graphql/config.gql';
 import { AboutDocument, AboutQuery } from 'types/graphql.d';
 
 export interface AboutQueryType {

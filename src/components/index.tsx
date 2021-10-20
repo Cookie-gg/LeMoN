@@ -12,6 +12,7 @@ export { default as ProgressBar } from './ProgressBar';
 // memo-component
 export { default as Img } from './Img';
 export { default as Nlink } from './Nlink';
+export { default as Editor } from './Editor';
 export { default as Header } from './Header';
 export { default as Button } from './Button';
 export { default as DataRes } from './DataRes';
@@ -27,5 +28,6 @@ export { default as ImageFrame } from './ImageFrame';
 export { default as ArticleBody } from './ArticleBody';
 export { default as ArticleMeta } from './ArticleMeta';
 export { default as ArticleList } from './ArticleList';
+export { default as FunctionsBar } from './FunctionsBar';
 export { default as ArticleTopics } from './ArticleTopics';
 export { default as PageTransition } from './PageTransition';

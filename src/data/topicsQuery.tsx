@@ -1,6 +1,6 @@
 import { Zenn } from 'types/common';
 import { section } from 'utils/common';
-import { client } from 'graphql/query/config.gql';
+import { client } from 'graphql/config.gql';
 import { TopicsDocument, TopicsQuery } from 'types/graphql.d';
 
 export interface TopicQueryType {

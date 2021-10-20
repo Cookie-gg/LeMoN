@@ -35,7 +35,7 @@
   @include max(margin-right, $sp_value: 20px + 7px);
 
   @include max(margin-top, $sp_value: (20px + 75px));
-  
+
   @include diff(height, $sp_value: (20px + 75px + 20px + 20px));
 
   @include max(margin-bottom, $sp_value: (20px + 20px));

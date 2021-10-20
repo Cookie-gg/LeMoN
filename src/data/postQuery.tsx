@@ -1,6 +1,6 @@
 import { section } from 'utils/common';
 import { Zenn, ZennAdds } from 'types/common';
-import { client } from 'graphql/query/config.gql';
+import { client } from 'graphql/config.gql';
 import { PostDocument, PostQuery } from 'types/graphql.d';
 
 interface PostQueryType {

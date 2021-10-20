@@ -1,4 +1,4 @@
-import { client } from 'graphql/query/config.gql';
+import { client } from 'graphql/config.gql';
 import { PostDocument, PostQuery } from 'types/graphql.d';
 
 interface PostIdQueryType {

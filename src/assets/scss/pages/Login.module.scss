@@ -1,10 +1,12 @@
 .entire {
   align-items: center;
   display: flex;
-  height: 100%;
   justify-content: center;
+  @include max(height, 100%);
 
   .form {
+    @include max(margin-right, $sp_value: 8px);
+    @include max(margin-top, #{-80px});
     label:first-of-type {
       @include max(margin-top, #{25px}, 25px);
     }
@@ -13,7 +15,7 @@
     }
     .logo {
       margin-left: -4%;
-      width: 90px;
+      @include max(width, #{90px}, 90px);
     }
     h1 {
       display: grid;
@@ -23,10 +25,10 @@
       place-items: center;
       position: relative;
       width: 100%;
+
       @include max(font-size, #{60px}, 60px);
 
       @include max(margin-top, #{25px}, 25px);
-
       span {
         transform: translateY(-4.5%);
       }
@@ -35,10 +37,9 @@
       align-items: center;
       display: flex;
       justify-content: space-between;
-      width: 100%;
-      position: relative;
       overflow: hidden;
-
+      position: relative;
+      width: 100%;
       @include max(margin-top, #{25px}, 25px);
 
       @include max(font-size, #{20px}, 20px);

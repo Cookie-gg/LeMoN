@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloLink, concat, HttpLink, InMemoryCache } from '@apollo/client';
 
-const httpsLink = new HttpLink({ uri: process.env.NEXT_PUBLIC_GRAPHQL });
+const httpsLink = new HttpLink({ uri: `${process.env.NEXT_PUBLIC_MELON}/graphql` });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext(({ headers = {} }) => ({

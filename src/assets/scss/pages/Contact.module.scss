@@ -1,8 +1,13 @@
 .contact {
   display: flex;
   overflow: hidden;
+
+  @include max(flex-direction, $sp_value: column);
+
   .image_frame {
     @include max(width, 60%, 120%);
+
+    @include max(order, $sp_value: -1);
 
     &::before {
       @include max(width, 81%, 100%);
@@ -17,22 +22,28 @@
     box-sizing: border-box;
     height: 100%;
 
-    @include max(width, calc(40%), 100%);
+    @include max(display, $sp_value: contents);
+
+    @include max(width, 40%, 100%);
 
     @include max(padding-top, 20px);
 
     @include max(padding-bottom, 20px);
+
+    .heading {
+      @include max(order, $sp_value: -1);
+    }
 
     .form {
       @include max(margin-top, 30px);
 
       .inner {
         grid-area: 1/-1;
+        opacity: 1;
         position: relative;
+        visibility: visible;
         width: 100%;
         z-index: 0;
-        opacity: 1;
-        visibility: visible;
       }
     }
   }

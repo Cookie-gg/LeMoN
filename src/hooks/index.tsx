@@ -8,6 +8,7 @@ export { default as useBrowser } from './useBrowser';
 export { default as usePrevious } from './usePrevious';
 export { default as useIntersect } from './useIntersect';
 export { default as useFirstPeriod } from './useFirstPeriod';
+export { default as useAuth } from './useAuth';
 export { default as useWindowDimensions } from './useWindowDimensions';
 
 export { default as useContact } from './useContact';

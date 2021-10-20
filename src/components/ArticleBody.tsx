@@ -1,7 +1,7 @@
 import { useWindowDimensions } from 'hooks';
 import { ScrollerContext } from './PageFrame';
 import { useRouter } from 'utils/next';
-import md from '../assets/scss/components/Markdown.module.scss';
+import markdown from '../assets/scss/components/Markdown.module.scss';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
 import { memo, ReactElement, useContext, useEffect, useRef } from 'react';
 
@@ -43,11 +43,11 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
 
   return window.width < 1200 ? (
     <div className={styles.wrapper}>
-      <div className={`${styles.entire} ${md.styles}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+      <div className={`${styles.entire} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
       {children}
     </div>
   ) : (
-    <div className={`${styles.entire} ${md.styles}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+    <div className={`${styles.entire} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
   );
 }
 

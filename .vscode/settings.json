@@ -8,7 +8,6 @@
   "editor.formatOnSave": true,
   "files.exclude": {
     "**/.next": true,
-    "**/next-env.d.ts": true,
-    "**/node_modules": true
-  },
+    "**/next-env.d.ts": true
+  }
 }

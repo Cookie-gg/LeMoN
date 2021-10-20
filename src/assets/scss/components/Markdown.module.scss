@@ -210,7 +210,6 @@ $code_font: 'Source Code Pro', monospace;
     }
     & + em,
     & + br + em {
-      color: rgba(white, 0.1);
       display: block;
       font-family: $jp_font;
       font-weight: 100;
@@ -329,8 +328,10 @@ $code_font: 'Source Code Pro', monospace;
           @include max(font-size, #{14px}, 16px);
         }
         [class*='domain'] {
-          align-items: flex-end;
+          align-items: center;
           display: flex;
+
+          @include max(margin-top, #{3px}, 3px);
 
           @include max(font-size, #{12px}, 14px);
 
@@ -342,11 +343,16 @@ $code_font: 'Source Code Pro', monospace;
           }
         }
       }
-      img[alt='ogp_icon'] {
+      img[alt='ogp_icon'],
+      img[alt='ogp_image'] {
+        display: block;
         width: auto;
 
-        @include max(height, #{120px}, 120px);
-
+        @include max(height, #{120px});
+      }
+    }
+    &[class*='both'] {
+      img[alt='ogp_icon'] {
         @include max(display, $sp_value: none);
       }
       img[alt='ogp_image'] {
@@ -555,8 +561,4 @@ $code_font: 'Source Code Pro', monospace;
       }
     }
   }
-}
-
-.wrapper {
-  position: relative;
 }

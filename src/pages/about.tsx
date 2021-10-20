@@ -11,18 +11,6 @@ export const getStaticProps: GetStaticProps = async () => ({
 
 function About({ data }: { data: AboutQueryType }) {
   data = JSON.parse(String(data));
-  const FeaturedImage = ({ className }: { className: string }) => (
-    <ImageFrame className={`${pages.image_frame} ${className}`}>
-      <Image
-        src={data.profile.feelingProud}
-        alt={`${data.profile.title.toLowerCase()}_featured_image`}
-        width={711}
-        height={670}
-        loading="lazy"
-        lazyBoundary="819"
-      />
-    </ImageFrame>
-  );
   return (
     <>
       <HeadMeta title="About" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/About`} />
@@ -32,11 +20,19 @@ function About({ data }: { data: AboutQueryType }) {
             <div className={pages.text_wrapper}>
               <Heading rank={1} text={data.profile.title} className={pages.heading} />
               <NamePlate className={pages.title} />
-              <FeaturedImage className="sp" />
               <Paragraph className={pages.introduction} text={data.profile.introduction} />
               <ProfileInfo data={data.profile.info} className={pages.info} />
             </div>
-            <FeaturedImage className="pc" />
+            <ImageFrame className={pages.image_frame}>
+              <Image
+                src={data.profile.feelingProud}
+                alt={`${data.profile.title.toLowerCase()}_featured_image`}
+                width={711}
+                height={670}
+                loading="lazy"
+                lazyBoundary="819"
+              />
+            </ImageFrame>
           </div>
           <div className={pages.skills}>
             <Skills data={data.skills} />

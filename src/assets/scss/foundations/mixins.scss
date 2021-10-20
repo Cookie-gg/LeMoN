@@ -127,6 +127,10 @@ $break_points: (
   }
   // &::-webkit-scrollbar-track {
   // }
+  &::-webkit-resizer,
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
   &::-webkit-scrollbar-thumb {
     background-color: rgba(white, 0.1);
     border-radius: 5px;

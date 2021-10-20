@@ -93,3 +93,28 @@ export function list(data: { name: string; list: { title: string }[] }[]): { [se
   });
   return lists;
 }
+
+export function editorPaste(text: string, wrapNodeName = 'DIV') {
+  const selection = getSelection();
+  const focusElement = selection ? selection.focusNode : null;
+  if (focusElement !== null && selection !== null) {
+    if (focusElement.nodeName === wrapNodeName) {
+      console.log(text);
+      (focusElement as HTMLDivElement).insertAdjacentHTML('afterbegin', text);
+    } else {
+      const parent = focusElement.parentNode as HTMLDivElement;
+      const before = parent.innerText.slice(0, selection.anchorOffset);
+      const after = parent.innerText.slice(selection.anchorOffset);
+      parent.innerHTML = `${before}${text}${after}`;
+      // console.log(selection.getRangeAt(0).getBoundingClientRect());
+      // const range = document.createRange();
+      // range.setStart(parent, text.length);
+      // range.collapse(true);
+      // selection.removeAllRanges();
+      // selection.addRange(range);
+    }
+    // const range = document.createRange();
+    // editorRange.setStart(node, 0);
+    // editorRange.collapse(true);
+  }
+}

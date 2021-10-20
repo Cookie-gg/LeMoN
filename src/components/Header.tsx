@@ -1,6 +1,6 @@
-import { useFirstPeriod, usePeriod } from 'hooks';
+import { usePeriod } from 'hooks';
 import { Nlink } from 'components';
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import { useRouter } from 'utils/next';
 import { useSwipeable } from 'react-swipeable';
 import { Icon as Iconify } from '@iconify/react';
@@ -15,7 +15,6 @@ function Header() {
     { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
   ];
   const pathname = useRouter().pathname;
-  const noTransition = useFirstPeriod(0, false);
   const [isClosing, _isClosing] = usePeriod(false);
   const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   const stateClass = (openClass: string, expandClass: string) => {
@@ -27,18 +26,12 @@ function Header() {
     onSwipedRight: () => _headerState((prev) => (prev === 'close' ? 'open' : 'expand')),
     onSwipedLeft: () => _headerState((prev) => (prev === 'expand' ? 'open' : 'close')),
   });
-  useEffect(() => {
-    pathname !== '/' &&
-      !(window.innerWidth < 820) &&
-      sessionStorage.getItem('header_state') &&
-      _headerState(sessionStorage.getItem('header_state') as 'close' | 'open' | 'expand');
-  }, [pathname]);
   return (
     <header
       className={`${styles.entire} ${pathname === '/' && styles.home} ${stateClass(
         'header_opened',
         'header_expanded',
-      )} ${noTransition && styles.init}`}
+      )}`}
     >
       <div
         {...swipeOptions}
@@ -48,12 +41,8 @@ function Header() {
       <button
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
-          _isClosing(true, 950);
-          _headerState((prev) => {
-            window.innerWidth > 820 &&
-              sessionStorage.setItem('header_state', prev === 'open' || prev === 'expand' ? 'close' : 'open');
-            return prev === 'open' || prev === 'expand' ? 'close' : 'open';
-          });
+          !(window.innerWidth < 820) && (headerState === 'expand' || headerState === 'open') && _isClosing(true, 950);
+          _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
         }}
       >
         <span className="pc"></span>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import useForm from 'hooks/useForm';
 import { useRouter } from 'utils/next';
 import pages from '../assets/scss/pages/Login.module.scss';
@@ -22,27 +21,15 @@ const formData = [
   },
 ];
 
-function Login({ auth }: { auth: { state: boolean; set: (args: boolean) => void; refresh: () => void } }) {
+function Page({ auth }: { auth: { state: boolean; login: (name: string, password: string) => void } }) {
   const router = useRouter();
-  const [formValue, _formValue] = useForm({ name: '', password: '' });
+  const [form, _form] = useForm({ name: '', password: '' });
   const loginHandler = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_AUTH}/login`,
-          { username: formValue.name, password: formValue.password },
-          { headers: { key: process.env.NEXT_PUBLIC_AUTH_KEY } },
-        )
-        .then((res) => {
-          sessionStorage.setItem('access_token', res.data.token);
-          auth.set(true);
-          auth.refresh();
-          router.push('/admin');
-        })
-        .catch(() => alert('名前、またはパスワードが間違っています'));
+      auth.login(form.name, form.password);
     },
-    [formValue, router, auth],
+    [auth, form],
   );
   useEffect(() => {
     auth.state && router.push('/admin');
@@ -51,7 +38,7 @@ function Login({ auth }: { auth: { state: boolean; set: (args: boolean) => void;
     <>
       <HeadMeta title="Login" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Login`} />
       <PageFrame classNmae={pages.entire}>
-        <FormFrame className={pages.form} onSubmit={(e) => loginHandler(e)}>
+        <FormFrame className={pages.form} onSubmit={async (e) => loginHandler(e)}>
           <Img src={Lemon.src} alt="site_logo" className={pages.logo} width={1614} height={1722} loading="lazy" />
           <h1>
             <span>LeMoN</span>
@@ -62,9 +49,9 @@ function Login({ auth }: { auth: { state: boolean; set: (args: boolean) => void;
                 <FormLabel htmlFor={value.name} text={value.lable} required={value.required} />
                 <FormInput
                   name={value.name}
-                  value={formValue[value.name as keyof typeof formValue]}
+                  value={form[value.name as keyof typeof form]}
                   required={value.required}
-                  onChange={(e) => _formValue(e)}
+                  onChange={(e) => _form(e)}
                   placeholder={`${value.placeholder} ${value.required ? '(required)' : ''}`}
                 />
               </_>
@@ -79,4 +66,4 @@ function Login({ auth }: { auth: { state: boolean; set: (args: boolean) => void;
   );
 }
 
-export default memo(Login, (prev, next) => prev.auth == next.auth);
+export default memo(Page, (prev, next) => prev.auth == next.auth);
