@@ -1,8 +1,4 @@
 query Post {
-  titles: findTitle(page: "post") {
-    text
-    section
-  }
   allArticles: findAllArticles {
     articleId
     published

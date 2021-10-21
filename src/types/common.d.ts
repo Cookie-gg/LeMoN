@@ -31,7 +31,8 @@ export interface ZennAdds {
   }[];
   relations: {
     articles: Zenn[];
-    title: string;
   };
 }
+import * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
+export type MonacoEditorType = Monaco.editor.IStandaloneCodeEditor | null;

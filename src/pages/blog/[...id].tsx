@@ -1,9 +1,10 @@
-import { memo, useEffect, useRef, useState } from 'react';
 import postQuery from 'data/postQuery';
+import post from 'assets/json/post.json';
 import postIdQuery from 'data/postIdQuery';
 import { Zenn, ZennAdds } from 'types/common';
+import { memo, useEffect, useRef, useState } from 'react';
+import styles from '../../assets/scss/pages/Blog.module.scss';
 import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/next';
-import pages from '../../assets/scss/pages/Blog.module.scss';
 import {
   Heading,
   HeadMeta,
@@ -15,21 +16,10 @@ import {
   ArticleTopics,
 } from 'components';
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: (await postIdQuery()).allArticles.map((obj) => ({ params: { id: obj.id } })),
-  fallback: false,
-});
-
-export const getStaticProps: GetStaticProps = async ({ params }) => ({
-  props: {
-    data: JSON.stringify((await postQuery()).allArticles.find((article) => article.id === params!.id![0])),
-  },
-});
-
 function Post({ data }: { data: Zenn & ZennAdds }) {
   data = JSON.parse(String(data));
-  const [activeSection, _activeSection] = useState(0);
   const contentsRef = useRef<HTMLDivElement>(null);
+  const [activeSection, _activeSection] = useState(0);
   const query = (useRouter().query as { id: string[] }).id[0];
   useEffect(() => _activeSection(0), [query]);
   return (
@@ -37,7 +27,7 @@ function Post({ data }: { data: Zenn & ZennAdds }) {
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </HeadMeta>
-      <PageFrame classNmae={pages.post}>
+      <PageFrame classNmae={styles.post}>
         <>
           <ArticleMeta
             emoji={data.emoji}
@@ -45,8 +35,8 @@ function Post({ data }: { data: Zenn & ZennAdds }) {
             releaseDate={data.releaseDate}
             updateDate={data.updateDate}
           />
-          <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} className={pages.topics} inArticle />
-          <div className={pages.contents} ref={contentsRef}>
+          <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} className={styles.topics} inArticle />
+          <div className={styles.contents} ref={contentsRef}>
             <main>
               <ArticleBody
                 body={data.body}
@@ -59,10 +49,10 @@ function Post({ data }: { data: Zenn & ZennAdds }) {
                   headings={data.headings}
                 />
               </ArticleBody>
-              <Heading rank={2} text={data.relations.title} className={pages.heading} />
+              <Heading rank={2} text={post.relations.title} className={styles.heading} />
               <ArticleList
                 vertical
-                className={pages.relations}
+                className={styles.relations}
                 data={data.relations.articles}
                 display={data.relations.articles.length}
                 needDateParse
@@ -74,7 +64,7 @@ function Post({ data }: { data: Zenn & ZennAdds }) {
                 meta={{ title: data.title, emoji: data.emoji }}
                 activeSection={activeSection}
                 headings={data.headings}
-                className={pages.toc}
+                className={styles.toc}
               />
             </aside>
           </div>
@@ -83,5 +73,16 @@ function Post({ data }: { data: Zenn & ZennAdds }) {
     </>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => ({
+  paths: (await postIdQuery()).allArticles.map((obj) => ({ params: { id: obj.id } })),
+  fallback: false,
+});
+
+export const getStaticProps: GetStaticProps = async ({ params }) => ({
+  props: {
+    data: JSON.stringify((await postQuery()).allArticles.find((article) => article.id === params!.id![0])),
+  },
+});
 
 export default memo(Post);

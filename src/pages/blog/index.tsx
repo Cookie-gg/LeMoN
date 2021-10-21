@@ -1,23 +1,21 @@
+import blog from 'assets/json/blog.json';
 import blogQuery, { BlogQueryType } from 'data/blogQuery';
-import pages from '../../assets/scss/pages/Blog.module.scss';
 import { GetStaticProps, Link, useRouter } from 'utils/next';
+import styles from '../../assets/scss/pages/Blog.module.scss';
 import { useState, useEffect, useCallback, memo } from 'react';
 import { Heading, PageFrame, ArticleList, Button, ArticleTopics, HeadMeta } from 'components';
 
-export const getStaticProps: GetStaticProps = async () => ({
-  props: { data: JSON.stringify(await blogQuery()) },
-  revalidate: 60,
-});
-
-function Blog({ data }: { data: BlogQueryType }) {
+function Page({ data }: { data: BlogQueryType }) {
   data = JSON.parse(String(data));
   const router = useRouter();
-  const [displayNum, _displayNum] = useState(data.all.articles.length);
   const [selectedTopic, _selectedTopic] = useState(0);
+  const [displayNum, _displayNum] = useState(data.all.articles.length);
+
   useEffect(
     () => _displayNum(router.query.display ? Number(router.query.display) : data.all.articles.length),
     [router.query.display, data.all.articles.length],
   );
+
   const _displayNumHandler = useCallback(() => {
     if (!(data.all.articles.length === displayNum)) {
       _displayNum((prev) => {
@@ -29,19 +27,19 @@ function Blog({ data }: { data: BlogQueryType }) {
   }, [router, displayNum, data]);
   return (
     <>
-      <HeadMeta title="Blog" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Blog`} />
-      <PageFrame classNmae={pages.blog}>
+      <HeadMeta title={blog.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${blog.title}`} />
+      <PageFrame classNmae={styles.page}>
         <>
-          <Heading className={pages.heading} rank={1} text={data.latest.title} />
+          <Heading className={styles.heading} rank={1} text={blog.latest.title} />
           <ArticleList
-            className={pages.articles}
+            className={styles.articles}
             data={data.latest.articles}
             display={data.latest.articles.length}
             vertical
           />
-          <Heading className={pages.heading} rank={1} text={data.topTopics.title} />
+          <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
           <ArticleList
-            className={pages.articles}
+            className={styles.articles}
             data={data.topTopics.articles[selectedTopic]}
             display={data.topTopics.articles[selectedTopic].length}
             vertical
@@ -54,10 +52,10 @@ function Blog({ data }: { data: BlogQueryType }) {
               />
             }
           />
-          <Heading className={pages.heading} rank={1} text={data.all.title} />
-          <ArticleList horizontal className={pages.articles} data={data.all.articles} display={displayNum} />
+          <Heading className={styles.heading} rank={1} text={blog.all.title} />
+          <ArticleList horizontal className={styles.articles} data={data.all.articles} display={displayNum} />
           <Button
-            className={pages.more}
+            className={styles.more}
             isInteractive={true}
             switching={data.all.articles.length === displayNum}
             clickEvent={_displayNumHandler}
@@ -73,4 +71,9 @@ function Blog({ data }: { data: BlogQueryType }) {
   );
 }
 
-export default memo(Blog);
+export const getStaticProps: GetStaticProps = async () => ({
+  props: { data: JSON.stringify(await blogQuery()) },
+  revalidate: 60,
+});
+
+export default memo(Page);

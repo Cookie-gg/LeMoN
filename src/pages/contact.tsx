@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useForm } from 'hooks';
+import { Image } from 'utils/next';
+import contact from 'assets/json/contact.json';
 import { FormEvent, Fragment as _, useState } from 'react';
-import { GetStaticProps, Image } from 'utils/next';
-import pages from '../assets/scss/pages/Contact.module.scss';
-import contactQuery, { ContactQueryType } from 'data/contactQuery';
+import styles from '../assets/scss/pages/Contact.module.scss';
+import addressDelivery from 'assets/svg/addressDelivery.svg';
 import {
   Heading,
   HeadMeta,
@@ -16,40 +17,7 @@ import {
   FormFrame,
 } from 'components';
 
-export const getStaticProps: GetStaticProps = async () => ({
-  props: { data: JSON.stringify(await contactQuery()) },
-  revalidate: 60,
-});
-
-const formData = [
-  {
-    name: 'name',
-    lable: 'Name',
-    placeholder: 'Your name',
-    required: true,
-  },
-  {
-    name: 'email',
-    lable: 'E-mail',
-    placeholder: 'Your e-mail',
-    required: true,
-  },
-  {
-    name: 'subject',
-    lable: 'Subject',
-    placeholder: 'Your subject',
-    required: true,
-  },
-  {
-    name: 'message',
-    lable: 'Message',
-    placeholder: 'Your message',
-    required: false,
-  },
-];
-
-export default function Contact({ data }: { data: ContactQueryType }) {
-  data = JSON.parse(String(data));
+export default function Page() {
   const [formValue, _formValue] = useForm({
     name: '',
     email: '',
@@ -62,7 +30,7 @@ export default function Contact({ data }: { data: ContactQueryType }) {
     _formState('sending');
     await axios
       .post(
-        `${process.env.NEXT_PUBLIC_MAILER}`,
+        `${process.env.NEXT_PUBLIC_MELON}/mail`,
         {
           name: formValue.name,
           email: formValue.email,
@@ -81,14 +49,14 @@ export default function Contact({ data }: { data: ContactQueryType }) {
   };
   return (
     <>
-      <HeadMeta title="Contact" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Contact`} />
-      <PageFrame classNmae={pages.contact}>
+      <HeadMeta title={contact.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${contact.title}`} />
+      <PageFrame classNmae={styles.page}>
         <>
-          <div className={pages.text_wrapper}>
-            <Heading rank={2} text={data.form.title} className={pages.heading} />
-            <FormFrame className={pages.form} onSubmit={async (e) => submit(e)}>
-              <div className={`${pages.inner} ${formState === 'yet' ? pages.visible : pages.hidden}`}>
-                {formData.map((value, i) => (
+          <div className={styles.text_wrapper}>
+            <Heading rank={2} text={contact.form.title} className={styles.heading} />
+            <FormFrame className={styles.form} onSubmit={async (e) => submit(e)}>
+              <div className={`${styles.inner} ${formState === 'yet' ? styles.visible : styles.hidden}`}>
+                {contact.form.display.map((value, i) => (
                   <_ key={i}>
                     <FormLabel htmlFor={value.name} required={value.required} text={value.lable} />
                     <FormInput
@@ -96,23 +64,22 @@ export default function Contact({ data }: { data: ContactQueryType }) {
                       value={formValue[value.name as keyof typeof formValue]}
                       required={value.required}
                       onChange={(e) => _formValue(e)}
-                      placeholder={`${value.placeholder} ${value.required ? '(required)' : ''}`}
+                      placeholder={`${value.placeholder} ${value.required ? contact.form.placeholder : ''}`}
                     />
                   </_>
                 ))}
-                <FormSubmit value="Send" />
+                <FormSubmit value={contact.form.submit} />
               </div>
               <FormState formState={formState} _formState={(arg: typeof formState) => _formState(arg)} />
             </FormFrame>
           </div>
-          <ImageFrame className={pages.image_frame}>
+          <ImageFrame className={styles.image_frame}>
             <Image
-              src={data.form.addressDelivery}
-              alt={`${data.form.title.toLowerCase()}_featured_image`}
+              src={addressDelivery}
+              alt={`${contact.form.title.toLowerCase()}_featured_image`}
               width={913}
               height={680}
               loading="lazy"
-              lazyBoundary="819"
             />
           </ImageFrame>
         </>

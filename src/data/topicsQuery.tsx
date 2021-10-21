@@ -1,10 +1,8 @@
 import { Zenn } from 'types/common';
-import { section } from 'utils/common';
 import { client } from 'graphql/config.gql';
 import { TopicsDocument, TopicsQuery } from 'types/graphql.d';
 
 export interface TopicQueryType {
-  title: string;
   topics: {
     name: string;
     icon: string;
@@ -15,9 +13,7 @@ export interface TopicQueryType {
 export default async function topicsQuery(): Promise<TopicQueryType> {
   const { error, data } = await client.query<TopicsQuery>({ query: TopicsDocument });
   if (data) {
-    const titles = section(data.titles);
     const shapedData: TopicQueryType = {
-      title: titles.all.text,
       topics: data.topics
         .filter((obj) => obj.allArticles.length > 0)
         .sortObj('displayName', 'desc')

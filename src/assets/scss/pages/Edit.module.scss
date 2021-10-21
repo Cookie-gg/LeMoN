@@ -1,0 +1,175 @@
+.entire {
+  background-color: rgba(white, 0.08);
+  border-radius: 10px;
+  display: flex;
+  font-weight: 400;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+  @include max(font-size, #{18px}, 18px);
+
+  aside {
+    background-color: rgba(white, 0.08);
+    border-right: 2px solid $lemon;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    width: 300px;
+
+    @include max(padding-top, #{35px}, 35px);
+
+    @include max(padding-bottom, #{35px}, 35px);
+
+    @include max(padding-right, #{27px}, 27px);
+
+    @include max(padding-left, #{35px}, 35px);
+
+    label:not(.check_input) {
+      align-items: flex-end;
+      display: flex;
+
+      @include max(font-size, #{20px}, 20px);
+
+      &:not(:first-of-type) {
+        @include max(margin-top, #{37.5px}, 37.5px);
+      }
+
+      &::before {
+        background-color: $lemon;
+        content: '';
+        display: block;
+        width: 4px;
+
+        @include max(height, #{25px}, 25px);
+
+        @include max(margin-right, #{7.5px}, 7.5px);
+      }
+    }
+    textarea,
+    input:not([type='radio']) {
+      background-color: rgba($dark-gray, 0.5);
+      border-radius: 4px;
+      box-sizing: border-box;
+      color: rgba(white, 0.85);
+      display: block;
+      font-family: $jp_font;
+      line-height: 1.8;
+      resize: vertical;
+      transition: background-color $common_anmt;
+      width: 100%;
+
+      @include max(margin-top, #{12.5px}, 12.5px);
+
+      @include max(font-size, #{16px}, 16px);
+
+      @include max(padding-right, #{7.5px}, 7.5px);
+
+      @include max(padding-left, #{7.5px}, 7.5px);
+
+      @include max(padding-bottom, #{2.5px}, 2.5px);
+
+      @include max(letter-spacing, #{1.2px}, 1.2px);
+
+      &:-webkit-autofill {
+        animation-name: onAutoFillStart;
+        caret-color: white;
+        -webkit-text-fill-color: white !important;
+        transition: background-color 0s;
+        transition-delay: 10000s;
+      }
+      &::-webkit-calendar-picker-indicator {
+        color: rgba(white, 0.85);
+        color: rgba(0, 0, 0, 0);
+        cursor: pointer;
+        filter: invert(0.8);
+      }
+      &:focus {
+        background-color: rgba($dark-gray, 0.75);
+        outline: 2px solid rgba($lemon, 0.25);
+      }
+      @keyframes onAutoFillStart {
+        from {
+        }
+        to {
+          background-color: transparent;
+        }
+      }
+    }
+    .check_input {
+      background-color: rgba($dark-gray, 0.5);
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+
+      @include max(margin-top, #{15px}, 15px);
+
+      @include max(padding-top, #{8px}, 8px);
+
+      @include max(padding-left, #{10px}, 10px);
+
+      @include max(padding-right, #{9px}, 9px);
+
+      @include max(padding-bottom, #{4px}, 4px);
+
+      @include max(margin-right, #{15px}, 15px);
+
+      span {
+        &::before {
+          background-clip: content-box;
+          background-clip: content-box;
+          border: 1px solid $lemon;
+          border-radius: 50%;
+          border-radius: 50%;
+          border-style: solid;
+          content: '';
+          display: inline-block;
+          height: 8px;
+          padding: 2px;
+          width: 8px;
+
+          @include max(margin-right, #{7.5px}, 7.5px);
+        }
+      }
+      input[type='radio'],
+      input[type='checkbox'] {
+        display: none;
+
+        &:checked + span::before {
+          background-color: $lemon;
+        }
+        &:not(:checked) + span::before {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: calc(100% - 300px);
+    .editor {
+      display: flex;
+      height: 100%;
+
+      @include max(flex-direction, $sp_value: column);
+
+      [class*='gutter'] {
+        background-color: $lemon;
+        background-color: rgba(white, 0.16);
+        display: grid;
+        place-items: center;
+        &::before {
+          border-left: 1px solid rgba(white, 0.8);
+          border-right: 1px solid rgba(white, 0.8);
+          box-sizing: border-box;
+          content: '';
+          display: block;
+          height: 50px;
+          width: 6px;
+        }
+      }
+    }
+  }
+}

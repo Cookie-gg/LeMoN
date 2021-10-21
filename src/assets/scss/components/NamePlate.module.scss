@@ -22,12 +22,14 @@
     width: 2px;
   }
   &::after {
-    background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%;
+    // background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%;
+    background-color: $lemon;
+    clip-path: polygon(0 0, 100% 0%, 0% 100%);
     content: '';
     left: 100%;
     position: absolute;
     top: 0;
-    transform: translateX(-1px);
+    transform: translate(-1px, -0.5px);
 
     @include custom_max(width, 85px * 1.02 / $route_3, 725px);
 

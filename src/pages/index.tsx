@@ -1,13 +1,14 @@
 import { memo } from 'react';
 import { HeadMeta, LeMoN, PhraseTypo } from 'components';
+import home from 'assets/json/home.json';
 
-function Home() {
+function Page() {
   return (
     <>
-      <HeadMeta title="Home" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Home`} />
+      <HeadMeta title={home.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${home.title}`} />
       <LeMoN />
       <PhraseTypo />
     </>
   );
 }
-export default memo(Home);
+export default memo(Page);

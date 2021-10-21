@@ -1,0 +1,71 @@
+{
+  "title": "About",
+  "profile": {
+    "title": "PROFILE",
+    "introduction": "かろうじてエンジニアの Cookie_gg です。\n名前の一部にも入ってるように「GG(Good game)」という言葉が好きです。ゲーム業界で多く使われる言語で、勝ち負け関係なく言い、相手の敬いやポジティブ思考などの意味が込められてて好きです。\n昔からパソコンに多く触れ、高校生の頃にC言語でプログラミングの面白さを知りました。現在はWebに関する技術をメインに学習・使用しています。",
+    "info": [
+      { "text": "11th November, 2001", "icon": "fa-solid:calendar-alt" },
+      { "text": "Front-end engineer", "icon": "fa-solid:address-card" },
+      { "text": "cookie.gg.dev@gmail.com", "icon": "fa-solid:envelope" },
+      { "text": "Kanagawa / Japan", "icon": "fa-solid:home" }
+    ]
+  },
+  "skills": [
+    {
+      "icon": "bx:bx-code-block",
+      "title": "Front-end",
+      "explanation": "常にコンポーネント思考で開発を行い、メンテナンスのしやすいコード品質を目指しています。",
+      "contents": [
+        { "title": "Dev Tools", "list": ["Visual Studio Code"] },
+        {
+          "title": "Languages I can use",
+          "list": [
+            "HTML5 / CSS3 / SCSS",
+            "JavaScript / TypeScript",
+            "Webpack",
+            "React / Next.js",
+            "Vue.js / Nuxt.js",
+            "Wordpress"
+          ]
+        }
+      ]
+    },
+    {
+      "icon": "teenyicons:servers-outline",
+      "title": "Back-end",
+      "explanation": "よりフロント側で加工しやすいようなデータ設計、またレスポンスの早いAPI設計を常に心がけています。",
+      "contents": [
+        { "title": "Dev Tools", "list": ["Visual Studio Code"] },
+        {
+          "title": "Languages I can use",
+          "list": [
+            "JavaScript / TypeScript",
+            "Node.js / Express.js",
+            "Nest.js",
+            "MongoDB",
+            "GraphQL",
+            "Google Apps Script"
+          ]
+        }
+      ]
+    },
+    {
+      "icon": "clarity:book-line",
+      "title": "Others",
+      "explanation": "下記のツールの基本的操作のほかに、自作PCで得た多くのWindowsPCについての知識を保有しております。BIOS設定なども行えます。",
+      "contents": [
+        {
+          "title": "Dev Tools",
+          "list": [
+            "PowerPoint / Word / Excel",
+            "Photoshop",
+            "After Effects",
+            "Davinci Resolve",
+            "GIMP",
+            "Slack / ChatWork / Outlook"
+          ]
+        }
+      ]
+    }
+  ]
+}

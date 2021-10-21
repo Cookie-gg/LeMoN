@@ -1,6 +1,5 @@
-import { section } from 'utils/common';
-import { Zenn, ZennAdds } from 'types/common';
 import { client } from 'graphql/config.gql';
+import { Zenn, ZennAdds } from 'types/common';
 import { PostDocument, PostQuery } from 'types/graphql.d';
 
 interface PostQueryType {
@@ -10,7 +9,6 @@ interface PostQueryType {
 export default async function postQuery(): Promise<PostQueryType> {
   const { data, error } = await client.query<PostQuery>({ query: PostDocument });
   if (data) {
-    const titles = section<string>(data.titles);
     const shapedData: PostQueryType = {
       allArticles: data.allArticles.map((obj) => {
         const headings = obj.body.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
@@ -41,7 +39,6 @@ export default async function postQuery(): Promise<PostQueryType> {
               type: obj.type,
               topics: obj.topicIcons.map((obj) => obj.displayName),
             })),
-            title: titles.relations.text,
           },
         };
       }),

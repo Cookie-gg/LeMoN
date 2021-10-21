@@ -19,9 +19,18 @@ function useForm<T>(
       const { name, files } = e.target as HTMLInputElement;
       const encodedFile = await encodeImg(files![0]);
       dispatch({ name: name, value: encodedFile as string });
+    } else if (e.target.type === 'radio') {
+      dispatch({ name: e.target.name, value: e.target.defaultValue });
+    } else if (e.target.type === 'date') {
+      const date = new Date((e.target as HTMLInputElement).valueAsNumber);
+      dispatch({
+        name: e.target.name,
+        value: `${date.getFullYear()}-${('0' + String(date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(
+          -2,
+        )}`,
+      });
     } else {
-      const { name, value } = e.target;
-      dispatch({ name, value });
+      dispatch({ name: e.target.name, value: e.target.value });
     }
   }
   const reset = () => Object.keys(state).forEach((value) => dispatch({ name: value, value: '' }));

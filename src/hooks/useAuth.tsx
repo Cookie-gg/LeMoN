@@ -37,7 +37,7 @@ export default function useAuth(): [state: boolean, login: (name: string, passwo
           _state(true);
           sessionStorage.setItem('access_token', res.data.token);
           refresh();
-          router.push('/admin');
+          router.push('/edit');
         })
         .catch(() => {
           _state(false);

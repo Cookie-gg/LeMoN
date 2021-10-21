@@ -1,8 +1,4 @@
 query Blog {
-  titles: findTitle(page: "blog") {
-    text
-    section
-  }
   latest: findArticles(latest: true) {
     articleId
     published
