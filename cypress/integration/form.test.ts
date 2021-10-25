@@ -2,6 +2,10 @@ describe('Form', () => {
   it('should send owner e-mail a message', () => {
     cy.visit('/contact');
 
+    cy.url().then((url) => {
+      cy.get(`[name=name]`).type(url);
+    });
+
     cy.fixture('contact.json').then((json) => {
       Object.keys(json).map((key) => {
         cy.get(`[name=${key}]`).type(json[key]);
