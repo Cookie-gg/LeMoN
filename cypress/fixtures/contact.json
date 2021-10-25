@@ -1,0 +1,6 @@
+{
+  "name": "cypress run",
+  "email": "cypress@test.com",
+  "subject": "contact form e2e test",
+  "message": "this is e2e test from cypress"
+}

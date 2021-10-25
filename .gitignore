@@ -35,3 +35,8 @@ yarn-error.log*
 
 # markdown editor
 editor.md
+
+# cypress
+cypress/screenshots
+cypress/videos
+cypress/cypress.yml
