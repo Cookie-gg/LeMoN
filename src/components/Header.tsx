@@ -39,6 +39,7 @@ function Header() {
         onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : prev))}
       />
       <button
+        data-id="header"
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
           !(window.innerWidth < 820) && (headerState === 'expand' || headerState === 'open') && _isClosing(true, 950);

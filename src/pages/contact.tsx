@@ -1,10 +1,10 @@
-import axios from 'axios';
+import ky from 'ky';
 import { useForm } from 'hooks';
 import { Image } from 'utils/next';
 import contact from 'assets/json/contact.json';
 import { FormEvent, Fragment as _, useState } from 'react';
-import styles from '../assets/scss/pages/Contact.module.scss';
 import addressDelivery from 'assets/svg/addressDelivery.svg';
+import styles from '../assets/scss/pages/Contact.module.scss';
 import {
   Heading,
   HeadMeta,
@@ -28,17 +28,16 @@ export default function Page() {
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     _formState('sending');
-    await axios
-      .post(
-        `${process.env.NEXT_PUBLIC_MELON}/mail`,
-        {
+    await ky
+      .post(`${process.env.NEXT_PUBLIC_MELON}/mail`, {
+        json: {
           name: formValue.name,
           email: formValue.email,
           subject: formValue.subject,
           message: formValue.message,
         },
-        { headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` } },
-      )
+        headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` },
+      })
       .then(() => {
         _formState('complete');
       })

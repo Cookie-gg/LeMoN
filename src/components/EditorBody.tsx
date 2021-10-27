@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import { memo, useEffect, useState } from 'react';
 import type { MonacoEditorType } from 'types/common';
 import MonacoEditor, { useMonaco } from '@monaco-editor/react';
@@ -72,13 +72,12 @@ function EditorBody({
         clearTimeout(timer);
         timer = setTimeout(async () => {
           _preview(
-            (
-              await axios.post<string>(
-                `${process.env.NEXT_PUBLIC_MELON}/markdown/string`,
-                { data: value },
-                { headers: { authorization: `${process.env.NEXT_PUBLIC_MARCDOWN_KEY}` } },
-              )
-            ).data,
+            await ky
+              .post(`${process.env.NEXT_PUBLIC_MELON}/markdown/string`, {
+                headers: { authorization: `${process.env.NEXT_PUBLIC_MARCDOWN_KEY}` },
+                json: { data: value },
+              })
+              .json<string>(),
           );
         }, 750);
       }}
