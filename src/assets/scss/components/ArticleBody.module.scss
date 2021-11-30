@@ -1,4 +1,7 @@
-.entire {
+.wrapper {
+  position: relative;
+}
+.inner {
   background-color: rgba(white, 0.08);
   border-right: solid $lemon;
   box-sizing: border-box;

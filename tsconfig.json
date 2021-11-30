@@ -4,7 +4,7 @@
     "baseUrl": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "jsx": "preserve",
     "lib": [
       "dom",
@@ -25,7 +25,8 @@
       "cypress",
       "@testing-library/cypress",
       "cypress-wait-until"
-    ]
+    ],
+    "incremental": true
   },
   "exclude": [
     "node_modules"

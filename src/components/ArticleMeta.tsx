@@ -7,6 +7,7 @@ import { memo } from 'react';
 interface PropsType {
   emoji: string;
   title: string;
+  published: boolean;
   releaseDate: Date;
   updateDate: Date;
 }
@@ -17,6 +18,9 @@ function ArticleMeta({ emoji, title, releaseDate, updateDate }: PropsType) {
       <Twemoji svg onlyEmojiClassName={styles.emoji} text={emoji} options={{ protocol: 'https' }} />
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.time_header}>
+        <div className={styles.published}>
+
+        </div>
         <div className={styles.release_date}>
           <Iconify icon={'fa-solid:calendar-day'} />
           <time>{displayDate(new Date(releaseDate), '.', false)}</time>

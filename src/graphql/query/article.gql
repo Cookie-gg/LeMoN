@@ -1,5 +1,6 @@
-query Post {
-  allArticles: findAllArticles {
+query GetArticle {
+  articles: findAllArticles {
+    id
     articleId
     published
     releaseDate
@@ -14,7 +15,8 @@ query Post {
       icon
       displayName
     }
-    body
+    markdown
+    html
     relations {
       articleId
       published
@@ -26,5 +28,20 @@ query Post {
         displayName
       }
     }
+  }
+}
+query FindArticle($articleId: String!) {
+  article: findArticle(articleId: $articleId) {
+    id
+    title
+    articleId
+    emoji
+    type
+    topics
+    published
+    releaseDate
+    updateDate
+    markdown
+    html
   }
 }

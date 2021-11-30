@@ -1,4 +1,4 @@
-import ky from 'ky';
+import axios from 'axios';
 import { useForm } from 'hooks';
 import { Image } from 'utils/next';
 import contact from 'assets/json/contact.json';
@@ -28,16 +28,17 @@ export default function Page() {
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     _formState('sending');
-    await ky
-      .post(`${process.env.NEXT_PUBLIC_MELON}/mail`, {
-        json: {
+    await axios
+      .post(
+        `${process.env.NEXT_PUBLIC_MELON}/mail`,
+        {
           name: formValue.name,
           email: formValue.email,
           subject: formValue.subject,
           message: formValue.message,
         },
-        headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` },
-      })
+        { headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` } },
+      )
       .then(() => {
         _formState('complete');
       })

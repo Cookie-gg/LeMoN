@@ -1,10 +1,25 @@
+import axios from 'axios';
 import useForm from 'hooks/useForm';
-import { useRouter } from 'utils/next';
 import lemon from 'assets/svg/lemon.svg';
 import json from 'assets/json/login.json';
+import { GetServerSideProps, useRouter } from 'utils/next';
 import styles from '../assets/scss/pages/Login.module.scss';
 import React, { FormEvent, Fragment as _, memo, useCallback, useEffect } from 'react';
 import { FormFrame, FormInput, FormLabel, FormSubmit, HeadMeta, Img, PageFrame } from 'components';
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  try {
+    await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
+      headers: {
+        key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
+        authorization: `bearer ${ctx.req.headers.cookie?.replace('token=', '')}`,
+      },
+    });
+    return { redirect: { destination: '/', permanent: false } };
+  } catch {
+    return { props: {} };
+  }
+};
 
 function Page({ auth }: { auth: { state: boolean; login: (name: string, password: string) => void } }) {
   const router = useRouter();
@@ -17,7 +32,7 @@ function Page({ auth }: { auth: { state: boolean; login: (name: string, password
     [auth, form],
   );
   useEffect(() => {
-    auth.state && router.push('/edit');
+    auth.state && router.push('/');
   }, [auth.state, router]);
   return (
     <>

@@ -3,92 +3,81 @@ import { github, GithubTypes } from './config.github';
 
 export async function createFile(
   path: string,
-  message: string,
-  owener = 'Cookie-gg',
-  repo = 'zenn-content',
   data: {
     title: string;
     emoji: string;
     type: string;
-    topic: string[];
+    topics: string[];
     published: boolean;
-    content: string;
+    markdown: string;
   },
+  owener = `${process.env.NEXT_PUBLIC_GITHUB_OWNER}`,
+  repo = 'zenn-content',
 ) {
   await github.request('PUT /repos/{owner}/{repo}/contents/{path}', {
     owner: owener,
     repo: repo,
     path: path,
-    message: message,
+    message: `Create ${path}`,
     content: Base64.encode(
       '---\n' +
         `title: ${data.title}\n` +
         `emoji: ${data.emoji}\n` +
         `type: ${data.type}\n` +
-        `topic: [${data.topic.map((el) => `"${el}"`)}]\n` +
+        `topics: ${JSON.stringify(data.topics)}\n` +
         `published: ${data.published}\n` +
         '---\n' +
-        `${data.content}\n`,
+        `${data.markdown}\n`,
     ),
   });
 }
 
 export async function updateFile(
   path: string,
-  message: string,
-  owener = 'Cookie-gg',
-  repo = 'zenn-content',
   data: {
     title: string;
     emoji: string;
     type: string;
-    topic: string[];
+    topics: string[];
     published: boolean;
-    content: string;
+    markdown: string;
   },
+  owner = `${process.env.NEXT_PUBLIC_GITHUB_OWNER}`,
+  repo = 'zenn-content',
 ) {
   const sha = (
     (
       await github.request('GET /repos/{owner}/{repo}/contents/{path}', {
-        owner: owener,
+        owner: owner,
         repo: repo,
         path: path,
-        message: message,
+        message: `Get ${path}`,
       })
     ).data as GithubTypes
   ).sha;
   await github.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-    owner: owener,
+    owner: owner,
     repo: repo,
     path: path,
-    message: message,
+    message: `Update ${path}`,
     sha: sha,
     content: Base64.encode(
       '---\n' +
         `title: ${data.title}\n` +
         `emoji: ${data.emoji}\n` +
         `type: ${data.type}\n` +
-        `topic: [${data.topic.map((el) => `"${el}"`)}]\n` +
+        `topics: ${JSON.stringify(data.topics)}\n` +
         `published: ${data.published}\n` +
         '---\n' +
-        `${data.content}\n`,
+        `${data.markdown}\n`,
     ),
   });
 }
 
 export async function deleteFile(
   path: string,
-  message: string,
-  owener = 'Cookie-gg',
+  owener = `${process.env.NEXT_PUBLIC_GITHUB_OWNER}`,
   repo = 'zenn-content',
-  data: {
-    title: string;
-    emoji: string;
-    type: string;
-    topic: string[];
-    published: boolean;
-    content: string;
-  },
 ) {
   const sha = (
     (
@@ -96,7 +85,7 @@ export async function deleteFile(
         owner: owener,
         repo: repo,
         path: path,
-        message: message,
+        message: `Get ${path}`,
       })
     ).data as GithubTypes
   ).sha;
@@ -104,17 +93,7 @@ export async function deleteFile(
     owner: owener,
     repo: repo,
     path: path,
-    message: message,
+    message: `Delete ${path}`,
     sha: sha,
-    content: Base64.encode(
-      '---\n' +
-        `title: ${data.title}\n` +
-        `emoji: ${data.emoji}\n` +
-        `type: ${data.type}\n` +
-        `topic: [${data.topic.map((el) => `"${el}"`)}]\n` +
-        `published: ${data.published}\n` +
-        '---\n' +
-        `${data.content}\n`,
-    ),
   });
 }

@@ -266,6 +266,14 @@
 
             // @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
             @include max(font-size, #{20px}, 18px);
+
+            svg {
+              vertical-align: -12%;
+
+              @include max(font-size, #{22.5px}, 22.5px);
+
+              @include max(margin-right, #{5px}, 5px);
+            }
           }
         }
       }

@@ -401,7 +401,7 @@
   &:not(.home) button,
   &:not(.home) button::before,
   &:not(.home) button::after {
-    transition: 0;
+    transition: all 0s;
   }
 }
 @keyframes flash_once {

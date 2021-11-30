@@ -6,13 +6,13 @@ import styles from '../assets/scss/components/ArticleBody.module.scss';
 import { memo, ReactElement, useContext, useEffect, useRef } from 'react';
 
 interface PropsType {
-  body: string;
+  html: string;
   headingTexts?: string[];
   _activeSection: (n: number) => void;
   children?: ReactElement;
 }
 
-function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType) {
+function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType) {
   const ref = useRef<HTMLDivElement>(null);
   const scroller = useContext(ScrollerContext);
   const query = (useRouter().query as { id: string[] }).id[0];
@@ -43,12 +43,12 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
 
   return window.width < 1200 ? (
     <div className={styles.wrapper}>
-      <div className={`${styles.entire} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+      <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
       {children}
     </div>
   ) : (
-    <div className={`${styles.entire} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+    <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
   );
 }
 
-export default memo(ArticleBody, (prev, next) => prev.body === next.body && prev.children === next.children);
+export default memo(ArticleBody, (prev, next) => prev.html === next.html && prev.children === next.children);

@@ -1,16 +1,5 @@
 query Blog {
-  latest: findArticles(latest: true) {
-    articleId
-    published
-    releaseDate
-    title
-    emoji
-    type
-    topicIcons {
-      displayName
-    }
-  }
-  all: findArticles(latest: false) {
+  all: findAllArticles {
     articleId
     published
     releaseDate

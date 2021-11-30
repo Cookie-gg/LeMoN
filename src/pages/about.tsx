@@ -24,7 +24,7 @@ function Page() {
                 alt={`${about.profile.title.toLowerCase()}_featured_image`}
                 width={711}
                 height={670}
-                loading="lazy"
+                priority
               />
             </ImageFrame>
           </div>

@@ -1,4 +1,4 @@
-import { encodeImg } from 'utils/common';
+import { displayDate, encodeImg } from 'utils/common';
 import { useReducer, ChangeEvent, Dispatch } from 'react';
 
 function useForm<T>(
@@ -9,9 +9,11 @@ function useForm<T>(
   Dispatch<{ name: string; value: string }>,
   () => void,
 ] {
-  // 呼び出し側の型に依存
-  function reducer(currents: T, updates: { name: string; value: string }): T {
-    return { ...currents, ...{ [updates.name]: updates.value } };
+  function reducer(currents: T, update: { name: string; value: string }): T {
+    // support array or object
+    if (update.value.match(/^((\[|\{).*?(\]|\})|true|false)/))
+      return { ...currents, ...{ [update.name]: JSON.parse(update.value) } };
+    else return { ...currents, ...{ [update.name]: update.value } };
   }
   const [state, dispatch] = useReducer(reducer, initialState);
   async function asyncReducer(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): Promise<void> {
@@ -23,12 +25,7 @@ function useForm<T>(
       dispatch({ name: e.target.name, value: e.target.defaultValue });
     } else if (e.target.type === 'date') {
       const date = new Date((e.target as HTMLInputElement).valueAsNumber);
-      dispatch({
-        name: e.target.name,
-        value: `${date.getFullYear()}-${('0' + String(date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(
-          -2,
-        )}`,
-      });
+      dispatch({ name: e.target.name, value: displayDate(date, '-', false) });
     } else {
       dispatch({ name: e.target.name, value: e.target.value });
     }

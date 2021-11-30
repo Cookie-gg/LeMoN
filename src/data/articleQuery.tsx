@@ -1,19 +1,22 @@
 import { client } from 'graphql/config.gql';
 import { Zenn, ZennAdds } from 'types/common';
-import { PostDocument, PostQuery } from 'types/graphql.d';
+import { GetArticleQuery, GetArticleDocument } from 'types/graphql.d';
 
-interface PostQueryType {
-  allArticles: (Zenn & ZennAdds)[];
+interface ArticleQueryType {
+  id: { id: string[] }[];
+  articles: (Zenn & ZennAdds)[];
 }
 
-export default async function postQuery(): Promise<PostQueryType> {
-  const { data, error } = await client.query<PostQuery>({ query: PostDocument });
+export default async function articleQuery(): Promise<ArticleQueryType> {
+  const { data, error } = await client.query<GetArticleQuery>({ query: GetArticleDocument });
   if (data) {
-    const shapedData: PostQueryType = {
-      allArticles: data.allArticles.map((obj) => {
-        const headings = obj.body.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
+    const shapedData: ArticleQueryType = {
+      id: data.articles.map((obj) => ({ id: [obj.articleId] })),
+      articles: data.articles.map((obj) => {
+        const headings = obj.html.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
         return {
-          id: obj.articleId,
+          id: obj.id,
+          articleId: obj.articleId,
           published: obj.published,
           releaseDate: obj.releaseDate,
           updateDate: obj.updateDate,
@@ -22,7 +25,8 @@ export default async function postQuery(): Promise<PostQueryType> {
           type: obj.typeIcon.displayName,
           topics: obj.topicIcons.map((obj) => obj.displayName),
           icons: [...obj.topicIcons.map((obj) => obj.icon), obj.typeIcon.icon],
-          body: obj.body,
+          markdown: obj.markdown,
+          html: obj.html,
           headings: headings
             ? headings.map((heading) => ({
                 level: heading.split('')[2] === '1' ? 1 : 2,
@@ -31,7 +35,7 @@ export default async function postQuery(): Promise<PostQueryType> {
             : undefined,
           relations: {
             articles: obj.relations.map((obj) => ({
-              id: obj.articleId,
+              articleId: obj.articleId,
               published: obj.published,
               releaseDate: obj.releaseDate,
               title: obj.title,

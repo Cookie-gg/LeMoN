@@ -151,7 +151,23 @@
             "deprecationReason": null
           },
           {
-            "name": "body",
+            "name": "markdown",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "html",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -389,7 +405,23 @@
             "deprecationReason": null
           },
           {
-            "name": "body",
+            "name": "markdown",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "html",
             "description": null,
             "args": [],
             "type": {
@@ -516,7 +548,7 @@
             "deprecationReason": null
           },
           {
-            "name": "addArticle",
+            "name": "changeArticle",
             "description": null,
             "args": [
               {
@@ -528,6 +560,22 @@
                   "ofType": {
                     "kind": "INPUT_OBJECT",
                     "name": "ArticleInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -549,25 +597,9 @@
             "deprecationReason": null
           },
           {
-            "name": "updateArticle",
+            "name": "deleteArticle",
             "description": null,
             "args": [
-              {
-                "name": "args",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ArticleInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              },
               {
                 "name": "id",
                 "description": null,
@@ -666,18 +698,18 @@
             "deprecationReason": null
           },
           {
-            "name": "findArticles",
+            "name": "findArticle",
             "description": null,
             "args": [
               {
-                "name": "latest",
+                "name": "articleId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "Boolean",
+                    "name": "String",
                     "ofType": null
                   }
                 },
@@ -690,17 +722,9 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "ArticleObject",
-                    "ofType": null
-                  }
-                }
+                "kind": "OBJECT",
+                "name": "ArticleObject",
+                "ofType": null
               }
             },
             "isDeprecated": false,

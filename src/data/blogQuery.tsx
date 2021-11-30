@@ -19,11 +19,11 @@ export interface BlogQueryType {
 export default async function blogQuery(): Promise<BlogQueryType> {
   const { error, data } = await client.query<BlogQuery>({ query: BlogDocument });
   if (data) {
-    const topTopics = data.topics.sortObj('allArticles', 'asc', true).slice(0, 3);
+    const topTopics = data.topics.sortObj('allArticles', 'desc', true).slice(0, 3);
     const shapedData: BlogQueryType = {
       latest: {
-        articles: data.latest.map((obj) => ({
-          id: obj.articleId,
+        articles: data.all.slice(0, 4).map((obj) => ({
+          articleId: obj.articleId,
           published: obj.published,
           releaseDate: obj.releaseDate,
           title: obj.title,
@@ -37,7 +37,7 @@ export default async function blogQuery(): Promise<BlogQueryType> {
         icons: topTopics.map((obj) => obj.icon),
         articles: topTopics.map((obj) =>
           obj.someArticles.map((_obj) => ({
-            id: _obj.articleId,
+            articleId: _obj.articleId,
             published: _obj.published,
             releaseDate: _obj.releaseDate,
             title: _obj.title,
@@ -48,8 +48,8 @@ export default async function blogQuery(): Promise<BlogQueryType> {
         ),
       },
       all: {
-        articles: data.all.map((obj) => ({
-          id: obj.articleId,
+        articles: data.all.slice(4).map((obj) => ({
+          articleId: obj.articleId,
           published: obj.published,
           releaseDate: obj.releaseDate,
           title: obj.title,

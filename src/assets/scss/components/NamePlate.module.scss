@@ -22,7 +22,6 @@
     width: 2px;
   }
   &::after {
-    // background: linear-gradient(to top left, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%;
     background-color: $lemon;
     clip-path: polygon(0 0, 100% 0%, 0% 100%);
     content: '';

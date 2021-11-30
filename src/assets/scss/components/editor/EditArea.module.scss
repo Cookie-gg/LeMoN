@@ -1,0 +1,8 @@
+.entire {
+  opacity: 0;
+
+  &.mounted {
+    transition: opacity $common_anmt;
+    opacity: 1;
+  }
+}

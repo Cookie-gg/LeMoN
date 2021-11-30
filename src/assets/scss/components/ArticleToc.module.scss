@@ -370,7 +370,7 @@
             background-color: $lemon;
             border: solid rgba($lemon, 0.5);
 
-            @include max(padding, #{0.5px}, 0.5px);
+            @include max(padding, #{1px}, 1px);
 
             @include max(border-width, #{2px}, 2px);
           }

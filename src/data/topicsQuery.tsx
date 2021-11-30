@@ -21,7 +21,7 @@ export default async function topicsQuery(): Promise<TopicQueryType> {
           name: obj.displayName,
           icon: obj.icon,
           articles: obj.allArticles.map((obj) => ({
-            id: obj.articleId,
+            articleId: obj.articleId,
             published: obj.published,
             releaseDate: obj.releaseDate,
             title: obj.title,

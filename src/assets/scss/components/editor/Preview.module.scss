@@ -1,0 +1,7 @@
+.entire {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  @include max(padding, #{30px}, 30px);
+}

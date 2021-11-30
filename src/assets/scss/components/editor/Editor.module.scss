@@ -1,0 +1,56 @@
+.entire {
+  background-color: rgba(white, 0.08);
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  font-weight: 400;
+  height: 100%;
+  overflow: hidden;
+  z-index: 9999;
+  position: absolute;
+
+  @include max(margin-right, #{8px}, 8px);
+
+  @include max(width, calc(100% - 8px));
+
+  @include diff(width, $sp_value: 8px);
+
+  @include max(font-size, #{18px}, 18px);
+
+  &.hidden {
+    // display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: calc(100% - 300px);
+    .editor {
+      display: flex;
+      flex-grow: 1;
+      height: 100%;
+      overflow: hidden;
+
+      @include max(flex-direction, $sp_value: column);
+
+      [class*='gutter'] {
+        background-color: $lemon;
+        background-color: rgba(white, 0.16);
+        display: grid;
+        place-items: center;
+        &::before {
+          border-left: 1px solid rgba(white, 0.8);
+          border-right: 1px solid rgba(white, 0.8);
+          box-sizing: border-box;
+          content: '';
+          display: block;
+          height: 50px;
+          width: 6px;
+        }
+      }
+    }
+  }
+}

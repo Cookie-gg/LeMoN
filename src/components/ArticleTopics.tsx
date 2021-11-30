@@ -57,7 +57,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
                 <span>
                   <Iconify icon={icons[icons.length - 1]} />
                 </span>
-                {(type as string).slice(0, 1).toUpperCase() + (type as string).slice(1)}
+                {type}
               </>
             </Nlink>
           </li>

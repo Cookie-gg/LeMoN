@@ -17,7 +17,7 @@ export default function ProgressBar() {
   });
 
   const router = useRouter();
-  const dependencies = router.pathname === '/blog/[...id]' ? (router.query as { id: string[] }).id[0] : router.asPath;
+  const dependencies = router.pathname === '/blog/[...id]' ? router.query.id : router.asPath;
   const [isMounted, _isMounted] = useState(false);
   useEffect(() => {
     setTimeout(() => _isMounted(true), 0);

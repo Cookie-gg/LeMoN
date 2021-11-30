@@ -11,7 +11,7 @@ function FormFrame({
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }) {
   return (
-    <form action="" method="post" className={`${styles.entire} ${className}`} onSubmit={async (e) => onSubmit(e)}>
+    <form method="post" className={`${styles.entire} ${className}`} onSubmit={async (e) => onSubmit(e)}>
       {children.map((child) => child)}
     </form>
   );
