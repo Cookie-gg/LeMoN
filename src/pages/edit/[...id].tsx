@@ -16,13 +16,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     });
     try {
-      const res = await client.query<FindArticleQuery>({
+      const { data } = await client.query<FindArticleQuery>({
         query: FindArticleDocument,
         variables: { articleId: ctx.query.id![0] },
       });
-      return { props: { data: JSON.stringify(res.data.article) } };
+      return { props: { data: JSON.stringify(data.one) } };
     } catch {
-      return { redirect: { destination: '/edit?new=true', permanent: false } };
+      return { redirect: { destination: '/edit/no-title', permanent: false } };
     }
   } catch {
     return { redirect: { destination: '/login', permanent: false } };
@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 function Page({ data }: { data: Partial<Zenn & ZennAdds> }) {
   data = JSON.parse(String(data));
   return (
-    <PageFrame classNmae={styles.page}>
+    <PageFrame classNmae={styles.post}>
       <>
         <Head>
           <title>Edit | LeMoN</title>
