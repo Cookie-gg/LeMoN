@@ -1,38 +1,41 @@
-$media_queries: (
-  'mobile': '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
-  'sp': 'screen and (max-width: 819px)',
-  'pc': 'screen and (min-width: 820px)',
-  'dark': '(prefers-color-scheme: dark)',
+@use 'sass:math';
+@use 'sass:map';
+
+// fixed points
+$f_pc: 1562;
+$f_sp: 500;
+// break points
+$b_pc: 820;
+$b_sp: 819;
+// queries
+$queries: (
+  mobile: '(hover: none) and (pointer: coarse) and (any-hover: none) and (any-pointer: coarse)',
+  dark: '(prefers-color-scheme: dark)',
+  pc: 'screen and (min-width: 820px)',
+  sp: 'screen and (max-width: 819px)',
 );
-@mixin media($bp: sp) {
-  @media #{map-get($media_queries, $bp)} {
+
+@mixin media($type) {
+  @media #{map.get($queries, $type)} {
     @content;
   }
 }
-$fixed_points: (
-  pc: 1562,
-  sp: 500,
-);
-$break_points: (
-  pc: 820,
-  sp: 819,
-);
 
 @mixin diff($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
   @if $value != initial {
     @include media(pc) {
-      $value: number(str_replace('px', '', $value));
-      #{$property}: calc((#{$from} - #{$value * 100 * 0.00064020486555697823303457106274008 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_points, 'pc') + 0px) {
+      $value: strip_unit($value);
+      #{$property}: calc((#{$from} - #{$value * 100 * math.div(1, $f_pc) + 0vw}) #{$add_term});
+      @media screen and (min-width: #{$f_pc + 0px}) {
         #{$property}: calc((#{$from} - #{$value + 0px}) #{$add_term});
       }
     }
   }
   @if $sp_value != initial {
     @include media(sp) {
-      $sp_value: number(str_replace('px', '', $sp_value));
-      #{$property}: calc((#{$from} - #{$sp_value * 100 * 0.002 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_points, 'sp') + 0px) {
+      $sp_value: strip_unit($sp_value);
+      #{$property}: calc((#{$from} - #{$sp_value * 100 * math.div(1, $f_sp) + 0vw}) #{$add_term});
+      @media screen and (min-width: #{$f_sp + 0px}) {
         #{$property}: calc((#{$from} - #{$sp_value + 0px}) #{$add_term});
       }
     }
@@ -42,32 +45,31 @@ $break_points: (
 @mixin add($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
   @if $value != initial {
     @include media(pc) {
-      $value: number(str_replace('px', '', $value));
-      #{$property}: calc((#{$from} + #{$value * 100 * 0.00064020486555697823303457106274008 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_points, 'pc') + 0px) {
+      $value: strip_unit($value);
+      #{$property}: calc((#{$from} + #{$value * 100 * math.div(1, $f_pc) + 0vw}) #{$add_term});
+      @media screen and (min-width: #{$f_pc + 0px}) {
         #{$property}: calc((#{$from} + #{$value + 0px}) #{$add_term});
       }
     }
   }
   @if $sp_value != initial {
     @include media(sp) {
-      $sp_value: number(str_replace('px', '', $sp_value));
-      #{$property}: calc((#{$from} + #{$sp_value * 100 * 0.002 + 0vw}) #{$add_term});
-      @media screen and (min-width: map-get($fixed_points, 'sp') + 0px) {
+      $sp_value: strip_unit($sp_value);
+      #{$property}: calc((#{$from} + #{$sp_value * 100 * math.div(1, $f_sp) + 0vw}) #{$add_term});
+      @media screen and (min-width: #{$f_sp + 0px}) {
         #{$property}: calc((#{$from} + #{$sp_value + 0px}) #{$add_term});
       }
     }
   }
 }
 
-// $sp_fixed: if($fixed == true, true, false);
 @mixin max($property, $value: initial, $sp_value: initial, $width: 0, $important: false) {
   @if $value != initial {
-    @media screen and (min-width: if($width == 0, map-get($break_points, 'pc') + 0px, $width + 1px)) {
+    @media screen and (min-width: if($width == 0, $b_pc + 0px, $width + 1px)) {
       @if type-of($value) == number and unit($value) == 'px' {
-        $value: number(str_replace('px', '', $value));
-        #{$property}: $value * 100 * 0.00064020486555697823303457106274008 + 0vw#{if($important, !important, '')};
-        @media screen and (min-width: map-get($fixed_points, 'pc') + 0px) {
+        $value: strip_unit($value);
+        #{$property}: $value * 100 * math.div(1, $f_pc) + 0vw#{if($important, !important, '')};
+        @media screen and (min-width: #{$f_pc + 0px}) {
           #{$property}: $value + 0px#{if($important, !important, '')};
         }
       } @else {
@@ -76,11 +78,11 @@ $break_points: (
     }
   }
   @if $sp_value != initial {
-    @media screen and (max-width: if($width == 0, map-get($break_points, 'sp') + 0px, $width + 0px)) {
+    @media screen and (max-width: if($width == 0, $b_sp + 0px, $width)) {
       @if type-of($sp_value) == number and unit($sp_value) == 'px' {
-        $sp_value: number(str_replace('px', '', $sp_value));
-        #{$property}: $sp_value * 100 * 0.002 + 0vw#{if($important, !important, '')};
-        @media screen and (min-width: map-get($fixed_points, 'sp') + 0px) {
+        $sp_value: strip_unit($sp_value);
+        #{$property}: $sp_value * 100 * math.div(1, $f_sp) + 0vw#{if($important, !important, '')};
+        @media screen and (min-width: #{$f_sp + 0px}) {
           #{$property}: $sp_value + 0px#{if($important, !important, '')};
         }
       } @else {
@@ -91,11 +93,9 @@ $break_points: (
 }
 
 @mixin custom_max($property, $value, $min_width) {
-  $value: number(str_replace('px', '', $value));
-  $min_width: number(str_replace('px', '', $min_width));
-  #{$property}: $value * 100 * 1 / $min_width + 0vw;
-  @media screen and (min-width: $min_width + 0px) {
-    #{$property}: $value + 0px;
+  #{$property}: math.div(strip_unit($value) * 100 * 1, strip_unit($min_width)) + 0vw;
+  @media screen and (min-width: $min_width) {
+    #{$property}: $value;
   }
 }
 
@@ -120,23 +120,8 @@ $break_points: (
   }
 }
 
-@mixin custom_scrollbar() {
-  &::-webkit-scrollbar {
-    @include max(width, #{8px}, 8px);
-    @include max(height, #{8px}, 8px);
-  }
-  // &::-webkit-scrollbar-track {
-  // }
-  &::-webkit-resizer,
-  &::-webkit-scrollbar-corner {
-    display: none;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(white, 0.1);
-    border-radius: 5px;
-    transition: background-color $common_anmt;
-    &:hover {
-      background-color: rgba(white, 0.2);
-    }
-  }
+@mixin bold($width, $color: $dark-gray) {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-color: $dark-gray;
+  -webkit-text-stroke-width: $width;
 }
