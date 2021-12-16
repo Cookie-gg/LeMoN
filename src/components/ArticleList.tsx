@@ -1,10 +1,10 @@
+import { Nlink } from 'components';
 import { Zenn } from 'types/common';
 import { memo, ReactElement } from 'react';
 import { displayDate } from 'utils/common';
 import { Twemoji } from 'react-emoji-render';
 import styles from '../assets/scss/components/ArticleList.module.scss';
 import Slider, { Settings } from 'react-slick';
-import { Nlink } from 'components';
 import { Icon as Iconify } from '@iconify/react';
 
 interface PropsType {
@@ -19,6 +19,8 @@ interface PropsType {
   horizontal?: boolean;
   slider?: boolean;
   settings?: Settings;
+  editable?: boolean;
+  type?: 'public' | 'private';
 }
 
 function ArticleList({
@@ -32,13 +34,24 @@ function ArticleList({
   horizontal,
   slider,
   settings,
+  editable,
+  type,
 }: PropsType) {
   const listBody = data.specifor(
     display,
     (value: Zenn) =>
-      (process.env.NODE_ENV === 'production' ? value.published : true) && (
+      (type
+        ? type === 'public'
+          ? value.published
+          : !value.published
+        : process.env.NODE_ENV === 'production'
+        ? value.published
+        : true) && (
         <li key={value.articleId}>
-          <Nlink href="/blog/[...id]" as={`/blog/${value.articleId}`}>
+          <Nlink
+            href={editable ? '/edit/[...id]' : '/blog/[...id]'}
+            as={editable ? `/edit/${value.articleId}` : `/blog/${value.articleId}`}
+          >
             <>
               <div className={styles.thumbnail}>
                 {vertical && <span className={styles.type}>{value.type.toUpperCase()}</span>}
@@ -80,4 +93,11 @@ function ArticleList({
   );
 }
 
-export default memo(ArticleList, (prev, next) => JSON.stringify(prev.display) === JSON.stringify(next.display));
+export default memo(
+  ArticleList,
+  (prev, next) =>
+    prev.display === next.display &&
+    JSON.stringify(prev.data) === JSON.stringify(next.data) &&
+    prev.shiftList === next.shiftList &&
+    prev.pushList === next.pushList,
+);
