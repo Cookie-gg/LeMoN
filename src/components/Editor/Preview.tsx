@@ -9,12 +9,8 @@ function Preview({ editor, html }: { editor: MonacoEditorType; html: string }) {
   useEffect(() => {
     if (editor && previewRef.current !== null) {
       editor.onDidScrollChange((e) => {
-        (previewRef.current as HTMLDivElement).scrollTo(
-          0,
-          e.scrollTop * (((previewRef.current as HTMLDivElement).scrollHeight + 1200) / e.scrollHeight),
-        );
+        previewRef.current?.scrollTo(0, e.scrollTop * ((previewRef.current?.scrollHeight + 1200) / e.scrollHeight));
       });
-      return () => editor.dispose();
     }
   }, [editor]);
   return (
