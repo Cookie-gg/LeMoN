@@ -3,7 +3,11 @@ import nookies from 'nookies';
 import { useRouter } from 'utils/next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export default function useAuth(): [state: boolean, login: (name: string, password: string) => void] {
+export default function useAuth(): [
+  state: boolean,
+  login: (name: string, password: string) => Promise<void>,
+  logout: () => Promise<void>,
+] {
   const router = useRouter();
   const [state, _state] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout>();
@@ -14,9 +18,8 @@ export default function useAuth(): [state: boolean, login: (name: string, passwo
         const res = await axios.get<{ token: string }>(`${process.env.NEXT_PUBLIC_MELON}/refresh`, {
           headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
         });
-        console.log(res.data.token);
+        console.log('refreshed!');
         _state(true);
-        nookies.destroy(null, 'token');
         nookies.set(null, 'token', res.data.token);
       } catch {
         _state(false);
@@ -34,16 +37,31 @@ export default function useAuth(): [state: boolean, login: (name: string, passwo
           { headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` } },
         );
         _state(true);
-        nookies.destroy(null, 'token');
         nookies.set(null, 'token', res.data.token);
         refresh();
-        router.push('/blog');
+        router.push('/edit');
       } catch {
         _state(false);
       }
     },
     [router, refresh],
   );
+  const logout = useCallback(async () => {
+    const logoutEvent = () => {
+      _state(false);
+      nookies.destroy(null, 'token');
+      intervalRef.current && clearInterval(intervalRef.current);
+    };
+    try {
+      await axios.get(`${process.env.NEXT_PUBLIC_MELON}/logout`, {
+        headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` },
+      });
+      logoutEvent();
+      router.push('/login');
+    } catch {
+      logoutEvent();
+    }
+  }, [router]);
   useEffect(() => {
     const token = nookies.get(null, 'token')['token'];
     token &&
@@ -57,9 +75,9 @@ export default function useAuth(): [state: boolean, login: (name: string, passwo
         })
         .catch(() => {
           _state(false);
-          nookies.destroy(null, 'token');
+          // nookies.destroy(null, 'token');
           intervalRef.current && clearTimeout(intervalRef.current);
         });
   }, [refresh]);
-  return [state, login];
+  return [state, login, logout];
 }
