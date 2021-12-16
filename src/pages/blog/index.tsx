@@ -1,30 +1,17 @@
+import { useState, memo } from 'react';
 import blog from 'assets/json/blog.json';
+import { Icon as Iconify } from '@iconify/react';
+import { GetStaticProps, Link } from 'utils/next';
 import blogQuery, { BlogQueryType } from 'data/blogQuery';
-import { GetStaticProps, Link, useRouter } from 'utils/next';
 import styles from '../../assets/scss/pages/Blog.module.scss';
-import { useState, useEffect, useCallback, memo } from 'react';
+import { useFindMoreArticlesLazyQuery } from 'types/graphql.d';
 import { Heading, PageFrame, ArticleList, Button, ArticleTopics, HeadMeta } from 'components';
 
 function Page({ data }: { data: BlogQueryType }) {
   data = JSON.parse(String(data));
-  const router = useRouter();
+  const [all, _all] = useState(data.all.articles);
   const [selectedTopic, _selectedTopic] = useState(0);
-  const [displayNum, _displayNum] = useState(data.all.articles.length);
-
-  useEffect(
-    () => _displayNum(router.query.display ? Number(router.query.display) : data.all.articles.length),
-    [router.query.display, data.all.articles.length],
-  );
-
-  const _displayNumHandler = useCallback(() => {
-    if (!(data.all.articles.length === displayNum)) {
-      _displayNum((prev) => {
-        const displayNum = data.all.articles.length <= prev + 6 ? data.all.articles.length : prev + 6;
-        router.push({ query: { display: displayNum } });
-        return displayNum;
-      });
-    }
-  }, [router, displayNum, data]);
+  const [getMore, { loading }] = useFindMoreArticlesLazyQuery();
   return (
     <>
       <HeadMeta title={blog.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${blog.title}`} />
@@ -48,17 +35,36 @@ function Page({ data }: { data: BlogQueryType }) {
                 topics={data.topTopics.topics}
                 icons={data.topTopics.icons}
                 activeNumber={selectedTopic}
-                clickEvent={(n: number) => _selectedTopic(n)}
+                clickEvent={(n) => _selectedTopic(n)}
               />
             }
           />
           <Heading className={styles.heading} rank={1} text={blog.all.title} />
-          <ArticleList horizontal className={styles.articles} data={data.all.articles} display={displayNum} />
+          <ArticleList horizontal className={styles.articles} data={all} display={all.length} />
+          {loading && <Iconify icon="eos-icons:loading" className={styles.loading} />}
           <Button
             className={styles.more}
             isInteractive={true}
-            switching={data.all.articles.length === displayNum}
-            clickEvent={_displayNumHandler}
+            switching={data.all.limit === all.length + 4}
+            clickEvent={async () => {
+              const res = await getMore({ variables: { current: String(all.length + 4) } });
+              if (res.data) {
+                _all((prev) => [
+                  ...prev,
+                  ...(res.data
+                    ? res.data.more.map((obj) => ({
+                        articleId: obj.articleId,
+                        published: obj.published,
+                        releaseDate: obj.releaseDate,
+                        title: obj.title,
+                        emoji: obj.emoji,
+                        type: obj.type,
+                        topics: obj.topicIcons.map((obj) => obj.displayName),
+                      }))
+                    : []),
+                ]);
+              }
+            }}
           >
             <Link href="/blog/topics">
               <a>トピックごとに表示</a>
