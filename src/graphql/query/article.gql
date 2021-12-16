@@ -1,5 +1,5 @@
-query GetArticle {
-  articles: findAllArticles {
+query FindAllArticles {
+  all: findAllArticles {
     id
     articleId
     published
@@ -30,8 +30,21 @@ query GetArticle {
     }
   }
 }
+query FindMoreArticles($current: String!) {
+  more: findMoreArticles(current: $current) {
+    articleId
+    published
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
+}
 query FindArticle($articleId: String!) {
-  article: findArticle(articleId: $articleId) {
+  one: findArticle(articleId: $articleId) {
     id
     title
     articleId

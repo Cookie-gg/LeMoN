@@ -1,18 +1,18 @@
 import { client } from 'graphql/config.gql';
 import { Zenn, ZennAdds } from 'types/common';
-import { GetArticleQuery, GetArticleDocument } from 'types/graphql.d';
+import { FindAllArticlesQuery, FindAllArticlesDocument } from 'types/graphql.d';
 
 interface ArticleQueryType {
-  id: { id: string[] }[];
+  paths: { params: { id: string[] } }[];
   articles: (Zenn & ZennAdds)[];
 }
 
 export default async function articleQuery(): Promise<ArticleQueryType> {
-  const { data, error } = await client.query<GetArticleQuery>({ query: GetArticleDocument });
+  const { data, error } = await client.query<FindAllArticlesQuery>({ query: FindAllArticlesDocument });
   if (data) {
     const shapedData: ArticleQueryType = {
-      id: data.articles.map((obj) => ({ id: [obj.articleId] })),
-      articles: data.articles.map((obj) => {
+      paths: data.all.map((obj) => ({ params: { id: [obj.articleId] } })),
+      articles: data.all.map((obj) => {
         const headings = obj.html.match(/\<(h1|h2).*?\>(.*?)\<\/(h1|h2)\>/g);
         return {
           id: obj.id,
