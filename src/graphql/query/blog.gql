@@ -29,4 +29,5 @@ query Blog {
       }
     }
   }
+  num: countAllArticles
 }

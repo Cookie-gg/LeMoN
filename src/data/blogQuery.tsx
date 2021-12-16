@@ -12,6 +12,7 @@ export interface BlogQueryType {
     articles: Zenn[][];
   };
   all: {
+    limit: number;
     articles: Zenn[];
   };
 }
@@ -48,7 +49,8 @@ export default async function blogQuery(): Promise<BlogQueryType> {
         ),
       },
       all: {
-        articles: data.all.slice(4).map((obj) => ({
+        limit: data.num,
+        articles: data.all.slice(4, 8).map((obj) => ({
           articleId: obj.articleId,
           published: obj.published,
           releaseDate: obj.releaseDate,
