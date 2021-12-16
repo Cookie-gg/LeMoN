@@ -4,7 +4,7 @@ import { useRouter } from 'utils/next';
 import { displayDate } from 'utils/common';
 import { client } from 'graphql/config.gql';
 import { getFile } from 'utils/github/get.github';
-import { FormEvent, memo, useCallback, useState } from 'react';
+import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
 import type { MonacoEditorType, Zenn, ZennAdds } from 'types/common';
 import styles from '../../assets/scss/components/editor/Editor.module.scss';
 import { deleteFile, updateFile, createFile } from 'utils/github/post.github';
@@ -15,7 +15,7 @@ import Preview from './Preview';
 import SideMenu from './SideMenu';
 import QuickEdits from './QuickEdits';
 
-function Editor({ data }: { data: Partial<Zenn & ZennAdds> }) {
+function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
   const router = useRouter();
   const [editor, _editor] = useState<MonacoEditorType>(null);
   const init = '<!-- comment out -->\nコメントアウトは表示されません。';
@@ -76,6 +76,12 @@ function Editor({ data }: { data: Partial<Zenn & ZennAdds> }) {
       }
     },
     [body.html, body.markdown, data.articleId, data.id, data.title, idValidate, meta, router],
+  );
+  useEffect(
+    () => () => {
+      if (editor) editor.dispose();
+    },
+    [editor],
   );
   return (
     <div className={styles.entire}>
