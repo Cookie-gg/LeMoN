@@ -22,6 +22,8 @@ export { default as FormInput } from './FormInput';
 export { default as FormLabel } from './FormLabel';
 export { default as FormFrame } from './FormFrame';
 export { default as FormState } from './FormState';
+export { default as AuthButton } from './AuthButton';
+export { default as EditButton } from './EditButton';
 export { default as FormSubmit } from './FormSubmit';
 export { default as ArticleToc } from './ArticleToc';
 export { default as ImageFrame } from './ImageFrame';
