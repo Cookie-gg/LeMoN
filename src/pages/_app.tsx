@@ -9,13 +9,13 @@ import { client } from 'graphql/config.gql';
 import { ApolloProvider } from '@apollo/client';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [state, login] = useAuth();
+  const [state, login, logout] = useAuth();
   return (
     <>
       <ProgressBar />
       <Header />
       <ApolloProvider {...{ client }}>
-        <MainFrame>
+        <MainFrame auth={{ state, logout }}>
           <Component {...pageProps} auth={{ state, login }} />
         </MainFrame>
       </ApolloProvider>
