@@ -1,15 +1,12 @@
 .entire {
   box-sizing: border-box;
   display: flex;
-  padding: 11px;
   position: fixed;
   z-index: 3;
 
-  @include max(padding, #{11px}, 19px);
+  @include max(top, #{30px + 11px}, 20px + 19px);
 
-  @include max(top, #{30px}, 20px);
-
-  @include max(left, #{30px}, 20px);
+  @include max(left, #{30px + 11px}, 20px + 19px);
 
   .swiper {
     @include hover(true) {
@@ -363,7 +360,7 @@
       position: absolute;
       transition: height $common_anmt;
 
-      @include max(width, calc(120px / #{$route_3}), 120px / $route_3);
+      @include max(width, calc(120px / #{$route_3}), div(120px, $route_3));
 
       &::before {
         color: $dark-gray;

@@ -38,7 +38,7 @@
       left: 50%;
       transition: left $common_anmt entry_order(1);
 
-      @media screen and (max-width: map-get($fixed_points, 'sp') + 0px) {
+      @media screen and (max-width: #{$f_sp + 0px}) {
         .cover {
           left: 33vw;
         }

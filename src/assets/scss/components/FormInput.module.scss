@@ -47,8 +47,6 @@
     resize: none;
 
     @include max(height, #{100px}, 100px);
-
-    @include custom_scrollbar();
   }
   .triangle {
     position: relative;

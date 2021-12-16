@@ -30,7 +30,7 @@
     top: 0;
     transform: translate(-1px, -0.5px);
 
-    @include custom_max(width, 85px * 1.02 / $route_3, 725px);
+    @include custom_max(width, div(85px * 1.02, $route_3), 725px);
 
     @include custom_max(height, 85px * 1.02, 725px);
   }

@@ -440,8 +440,6 @@ $code_font: 'Source Code Pro', monospace;
     overflow-y: hidden;
     position: relative;
 
-    @include custom_scrollbar();
-
     @include max(border-radius, #{5px}, 5px);
 
     @include max(padding, #{20px}, 20px);
