@@ -8,11 +8,11 @@ const nextConfig = {
   optimizeFonts: true,
   sassOptions: {
     prependData: `
-    @import 'assets/scss/foundations/functions.scss';
-      @import 'assets/scss/foundations/mixins.scss';
-      @import 'assets/scss/foundations/colors.scss';
-      @import 'assets/scss/foundations/variables.scss';`,
-  },
+@import 'assets/scss/foundations/functions.scss';
+@import 'assets/scss/foundations/mixins.scss';
+@import 'assets/scss/foundations/colors.scss';
+@import 'assets/scss/foundations/variables.scss';
+` },
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
