@@ -4,7 +4,7 @@ import lemon from 'assets/svg/lemon.svg';
 import json from 'assets/json/login.json';
 import { GetServerSideProps, useRouter } from 'utils/next';
 import styles from '../assets/scss/pages/Login.module.scss';
-import React, { FormEvent, Fragment as _, memo, useCallback, useEffect } from 'react';
+import React, { FormEvent, Fragment as _, memo, useCallback } from 'react';
 import { FormFrame, FormInput, FormLabel, FormSubmit, HeadMeta, Img, PageFrame } from 'components';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 };
 
-function Page({ auth }: { auth: { state: boolean; login: (name: string, password: string) => void } }) {
+function Page({ auth }: { auth: { state: boolean; login: (name: string, password: string) => Promise<void> } }) {
   const router = useRouter();
   const [form, _form] = useForm({ name: '', password: '' });
   const loginHandler = useCallback(
@@ -31,9 +31,6 @@ function Page({ auth }: { auth: { state: boolean; login: (name: string, password
     },
     [auth, form],
   );
-  useEffect(() => {
-    auth.state && router.push('/');
-  }, [auth.state, router]);
   return (
     <>
       <HeadMeta title={json.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${json.title}`} />
