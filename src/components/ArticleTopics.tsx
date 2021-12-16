@@ -1,7 +1,7 @@
-import { Icon as Iconify } from '@iconify/react';
-import styles from '../assets/scss/components/ArticleTopics.module.scss';
 import { memo } from 'react';
 import { Nlink } from 'components';
+import { Icon as Iconify } from '@iconify/react';
+import styles from '../assets/scss/components/ArticleTopics.module.scss';
 
 interface PropsType {
   type?: string;
@@ -23,7 +23,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
           <li
             key={value}
             className={`${activeNumber === i && styles.active}`}
-            onClick={() => !inArticle && (clickEvent as (n: number) => void)(i)}
+            onClick={() => !inArticle && clickEvent && clickEvent(i)}
           >
             {inArticle ? (
               <Nlink href={`/blog/topics#${value.toLowerCase()}`}>
@@ -78,4 +78,4 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
   );
 }
 
-export default memo(ArticleTopics);
+export default memo(ArticleTopics, (prev, next) => prev.activeNumber === next.activeNumber);
