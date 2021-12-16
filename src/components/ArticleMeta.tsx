@@ -12,21 +12,24 @@ interface PropsType {
   updateDate: Date;
 }
 
-function ArticleMeta({ emoji, title, releaseDate, updateDate }: PropsType) {
+function ArticleMeta({ emoji, title, published, releaseDate, updateDate }: PropsType) {
   return (
     <div className={styles.entire}>
       <Twemoji svg onlyEmojiClassName={styles.emoji} text={emoji} options={{ protocol: 'https' }} />
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.time_header}>
-        <div className={styles.published}>
-
-        </div>
+        {!published && (
+          <div className={styles.publish_state}>
+            <Iconify icon="ic:round-public-off" />
+            Not Published
+          </div>
+        )}
         <div className={styles.release_date}>
-          <Iconify icon={'fa-solid:calendar-day'} />
+          <Iconify icon="fa-solid:calendar-day" />
           <time>{displayDate(new Date(releaseDate), '.', false)}</time>
         </div>
         <div className={styles.update_date}>
-          <Iconify icon={'fa-solid:sync'} />
+          <Iconify icon="fa-solid:sync" />
           <time>{displayDate(new Date(updateDate), '.', false)}</time>
         </div>
       </div>
