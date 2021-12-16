@@ -1,6 +1,0 @@
-query Editor {
-  topics: findAllTopics {
-    displayName
-    name
-  }
-}
