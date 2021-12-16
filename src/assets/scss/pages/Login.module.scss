@@ -6,7 +6,7 @@
 
   .form {
     @include max(margin-right, $sp_value: 8px);
-    @include max(margin-top, #{-80px});
+    // @include max(margin-top, #{-80px});
     label:first-of-type {
       @include max(margin-top, #{25px}, 25px);
     }
@@ -15,6 +15,7 @@
     }
     .logo {
       margin-left: -4%;
+
       @include max(width, #{90px}, 90px);
     }
     h1 {
@@ -29,6 +30,7 @@
       @include max(font-size, #{60px}, 60px);
 
       @include max(margin-top, #{25px}, 25px);
+
       span {
         transform: translateY(-4.5%);
       }
@@ -40,10 +42,10 @@
       overflow: hidden;
       position: relative;
       width: 100%;
+
       @include max(margin-top, #{25px}, 25px);
 
       @include max(font-size, #{20px}, 20px);
-
       &::before,
       &::after {
         background-color: rgba(white, 0.25);
