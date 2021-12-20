@@ -58,6 +58,7 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
           mutation: ChangeArticleDocument,
           variables: { id, articleId, published, releaseDate, updateDate, title, emoji, type, topics, html, markdown },
         });
+        console.log('mongoDb!');
         getFile(`articles/${articleId}.md`)
           .then(async () => {
             if (articleId !== data.articleId) await deleteFile(`articles/${articleId}.md`);
@@ -65,6 +66,7 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
           })
           .catch(() => {
             createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
+            console.log('github!');
           });
       } else if (
         submitter === 'delete' &&

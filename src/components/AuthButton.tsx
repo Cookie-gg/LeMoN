@@ -3,11 +3,11 @@ import styles from '../assets/scss/components/AuthButton.module.scss';
 import { Icon as Iconify } from '@iconify/react';
 import { Link, useRouter } from 'utils/next';
 
-function AuthButton(auth: { state: boolean; logout: () => Promise<void> }) {
+function AuthButton({ logout }: { logout: () => Promise<void> }) {
   const path = useRouter().asPath;
   return (
     <div className={styles.entire}>
-      <a className={styles.log} title="ログアウト" onClick={async () => auth.logout()}>
+      <a className={styles.log} title="ログアウト" onClick={async () => logout()}>
         <Iconify icon="ic:round-logout" />
       </a>
       <Link href="/edit">

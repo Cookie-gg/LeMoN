@@ -23,7 +23,7 @@ export default function MainFrame({
       className={`${styles.entire} ${pathname === '/' && styles.home}`}
       style={{ height: isMobile ? `${windowHeight}px` : undefined }}
     >
-      {pathname !== '/' && auth.state && <AuthButton {...auth} />}
+      {pathname !== '/' && auth.state && <AuthButton logout={() => auth.logout()} />}
       <PageTransition />
       {children}
     </main>

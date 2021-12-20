@@ -1,25 +1,26 @@
+import parse from 'html-react-parser';
+import { useRouter } from 'utils/next';
 import { useWindowDimensions } from 'hooks';
 import { ScrollerContext } from './PageFrame';
-import { useRouter } from 'utils/next';
 import markdown from '../assets/scss/components/Markdown.module.scss';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
-import { memo, ReactElement, useContext, useEffect, useRef } from 'react';
+import { Fragment as _, memo, ReactElement, useContext, useEffect, useRef } from 'react';
 
 interface PropsType {
   html: string;
   headingTexts?: string[];
   _activeSection: (n: number) => void;
-  children?: ReactElement;
+  children: ReactElement;
 }
 
 function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType) {
+  const id = `${useRouter().query.id}`;
   const ref = useRef<HTMLDivElement>(null);
   const scroller = useContext(ScrollerContext);
-  const query = (useRouter().query as { id: string[] }).id[0];
-  const window = useWindowDimensions() as { width: number; height: number };
+  const window = useWindowDimensions();
   useEffect(() => {
     const el = ref.current;
-    if (headingTexts && el && window.height && window.width) {
+    if (headingTexts && el) {
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(
@@ -39,15 +40,22 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
         observer.disconnect();
       };
     }
-  }, [query, window, headingTexts, _activeSection, scroller]);
+  }, [id, window, headingTexts, _activeSection, scroller]);
 
+  const InnerElement = () => (
+    <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
+      {html.split(/\<.*?table.*?\>/).map((text, i) => (
+        <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
+      ))}
+    </div>
+  );
   return window.width < 1200 ? (
     <div className={styles.wrapper}>
-      <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
+      <InnerElement />
       {children}
     </div>
   ) : (
-    <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
+    <InnerElement />
   );
 }
 
