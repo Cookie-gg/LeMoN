@@ -82,7 +82,7 @@
       @include max(letter-spacing, #{1.2px}, 1.2px);
 
       // pc
-      @include max(top, calc(30px + 11px + 110px));
+      @include max(top, #{30px + 11px + 110px});
 
       @include max(left, #{30px + 11px + 30px});
 
@@ -386,6 +386,7 @@
   &.init {
     .meta::before,
     .meta::after,
+    .meta *,
     .toc {
       transition: all 0s;
     }
