@@ -20,7 +20,7 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
   const window = useWindowDimensions();
   useEffect(() => {
     const el = ref.current;
-    if (headingTexts && el) {
+    if (headingTexts && el && window.height && window.width) {
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(
@@ -42,20 +42,21 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
     }
   }, [id, window, headingTexts, _activeSection, scroller]);
 
-  const InnerElement = () => (
+  return window.width < 1200 ? (
+    <div className={styles.wrapper}>
+      <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
+        {html.split(/\<.*?table.*?\>/).map((text, i) => (
+          <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
+        ))}
+      </div>
+      {children}
+    </div>
+  ) : (
     <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
       {html.split(/\<.*?table.*?\>/).map((text, i) => (
         <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
       ))}
     </div>
-  );
-  return window.width < 1200 ? (
-    <div className={styles.wrapper}>
-      <InnerElement />
-      {children}
-    </div>
-  ) : (
-    <InnerElement />
   );
 }
 

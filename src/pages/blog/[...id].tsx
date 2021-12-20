@@ -22,7 +22,6 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
   const contentsRef = useRef<HTMLDivElement>(null);
   const [activeSection, _activeSection] = useState(0);
   useEffect(() => _activeSection(0), [router.query.id]);
-  
   return (
     <>
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
