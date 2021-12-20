@@ -75,7 +75,7 @@ export default function useAuth(): [
         })
         .catch(() => {
           _state(false);
-          // nookies.destroy(null, 'token');
+          nookies.destroy(null, 'token');
           intervalRef.current && clearTimeout(intervalRef.current);
         });
   }, [refresh]);
