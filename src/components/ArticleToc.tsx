@@ -111,7 +111,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
             }}
           >
             {headings.map((heading, i) => (
-              <Link href={`#${encodeURI(heading.text)}`} key={heading.text}>
+              <Link href={`#${encodeURI(heading.text)}`} key={`${heading.text}_${i}`}>
                 <li
                   className={`${activeSection === i && styles.active} ${heading.level === 1 ? styles._1 : styles._2}`}
                 >

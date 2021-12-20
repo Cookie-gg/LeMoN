@@ -15,7 +15,6 @@ import {
   ArticleList,
   ArticleTopics,
 } from 'components';
-import { useIntersect } from 'hooks';
 
 function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } }) {
   const router = useRouter();
@@ -23,8 +22,7 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
   const contentsRef = useRef<HTMLDivElement>(null);
   const [activeSection, _activeSection] = useState(0);
   useEffect(() => _activeSection(0), [router.query.id]);
-  // const relationsHeading = useRef<HTMLHeadingElement>(null);
-  // const isIntersecting = useIntersect({ el: relationsHeading.current, rootMargin: '0px 0px 500px' });
+  
   return (
     <>
       <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
