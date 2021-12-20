@@ -16,7 +16,10 @@ export default function PageFrame({ children, classNmae }: { children: ReactElem
     const setScrollTop = () =>
       scrollTopCashe.get(router.asPath)
         ? scroller.current && scroller.current.scrollTo(0, Number(scrollTopCashe.get(router.asPath)))
-        : scroller.current && router.pathname === '/blog/[...id]' && scroller.current.scrollTo(0, 0);
+        : scroller.current &&
+          router.pathname === '/blog/[...id]' &&
+          router.asPath.split('#')[1] === undefined &&
+          scroller.current.scrollTo(0, 0);
     Router.events.on('routeChangeComplete', () => setScrollTop());
     Router.events.on('routeChangeStart', () => getScrollTop());
     return () => {
