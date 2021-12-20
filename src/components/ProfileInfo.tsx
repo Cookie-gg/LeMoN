@@ -15,7 +15,7 @@ export default function ProfileInfo({ data, className }: PropsType) {
             <li key={i}>
               <span>
                 <a href={`mailto:${el.text}`}>
-                  <Iconify icon={el.icon} />
+                  <Iconify fr={''} icon={el.icon} />
                   <p>{el.text}</p>
                 </a>
               </span>
@@ -25,7 +25,7 @@ export default function ProfileInfo({ data, className }: PropsType) {
           return (
             <li key={i}>
               <span>
-                <Iconify icon={el.icon} />
+                <Iconify fr={''} icon={el.icon} />
                 <p>{el.text}</p>
               </span>
             </li>

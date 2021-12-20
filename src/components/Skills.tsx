@@ -18,7 +18,7 @@ export default function Skills({ data }: PropsType) {
     <ul className={styles.cards}>
       {data.map((skill, i) => (
         <li key={i} className={styles.card}>
-          <Iconify icon={skill.icon} className={styles.icon} />
+          <Iconify fr={''} icon={skill.icon} className={styles.icon} />
           <h2>{skill.title}</h2>
           <p>{skill.explanation}</p>
           {skill.contents.map((content, j) => (

@@ -59,7 +59,7 @@ function Header() {
           >
             <Nlink href={el.path}>
               <>
-                <Iconify className="sp" icon={el.icon} />
+                <Iconify fr={''} className="sp" icon={el.icon} />
                 <span className={styles.name}>{el.name}</span>
               </>
             </Nlink>

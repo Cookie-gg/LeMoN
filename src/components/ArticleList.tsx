@@ -59,7 +59,7 @@ function ArticleList({
               </div>
               <div className={styles.text_wrapper}>
                 <h2>
-                  {!value.published && <Iconify icon="ic:round-public-off" />}
+                  {!value.published && <Iconify fr={''} icon="ic:round-public-off" />}
                   {value.title}
                 </h2>
                 <div>

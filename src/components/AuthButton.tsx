@@ -8,7 +8,7 @@ function AuthButton({ logout }: { logout: () => Promise<void> }) {
   return (
     <div className={styles.entire}>
       <a className={styles.log} title="ログアウト" onClick={async () => logout()}>
-        <Iconify icon="ic:round-logout" />
+        <Iconify fr={''} icon="ic:round-logout" />
       </a>
       <Link href="/edit">
         <a title="記事一覧">
@@ -17,7 +17,7 @@ function AuthButton({ logout }: { logout: () => Promise<void> }) {
       </Link>
       <Link href="/edit/no-title">
         <a className={`${styles.article} ${path.split('/')[2] === 'no-title' && styles.active}`} title="記事新規作成">
-          <Iconify icon="ic:round-mode-edit-outline" />
+          <Iconify fr={''} icon="ic:round-mode-edit-outline" />
         </a>
       </Link>
     </div>

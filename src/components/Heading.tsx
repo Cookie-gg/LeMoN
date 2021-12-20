@@ -10,7 +10,6 @@ interface PropsType {
 
 function Heading({ rank, text, className, id }: PropsType, ref: ForwardedRef<HTMLElement>) {
   const Tag = `h${rank}` as ElementType;
-  console.log('heading');
   return (
     <Tag className={`${styles.entire} ${className}`} id={id} ref={ref}>
       <span>{text}</span>

@@ -9,14 +9,14 @@ function EditButton({ articleId }: { articleId: string }) {
       <Link href={`/edit/${articleId}`}>
         <a>
           <button className={styles.editor}>
-            <Iconify icon="ic:round-edit-note" />
+            <Iconify fr={''} icon="ic:round-edit-note" />
           </button>
         </a>
       </Link>
       <Link href={`https://github.com/Cookie-gg/zenn-content/blob/master/articles/${articleId}.md`}>
         <a target="_blank">
           <button className={styles.github}>
-            <Iconify icon="ic:round-open-in-new" />
+            <Iconify fr={''} icon="ic:round-open-in-new" />
             Open in GitHub
           </button>
         </a>

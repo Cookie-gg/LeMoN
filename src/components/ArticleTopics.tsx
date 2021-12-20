@@ -55,7 +55,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
             <Nlink href="/blog/topics">
               <>
                 <span>
-                  <Iconify icon={icons[icons.length - 1]} />
+                  <Iconify fr={''} icon={icons[icons.length - 1]} />
                 </span>
                 {type}
               </>
@@ -66,7 +66,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
             <Nlink href="/blog/topics">
               <>
                 <span>
-                  <Iconify icon={'fa-solid:arrow-right'} />
+                  <Iconify fr={''} icon={'fa-solid:arrow-right'} />
                 </span>
                 全て表示
               </>

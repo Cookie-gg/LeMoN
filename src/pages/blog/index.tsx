@@ -41,7 +41,7 @@ function Page({ data }: { data: BlogQueryType }) {
           />
           <Heading className={styles.heading} rank={1} text={blog.all.title} />
           <ArticleList horizontal className={styles.articles} data={all} display={all.length} />
-          {loading && <Iconify icon="eos-icons:loading" className={styles.loading} />}
+          {loading && <Iconify fr={''} icon="eos-icons:loading" className={styles.loading} />}
           <Button
             className={styles.more}
             isInteractive={true}

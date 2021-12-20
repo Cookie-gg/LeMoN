@@ -20,16 +20,16 @@ function ArticleMeta({ emoji, title, published, releaseDate, updateDate }: Props
       <div className={styles.time_header}>
         {!published && (
           <div className={styles.publish_state}>
-            <Iconify icon="ic:round-public-off" />
+            <Iconify fr={''} icon="ic:round-public-off" />
             Not Published
           </div>
         )}
         <div className={styles.release_date}>
-          <Iconify icon="fa-solid:calendar-day" />
+          <Iconify fr={''} icon="fa-solid:calendar-day" />
           <time>{displayDate(new Date(releaseDate), '.', false)}</time>
         </div>
         <div className={styles.update_date}>
-          <Iconify icon="fa-solid:sync" />
+          <Iconify fr={''} icon="fa-solid:sync" />
           <time>{displayDate(new Date(updateDate), '.', false)}</time>
         </div>
       </div>
