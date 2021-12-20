@@ -14,6 +14,7 @@ function FormState({
   return (
     <>
       <Iconify
+        fr={''}
         icon="eos-icons:loading"
         className={`${styles.state} ${styles.sending} ${formState === 'sending' ? styles.visible : styles.hidden}`}
       />

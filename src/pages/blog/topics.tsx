@@ -40,6 +40,7 @@ function Page({ data }: { data: TopicQueryType }) {
                 shiftList={
                   <li className={`${styles.card} shift_list`}>
                     <Iconify
+                      fr={''}
                       icon={topic.icon.slice(0, 1) === '_' ? topic.icon.slice(1) : topic.icon}
                       style={{ filter: `${topic.icon.slice(0, 1) === '_' && 'invert()'}` }}
                       className={styles.icon}

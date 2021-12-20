@@ -30,6 +30,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
                 <>
                   <span>
                     <Iconify
+                      fr={''}
                       icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
                       style={{ filter: `${icons[i].slice(0, 1) === '_' && 'invert()'}` }}
                     />
@@ -41,6 +42,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
               <>
                 <span>
                   <Iconify
+                    fr={''}
                     icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
                     style={{ filter: `${icons[i].slice(0, 1) === '_' && 'invert()'}` }}
                   />

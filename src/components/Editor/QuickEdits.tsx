@@ -102,6 +102,7 @@ function QuickEdits({ editor }: { editor: MonacoEditorType }) {
       {quickEdits.map((edit, i) => (
         <a title={edit.title} key={i}>
           <Iconify
+            fr={''}
             icon={edit.icon}
             onClick={() => {
               const selection = editor && editor.getSelection();
