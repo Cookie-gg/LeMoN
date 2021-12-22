@@ -42,7 +42,7 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
     }
   }, [id, headingTexts, _activeSection, scroller]);
 
-  return window.width < 1200 ? (
+  return window.width && window.width < 1200 ? (
     <div className={styles.wrapper}>
       <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
         {html.split(/\<.*?table.*?\>/).map((text, i) => (

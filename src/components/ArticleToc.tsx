@@ -1,5 +1,5 @@
 import { Link, useRouter } from 'utils/next';
-import { memo, MouseEvent, useContext, useEffect, useRef, useState } from 'react';
+import { memo, MouseEvent, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Twemoji } from 'react-emoji-render';
 import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
@@ -22,7 +22,7 @@ interface PropsType {
 function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const paddingTop = 30 + 11 + 110; // value from scss/components/PageFrame.module.scss
   const paddingBottom = 30 + 11 + 30; // value from scss/components/PageFrame.module.scss
-  const window = useWindowDimensions();
+  const window = useWindowDimensions() as { width: number; height: number };
   const isMobile = useAgent('mobile');
   const id = `${useRouter().query.id}`;
   const [cursorY, _cursorY] = useState(0);
@@ -40,21 +40,24 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
     el: tocRef.current,
     rootMargin: `0px 0px -100%`,
   });
-  const getMousePosition = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-    if (
-      e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100) <
+  const getMousePosition = useCallback(
+    (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+      if (
+        e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100) <
         e.clientY - e.currentTarget.getBoundingClientRect().top
-    ) {
-      _cursorY(e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100));
-    } else if (
-      (window.width < 500 ? window.width * 0.2 : 100) >
-      e.clientY - e.currentTarget.getBoundingClientRect().top
-    ) {
-      _cursorY(window.width < 500 ? window.width * 0.2 : 100);
-    } else {
-      _cursorY(e.clientY - e.currentTarget.getBoundingClientRect().top);
-    }
-  };
+      ) {
+        _cursorY(e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100));
+      } else if (
+        (window.width < 500 ? window.width * 0.2 : 100) >
+        e.clientY - e.currentTarget.getBoundingClientRect().top
+      ) {
+        _cursorY(window.width < 500 ? window.width * 0.2 : 100);
+      } else {
+        _cursorY(e.clientY - e.currentTarget.getBoundingClientRect().top);
+      }
+    },
+    [window.width],
+  );
   useEffect(() => _isOpened(false), [id]);
   return (
     <div
