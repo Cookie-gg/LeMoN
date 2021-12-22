@@ -58,14 +58,14 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
               />
             </main>
             <aside>
-              {/* {auth.state && <EditButton articleId={data.articleId} />}
+              {auth.state && <EditButton articleId={data.articleId} />}
               <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
               <ArticleToc
                 meta={{ title: data.title, emoji: data.emoji }}
                 activeSection={activeSection}
                 headings={data.headings}
                 className={styles.toc}
-              /> */}
+              />
             </aside>
           </div>
         </>
