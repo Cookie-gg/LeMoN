@@ -28,6 +28,7 @@ function Page() {
               />
             </ImageFrame>
           </div>
+          <p id="test">テストアンカー</p>
           <div className={styles.skills}>
             <Skills data={about.skills} />
           </div>
