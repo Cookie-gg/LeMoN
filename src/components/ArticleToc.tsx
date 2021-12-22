@@ -43,7 +43,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const getMousePosition = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
     if (
       e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100) <
-      e.clientY - e.currentTarget.getBoundingClientRect().top
+        e.clientY - e.currentTarget.getBoundingClientRect().top
     ) {
       _cursorY(e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100));
     } else if (

@@ -56,7 +56,6 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
                 className={styles.relations}
                 data={data.relations.articles}
                 display={data.relations.articles.length}
-                needDateParse
               />
             </main>
             <aside>

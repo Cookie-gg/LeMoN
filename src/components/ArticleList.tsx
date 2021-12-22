@@ -14,7 +14,6 @@ interface PropsType {
   display: number;
   shiftList?: ReactElement;
   pushList?: ReactElement;
-  needDateParse?: boolean;
   vertical?: boolean;
   horizontal?: boolean;
   slider?: boolean;
