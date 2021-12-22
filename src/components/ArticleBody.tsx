@@ -44,21 +44,19 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
 
   return window.width < 1200 ? (
     <div className={styles.wrapper}>
-      {/* <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
+      <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
         {html.split(/\<.*?table.*?\>/).map((text, i) => (
           <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
         ))}
-      </div> */}
-      <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
+      </div>
       {children}
     </div>
   ) : (
-    <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
-    // <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
-    //   {html.split(/\<.*?table.*?\>/).map((text, i) => (
-    //     <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
-    //   ))}
-    // </div>
+    <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
+      {html.split(/\<.*?table.*?\>/).map((text, i) => (
+        <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
+      ))}
+    </div>
   );
 }
 

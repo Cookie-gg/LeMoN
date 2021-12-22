@@ -42,13 +42,13 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
                 html={data.html}
                 headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
                 _activeSection={(n: number) => _activeSection(n)}
-              >
-                <ArticleToc
+              />
+                {/* <ArticleToc
                   meta={{ title: data.title, emoji: data.emoji }}
                   activeSection={activeSection}
                   headings={data.headings}
-                />
-              </ArticleBody>
+                /> */}
+              {/* </ArticleBody> */}
               <Heading rank={2} text={post.relations.title} className={styles.heading} />
               <ArticleList
                 vertical
@@ -58,14 +58,14 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
               />
             </main>
             <aside>
-              {auth.state && <EditButton articleId={data.articleId} />}
+              {/* {auth.state && <EditButton articleId={data.articleId} />}
               <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
               <ArticleToc
                 meta={{ title: data.title, emoji: data.emoji }}
                 activeSection={activeSection}
                 headings={data.headings}
                 className={styles.toc}
-              />
+              /> */}
             </aside>
           </div>
         </>
