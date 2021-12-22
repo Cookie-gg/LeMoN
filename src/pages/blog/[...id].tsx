@@ -1,7 +1,7 @@
 import post from 'assets/json/post.json';
 import articleQuery from 'data/articleQuery';
 import { Zenn, ZennAdds } from 'types/common';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import styles from '../../assets/scss/pages/Blog.module.scss';
 import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/next';
 import {
@@ -42,30 +42,30 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
                 html={data.html}
                 headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
                 _activeSection={(n: number) => _activeSection(n)}
-              />
-                {/* <ArticleToc
+              >
+                <ArticleToc
                   meta={{ title: data.title, emoji: data.emoji }}
                   activeSection={activeSection}
                   headings={data.headings}
-                /> */}
-              {/* </ArticleBody> */}
-              {/* <Heading rank={2} text={post.relations.title} className={styles.heading} /> */}
-              {/* <ArticleList
+                />
+              </ArticleBody>
+              <Heading rank={2} text={post.relations.title} className={styles.heading} />
+              <ArticleList
                 vertical
                 className={styles.relations}
                 data={data.relations.articles}
                 display={data.relations.articles.length}
-              /> */}
+              />
             </main>
             <aside>
-              {/* {auth.state && <EditButton articleId={data.articleId} />}
+              {auth.state && <EditButton articleId={data.articleId} />}
               <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
               <ArticleToc
                 meta={{ title: data.title, emoji: data.emoji }}
                 activeSection={activeSection}
                 headings={data.headings}
                 className={styles.toc}
-              /> */}
+              />
             </aside>
           </div>
         </>
