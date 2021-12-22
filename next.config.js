@@ -24,7 +24,7 @@ const securityHeaders = [
   },
   { // which functions allow
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+    value: 'camera=(), microphone=(), geolocation=()'
   },
   { // appoint content type
     key: 'X-Content-Type-Options',
