@@ -1,4 +1,4 @@
-describe('Form', () => {
+export default describe('Form', () => {
   it('should send owner e-mail a message', () => {
     cy.visit('/contact');
 

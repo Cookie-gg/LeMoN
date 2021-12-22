@@ -1,4 +1,4 @@
-describe('Navigation', () => {
+export default describe('Navigation', () => {
   it('should navigate pages (about, works, blog, contact) from header', () => {
     cy.visit('/');
 
