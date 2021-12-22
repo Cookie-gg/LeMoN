@@ -264,7 +264,7 @@ $code_font: 'Source Code Pro', monospace;
   details {
     border: 1px solid rgba(white, 0.08);
     summary {
-      background-color: rgba($dark-gray, 0.6);
+      background-color: rgba($dark_gray, 0.6);
       cursor: pointer;
       user-select: none;
     }
@@ -279,7 +279,7 @@ $code_font: 'Source Code Pro', monospace;
     }
   }
   [class*='link_card'] {
-    background-color: $dark-gray;
+    background-color: $dark_gray;
     border: 1px solid rgba(white, 0.08);
     overflow: hidden;
     position: relative;
@@ -288,7 +288,7 @@ $code_font: 'Source Code Pro', monospace;
     @include max(border-radius, #{5px}, 5px);
 
     &:hover {
-      background-color: lighten($dark-gray, 1.5);
+      background-color: lighten($dark_gray, 1.5);
     }
     a {
       box-sizing: border-box;
@@ -378,7 +378,7 @@ $code_font: 'Source Code Pro', monospace;
       align-items: center;
       background-color: $lemon;
       border-radius: 50%;
-      color: $dark-gray;
+      color: $dark_gray;
       content: '!';
       display: flex;
       font-weight: bold;
@@ -415,7 +415,7 @@ $code_font: 'Source Code Pro', monospace;
   h6,
   p {
     code {
-      background-color: rgba($dark-gray, 0.5);
+      background-color: rgba($dark_gray, 0.5);
 
       @include max(border-radius, #{5px}, 5px);
 
@@ -435,7 +435,7 @@ $code_font: 'Source Code Pro', monospace;
     }
   }
   pre {
-    background-color: $dark-gray;
+    background-color: $dark_gray;
     overflow: scroll;
     overflow-y: hidden;
     position: relative;

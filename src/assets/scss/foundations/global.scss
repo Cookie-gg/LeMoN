@@ -1,7 +1,7 @@
 // Selection
 ::selection {
   background-color: $lemon;
-  color: $dark-gray;
+  color: $dark_gray;
 }
 // Scroll bar
 ::-webkit-scrollbar {
@@ -45,6 +45,6 @@ span {
 }
 textarea,
 input {
-  color: $dark-gray;
+  color: $dark_gray;
 }
 @import '../components/ProgressBar.scss';

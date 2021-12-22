@@ -120,8 +120,8 @@ $queries: (
   }
 }
 
-@mixin bold($width, $color: $dark-gray) {
+@mixin bold($width, $color: $dark_gray) {
   -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-color: $dark-gray;
+  -webkit-text-stroke-color: $dark_gray;
   -webkit-text-stroke-width: $width;
 }

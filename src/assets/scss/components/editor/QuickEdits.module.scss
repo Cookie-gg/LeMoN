@@ -19,7 +19,7 @@
     @include max(padding, #{2px}, 2px);
 
     &:hover {
-      background-color: $dark-gray;
+      background-color: $dark_gray;
     }
   }
 }

@@ -4,7 +4,7 @@
   width: 100%;
   input,
   textarea {
-    background-color: rgba($dark-gray, 0.6);
+    background-color: rgba($dark_gray, 0.6);
     border-bottom: 1px solid $lemon;
     box-sizing: border-box;
     color: rgba(white, 0.9);
@@ -40,7 +40,7 @@
       @include max(width, #{34px}, 34px);
     }
     &:focus {
-      background-color: rgba($dark-gray, 0.75);
+      background-color: rgba($dark_gray, 0.75);
     }
   }
   textarea {
@@ -67,6 +67,6 @@
   from {
   }
   to {
-    background-color: rgba($dark-gray, 0.6);
+    background-color: rgba($dark_gray, 0.6);
   }
 }

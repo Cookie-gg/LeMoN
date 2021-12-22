@@ -187,7 +187,7 @@
           }
           .thumbnail {
             .type {
-              background-color: $dark-gray;
+              background-color: $dark_gray;
               color: $lemon;
             }
             &::before {
@@ -207,12 +207,12 @@
           }
           .type {
             background-color: $lemon;
-            color: $dark-gray;
+            color: $dark_gray;
             font-weight: 600;
             position: absolute;
             transition: all $common_anmt;
             -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-color: $dark-gray;
+            -webkit-text-stroke-color: $dark_gray;
             -webkit-text-stroke-width: 0.05px;
 
             @include media(mobile) {
@@ -335,7 +335,7 @@
 
       & > button {
         align-items: center;
-        background-color: rgba($dark-gray, 0.6);
+        background-color: rgba($dark_gray, 0.6);
         display: flex;
         font-size: 0px !important;
         height: 100%;

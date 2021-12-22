@@ -7,7 +7,7 @@
   select,
   option,
   button {
-    background-color: rgba($dark-gray, 0.5);
+    background-color: rgba($dark_gray, 0.5);
     border-radius: 4px;
     outline: 2px solid;
     outline-color: transparent;
@@ -48,7 +48,7 @@
     }
     &:focus,
     &:focus:hover {
-      background-color: rgba($dark-gray, 0.9);
+      background-color: rgba($dark_gray, 0.9);
       outline-color: $lemon;
       transition: outline-color 0.3s, background-color 0.3s;
     }

@@ -38,7 +38,7 @@
     }
   }
   label.check {
-    background-color: rgba($dark-gray, 0.5);
+    background-color: rgba($dark_gray, 0.5);
     border-radius: 4px;
     box-sizing: border-box;
     cursor: pointer;
@@ -87,7 +87,7 @@
       transition: outline-color 0.3s;
     }
     &:active {
-      background-color: rgba($dark-gray, 0.9);
+      background-color: rgba($dark_gray, 0.9);
       outline-color: $lemon;
       transition: outline-color 0.3s, background-color 0.3s;
     }
@@ -103,7 +103,7 @@
     }
   }
   input {
-    background-color: rgba($dark-gray, 0.5);
+    background-color: rgba($dark_gray, 0.5);
     border-radius: 4px;
     box-sizing: border-box;
     display: block;
@@ -147,7 +147,7 @@
       }
       &:focus,
       &:focus:hover {
-        background-color: rgba($dark-gray, 0.9);
+        background-color: rgba($dark_gray, 0.9);
         outline-color: $lemon;
         transition: outline-color 0.3s, background-color 0.3s;
       }
@@ -224,7 +224,7 @@
       color: transparent;
       cursor: pointer;
       &.enable {
-        background-color: rgba($dark-gray, 0.9);
+        background-color: rgba($dark_gray, 0.9);
         outline-color: $lemon;
         transition: outline-color 0.3s, background-color 0.3s;
       }

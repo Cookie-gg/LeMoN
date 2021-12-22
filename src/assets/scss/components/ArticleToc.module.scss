@@ -107,7 +107,7 @@
         @include max(padding, #{10px}, 10px);
       }
       &::before {
-        background-color: $dark-gray;
+        background-color: $dark_gray;
         bottom: 100%;
         content: '';
         height: 100%;
@@ -136,7 +136,7 @@
         @include max(margin-right, #{15px}, 15px);
       }
       .title {
-        color: rgba($dark-gray, 0.9);
+        color: rgba($dark_gray, 0.9);
         font-weight: 700;
         line-height: 1.8;
 
@@ -197,7 +197,7 @@
         @include max(width, #{5px}, 5px);
       }
       &::after {
-        background-color: $dark-gray;
+        background-color: $dark_gray;
         content: '';
         height: 100%;
         left: 100%;
@@ -228,7 +228,7 @@
 
       @include max(justify-content, $sp_value: center, $width: $res);
 
-      @include max(color, $sp_value: $dark-gray, $width: $res);
+      @include max(color, $sp_value: $dark_gray, $width: $res);
 
       @include max(background-color, $sp_value: $lemon, $width: $res);
 
