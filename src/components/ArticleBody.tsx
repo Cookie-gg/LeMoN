@@ -20,7 +20,7 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
   const window = useWindowDimensions();
   useEffect(() => {
     const el = ref.current;
-    if (headingTexts && el && window.height && window.width) {
+    if (headingTexts && el) {
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(
@@ -40,7 +40,7 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
         observer.disconnect();
       };
     }
-  }, [id, window, headingTexts, _activeSection, scroller]);
+  }, [id, headingTexts, _activeSection, scroller]);
 
   return window.width < 1200 ? (
     <div className={styles.wrapper}>
