@@ -3,17 +3,14 @@ import { client } from 'graphql/config.gql';
 import { BlogDocument, BlogQuery } from 'types/graphql.d';
 
 export interface BlogQueryType {
-  latest: {
+  all: {
+    limit: number;
     articles: Zenn[];
   };
   topTopics: {
     topics: string[];
     icons: string[];
     articles: Zenn[][];
-  };
-  all: {
-    limit: number;
-    articles: Zenn[];
   };
 }
 
@@ -22,16 +19,18 @@ export default async function blogQuery(): Promise<BlogQueryType> {
   if (data) {
     const topTopics = data.topics.sortObj('allArticles', 'desc', true).slice(0, 3);
     const shapedData: BlogQueryType = {
-      latest: {
-        articles: data.all.slice(0, 4).map((obj) => ({
-          articleId: obj.articleId,
-          published: obj.published,
-          releaseDate: obj.releaseDate,
-          title: obj.title,
-          emoji: obj.emoji,
-          type: obj.type,
-          topics: obj.topicIcons.map((obj) => obj.displayName),
-        })),
+      all: {
+        limit: data.num,
+        articles: data.all
+          .map((obj) => ({
+            articleId: obj.articleId,
+            published: obj.published,
+            releaseDate: obj.releaseDate,
+            title: obj.title,
+            emoji: obj.emoji,
+            type: obj.type,
+            topics: obj.topicIcons.map((obj) => obj.displayName),
+          })),
       },
       topTopics: {
         topics: topTopics.map((obj) => obj.displayName),
@@ -47,18 +46,6 @@ export default async function blogQuery(): Promise<BlogQueryType> {
             topics: _obj.topicIcons.map((_obj) => _obj.displayName),
           })),
         ),
-      },
-      all: {
-        limit: data.num,
-        articles: data.all.slice(4, 8).map((obj) => ({
-          articleId: obj.articleId,
-          published: obj.published,
-          releaseDate: obj.releaseDate,
-          title: obj.title,
-          emoji: obj.emoji,
-          type: obj.type,
-          topics: obj.topicIcons.map((obj) => obj.displayName),
-        })),
       },
     };
     return shapedData;

@@ -39,13 +39,7 @@ function ArticleList({
   const listBody = data.specifor(
     display,
     (value: Zenn) =>
-      (type
-        ? type === 'public'
-          ? value.published
-          : !value.published
-        : process.env.NODE_ENV === 'production'
-        ? value.published
-        : true) && (
+      (type ? (type === 'public' ? value.published : !value.published) : true) && (
         <li key={value.articleId}>
           <Nlink
             href={editable ? '/edit/[...id]' : '/blog/[...id]'}

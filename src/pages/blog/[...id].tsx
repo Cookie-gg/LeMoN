@@ -83,6 +83,7 @@ export const getStaticPaths: GetStaticPaths = async () => ({
 export const getStaticProps: GetStaticProps = async ({ params }) => ({
   props: {
     data: JSON.stringify((await articleQuery()).articles.find((article) => article.articleId === params!.id![0])),
+    revalidate: 60,
   },
 });
 

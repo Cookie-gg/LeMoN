@@ -7,9 +7,14 @@ import styles from '../../assets/scss/pages/Blog.module.scss';
 import { useFindMoreArticlesLazyQuery } from 'types/graphql.d';
 import { Heading, PageFrame, ArticleList, Button, ArticleTopics, HeadMeta } from 'components';
 
-function Page({ data }: { data: BlogQueryType }) {
+function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } }) {
   data = JSON.parse(String(data));
-  const [all, _all] = useState(data.all.articles);
+  const [all, _all] = useState(
+    data.all.articles.filter((value) => {
+      if (auth.state || process.env.NODE_ENV === 'development') return value;
+      else if (value.published) return value;
+    }),
+  );
   const [selectedTopic, _selectedTopic] = useState(0);
   const [getMore, { loading }] = useFindMoreArticlesLazyQuery();
   return (
@@ -18,12 +23,7 @@ function Page({ data }: { data: BlogQueryType }) {
       <PageFrame classNmae={styles.page}>
         <>
           <Heading className={styles.heading} rank={1} text={blog.latest.title} />
-          <ArticleList
-            className={styles.articles}
-            data={data.latest.articles}
-            display={data.latest.articles.length}
-            vertical
-          />
+          <ArticleList className={styles.articles} data={all.slice(0, 4)} display={all.slice(0, 4).length} vertical />
           <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
           <ArticleList
             className={styles.articles}
@@ -40,14 +40,14 @@ function Page({ data }: { data: BlogQueryType }) {
             }
           />
           <Heading className={styles.heading} rank={1} text={blog.all.title} />
-          <ArticleList horizontal className={styles.articles} data={all} display={all.length} />
+          <ArticleList horizontal className={styles.articles} data={all.slice(4)} display={all.slice(4).length} />
           {loading && <Iconify fr={''} icon="eos-icons:loading" className={styles.loading} />}
           <Button
             className={styles.more}
             isInteractive={true}
-            switching={data.all.limit === all.length + 4}
+            switching={data.all.limit === all.length}
             clickEvent={async () => {
-              const res = await getMore({ variables: { current: String(all.length + 4) } });
+              const res = await getMore({ variables: { current: String(all.length) } });
               if (res.data) {
                 _all((prev) => [
                   ...prev,
