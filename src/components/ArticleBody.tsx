@@ -49,11 +49,11 @@ function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType
           <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
         ))}
       </div> */}
-      <div className={styles.body} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
+      <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
       {children}
     </div>
   ) : (
-    <div className={styles.body} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
+    <div className={`${styles.inner} ${markdown.styles}`} dangerouslySetInnerHTML={{ __html: html }} ref={ref} />
     // <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
     //   {html.split(/\<.*?table.*?\>/).map((text, i) => (
     //     <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
