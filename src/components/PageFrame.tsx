@@ -11,23 +11,23 @@ export default function PageFrame({ children, classNmae }: { children: ReactElem
   const router = useRouter();
   const [scrollTop, _scrollTop] = useState(0);
   const scroller = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const getScrollTop = () => scroller.current && _scrollTop(scroller.current.scrollTop);
-    const setScrollTop = () =>
-      scrollTopCashe.get(router.asPath)
-        ? scroller.current && scroller.current.scrollTo(0, Number(scrollTopCashe.get(router.asPath)))
-        : scroller.current &&
-          router.pathname === '/blog/[...id]' &&
-          router.asPath.split('#')[1] === undefined &&
-          scroller.current.scrollTo(0, 0);
-    Router.events.on('routeChangeComplete', () => setScrollTop());
-    Router.events.on('routeChangeStart', () => getScrollTop());
-    return () => {
-      scrollTopCashe.put(router.asPath, scrollTop);
-      Router.events.on('routeChangeComplete', () => setScrollTop());
-      Router.events.off('routeChangeStart', () => getScrollTop());
-    };
-  }, [router, scrollTop]);
+  // useEffect(() => {
+  //   const getScrollTop = () => scroller.current && _scrollTop(scroller.current.scrollTop);
+  //   const setScrollTop = () =>
+  //     scrollTopCashe.get(router.asPath)
+  //       ? scroller.current && scroller.current.scrollTo(0, Number(scrollTopCashe.get(router.asPath)))
+  //       : scroller.current &&
+  //         router.pathname === '/blog/[...id]' &&
+  //         router.asPath.split('#')[1] === undefined &&
+  //         scroller.current.scrollTo(0, 0);
+  //   Router.events.on('routeChangeComplete', () => setScrollTop());
+  //   Router.events.on('routeChangeStart', () => getScrollTop());
+  //   return () => {
+  //     scrollTopCashe.put(router.asPath, scrollTop);
+  //     Router.events.on('routeChangeComplete', () => setScrollTop());
+  //     Router.events.off('routeChangeStart', () => getScrollTop());
+  //   };
+  // }, [router, scrollTop]);
 
   return (
     <ScrollerContext.Provider value={scroller}>
