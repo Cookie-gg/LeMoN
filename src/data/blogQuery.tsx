@@ -17,7 +17,7 @@ export interface BlogQueryType {
 export default async function blogQuery(): Promise<BlogQueryType> {
   const { error, data } = await client.query<BlogQuery>({ query: BlogDocument });
   if (data) {
-    const topTopics = data.topics.sortObj('allArticles', 'desc', true).slice(0, 3);
+    const topTopics = data.topics.sortObj('allArticles', 'desc', true);
     const shapedData: BlogQueryType = {
       all: {
         limit: data.num,

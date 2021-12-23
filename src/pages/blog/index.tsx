@@ -6,15 +6,11 @@ import blogQuery, { BlogQueryType } from 'data/blogQuery';
 import styles from '../../assets/scss/pages/Blog.module.scss';
 import { useFindMoreArticlesLazyQuery } from 'types/graphql.d';
 import { Heading, PageFrame, ArticleList, Button, ArticleTopics, HeadMeta } from 'components';
+import { publicState } from 'utils/common';
 
 function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } }) {
   data = JSON.parse(String(data));
-  const [all, _all] = useState(
-    data.all.articles.filter((value) => {
-      if (auth.state || process.env.NODE_ENV === 'development') return value;
-      else if (value.published) return value;
-    }),
-  );
+  const [all, _all] = useState(publicState(data.all.articles, auth.state));
   const [selectedTopic, _selectedTopic] = useState(0);
   const [getMore, { loading }] = useFindMoreArticlesLazyQuery();
   return (
@@ -23,16 +19,15 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
       <PageFrame classNmae={styles.page}>
         <>
           <Heading className={styles.heading} rank={1} text={blog.latest.title} />
-          <ArticleList className={styles.articles} data={all.slice(0, 4)} display={all.slice(0, 4).length} vertical />
+          <ArticleList className={styles.articles} data={all.slice(0, 4)} vertical />
           <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
           <ArticleList
             className={styles.articles}
-            data={data.topTopics.articles[selectedTopic]}
-            display={data.topTopics.articles[selectedTopic].length}
+            data={data.topTopics.articles.map((article) => publicState(article).slice(0, 3))[selectedTopic]}
             vertical
             shiftList={
               <ArticleTopics
-                topics={data.topTopics.topics}
+                topics={data.topTopics.topics.slice(0, 3)}
                 icons={data.topTopics.icons}
                 activeNumber={selectedTopic}
                 clickEvent={(n) => _selectedTopic(n)}
@@ -40,7 +35,7 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
             }
           />
           <Heading className={styles.heading} rank={1} text={blog.all.title} />
-          <ArticleList horizontal className={styles.articles} data={all.slice(4)} display={all.slice(4).length} />
+          <ArticleList horizontal className={styles.articles} data={all.slice(4)} />
           {loading && <Iconify fr={''} icon="eos-icons:loading" className={styles.loading} />}
           <Button
             className={styles.more}

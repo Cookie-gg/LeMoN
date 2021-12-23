@@ -11,7 +11,6 @@ interface PropsType {
   className?: string;
   id?: string;
   data: Zenn[];
-  display: number;
   shiftList?: ReactElement;
   pushList?: ReactElement;
   vertical?: boolean;
@@ -26,7 +25,6 @@ function ArticleList({
   className,
   id,
   data,
-  display,
   shiftList,
   pushList,
   vertical,
@@ -37,7 +35,7 @@ function ArticleList({
   type,
 }: PropsType) {
   const listBody = data.specifor(
-    display,
+    data.length,
     (value: Zenn) =>
       (type ? (type === 'public' ? value.published : !value.published) : true) && (
         <li key={value.articleId}>
@@ -79,7 +77,7 @@ function ArticleList({
         id={id}
       >
         {shiftList}
-        {slider && display > 2 ? <Slider {...settings}>{listBody}</Slider> : listBody}
+        {slider && data.length > 2 ? <Slider {...settings}>{listBody}</Slider> : listBody}
         {pushList}
       </ul>
     </>
@@ -89,7 +87,6 @@ function ArticleList({
 export default memo(
   ArticleList,
   (prev, next) =>
-    prev.display === next.display &&
     JSON.stringify(prev.data) === JSON.stringify(next.data) &&
     prev.shiftList === next.shiftList &&
     prev.pushList === next.pushList,

@@ -6,8 +6,9 @@ import { Icon as Iconify } from '@iconify/react';
 import topicsQuery, { TopicQueryType } from 'data/topicsQuery';
 import styles from '../../assets/scss/pages/Topics.module.scss';
 import { ArticleList, Heading, HeadMeta, PageFrame } from 'components';
+import { publicState } from 'utils/common';
 
-function Page({ data }: { data: TopicQueryType }) {
+function Page({ data, auth }: { data: TopicQueryType; auth: { state: boolean } }) {
   data = JSON.parse(String(data));
   const settings: Settings = {
     dots: false,
@@ -34,9 +35,8 @@ function Page({ data }: { data: TopicQueryType }) {
               <ArticleList
                 id={topic.name.toLowerCase()}
                 slider
-                data={topic.articles}
+                data={publicState(topic.articles, auth.state)}
                 className={styles.articles}
-                display={topic.articles.length}
                 shiftList={
                   <li className={`${styles.card} shift_list`}>
                     <Iconify

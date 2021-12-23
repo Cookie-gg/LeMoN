@@ -15,6 +15,7 @@ import {
   ArticleList,
   ArticleTopics,
 } from 'components';
+import { publicState } from 'utils/common';
 
 function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } }) {
   const router = useRouter();
@@ -53,8 +54,7 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
               <ArticleList
                 vertical
                 className={styles.relations}
-                data={data.relations.articles}
-                display={data.relations.articles.length}
+                data={publicState(data.relations.articles, auth.state)}
               />
             </main>
             <aside>

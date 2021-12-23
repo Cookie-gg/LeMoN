@@ -1,3 +1,5 @@
+import { Zenn } from 'types/common';
+
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -37,3 +39,8 @@ export const specifor: <T>(times: number, func: (index: number) => T) => T[] = (
   return list;
 };
 
+export const publicState = (data: Zenn[], authState?: boolean) =>
+  data.filter((value) => {
+    if (authState || process.env.NODE_ENV === 'development') return value;
+    else if (value.published) return value;
+  });
