@@ -28,6 +28,7 @@ npm run dev
 Development with [Vercel](https://vercel.com/)
 
 ```
+npm i -g vercel
 npm run vercel
 ```
 
@@ -104,8 +105,6 @@ npm run cy:open
   │   │   ├── next.ts
   │   │   └── prototype.ts
   │   └── index.tsx
-  ├── .env.development
-  ├── .env.production
   ├── .eslintrc.json
   ├── .gitignore
   ├── .prettierrc.json
