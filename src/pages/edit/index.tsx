@@ -15,7 +15,6 @@ function Page({ data }: { data: EditQueryType }) {
           <ArticleList
             className={styles.articles}
             data={data.all.articles}
-            display={data.all.articles.length}
             vertical
             editable
             type="private"
@@ -24,7 +23,6 @@ function Page({ data }: { data: EditQueryType }) {
           <ArticleList
             className={styles.articles}
             data={data.all.articles}
-            display={data.all.articles.length}
             vertical
             editable
             type="public"
