@@ -1,0 +1,18 @@
+.entire {
+  display: inline-block;
+  font-weight: 400;
+  position: relative;
+  width: 100%;
+
+  @include max(font-size, #{20px}, 22px);
+
+  &:not(:first-of-type) {
+    @include max(margin-top, #{35px}, 35px);
+  }
+  &.required::after {
+    color: rgba(red, 0.9);
+    content: '*';
+
+    @include max(margin-left, #{5px}, 5px);
+  }
+}

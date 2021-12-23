@@ -1,0 +1,12 @@
+{
+  "title": "Blog",
+  "latest": {
+    "title": "LATEST"
+  },
+  "topTopics": {
+    "title": "TOP TOPICS"
+  },
+  "all": {
+    "title": "ALL"
+  }
+}

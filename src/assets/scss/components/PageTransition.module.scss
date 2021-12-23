@@ -4,7 +4,7 @@
   transform: translate(-50%, -50%);
   z-index: 4;
 
-  @include max(left, -120vw, -2000px);
+  @include max(left, -130vw, -2000px);
 
   .cover {
     background-color: $lemon;
@@ -38,7 +38,7 @@
       left: 50%;
       transition: left $common_anmt entry_order(1);
 
-      @media screen and (max-width: map-get($fixed_points, 'sp') + 0px) {
+      @media screen and (max-width: #{$f_sp + 0px}) {
         .cover {
           left: 33vw;
         }

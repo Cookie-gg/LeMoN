@@ -33,3 +33,11 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# markdown editor
+editor.md
+
+# cypress
+cypress/screenshots
+cypress/videos
+cypress/cypress.yml

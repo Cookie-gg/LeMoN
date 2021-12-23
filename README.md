@@ -1,158 +1,168 @@
 # LeMoN
-フロントエンジニア Cookie_ggのポートフォリオ及びホームページ
 
-## フロント
-https://github.com/Cookie-gg/LeMoN
-## バックエンド
-https://github.com/Cookie-gg/L_M_N
-## 管理画面
-https://github.com/Cookie-gg/NoMeL
+Cookie_gg's Portfolio and Blog
 
-## 構成
-* フロントエンド
-Next.js + Apollo + GraphQL
-* バックエンド
-NestJS + GraphQL + MongoDB
-* 管理画面
-Vue + Vite + Apollo + GraphQL
+## Production
 
+https://cookie-gg.vercel.app
 
-## セットアップ
-開発用
+## Latest Preview
+
+nothing
+
+## Conmposition
+
+|              | **[LeMoN](https://github.com/Cookie-gg/MeLoN)** | **[MeLoN](https://github.com/Cookie-gg/MeLoN)** |
+| :----------: | :---------------------------------------------: | :---------------------------------------------: |
+|     Role     |                    Front-end                    |                    Back-end                     |
+| Conmposition |           Next.js + Apollo + GraphQL            |           NestJS + GraphQL + MongoDB            |
+
+## Setups
+
+Development
+
 ```
-npm i
-
 npm run dev
 ```
-ビルド
-```
-npm i
 
+Development with [Vercel](https://vercel.com/)
+
+```
+npm i -g vercel
+npm run vercel
+```
+
+Build
+
+```
 npm run build
 ```
-GraphQL ジェネレート
-```
-npm i 
 
+Lint
+
+```
+npm run lint
+```
+
+Generate Grapqhl code
+
+```
 npm run generate
 ```
 
-## ディレクトリ構成
+E2E test - Cypress
+
+```
+npm run cy:run
+```
+
+Open Cypress window
+
+```
+npm run cy:open
+```
+
+## Directories
+
 ```
 ── .
   │── .vscode
-  │   └── setting.json (拡張機能設定、合わせると開発しやすい)
+  │   └── setting.json
   │── src
   │   ├── assets
-  │   │   ├── img (画像ファイル)
-  │   │   └── scss (Scssファイル)
-  │   │       ├── components (コンポーネントごとのScss)
-  │   │       ├── foundation (リセットCSSや変数、mixinなど)
-  │   │       └── pages (ページごとのScss)
+  │   │   ├── img
+  │   │   └── scss
+  │   │       ├── components
+  │   │       ├── foundation
+  │   │       └── pages
   │   ├── components
   │   │   ├── components files...
-  │   │   └── index.tsx (componentsのエントリーポイント)
+  │   │   └── index.tsx
   │   ├── data
-  │   │   └── ...Query.tsx (データ加工のファイル)
+  │   │   └── ...Query.tsx
   │   ├── graphQL
-  │   │   ├── mutations (mutationsファイル群)
-  │   │   ├── queries (queriesファイル群)
-  │   │   └── config.gql.ts (apollo clientの設定)
+  │   │   ├── mutations
+  │   │   ├── queries
+  │   │   └── config.gql.ts
   │   ├── hooks
   │   │   ├── hooks files...
-  │   │   └── index.tsx (custom hooksのエントリーポイント)
+  │   │   └── index.tsx
   │   ├── pages
   │   │   ├── page files...
-  │   │   ├── _app.tsc (pagesのエントリーポイント)
-  │   │   └── index.tsx (/)
+  │   │   ├── _app.tsc
+  │   │   └── index.tsx
   │   ├── types
-  │   │   ├── common.d.ts (よく使用する型)
-  │   │   ├── global.d.ts (グローバル型)
-  │   │   ├── graphql.d.ts (graphql-code-generatorで生成された型定義)
-  │   │   └── modules.d.ts (型がないモジュールのための型)
+  │   │   ├── common.d.ts
+  │   │   ├── global.d.ts
+  │   │   ├── graphql.d.ts
+  │   │   └── modules.d.ts
   │   ├── utils
-  │   │   ├── axios
-  │   │   │   ├── get.axios.ts (GETリクエスト用の処理)
-  │   │   │   └── post.axios.ts (POSTリクエスト用の処理)
-  │   │   ├── firebase
-  │   │   │   ├── auth.firebase.ts (firebaseの認証処理)
-  │   │   │   ├── config.firebase.ts (firebaseの設定)
-  │   │   │   ├── get.firebase.ts (firebaseのGETリクエスト処理)
-  │   │   │   └── post.firebase.ts (firebaseのPOSTリクエスト処理)
   │   │   ├── github
-  │   │   │   ├── config.github.ts (githubの設定)
-  │   │   │   ├── get.github.ts (githubのGETリクエスト処理)
-  │   │   │   └── post.github.ts (githubのPOSTリクエスト処理)
-  │   │   ├── markdown
-  │   │   │   ├── linkCard.ts (リンクカードの変換)
-  │   │   │   ├── markdownIt.ts (markdownItの設定)
-  │   │   │   ├── prism.ts (prismの設定)
-  │   │   │   └── renderer.ts (markdownのレンダー)
-  │   │   ├── common.ts (よく使用する関数)
-  │   │   ├── next.ts (next/**のモジュールのエントリーポイント)
-  │   │   └── prototype.ts (追加メソッド)
-  │   └── index.tsx (エントリーポイント)
-  ├── .env.development (開発用の環境変数)
-  ├── .env.local (ローカルでの環境変数) ※gitignore対象
-  ├── .env.production (納品用の環境変数)
-  ├── .eslintrc.json (ESLintの設定)
-  ├── .gitignore (git管理の設定)
-  ├── .prettierrc.json (prettierの設定)
-  ├── .codegen.yaml (graphql-code-generatorの設定ファイル)
-  ├── graphql.schema.json (graphql-code-generatorで自動生成されたスキーマ)
-  ├── next.config.js (next.jsの設定)
-  ├── package-lock.json (パッケージの状態など)
-  ├── package.json (プロジェクトの状態など)
-  ├── README.md (現在位置)
-  └── tsconfig.json (tsloaderの設定)
+  │   │   │   ├── config.github.ts
+  │   │   │   ├── get.github.ts
+  │   │   │   └── post.github.ts
+  │   │   ├── common.ts
+  │   │   ├── next.ts
+  │   │   └── prototype.ts
+  │   └── index.tsx
+  ├── .eslintrc.json
+  ├── .gitignore
+  ├── .prettierrc.json
+  ├── .codegen.yaml
+  ├── graphql.schema.json
+  ├── next.config.js
+  ├── package-lock.json
+  ├── package.json
+  ├── README.md
+  └── tsconfig.json
 ```
 
-## 注意点
+## Warnings
 
-### コンポーネント構造について
-* 基本的にコンポーネントの中身にコンポーネントは組み込まない
-* pages > componentsという2層構造のみ
+### Paths
 
-### パス指定について
-* css modules(scss)の補完を効かせるには、相対パスで記述
+- Css modules(scss) should be relative path on imports
+
 ```tsx
-import component from "../../assets/scss/component.module.scss";
+import component from '../../assets/scss/component.module.scss';
 ```
-* その他は基本絶対パスで記述(baseURL: 'src')
-* pagesやcomponentsのインポートはエントリーポイント(index.tsx)から
+
 ```tsx
 import "assets/img/...";
 import { Component } "components";
 ```
 
-### スタイリングについて
-* @extend は使わない
-* page, componentsはCSS-modulesを有効にさせるため、[ファイル名].module.scssに
-* CSS-modulesの使用の際、下記の拡張機能が必要(補完のため)
+- imports of pages and components should be from entry points
+
+### Stylings
+
+- Don't use `@extend`
+- Use vscode-css-modules of vscode extension to complement class name
 
 https://marketplace.visualstudio.com/items?itemName=clinyong.vscode-css-modules
 
+### Hooks
 
-### ReduxやHooksについて
-* HooksのuseContextでなるべく使用を避ける
-* Hooks含め、全ての処理はpagesのみで行う、componentsにはpropsで渡す
-* Hooks処理が長くなる場合はカスタムフックを作る
-* useStateの記述方法は下記に則る
+- You can make custom hooks `src/hooks/...`
+- Follow the writing style below
+
 ```tsx
 import { useState } from 'react';
 
-// Dispatch関数において、set = _ とする
+// set[dispatch name] = _[dispatch name]
 const [variableName, _variableName] = useState<Types>(InitialState);
 ```
 
-### リンター
-* ESLint 
-https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
-* Prettier
-https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+### Others
 
-※ React.memoを使用の際、ESlintのDisplay Nameエラーが起こる。下記のように回避
-```tsx 
+- ESLint
+  https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+- Prettier
+  https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+※ When you use `React.memo`, be careful warning of ESLink and write like below
+
+```tsx
 import React from 'react';
 function Component(Props: PropTypes) {
   return ...

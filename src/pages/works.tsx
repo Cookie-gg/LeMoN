@@ -1,14 +1,17 @@
 import { memo } from 'react';
-import { HeadMeta } from 'components';
+import { HeadMeta, PageFrame } from 'components';
+import styles from '../assets/scss/pages/Works.module.scss';
+import works from 'assets/json/works.json';
 
-function Works() {
-
+function Page() {
   return (
     <>
-      <HeadMeta title="Works" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/Works`} />
-      <p>Coming soon...</p>
+      <HeadMeta title={works.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${works.title}`} />
+      <PageFrame classNmae={styles.entire}>
+        <p>comming soon...</p>
+      </PageFrame>
     </>
   );
 }
 
-export default memo(Works);
+export default memo(Page);

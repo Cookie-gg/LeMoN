@@ -1,0 +1,33 @@
+query Blog {
+  all: findAllArticles {
+    articleId
+    published
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
+  topics: findAllTopics {
+    displayName
+    icon
+    allArticles {
+      articleId
+      published
+    }
+    someArticles {
+      articleId
+      published
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+  num: countAllArticles
+}

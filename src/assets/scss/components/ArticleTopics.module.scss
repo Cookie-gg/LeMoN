@@ -32,7 +32,7 @@
       }
       span {
         align-items: center;
-        background-color: $dark-gray;
+        background-color: $dark_gray;
         border: 1px solid $lemon;
         border-radius: 50%;
         display: flex;
@@ -180,9 +180,9 @@
 
         @include hover(true) {
           &:hover {
-            color: $dark-gray;
+            color: $dark_gray;
             -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-color: $dark-gray;
+            -webkit-text-stroke-color: $dark_gray;
             @include max(-webkit-text-stroke-width, #{1px}, 1px);
             &::before {
               @include max(width, calc(100% - 46px));
@@ -191,7 +191,7 @@
             }
             &:last-of-type {
               a {
-                color: $dark-gray;
+                color: $dark_gray;
               }
             }
           }
@@ -208,16 +208,16 @@
           z-index: -1;
         }
         &.active {
-          color: $dark-gray;
+          color: $dark_gray;
           -webkit-font-smoothing: antialiased;
-          -webkit-text-stroke-color: $dark-gray;
+          -webkit-text-stroke-color: $dark_gray;
           @include max(-webkit-text-stroke-width, #{1px}, 1px);
           &::before {
             width: 100%;
           }
           &:last-of-type {
             a {
-              color: $dark-gray;
+              color: $dark_gray;
             }
           }
         }
@@ -234,7 +234,7 @@
             span {
               background-color: $lemon;
               path {
-                color: $dark-gray;
+                color: $dark_gray;
               }
             }
           }

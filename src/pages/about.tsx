@@ -1,65 +1,35 @@
-import { GetStaticProps, Image } from 'utils/next';
-import aboutQuery, { DataType } from 'data/aboutQuery';
-import pages from '../assets/scss/pages/About.module.scss';
-import {
-  Heading,
-  Paragraph,
-  NamePlate,
-  ProfileInfo,
-  DataRes,
-  ImageFrame,
-  PageFrame,
-  Skills,
-  HeadMeta,
-} from 'components';
 import { memo } from 'react';
+import { Image } from 'utils/next';
+import about from 'assets/json/about.json';
+import feelingProud from 'assets/svg/feelingProud.svg';
+import styles from '../assets/scss/pages/About.module.scss';
+import { Heading, Paragraph, NamePlate, ProfileInfo, ImageFrame, PageFrame, Skills, HeadMeta } from 'components';
 
-export const getStaticProps: GetStaticProps = async () => {
-  const { data, error } = await aboutQuery();
-  if (error) {
-    return { props: { error: JSON.stringify(error) } };
-  }
-  return { props: { data: JSON.stringify(data) }, revalidate: 60 };
-};
-
-function About({ data, error }: { data: DataType; error?: string }) {
-  data = JSON.parse(String(data));
+function Page() {
   return (
     <>
-      <HeadMeta title="About" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/About`} />
-      <DataRes error={error} />
-      <PageFrame classNmae={pages.about}>
+      <HeadMeta title={about.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${about.title}`} />
+      <PageFrame classNmae={styles.page}>
         <>
-          <div className={pages.profile}>
-            <div className={pages.text_wrapper}>
-              <Heading rank={1} text={data.profile.title} className={pages.heading} />
-              <NamePlate className={pages.title} />
-              <ImageFrame className={`${pages.image_frame} sp`}>
-                <Image
-                  src={data.profile.feelingProud}
-                  alt={`${data.profile.title.toLowerCase()}_featured_image`}
-                  width={711}
-                  height={670}
-                  loading="lazy"
-                  lazyBoundary="819"
-                />
-              </ImageFrame>
-              <Paragraph className={pages.introduction} text={data.profile.introduction} />
-              <ProfileInfo data={data.profile.info} className={pages.info} />
+          <div className={styles.profile}>
+            <div className={styles.text_wrapper}>
+              <Heading rank={1} text={about.profile.title} className={styles.heading} />
+              <NamePlate className={styles.title} />
+              <Paragraph className={styles.introduction} text={about.profile.introduction} />
+              <ProfileInfo data={about.profile.info} className={styles.info} />
             </div>
-            <ImageFrame className={`${pages.image_frame} pc`}>
+            <ImageFrame className={styles.image_frame}>
               <Image
-                src={data.profile.feelingProud}
-                alt={`${data.profile.title.toLowerCase()}_featured_image`}
+                src={feelingProud.src}
+                alt={`${about.profile.title.toLowerCase()}_featured_image`}
                 width={711}
                 height={670}
-                loading="lazy"
-                lazyBoundary="819"
+                priority
               />
             </ImageFrame>
           </div>
-          <div className={pages.skills}>
-            <Skills data={data.skills} />
+          <div className={styles.skills}>
+            <Skills data={about.skills} />
           </div>
         </>
       </PageFrame>
@@ -67,4 +37,4 @@ function About({ data, error }: { data: DataType; error?: string }) {
   );
 }
 
-export default memo(About);
+export default memo(Page);

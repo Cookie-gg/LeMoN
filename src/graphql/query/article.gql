@@ -1,0 +1,60 @@
+query FindAllArticles {
+  all: findAllArticles {
+    id
+    articleId
+    published
+    releaseDate
+    updateDate
+    title
+    emoji
+    topicIcons {
+      icon
+      displayName
+    }
+    typeIcon {
+      icon
+      displayName
+    }
+    markdown
+    html
+    relations {
+      articleId
+      published
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+}
+query FindMoreArticles($current: String!) {
+  more: findMoreArticles(current: $current) {
+    articleId
+    published
+    releaseDate
+    title
+    emoji
+    type
+    topicIcons {
+      displayName
+    }
+  }
+}
+query FindArticle($articleId: String!) {
+  one: findArticle(articleId: $articleId) {
+    id
+    title
+    articleId
+    emoji
+    type
+    topics
+    published
+    releaseDate
+    updateDate
+    markdown
+    html
+  }
+}

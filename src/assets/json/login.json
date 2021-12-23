@@ -1,0 +1,22 @@
+{
+  "title": "Login",
+  "form": {
+    "title": "LeMoN",
+    "display": [
+      {
+        "name": "name",
+        "lable": "Name",
+        "required": true,
+        "placeholder": "Your name"
+      },
+      {
+        "name": "password",
+        "lable": "Password",
+        "required": true,
+        "placeholder": "Your password"
+      }
+    ],
+    "placeholder": "(required)",
+    "submit": ["Login", "Login as a guest"]
+  }
+}

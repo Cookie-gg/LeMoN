@@ -1,10 +1,8 @@
 // next/** のモジュールのエントリーポイント
+export { default as Link } from 'next/link';
 export { default as Head } from 'next/head';
 export { default as Image } from 'next/image';
-export { default as Link } from 'next/link';
+export { Router, useRouter } from 'next/router';
 export { default as Script } from 'next/script';
 export { default as dynamic } from 'next/dynamic';
-export { useRouter } from 'next/router';
-export { withRouter } from 'next/router';
-export { Router } from 'next/router';
-export type { GetStaticProps, GetServerSideProps, GetStaticPaths, NextApiRequest, NextApiResponse } from 'next';
+export type { GetStaticProps, GetServerSideProps, GetStaticPaths } from 'next';

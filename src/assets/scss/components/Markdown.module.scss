@@ -1,0 +1,564 @@
+$code_font: 'Source Code Pro', monospace;
+.styles {
+  font-family: $jp_font;
+  font-weight: 300;
+  line-height: 1.8;
+  $res: 1199px;
+
+  @include max(font-size, #{16px}, 18px);
+
+  @include max(letter-spacing, #{1.2px}, 1.2px);
+
+  & > * {
+    @include max(margin-top, #{20px}, 20px);
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.4;
+  }
+  h1 {
+    border-bottom: 1px solid $lemon;
+    font-weight: 600;
+
+    @include max(font-size, #{28px}, 26px);
+
+    @include max(padding-bottom, #{7.5px}, 7.5px);
+
+    @include max(margin-top, #{60px}, 60px);
+
+    code {
+      vertical-align: text-bottom;
+
+      @include max(font-size, #{24px}, 22px);
+    }
+  }
+  h2 {
+    font-weight: 500;
+
+    @include max(font-size, #{24px}, 22px);
+
+    @include max(margin-top, #{40px}, 40px);
+
+    code {
+      vertical-align: text-bottom;
+
+      @include max(font-size, #{20px}, 18px);
+    }
+  }
+  h1,
+  h2 {
+    pointer-events: none;
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      height: 10px;
+      margin-top: -10px;
+      pointer-events: none;
+      @media screen and (max-width: $res) {
+        @include max(height, #{60px}, 60px);
+
+        @include max(margin-top, #{-60px}, -60px);
+      }
+    }
+  }
+  h3 {
+    font-weight: 500;
+
+    @include max(font-size, #{20px}, 18px);
+
+    @include max(margin-top, #{30px}, 30px);
+
+    code {
+      vertical-align: text-bottom;
+
+      @include max(font-size, #{18px}, 16px);
+    }
+  }
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+
+    @include max(font-size, #{18px}, 16px);
+
+    @include max(margin-top, #{20px}, 20px);
+
+    code {
+      vertical-align: text-bottom;
+
+      @include max(font-size, #{16px}, 14px);
+    }
+  }
+  [class*='footnote-ref'] {
+    display: inline-block;
+    a {
+      color: $lemon;
+      font-size: 10px;
+      height: 100%;
+      margin-left: 1.5px;
+      margin-right: 1.5px;
+      margin-top: -10px;
+      padding-top: 10px;
+      vertical-align: top;
+      width: 100%;
+
+      @include hover(both) {
+        text-decoration: underline;
+        text-decoration-color: rgba($lemon, 0.9);
+        text-decoration-thickness: 1px;
+      }
+
+      @media screen and (max-width: $res) {
+        @include max(padding-top, #{60px}, 60px);
+
+        @include max(margin-top, #{-60px}, -60px);
+      }
+    }
+  }
+  [class*='footnotes'] {
+    @include max(margin-top, #{60px}, 60px);
+
+    [class*='footnotes-title'] {
+      border-bottom: 1px solid $lemon;
+      font-weight: 500;
+
+      @include max(font-size, #{20px}, 18px);
+
+      @include max(padding-bottom, #{7.5px}, 7.5px);
+    }
+    ol {
+      @include max(margin-top, #{5px}, 20px);
+
+      li {
+        &::marker {
+          color: $lemon;
+
+          @include max(font-size, #{16px}, 18px);
+        }
+        p {
+          margin-top: -10px;
+          padding-top: 10px;
+
+          @include max(font-size, #{16px}, 18px);
+
+          @media screen and (max-width: $res) {
+            @include max(padding-top, #{60px}, 60px);
+
+            @include max(margin-top, #{-60px}, -60px);
+          }
+          a {
+            color: $lemon;
+
+            @include hover(both) {
+              text-decoration: underline;
+              text-decoration-color: rgba($lemon, 0.9);
+              text-decoration-thickness: 1px;
+            }
+          }
+        }
+      }
+    }
+  }
+  p {
+    line-height: 1.8;
+    code {
+      vertical-align: middle;
+
+      @include max(font-size, #{15px}, 17px);
+    }
+  }
+  em {
+    font-style: italic;
+  }
+  strong {
+    font-weight: bold;
+  }
+  s {
+    text-decoration: line-through;
+  }
+  ul,
+  ol {
+    @include max(padding-left, #{25px}, 25px);
+  }
+  ul {
+    list-style: disc outside;
+  }
+  ol {
+    list-style: decimal outside;
+  }
+  & > img,
+  & > p > img {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+
+    @include max(margin-top, #{20px}, 20px);
+
+    & + br {
+      display: none;
+    }
+    & + em,
+    & + br + em {
+      display: block;
+      font-family: $jp_font;
+      font-weight: 100;
+      text-align: center;
+
+      @include max(font-size, #{14px}, 16px);
+
+      @include max(margin-top, #{7.5px}, 7.5px);
+    }
+  }
+  & > a,
+  & > p > a {
+    color: $lemon;
+  }
+  table {
+    thead tr th {
+      background-color: rgba($lemon, 0.2);
+      font-weight: 400;
+    }
+    tbody tr td {
+      font-weight: 300;
+    }
+    thead tr th,
+    tbody tr td {
+      border: 1px solid $lemon;
+
+      @include max(padding, #{10px}, 10px);
+    }
+  }
+  blockquote {
+    border-left: solid $lemon;
+
+    @include max(border-left-width, #{3px}, 3px);
+
+    @include max(padding-left, #{10px}, 10px);
+
+    p {
+      color: rgba(white, 0.6);
+      &:not(:first-of-type) {
+        @include max(margin-top, #{20px}, 20px);
+      }
+    }
+  }
+  hr {
+    border-bottom: 0px;
+    border-top: 1px solid $lemon;
+
+    @include max(margin-top, #{40px}, 40px);
+
+    &[class*='footnotes-sep'] {
+      @include max(margin-top, #{60px}, 60px);
+    }
+  }
+  details {
+    border: 1px solid rgba(white, 0.08);
+    summary {
+      background-color: rgba($dark_gray, 0.6);
+      cursor: pointer;
+      user-select: none;
+    }
+    * {
+      @include max(padding-top, #{10px}, 10px);
+
+      @include max(padding-left, #{12px}, 12px);
+
+      @include max(padding-right, #{12px}, 12px);
+
+      @include max(padding-bottom, #{12px}, 12px);
+    }
+  }
+  [class*='link_card'] {
+    background-color: $dark_gray;
+    border: 1px solid rgba(white, 0.08);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    @include max(border-radius, #{5px}, 5px);
+
+    &:hover {
+      background-color: lighten($dark_gray, 1.5);
+    }
+    a {
+      box-sizing: border-box;
+      display: flex;
+      height: 100%;
+      justify-content: space-between;
+      width: 100%;
+      position: relative;
+
+      @include max(flex-direction, $sp_value: column);
+
+      [class*='text_wrapper'] {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @include max(order, $sp_value: 2);
+
+        @include max(padding, #{20px}, 20px);
+
+        * {
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
+          position: relative;
+        }
+        [class*='title'] {
+          font-weight: 500;
+
+          @include max(font-size, #{18px}, 20px);
+        }
+        [class*='description'] {
+          color: rgba(white, 0.6);
+
+          @include max(font-size, #{14px}, 16px);
+        }
+        [class*='domain'] {
+          @include max(margin-top, #{3px}, 3px);
+
+          @include max(font-size, #{12px}, 14px);
+
+          span {
+            display: -webkit-inline-box;
+          }
+          img {
+            display: inline-block;
+
+            @include max(width, #{20px}, 20px);
+
+            @include max(height, #{20px}, 20px);
+
+            @include max(margin-right, #{5px}, 5px);
+          }
+        }
+      }
+      img[alt='ogp_icon'],
+      img[alt='ogp_image'] {
+        display: flex;
+        width: auto;
+
+        @include max(height, #{126px});
+      }
+    }
+    &[class*='both'] {
+      img[alt='ogp_icon'] {
+        @include max(display, $sp_value: none);
+      }
+      img[alt='ogp_image'] {
+        @include max(display, none);
+      }
+    }
+  }
+  [class*='msg'] {
+    background-color: rgba($lemon, 0.1);
+    position: relative;
+
+    @include max(padding-top, #{20px}, 20px);
+
+    @include max(padding-bottom, #{22px}, 22px);
+
+    @include max(padding-right, #{22px}, 22px);
+
+    @include max(padding-left, #{50px}, 50px);
+
+    &::before {
+      align-items: center;
+      background-color: $lemon;
+      border-radius: 50%;
+      color: $dark_gray;
+      content: '!';
+      display: flex;
+      font-weight: bold;
+      justify-content: center;
+      margin-right: 10px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      @include max(height, #{20px}, 20px);
+
+      @include max(left, #{20px}, 20px);
+
+      @include max(width, #{20px}, 20px);
+    }
+    &[class*='alert'] {
+      background-color: rgba(255, 0, 0, 0.1);
+      &::before {
+        background-color: rgb(255, 120, 120);
+      }
+    }
+  }
+  code {
+    font-family: $code_font;
+    font-weight: 500;
+    letter-spacing: 0px;
+    line-height: 1.5;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    code {
+      background-color: rgba($dark_gray, 0.5);
+
+      @include max(border-radius, #{5px}, 5px);
+
+      @include max(margin-right, #{2px}, 2px);
+
+      @include max(margin-left, #{2px}, 2px);
+
+      @include max(padding-top, #{3px}, 3px);
+
+      @include max(padding-right, #{8px}, 8px);
+
+      @include max(padding-left, #{8px}, 8px);
+
+      @include max(padding-bottom, #{4px}, 4px);
+
+      @include max(vertical-align, #{0.5px}, 0.5px);
+    }
+  }
+  pre {
+    background-color: $dark_gray;
+    overflow: scroll;
+    overflow-y: hidden;
+    position: relative;
+
+    @include max(border-radius, #{5px}, 5px);
+
+    @include max(padding, #{20px}, 20px);
+
+    code {
+      padding: 0;
+
+      @include max(font-size, #{15px}, 17px);
+
+      span {
+        &[class*='keyword'],
+        &[class*='builtin'],
+        &[class*='operator'][class*='arrow'],
+        &[class*='operator'][class*='blue'] {
+          color: #66d9ef;
+          font-style: italic;
+        }
+        &[class*='function'],
+        &[class*='function-variable'] {
+          color: #a6e22e;
+        }
+        &[class*='tag'],
+        &[class*='operator'],
+        &[class*='keyword'][class*='control-flow'] {
+          color: #f92672;
+        }
+        &[class*='punctuation'] {
+          color: #ffd700;
+        }
+        &[class*='tag'] > [class*='punctuation'] {
+          color: #f8f8f2;
+        }
+        &[class*='parameter'] {
+          color: #fd971f;
+          font-style: italic;
+        }
+        &[class*='number'],
+        &[class*='boolean'] {
+          color: #ae81ff;
+        }
+
+        &[class*='pink'] {
+          color: #dd6dce;
+        }
+        &[class*='blue'] {
+          color: #66d9ef;
+        }
+        &[class*='operator'][class*='white'],
+        &[class*='punctuation'][class*='white'] {
+          color: #f8f8f2;
+        }
+        &[class*='keyword'][class*='red'] {
+          color: #f92672;
+          font-style: normal;
+        }
+        &[class*='diff'] {
+          position: relative;
+          z-index: 0;
+          [class*='coord'],
+          [class*='coord'] * {
+            color: #66d9ef;
+          }
+          [class*='add'] {
+            background-color: #3e4e21;
+            span:first-child {
+              color: #a4ff86;
+            }
+          }
+          [class*='delete'] {
+            background-color: #64273d;
+            span:first-child {
+              color: #ff7d7d;
+            }
+          }
+        }
+      }
+
+      .colors {
+        color: #e6db74;
+        color: #7e8e91;
+        color: #f8f8f2;
+        color: #ae81ff;
+        color: #fd971f;
+        color: #f44747;
+        color: #cfcfc2;
+        color: #75715e;
+        color: #6796e6;
+        color: #cd9731;
+        color: #b267e6;
+      }
+    }
+    &[class*='named-fence-block'] {
+      overflow: hidden;
+
+      @include max(padding-top, #{45px}, 45px);
+
+      [class*='named-fence-filename'] {
+        background-color: rgba(white, 0.05);
+        font-family: $code_font;
+        font-weight: 100;
+        left: 0;
+        line-height: 1.5;
+        position: absolute;
+        top: 0;
+
+        @include max(font-size, #{14px}, 16px);
+
+        @include max(border-bottom-right-radius, #{5px}, 5px);
+
+        @include max(letter-spacing, #{-0.5px}, -0.5px);
+
+        @include max(padding-top, #{5px}, 5px);
+
+        @include max(padding-bottom, #{5px}, 5px);
+
+        @include max(padding-right, #{7.5px}, 7.5px);
+
+        @include max(padding-left, #{7.5px}, 7.5px);
+      }
+    }
+  }
+}

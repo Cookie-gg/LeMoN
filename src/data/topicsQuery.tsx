@@ -1,11 +1,8 @@
-import { ApolloError } from '@apollo/client';
-import { client } from 'graphql/config.gql';
 import { Zenn } from 'types/common';
+import { client } from 'graphql/config.gql';
 import { TopicsDocument, TopicsQuery } from 'types/graphql.d';
-import { section } from 'utils/common';
 
-export interface DataType {
-  title: string;
+export interface TopicQueryType {
   topics: {
     name: string;
     icon: string;
@@ -13,12 +10,10 @@ export interface DataType {
   }[];
 }
 
-export default async function topicsQuery(): Promise<{ data: DataType | undefined; error: ApolloError | undefined }> {
+export default async function topicsQuery(): Promise<TopicQueryType> {
   const { error, data } = await client.query<TopicsQuery>({ query: TopicsDocument });
   if (data) {
-    const titles = section(data.titles);
-    const shapedData: DataType = {
-      title: titles.all.text,
+    const shapedData: TopicQueryType = {
       topics: data.topics
         .filter((obj) => obj.allArticles.length > 0)
         .sortObj('displayName', 'desc')
@@ -26,7 +21,8 @@ export default async function topicsQuery(): Promise<{ data: DataType | undefine
           name: obj.displayName,
           icon: obj.icon,
           articles: obj.allArticles.map((obj) => ({
-            id: obj.id,
+            articleId: obj.articleId,
+            published: obj.published,
             releaseDate: obj.releaseDate,
             title: obj.title,
             emoji: obj.emoji,
@@ -35,8 +31,8 @@ export default async function topicsQuery(): Promise<{ data: DataType | undefine
           })),
         })),
     };
-    return { data: shapedData, error };
+    return shapedData;
   } else {
-    return { data: undefined, error };
+    throw new Error(`error message: ${error}`);
   }
 }

@@ -51,7 +51,7 @@ class MyDocument extends Document {
           <meta name="twitter:title" content="LeMoN" />
           <meta name="twitter:creator" content="@cookie_ggs" />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name='twitter:url' content='https://twitter.com/cookie_ggs/' />
+          <meta name="twitter:url" content="https://twitter.com/cookie_ggs/" />
         </Head>
         <body>
           <Main />

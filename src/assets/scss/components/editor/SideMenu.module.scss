@@ -1,0 +1,249 @@
+.entire {
+  background-color: rgba(white, 0.08);
+  border-right: 2px solid $lemon;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 300px;
+  // border-top-left-radius: 10px;
+  // border-bottom-left-radius: 10px;
+
+  @include max(padding-top, #{35px}, 35px);
+
+  @include max(padding-bottom, #{35px}, 35px);
+
+  @include max(padding-right, #{27px}, 27px);
+
+  @include max(padding-left, #{35px}, 35px);
+
+  label:not(.check) {
+    align-items: flex-end;
+    display: flex;
+
+    @include max(font-size, #{20px}, 20px);
+
+    &:not(:first-of-type) {
+      @include max(margin-top, #{37.5px}, 37.5px);
+    }
+
+    &::before {
+      background-color: $lemon;
+      content: '';
+      display: block;
+      width: 4px;
+
+      @include max(height, #{25px}, 25px);
+
+      @include max(margin-right, #{7.5px}, 7.5px);
+    }
+  }
+  label.check {
+    background-color: rgba($dark_gray, 0.5);
+    border-radius: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $jp_font;
+    font-weight: 400;
+    outline: 2px solid;
+    outline-color: transparent;
+    position: relative;
+    transition: outline-color 0.2s;
+
+    @include max(font-size, #{16px}, 16px);
+
+    @include max(margin-top, #{15px}, 15px);
+
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    @include max(padding-top, #{8px}, 8px);
+
+    @include max(padding-left, #{10px}, 10px);
+
+    @include max(padding-right, #{9px}, 9px);
+
+    @include max(padding-bottom, #{8px}, 8px);
+
+    @include max(margin-right, #{15px}, 15px);
+
+    span {
+      &::before {
+        background-clip: content-box;
+        border: 1px solid $lemon;
+        border-radius: 50%;
+        border-radius: 50%;
+        border-style: solid;
+        content: '';
+        display: inline-block;
+        height: 8px;
+        padding: 2px;
+        width: 8px;
+
+        @include max(margin-right, #{7.5px}, 7.5px);
+      }
+    }
+    &:hover {
+      outline-color: rgba(white, 0.25);
+      transition: outline-color 0.3s;
+    }
+    &:active {
+      background-color: rgba($dark_gray, 0.9);
+      outline-color: $lemon;
+      transition: outline-color 0.3s, background-color 0.3s;
+    }
+    input[type='radio'] {
+      display: none;
+
+      &:checked + span::before {
+        background-color: $lemon;
+      }
+      &:not(:checked) + span::before {
+        background-color: transparent;
+      }
+    }
+  }
+  input {
+    background-color: rgba($dark_gray, 0.5);
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    font-family: $jp_font;
+    font-weight: 300;
+    outline: 2px solid;
+    outline-color: transparent;
+    scroll-padding-top: 100px;
+    transition: outline-color 0.2s, background-color 0.2s;
+    width: 100%;
+
+    @include max(font-size, #{16px}, 16px);
+
+    @include max(padding-right, #{7.5px}, 7.5px);
+
+    @include max(padding-left, #{7.5px}, 7.5px);
+
+    @include max(padding-top, #{2px}, 2px);
+
+    @include max(padding-bottom, #{2px}, 2px);
+
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    @include max(font-size, #{16px}, 16px);
+
+    &:not([type='date'], [type='submit']) {
+      line-height: 1.8;
+    }
+    &[type='date'],
+    &[type='submit'] {
+      line-height: 1.65;
+    }
+    &:not([type='submit']) {
+      color: $text-white;
+
+      @include max(margin-top, #{12.5px}, 12.5px);
+
+      &:hover {
+        outline-color: rgba(white, 0.25);
+        transition: outline-color 0.3s, background-color 0.3s 10000s;
+      }
+      &:focus,
+      &:focus:hover {
+        background-color: rgba($dark_gray, 0.9);
+        outline-color: $lemon;
+        transition: outline-color 0.3s, background-color 0.3s;
+      }
+    }
+    &[type='submit'] {
+      border: 1px solid;
+      cursor: pointer;
+      font-weight: 400;
+      &:hover {
+        transition: background-color 0.3s;
+      }
+      &[name='save'] {
+        border-color: $lemon;
+        color: $lemon;
+
+        @include max(margin-top, #{37.5px}, 37.5px);
+
+        &:hover {
+          background-color: rgba($lemon, 0.075);
+        }
+      }
+      &[name='delete'] {
+        border-color: $red;
+        color: $red;
+        font-weight: 500;
+        @include max(margin-top, #{12.5px}, 12.5px);
+
+        &:hover {
+          background-color: rgba($red, 0.075);
+        }
+      }
+      &[name='page'] {
+        border-color: rgba(white, 0.5);
+        color: rgba(white, 0.8);
+
+        @include max(margin-top, #{12.5px}, 12.5px);
+
+        &:hover {
+          background-color: rgba(white, 0.02);
+        }
+      }
+    }
+    &[type='text']:-webkit-autofill,
+    &[type='text']:focus:-webkit-autofill {
+      animation-name: onAutoFillStart;
+      caret-color: white;
+      -webkit-text-fill-color: white !important;
+      transition: background-color 0s;
+      transition-delay: 10000s;
+    }
+    &[type='date']::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      filter: invert(0.8);
+    }
+
+    @keyframes onAutoFillStart {
+      from {
+      }
+      to {
+        background-color: transparent;
+      }
+    }
+  }
+  .emoji {
+    position: relative;
+    svg {
+      position: absolute;
+
+      @include max(top, #{5px}, 5px);
+
+      @include max(left, #{7.5px}, 7.5px);
+    }
+    input {
+      color: transparent;
+      cursor: pointer;
+      &.enable {
+        background-color: rgba($dark_gray, 0.9);
+        outline-color: $lemon;
+        transition: outline-color 0.3s, background-color 0.3s;
+      }
+    }
+    & + .picker {
+      opacity: 0;
+      position: relative;
+      visibility: hidden;
+      & > * {
+        left: 0px;
+        position: absolute;
+        top: calc(100% + 2px);
+        width: 100%;
+        z-index: 9999;
+      }
+      &.enable {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

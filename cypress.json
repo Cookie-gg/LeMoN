@@ -1,0 +1,5 @@
+{
+  "baseUrl": "http://localhost:1111",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "supportFile": "cypress/support/index.ts"
+}

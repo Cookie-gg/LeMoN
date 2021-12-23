@@ -1,4 +1,4 @@
-.blog {
+.page {
   @include max(padding-top, 20px);
 
   @include max(padding-bottom, 20px, 20px);
@@ -8,6 +8,13 @@
   }
   .heading:not(:first-of-type) {
     @include max(margin-top, 65px, 65px);
+  }
+  .loading {
+    width: 100%;
+
+    @include max(font-size, #{40px}, 40px);
+
+    @include max(margin-top, #{30px}, 30px);
   }
   .more {
     @include max(margin-top, 45px, 30px);
@@ -22,7 +29,7 @@
 .post {
   $res: 1199px;
   .topics {
-    @include max(display, none,  $width: $res);
+    @include max(display, none, $width: $res);
   }
   .contents {
     display: flex;

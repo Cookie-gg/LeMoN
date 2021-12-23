@@ -1,0 +1,58 @@
+.entire {
+  display: flex;
+
+  @include max(margin-bottom, 40px, 40px);
+
+  a[target='_blank'] {
+    display: block;
+    flex-grow: 1;
+  }
+
+  button {
+    align-items: center;
+    background-color: rgba(white, 0.08);
+    border: 2px solid;
+    border-color: transparent;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    transition: border-color 0.2s;
+
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+
+    &.editor {
+      @include max(margin-right, 40px, 40px);
+
+      @include max(padding-right, #{25px}, 25px);
+
+      @include max(padding-top, #{20px}, 20px);
+
+      @include max(padding-bottom, #{20px}, 20px);
+
+      @include max(padding-left, #{25px}, 25px);
+
+      svg {
+        @include max(font-size, #{35px}, 30px);
+      }
+    }
+
+    &.github {
+      font-family: $jp_font;
+      font-weight: 400;
+      height: 100%;
+      width: 100%;
+
+      @include max(font-size, #{17.5px}, 17.5px);
+
+      svg {
+        @include max(font-size, 25px, 25px);
+
+        @include max(margin-right, #{10px}, 10px);
+      }
+    }
+    &:hover {
+      border-color: rgba(white, 0.08);
+      transition: border-color 0.3s;
+    }
+  }
+}

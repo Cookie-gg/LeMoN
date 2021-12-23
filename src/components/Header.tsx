@@ -2,8 +2,8 @@ import { usePeriod } from 'hooks';
 import { Nlink } from 'components';
 import { memo, useState } from 'react';
 import { useRouter } from 'utils/next';
-import { Icon as Iconify } from '@iconify/react';
 import { useSwipeable } from 'react-swipeable';
+import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/Header.module.scss';
 
 function Header() {
@@ -39,9 +39,10 @@ function Header() {
         onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : prev))}
       />
       <button
+        data-id="header"
         className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
         onClick={() => {
-          if (window.innerWidth > 820) _isClosing(true, 950);
+          !(window.innerWidth < 820) && (headerState === 'expand' || headerState === 'open') && _isClosing(true, 950);
           _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
         }}
       >
@@ -58,7 +59,7 @@ function Header() {
           >
             <Nlink href={el.path}>
               <>
-                <Iconify className="sp" icon={el.icon} />
+                <Iconify fr={''} className="sp" icon={el.icon} />
                 <span className={styles.name}>{el.name}</span>
               </>
             </Nlink>

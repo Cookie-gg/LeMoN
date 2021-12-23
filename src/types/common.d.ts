@@ -1,35 +1,35 @@
-interface GetCMS {
-  createdAt: string;
-  publishedAt: string;
-  revisedAt: string;
-  updatedAt: string;
-}
-
-interface PostCMS {
-  post: string;
-}
-
-export type CMSTypes<T> = T extends 'get' ? GetCMS : PostCMS;
-
+// article type
 export interface Zenn {
-  id: string;
+  id?: string;
+  articleId: string;
+  published: boolean;
   releaseDate: Date;
   title: string;
   emoji: string;
   type: string;
   topics: string[];
 }
-
 export interface ZennAdds {
   updateDate: Date;
   icons: string[];
-  body: string;
+  markdown: string;
+  html: string;
   headings?: {
     level: 1 | 2;
     text: string;
   }[];
   relations: {
     articles: Zenn[];
-    title: string;
   };
 }
+
+// monaco type
+import * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
+export type MonacoEditorType = Monaco.editor.IStandaloneCodeEditor | null;
+
+// middleware type
+import type { NextFetchEvent, NextRequest } from 'utils/next';
+export type Middleware = (
+  request: NextRequest,
+  event: NextFetchEvent,
+) => Promise<Response | undefined> | Response | undefined | void;

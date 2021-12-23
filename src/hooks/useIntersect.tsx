@@ -1,18 +1,24 @@
 import { useRouter } from 'utils/next';
 import { useEffect, useState } from 'react';
 
-export default function useIntersect(
-  root: HTMLElement | null = null,
-  el: HTMLElement | null,
+export default function useIntersect({
+  root = null,
+  el,
   rootMargin = '0px',
-): boolean {
+}: {
+  root?: HTMLElement | null;
+  el: HTMLElement | null;
+  rootMargin?: string;
+  isOnce?: boolean;
+}): boolean {
   const [isIntersecting, _isIntersecting] = useState(false);
-  const query = (useRouter().query as { id: string[] }).id[0];
+  const router = useRouter();
+  const depPath = `${router.query.id}` || router.pathname;
   useEffect(() => {
     _isIntersecting(false);
     if (el) {
       const observer = new IntersectionObserver(
-        (entries) => entries.forEach((entry) => _isIntersecting(entry.isIntersecting ? true : false)),
+        (entries) => entries.forEach((entry) => _isIntersecting(entry.isIntersecting)),
         { root, threshold: 0, rootMargin: rootMargin },
       );
       observer.observe(el);
@@ -21,6 +27,6 @@ export default function useIntersect(
         observer.disconnect();
       };
     }
-  }, [query, el, rootMargin, root]);
+  }, [depPath, el, rootMargin, root]);
   return isIntersecting;
 }

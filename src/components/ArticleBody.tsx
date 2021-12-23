@@ -1,24 +1,26 @@
-import { useWindowDimensions } from 'hooks';
-import { memo, ReactElement, useContext, useEffect, useRef } from 'react';
+import parse from 'html-react-parser';
 import { useRouter } from 'utils/next';
-import styles from '../assets/scss/components/ArticleBody.module.scss';
+import { useWindowDimensions } from 'hooks';
 import { ScrollerContext } from './PageFrame';
+import markdown from '../assets/scss/components/Markdown.module.scss';
+import styles from '../assets/scss/components/ArticleBody.module.scss';
+import { Fragment as _, memo, ReactElement, useContext, useEffect, useRef } from 'react';
 
 interface PropsType {
-  body: string;
+  html: string;
   headingTexts?: string[];
   _activeSection: (n: number) => void;
   children?: ReactElement;
 }
 
-function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType) {
+function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType) {
+  const id = `${useRouter().query.id}`;
   const ref = useRef<HTMLDivElement>(null);
   const scroller = useContext(ScrollerContext);
-  const query = (useRouter().query as { id: string[] }).id[0];
-  const window = useWindowDimensions() as { width: number; height: number };
+  const window = useWindowDimensions();
   useEffect(() => {
     const el = ref.current;
-    if (headingTexts && el && window.height && window.width) {
+    if (headingTexts && el) {
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach(
@@ -38,16 +40,24 @@ function ArticleBody({ body, _activeSection, headingTexts, children }: PropsType
         observer.disconnect();
       };
     }
-  }, [query, window, headingTexts, _activeSection, scroller]);
+  }, [id, headingTexts, _activeSection, scroller]);
 
-  return window.width < 1200 ? (
+  return window.width && window.width < 1200 ? (
     <div className={styles.wrapper}>
-      <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+      <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
+        {html.split(/\<.*?table.*?\>/).map((text, i) => (
+          <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
+        ))}
+      </div>
       {children}
     </div>
   ) : (
-    <div className={styles.body} dangerouslySetInnerHTML={{ __html: body }} ref={ref} />
+    <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
+      {html.split(/\<.*?table.*?\>/).map((text, i) => (
+        <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
+      ))}
+    </div>
   );
 }
 
-export default memo(ArticleBody, (prev, next) => prev.body === next.body && prev.children === next.children);
+export default memo(ArticleBody, (prev, next) => prev.html === next.html && prev.children === next.children);

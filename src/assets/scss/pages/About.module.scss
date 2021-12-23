@@ -1,8 +1,10 @@
-.about {
+.page {
   overflow: hidden;
   .profile {
     box-sizing: border-box;
     display: flex;
+
+    @include max(flex-direction, $sp_value: column);
 
     .image_frame {
       @include max(width, 50%);
@@ -11,10 +13,12 @@
 
       @include max(margin-left, $sp_value: 30px);
 
+      @include max(order, $sp_value: -1);
+
       &::before {
         @include max(width, 100%, 125%);
 
-        @include max(transform, translate(-33.5%, -50%) skewX(-30deg), translate(-45%, -50%) skewX(-30deg));
+        @include max(transform, translate(-33%, -50%) skewX(-30deg), translate(-45%, -50%) skewX(-30deg));
       }
     }
     .text_wrapper {
@@ -22,6 +26,12 @@
 
       @include max(width, 50%, 100%);
 
+      @include max(display, $sp_value: contents);
+
+      .heading,
+      .title {
+        @include max(order, $sp_value: -1);
+      }
       .title {
         @include max(margin-top, 65px, 30px);
       }

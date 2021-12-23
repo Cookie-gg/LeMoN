@@ -1,13 +1,18 @@
-.contact {
+.page {
   display: flex;
   overflow: hidden;
+
+  @include max(flex-direction, $sp_value: column);
+
   .image_frame {
     @include max(width, 60%, 120%);
+
+    @include max(order, $sp_value: -1);
 
     &::before {
       @include max(width, 81%, 100%);
 
-      @include max(transform, translate(-15.5%, -50%) skewX(-30deg), translate(-42%, -50%) skewX(-30deg));
+      @include max(transform, translate(-14%, -50%) skewX(-30deg), translate(-42%, -50%) skewX(-30deg));
     }
     img {
       transform: translateX(10%) scaleX(-1);
@@ -17,14 +22,29 @@
     box-sizing: border-box;
     height: 100%;
 
+    @include max(display, $sp_value: contents);
+
     @include max(width, 40%, 100%);
 
     @include max(padding-top, 20px);
 
     @include max(padding-bottom, 20px);
 
+    .heading {
+      @include max(order, $sp_value: -1);
+    }
+
     .form {
       @include max(margin-top, 30px);
+
+      .inner {
+        grid-area: 1/-1;
+        opacity: 1;
+        position: relative;
+        visibility: visible;
+        width: 100%;
+        z-index: 0;
+      }
     }
   }
   #{$mount} & {
@@ -36,6 +56,18 @@
       opacity: 1;
       transform: translateX(0%) scaleX(-1);
       transition: transform ease-out $common_drtn order(1);
+    }
+    .form {
+      .visible {
+        opacity: 1;
+        transition: all $common_anmt order(2);
+        visibility: visible;
+      }
+      .hidden {
+        opacity: 0;
+        transition: all $common_anmt order(1);
+        visibility: hidden;
+      }
     }
   }
 }

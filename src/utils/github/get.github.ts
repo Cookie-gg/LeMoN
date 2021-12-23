@@ -1,14 +1,10 @@
 import { github, GithubTypes } from './config.github';
 
 export async function getFile(
-  owener = 'Cookie-gg',
-  repo = 'zenn-content',
   path: string,
+  repo = 'zenn-content',
+  owner = `${process.env.NEXT_PUBLIC_GITHUB_OWNERR}`,
 ): Promise<GithubTypes> {
-  const content = await github.request('GET /repos/{owner}/{repo}/contents/{path}', {
-    owner: owener,
-    repo: repo,
-    path: path,
-  });
+  const content = await github.request('GET /repos/{owner}/{repo}/contents/{path}', { owner, repo, path });
   return content.data as GithubTypes;
 }

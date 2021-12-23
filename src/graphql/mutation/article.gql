@@ -1,0 +1,36 @@
+mutation ChangeArticle(
+  $id: String!
+  $articleId: String!
+  $published: Boolean!
+  $releaseDate: Timestamp!
+  $updateDate: Timestamp!
+  $title: String!
+  $emoji: String!
+  $type: String!
+  $topics: [String!]!
+  $markdown: String!
+  $html: String!
+) {
+  changeArticle(
+    id: $id
+    args: {
+      articleId: $articleId
+      published: $published
+      releaseDate: $releaseDate
+      updateDate: $updateDate
+      title: $title
+      emoji: $emoji
+      type: $type
+      topics: $topics
+      markdown: $markdown
+      html: $html
+    }
+  ) {
+    id
+  }
+}
+mutation DeleteArticle($id: String!) {
+  deleteArticle(id: $id) {
+    id
+  }
+}

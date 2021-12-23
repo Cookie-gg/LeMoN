@@ -1,0 +1,68 @@
+.entire {
+  align-items: flex-end;
+  display: flex;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  @include max(bottom, #{30px}, 20px);
+
+  button {
+    background-color: $lemon;
+    clip-path: polygon(0 100%, 15% 0, 85% 0, 100% 100%);
+    display: grid;
+    align-items: center;
+
+    @include max(width, #{100px}, 100px);
+
+    @include max(height, #{17.5px}, 17.5px);
+
+    @include max(margin-right, #{5px}, 5px);
+
+    @include max(margin-left, #{5px}, 5px);
+
+    &::before {
+      content: '';
+      grid-area: 1/2;
+      height: 2px;
+      background-color: $dark_gray;
+      width: 0;
+      transition: all 0.3s $ex_ease_out;
+    }
+  }
+  &:hover {
+    button::before {
+      @include max(width, #{50px}, 50px);
+    }
+    a:not(:nth-of-type(2)) {
+      @include max(width, #{22.5px}, 22.5px);
+
+      @include max(height, #{22.5px}, 22.5px);
+
+      @include max(margin-bottom, #{5px}, 5px);
+    }
+  }
+  a {
+    cursor: pointer;
+    &:not(:nth-of-type(2)) {
+      height: 0;
+      transition: all 0.3s $ex_ease_out;
+      width: 0;
+
+      @include max(margin-bottom, #{20px}, 20px);
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+      &.active {
+        pointer-events: none;
+      }
+      &.active svg path,
+      &:hover svg path {
+        color: $lemon;
+      }
+    }
+  }
+}

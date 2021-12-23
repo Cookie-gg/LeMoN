@@ -1,6 +1,6 @@
-import { Maybe } from 'graphql/jsutils/Maybe';
+import { Zenn } from 'types/common';
 
-export const encodeImg = (file: File) => {
+export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onloadend = () => resolve(reader.result);
@@ -8,88 +8,39 @@ export const encodeImg = (file: File) => {
   });
 };
 
-export function sortByDate<T extends { releaseDate: Date }[]>(type: 'asc' | 'desc', data: T): T {
-  for (let i = 0; i < data.length - 1; i++) {
-    for (let j = 1; j < data.length - i; j++) {
-      const prev = data[j - 1].releaseDate;
-      const curt = data[j].releaseDate;
-      if (
-        type === 'desc'
-          ? prev.getFullYear() < curt.getFullYear() ||
-            (prev.getFullYear() === curt.getFullYear() && prev.getMonth() < curt.getMonth()) ||
-            (prev.getFullYear() === curt.getFullYear() &&
-              prev.getMonth() === curt.getMonth() &&
-              prev.getDate() < curt.getDate())
-          : prev.getFullYear() > curt.getFullYear() ||
-            (prev.getFullYear() === curt.getFullYear() && prev.getMonth() > curt.getMonth()) ||
-            (prev.getFullYear() === curt.getFullYear() &&
-              prev.getMonth() === curt.getMonth() &&
-              prev.getDate() > curt.getDate())
-      ) {
-        const tmp: T[0] = data[j];
-        data[j] = data[j - 1];
-        data[j - 1] = tmp;
-      }
-    }
+export const encodeEmoji: (emoji: string) => string = (emoji) => {
+  let comp: number;
+  if (emoji.length === 1) {
+    comp = emoji.charCodeAt(0);
   }
-  return data;
-}
+  comp = (emoji.charCodeAt(0) - 0xd800) * 0x400 + (emoji.charCodeAt(1) - 0xdc00) + 0x10000;
+  if (comp < 0) {
+    comp = emoji.charCodeAt(0);
+  }
+  return comp.toString(16);
+};
 
-export function displayDate(date: Date, split = '/', compare = true): string {
+export const displayDate = (arg: Date, split = '/', compare = true) => {
+  const date = { y: arg.getFullYear(), m: arg.getMonth(), d: arg.getDate() };
+  const display = `${date.y + split}${`0${date.m - 1}`.slice(-2)}${split}${`0${date.d}`.slice(-2)}`;
   if (compare) {
     const now = new Date();
-    if (
-      now.getFullYear().toString() === date.getFullYear().toString() &&
-      now.getMonth().toString() === date.getMonth().toString()
-    ) {
-      return `${now.getDate() - date.getMonth()} days ago`;
-    } else
-      return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth() + 1))}${split}${displayDigit(
-        String(date.getDate()),
-      )}`;
-  } else
-    return `${date.getFullYear()}${split}${displayDigit(String(date.getMonth() + 1))}${split}${displayDigit(
-      String(date.getDate()),
-    )}`;
-}
+    if (now.getFullYear() === date.y && now.getMonth() === date.m && now.getDate() > date.d)
+      return `${now.getDate() - date.d} days ago`;
+    else return display;
+  } else return display;
+};
 
-export function specifor<T>(times: number, func: (index: number) => T): T[] {
+export const specifor: <T>(times: number, func: (index: number) => T) => T[] = (times, func) => {
   const list = [];
   for (let i = 0; i < times; i++) {
     list.push(func(i));
   }
   return list;
-}
+};
 
-export function displayDigit(str: string, digit = 1) {
-  let preposition = '';
-  for (let i = 0; i < digit; i++) {
-    preposition += '0';
-  }
-  return (preposition + str).slice(-1 + -1 * digit);
-}
-
-export function compare<T>(prev: T, next: T) {
-  return JSON.stringify(prev) === JSON.stringify(next);
-}
-
-export function section<T>(data: { text: T; section: string; icon?: Maybe<string> | undefined }[]): {
-  [sectionName: string]: { text: T; icon?: string | null };
-} {
-  const titles: { [sectionName: string]: { text: T; icon?: string | null } } = {};
-  data.forEach((title) => {
-    titles[title.section] = {
-      icon: title.icon,
-      text: title.text,
-    };
+export const publicState = (data: Zenn[], authState?: boolean) =>
+  data.filter((value) => {
+    if (authState || process.env.NODE_ENV === 'development') return value;
+    else if (value.published) return value;
   });
-  return titles;
-}
-
-export function list(data: { name: string; list: { title: string }[] }[]): { [sectionName: string]: string[] } {
-  const lists: { [sectionName: string]: string[] } = {};
-  data.forEach((obj) => {
-    lists[obj.name] = obj.list.map((list) => list.title);
-  });
-  return lists;
-}

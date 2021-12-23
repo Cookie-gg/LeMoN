@@ -1,0 +1,25 @@
+.entire {
+  align-items: center;
+  border-bottom: 2px solid $lemon;
+  display: flex;
+  flex-wrap: wrap;
+
+  @include max(padding, #{12.5px}, 12.5px);
+
+  @include max(gap, #{12.5px}, 12.5px);
+
+  svg {
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    transition: all 0.2s;
+
+    @include max(font-size, #{28px}, 28px);
+
+    @include max(padding, #{2px}, 2px);
+
+    &:hover {
+      background-color: $dark_gray;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+query Topics {
+  topics: findAllTopics {
+    displayName
+    icon
+    allArticles {
+      articleId
+      published
+      releaseDate
+      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@
   }
 
   .meta {
-    @media screen and (min-width: $res + 1px) {
+    @media screen and (min-width: ($res + 1px)) {
       align-items: center;
       background-color: rgba(white, 0.04);
       box-sizing: border-box;
@@ -82,7 +82,7 @@
       @include max(letter-spacing, #{1.2px}, 1.2px);
 
       // pc
-      @include max(top, calc(30px + 11px + 110px));
+      @include max(top, #{30px + 11px + 110px});
 
       @include max(left, #{30px + 11px + 30px});
 
@@ -107,7 +107,7 @@
         @include max(padding, #{10px}, 10px);
       }
       &::before {
-        background-color: $dark-gray;
+        background-color: $dark_gray;
         bottom: 100%;
         content: '';
         height: 100%;
@@ -136,7 +136,7 @@
         @include max(margin-right, #{15px}, 15px);
       }
       .title {
-        color: rgba($dark-gray, 0.9);
+        color: rgba($dark_gray, 0.9);
         font-weight: 700;
         line-height: 1.8;
 
@@ -154,8 +154,6 @@
     box-sizing: border-box;
     font-family: $jp_font;
     width: 100%;
-
-    @include custom_scrollbar();
 
     @include max(background-color, #313131, $width: $res);
 
@@ -199,7 +197,7 @@
         @include max(width, #{5px}, 5px);
       }
       &::after {
-        background-color: $dark-gray;
+        background-color: $dark_gray;
         content: '';
         height: 100%;
         left: 100%;
@@ -230,7 +228,7 @@
 
       @include max(justify-content, $sp_value: center, $width: $res);
 
-      @include max(color, $sp_value: $dark-gray, $width: $res);
+      @include max(color, $sp_value: $dark_gray, $width: $res);
 
       @include max(background-color, $sp_value: $lemon, $width: $res);
 
@@ -299,8 +297,6 @@
         @include max(padding-top, #{25px}, 25px);
 
         @include max(padding-bottom, #{25px}, 25px);
-
-        @include custom_scrollbar();
       }
       li {
         align-items: center;
@@ -354,13 +350,13 @@
         }
         &:not(:first-of-type)::after {
           background-color: #6f6f6f;
+          bottom: 50%;
           content: '';
           height: 100%;
+          height: 150%;
           position: absolute;
           width: 1px;
-          bottom: 50%;
-          @include max(left, #{5.6px}, 5.6px);
-          height: 150%;
+          @include max(left, #{6.2px}, 6.2px);
         }
         &.active {
           color: white;
@@ -368,9 +364,9 @@
           &::before {
             background-clip: content-box;
             background-color: $lemon;
-            border: solid rgba($lemon, 0.5);
+            border: solid darken($lemon, 20);
 
-            @include max(padding, #{0.5px}, 0.5px);
+            @include max(padding, #{1px}, 1px);
 
             @include max(border-width, #{2px}, 2px);
           }
@@ -390,13 +386,14 @@
   &.init {
     .meta::before,
     .meta::after,
+    .meta *,
     .toc {
       transition: all 0s;
     }
   }
   &.showed {
     .meta {
-      @media screen and (min-width: $res + 1px) {
+      @media screen and (min-width: ($res + 1px)) {
         &::before {
           transition: width $common_anmt order(3);
           width: 100%;

@@ -1,0 +1,118 @@
+.entire {
+  background-color: #313131;
+  border-radius: 5px;
+
+  nav {
+    border-bottom: 1px solid rgba(white, 0.25);
+    box-sizing: border-box;
+
+    @include max(padding-right, #{15px}, 15px);
+
+    @include max(padding-left, #{15px}, 15px);
+
+    @include max(padding-top, #{12px}, 12px);
+
+    @include max(padding-bottom, #{12px}, 12px);
+
+    ul {
+      display: flex;
+
+      @include max(column-gap, #{12.5px}, 12.5px);
+
+      li {
+        cursor: pointer;
+        position: relative;
+
+        @include max(width, #{22.5px}, 22.5px);
+
+        @include max(height, #{22.5px}, 22.5px);
+
+        svg {
+          filter: grayscale(100%);
+          // transition: filter $common_anmt;
+        }
+        &::after {
+          background-color: $lemon;
+          content: '';
+          height: 2px;
+          left: 50%;
+          position: absolute;
+          transform: translateX(-50%);
+
+          // transition: width $common_anmt;
+          width: 0%;
+
+          @include max(bottom, #{-12.5px}, -12.5px);
+        }
+        &.active {
+          position: relative;
+          svg {
+            filter: grayscale(0%);
+          }
+          &::after {
+            width: 150%;
+          }
+        }
+        &:hover {
+          position: relative;
+          &::before {
+            background-color: rgba(white, 0.08);
+            border-radius: 5px;
+            content: '';
+            height: 150%;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+          }
+        }
+      }
+    }
+  }
+  .emojis {
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+
+    @include max(height, #{350px}, 350px);
+
+    @include max(padding-right, #{7px}, 7px);
+
+    @include max(padding-left, #{15px}, 15px);
+
+    @include max(padding-top, #{12px}, 12px);
+
+    @include max(padding-bottom, #{12px}, 12px);
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      @include max(gap, #{12.5px}, 12.5px);
+
+      li {
+        cursor: pointer;
+
+        @include max(width, #{22.5px}, 22.5px);
+
+        @include max(height, #{22.5px}, 22.5px);
+
+        &:hover {
+          position: relative;
+          &::after {
+            background-color: rgba(white, 0.08);
+            border-radius: 5px;
+            content: '';
+            height: 150%;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+          }
+        }
+      }
+    }
+  }
+}

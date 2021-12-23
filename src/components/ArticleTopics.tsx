@@ -1,7 +1,7 @@
-import { Icon as Iconify } from '@iconify/react';
-import styles from '../assets/scss/components/ArticleTopics.module.scss';
 import { memo } from 'react';
 import { Nlink } from 'components';
+import { Icon as Iconify } from '@iconify/react';
+import styles from '../assets/scss/components/ArticleTopics.module.scss';
 
 interface PropsType {
   type?: string;
@@ -23,13 +23,14 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
           <li
             key={value}
             className={`${activeNumber === i && styles.active}`}
-            onClick={() => !inArticle && (clickEvent as (n: number) => void)(i)}
+            onClick={() => !inArticle && clickEvent && clickEvent(i)}
           >
             {inArticle ? (
               <Nlink href={`/blog/topics#${value.toLowerCase()}`}>
                 <>
                   <span>
                     <Iconify
+                      fr={''}
                       icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
                       style={{ filter: `${icons[i].slice(0, 1) === '_' && 'invert()'}` }}
                     />
@@ -41,6 +42,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
               <>
                 <span>
                   <Iconify
+                    fr={''}
                     icon={icons[i].slice(0, 1) === '_' ? icons[i].slice(1) : icons[i]}
                     style={{ filter: `${icons[i].slice(0, 1) === '_' && 'invert()'}` }}
                   />
@@ -55,9 +57,9 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
             <Nlink href="/blog/topics">
               <>
                 <span>
-                  <Iconify icon={icons[icons.length - 1]} />
+                  <Iconify fr={''} icon={icons[icons.length - 1]} />
                 </span>
-                {(type as string).slice(0, 1).toUpperCase() + (type as string).slice(1)}
+                {type}
               </>
             </Nlink>
           </li>
@@ -66,7 +68,7 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
             <Nlink href="/blog/topics">
               <>
                 <span>
-                  <Iconify icon={'fa-solid:arrow-right'} />
+                  <Iconify fr={''} icon={'fa-solid:arrow-right'} />
                 </span>
                 全て表示
               </>
@@ -78,4 +80,4 @@ function ArticleTopics({ type, topics, icons, inArticle = false, className, acti
   );
 }
 
-export default memo(ArticleTopics);
+export default memo(ArticleTopics, (prev, next) => prev.activeNumber === next.activeNumber);

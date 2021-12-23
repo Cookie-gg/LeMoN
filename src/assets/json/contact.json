@@ -1,0 +1,34 @@
+{
+  "title": "Contact",
+  "form": {
+    "title": "CONTACT FORM",
+    "display": [
+      {
+        "name": "name",
+        "lable": "Name",
+        "placeholder": "Your name",
+        "required": true
+      },
+      {
+        "name": "email",
+        "lable": "E-mail",
+        "placeholder": "Your e-mail",
+        "required": true
+      },
+      {
+        "name": "subject",
+        "lable": "Subject",
+        "placeholder": "Your subject",
+        "required": true
+      },
+      {
+        "name": "message",
+        "lable": "Message",
+        "placeholder": "Your message",
+        "required": false
+      }
+    ],
+    "placeholder": "(required)",
+    "submit": "Send"
+  }
+}

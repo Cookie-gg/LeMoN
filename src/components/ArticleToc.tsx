@@ -1,5 +1,5 @@
-import { Link } from 'utils/next';
-import { memo, MouseEvent, useContext, useRef, useState } from 'react';
+import { Link, useRouter } from 'utils/next';
+import { memo, MouseEvent, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Twemoji } from 'react-emoji-render';
 import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
@@ -11,45 +11,54 @@ interface PropsType {
     title: string;
     emoji: string;
   };
+  activeSection: number;
+  className?: string;
   headings?: {
     level: 1 | 2;
     text: string;
   }[];
-  activeSection: number;
-  className?: string;
 }
 
 function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
-  const paddingTop = 30 + 11 + 110;
-  const paddingBottom = 30 + 11 + 30;
+  const paddingTop = 30 + 11 + 110; // value from scss/components/PageFrame.module.scss
+  const paddingBottom = 30 + 11 + 30; // value from scss/components/PageFrame.module.scss
+  const window = useWindowDimensions() as { width: number; height: number };
+  const isMobile = useAgent('mobile');
+  const id = `${useRouter().query.id}`;
+  const [cursorY, _cursorY] = useState(0);
   const initTransition = useFirstPeriod(0);
   const tocRef = useRef<HTMLDivElement>(null);
+  const scroller = useContext(ScrollerContext);
   const [isOpened, _isOpened] = useState(false);
   const [height, _height] = useHeight<HTMLDivElement>();
-  const window = useWindowDimensions() as { width: number; height: number };
-  const scroller = useContext(ScrollerContext);
-  const isIntersecting = useIntersect(scroller?.current, tocRef.current, `0px 0px -100%`);
-  const [cursorY, _cursorY] = useState(0);
   const swipeOptions = useSwipeable({
     onSwipedRight: () => _isOpened(false),
     onSwipedLeft: () => _isOpened(true),
   });
-  const getMousePosition = (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-    if (
-      e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100) <
-      e.clientY - e.currentTarget.getBoundingClientRect().top
-    ) {
-      _cursorY(e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100));
-    } else if (
-      (window.width < 500 ? window.width * 0.2 : 100) >
-      e.clientY - e.currentTarget.getBoundingClientRect().top
-    ) {
-      _cursorY(window.width < 500 ? window.width * 0.2 : 100);
-    } else {
-      _cursorY(e.clientY - e.currentTarget.getBoundingClientRect().top);
-    }
-  };
-  const isMobile = useAgent('mobile');
+  const isIntersecting = useIntersect({
+    root: scroller?.current,
+    el: tocRef.current,
+    rootMargin: `0px 0px -100%`,
+  });
+  const getMousePosition = useCallback(
+    (e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+      if (
+        e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100) <
+        e.clientY - e.currentTarget.getBoundingClientRect().top
+      ) {
+        _cursorY(e.currentTarget.clientHeight - (window.width < 500 ? window.width * 0.2 : 100));
+      } else if (
+        (window.width < 500 ? window.width * 0.2 : 100) >
+        e.clientY - e.currentTarget.getBoundingClientRect().top
+      ) {
+        _cursorY(window.width < 500 ? window.width * 0.2 : 100);
+      } else {
+        _cursorY(e.clientY - e.currentTarget.getBoundingClientRect().top);
+      }
+    },
+    [window.width],
+  );
+  useEffect(() => _isOpened(false), [id]);
   return (
     <div
       className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init} ${className}`}
@@ -77,7 +86,8 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
           maxHeight: window.width < 1200 ? undefined : `calc(100vh - ${paddingTop + paddingBottom + height}px)`,
           top: window.width < 1200 ? undefined : isIntersecting ? `${1 * height}px` : '0px',
         }}
-        {...swipeOptions}
+        ref={isMobile ? swipeOptions.ref : undefined}
+        onMouseDown={isMobile ? swipeOptions.onMouseDown : undefined}
       >
         <div
           className={styles.title}
@@ -104,7 +114,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
             }}
           >
             {headings.map((heading, i) => (
-              <Link href={`#${encodeURI(heading.text)}`} key={heading.text}>
+              <Link href={`#${encodeURI(heading.text)}`} key={`${heading.text}_${i}`}>
                 <li
                   className={`${activeSection === i && styles.active} ${heading.level === 1 ? styles._1 : styles._2}`}
                 >

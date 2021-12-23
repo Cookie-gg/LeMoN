@@ -1,9 +1,0 @@
-query Contact {
-  titles: findTitle(page: "contact") {
-    text
-    section
-  }
-  adressDelivery: findImage(name: "address delivery") {
-    data
-  }
-}

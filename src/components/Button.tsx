@@ -13,11 +13,7 @@ function Button({ children, className, isInteractive = false, switching, clickEv
   return (
     <div className={`${styles.entire} ${className}`}>
       {isInteractive ? (
-        <button
-          onClick={(e) => {
-            clickEvent && clickEvent(e);
-          }}
-        >
+        <button onClick={(e) => clickEvent && clickEvent(e)}>
           {switching ? (children as ReactElement[])[0] : (children as ReactElement[])[1]}
         </button>
       ) : (

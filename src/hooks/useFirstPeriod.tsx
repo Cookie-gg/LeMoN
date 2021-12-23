@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'utils/next';
+import { useState, useEffect } from 'react';
 
 export default function useFirstPeriod(duration: number): boolean {
   const query = (useRouter().query as { id: string[] }).id[0];

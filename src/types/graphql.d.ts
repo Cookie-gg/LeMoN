@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -18,94 +19,41 @@ export type Scalars = {
 
 export type ArticleInput = {
   articleId: Scalars['String'];
-  releaseDate: Scalars['Timestamp'];
-  updateDate: Scalars['Timestamp'];
-  title: Scalars['String'];
   emoji: Scalars['String'];
-  type: Scalars['String'];
+  html: Scalars['String'];
+  markdown: Scalars['String'];
+  published: Scalars['Boolean'];
+  releaseDate: Scalars['Timestamp'];
+  title: Scalars['String'];
   topics: Array<Scalars['String']>;
-  body: Scalars['String'];
+  type: Scalars['String'];
+  updateDate: Scalars['Timestamp'];
 };
 
 export type ArticleObject = {
   __typename?: 'ArticleObject';
-  id: Scalars['ID'];
   articleId: Scalars['String'];
-  releaseDate: Scalars['Timestamp'];
-  updateDate: Scalars['Timestamp'];
-  title: Scalars['String'];
   emoji: Scalars['String'];
-  type: Scalars['String'];
-  topics: Array<Scalars['String']>;
-  typeIcon: TopicObject;
-  topicIcons: Array<TopicObject>;
-  body: Scalars['String'];
+  html: Scalars['String'];
+  id: Scalars['ID'];
+  markdown: Scalars['String'];
+  published: Scalars['Boolean'];
   relations: Array<ArticleObject>;
-};
-
-export type ImageInput = {
-  data: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type ImageObject = {
-  __typename?: 'ImageObject';
-  id: Scalars['ID'];
-  data: Scalars['String'];
-  name: Scalars['String'];
-};
-
-export type ListBodyInput = {
+  releaseDate: Scalars['Timestamp'];
   title: Scalars['String'];
-  icon?: Maybe<Scalars['String']>;
-};
-
-export type ListBodyObject = {
-  __typename?: 'ListBodyObject';
-  title: Scalars['String'];
-  icon?: Maybe<Scalars['String']>;
-};
-
-export type ListInput = {
-  list: Array<ListBodyInput>;
-  name: Scalars['String'];
-  section: Scalars['String'];
-};
-
-export type ListObject = {
-  __typename?: 'ListObject';
-  id: Scalars['ID'];
-  list: Array<ListBodyObject>;
-  name: Scalars['String'];
-  section: Scalars['String'];
+  topicIcons: Array<TopicObject>;
+  topics: Array<Scalars['String']>;
+  type: Scalars['String'];
+  typeIcon: TopicObject;
+  updateDate: Scalars['Timestamp'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addList: ListObject;
-  updateList: ListObject;
   addTopic: TopicObject;
+  changeArticle: ArticleObject;
+  deleteArticle: ArticleObject;
   updateTopic: TopicObject;
-  addArticle: ArticleObject;
-  updateArticle: ArticleObject;
-  addTitle: TitleObject;
-  updateTitle: TitleObject;
-  addSentence: SentenceObject;
-  updateSentence: SentenceObject;
-  addImage: ImageObject;
-  updateImage: ImageObject;
-  addPath: PathObject;
-  updatePath: PathObject;
-};
-
-
-export type MutationAddListArgs = {
-  args: ListInput;
-};
-
-
-export type MutationUpdateListArgs = {
-  args: ListInput;
 };
 
 
@@ -114,103 +62,39 @@ export type MutationAddTopicArgs = {
 };
 
 
-export type MutationUpdateTopicArgs = {
-  args: TopicInput;
-};
-
-
-export type MutationAddArticleArgs = {
-  args: ArticleInput;
-};
-
-
-export type MutationUpdateArticleArgs = {
+export type MutationChangeArticleArgs = {
   args: ArticleInput;
   id: Scalars['String'];
 };
 
 
-export type MutationAddTitleArgs = {
-  args: TitleInput;
+export type MutationDeleteArticleArgs = {
+  id: Scalars['String'];
 };
 
 
-export type MutationUpdateTitleArgs = {
-  args: TitleInput;
-};
-
-
-export type MutationAddSentenceArgs = {
-  args: SentenceInput;
-};
-
-
-export type MutationUpdateSentenceArgs = {
-  args: SentenceInput;
-};
-
-
-export type MutationAddImageArgs = {
-  args: ImageInput;
-};
-
-
-export type MutationUpdateImageArgs = {
-  args: ImageInput;
-};
-
-
-export type MutationAddPathArgs = {
-  args: PathInput;
-};
-
-
-export type MutationUpdatePathArgs = {
-  args: PathInput;
-  name: Scalars['String'];
-};
-
-export type PathInput = {
-  name: Scalars['String'];
-  path: Scalars['String'];
-  icon: Scalars['String'];
-  order?: Maybe<Scalars['Int']>;
-};
-
-export type PathObject = {
-  __typename?: 'PathObject';
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  path: Scalars['String'];
-  icon: Scalars['String'];
-  order?: Maybe<Scalars['Int']>;
+export type MutationUpdateTopicArgs = {
+  args: TopicInput;
 };
 
 export type Query = {
   __typename?: 'Query';
-  findList: ListObject;
-  findListBySection: Array<ListObject>;
-  findTopic: TopicObject;
-  findAllTopics: Array<TopicObject>;
-  findArticles: Array<ArticleObject>;
+  countAllArticles: Scalars['Int'];
   findAllArticles: Array<ArticleObject>;
-  findTitle: Array<TitleObject>;
-  findSentence: Array<SentenceObject>;
-  findImage: ImageObject;
-  findPath: PathObject;
-  findAllPaths: Array<PathObject>;
-  findPathByOrder: PathObject;
+  findAllTopics: Array<TopicObject>;
+  findArticle: ArticleObject;
+  findMoreArticles: Array<ArticleObject>;
+  findTopic: TopicObject;
 };
 
 
-export type QueryFindListArgs = {
-  section: Scalars['String'];
-  name: Scalars['String'];
+export type QueryFindArticleArgs = {
+  articleId: Scalars['String'];
 };
 
 
-export type QueryFindListBySectionArgs = {
-  section: Scalars['String'];
+export type QueryFindMoreArticlesArgs = {
+  current: Scalars['String'];
 };
 
 
@@ -218,189 +102,231 @@ export type QueryFindTopicArgs = {
   name: Scalars['String'];
 };
 
-
-export type QueryFindArticlesArgs = {
-  latest: Scalars['Boolean'];
-};
-
-
-export type QueryFindTitleArgs = {
-  page: Scalars['String'];
-};
-
-
-export type QueryFindSentenceArgs = {
-  page: Scalars['String'];
-};
-
-
-export type QueryFindImageArgs = {
-  name: Scalars['String'];
-};
-
-
-export type QueryFindPathArgs = {
-  name: Scalars['String'];
-};
-
-
-export type QueryFindPathByOrderArgs = {
-  order: Scalars['Float'];
-};
-
-export type SentenceInput = {
-  text: Array<Scalars['String']>;
-  page: Scalars['String'];
-  section: Scalars['String'];
-};
-
-export type SentenceObject = {
-  __typename?: 'SentenceObject';
-  id: Scalars['ID'];
-  text: Array<Scalars['String']>;
-  page: Scalars['String'];
-  section: Scalars['String'];
-};
-
-
-export type TitleInput = {
-  text: Scalars['String'];
-  page: Scalars['String'];
-  section: Scalars['String'];
-  icon?: Maybe<Scalars['String']>;
-};
-
-export type TitleObject = {
-  __typename?: 'TitleObject';
-  id: Scalars['ID'];
-  text: Scalars['String'];
-  page: Scalars['String'];
-  section: Scalars['String'];
-  icon?: Maybe<Scalars['String']>;
-};
-
 export type TopicInput = {
-  name: Scalars['String'];
   displayName: Scalars['String'];
   icon: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type TopicObject = {
   __typename?: 'TopicObject';
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  allArticles: Array<ArticleObject>;
   displayName: Scalars['String'];
   icon: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
   someArticles: Array<ArticleObject>;
-  allArticles: Array<ArticleObject>;
 };
 
-export type AboutQueryVariables = Exact<{ [key: string]: never; }>;
+export type ChangeArticleMutationVariables = Exact<{
+  id: Scalars['String'];
+  articleId: Scalars['String'];
+  published: Scalars['Boolean'];
+  releaseDate: Scalars['Timestamp'];
+  updateDate: Scalars['Timestamp'];
+  title: Scalars['String'];
+  emoji: Scalars['String'];
+  type: Scalars['String'];
+  topics: Array<Scalars['String']> | Scalars['String'];
+  markdown: Scalars['String'];
+  html: Scalars['String'];
+}>;
 
 
-export type AboutQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string, icon?: Maybe<string> }>, sentences: Array<{ __typename?: 'SentenceObject', text: Array<string>, section: string }>, info: { __typename?: 'ListObject', list: Array<{ __typename?: 'ListBodyObject', title: string, icon?: Maybe<string> }> }, feelingProud: { __typename?: 'ImageObject', data: string }, front: Array<{ __typename?: 'ListObject', name: string, list: Array<{ __typename?: 'ListBodyObject', title: string }> }>, back: Array<{ __typename?: 'ListObject', name: string, list: Array<{ __typename?: 'ListBodyObject', title: string }> }>, others: Array<{ __typename?: 'ListObject', name: string, list: Array<{ __typename?: 'ListBodyObject', title: string }> }> };
+export type ChangeArticleMutation = { __typename?: 'Mutation', changeArticle: { __typename?: 'ArticleObject', id: string } };
+
+export type DeleteArticleMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteArticleMutation = { __typename?: 'Mutation', deleteArticle: { __typename?: 'ArticleObject', id: string } };
+
+export type FindAllArticlesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllArticlesQuery = { __typename?: 'Query', all: Array<{ __typename?: 'ArticleObject', id: string, articleId: string, published: boolean, releaseDate: any, updateDate: any, title: string, emoji: string, markdown: string, html: string, topicIcons: Array<{ __typename?: 'TopicObject', icon: string, displayName: string }>, typeIcon: { __typename?: 'TopicObject', icon: string, displayName: string }, relations: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+
+export type FindMoreArticlesQueryVariables = Exact<{
+  current: Scalars['String'];
+}>;
+
+
+export type FindMoreArticlesQuery = { __typename?: 'Query', more: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> };
+
+export type FindArticleQueryVariables = Exact<{
+  articleId: Scalars['String'];
+}>;
+
+
+export type FindArticleQuery = { __typename?: 'Query', one: { __typename?: 'ArticleObject', id: string, title: string, articleId: string, emoji: string, type: string, topics: Array<string>, published: boolean, releaseDate: any, updateDate: any, markdown: string, html: string } };
 
 export type BlogQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type BlogQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, latest: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, all: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string }>, someArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type BlogQuery = { __typename?: 'Query', num: number, all: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean }>, someArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
-export type ContactQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ContactQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, adressDelivery: { __typename?: 'ImageObject', data: string } };
-
-export type PostQueryVariables = Exact<{ [key: string]: never; }>;
+export type EditorQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, updateDate: any, title: string, emoji: string, body: string, topicIcons: Array<{ __typename?: 'TopicObject', icon: string, displayName: string }>, typeIcon: { __typename?: 'TopicObject', icon: string, displayName: string }, relations: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type EditorQuery = { __typename?: 'Query', topics: Array<{ __typename?: 'TopicObject', displayName: string, name: string }> };
 
-export type PostIdQueryVariables = Exact<{ [key: string]: never; }>;
+export type EditQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostIdQuery = { __typename?: 'Query', articleId: Array<{ __typename?: 'ArticleObject', id: string }> };
+export type EditQuery = { __typename?: 'Query', all: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> };
 
 export type TopicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TopicsQuery = { __typename?: 'Query', titles: Array<{ __typename?: 'TitleObject', text: string, section: string }>, topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', id: string, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
+export type TopicsQuery = { __typename?: 'Query', topics: Array<{ __typename?: 'TopicObject', displayName: string, icon: string, allArticles: Array<{ __typename?: 'ArticleObject', articleId: string, published: boolean, releaseDate: any, title: string, emoji: string, type: string, topicIcons: Array<{ __typename?: 'TopicObject', displayName: string }> }> }> };
 
 
-export const AboutDocument = gql`
-    query About {
-  titles: findTitle(page: "about") {
-    text
-    section
-    icon
+export const ChangeArticleDocument = gql`
+    mutation ChangeArticle($id: String!, $articleId: String!, $published: Boolean!, $releaseDate: Timestamp!, $updateDate: Timestamp!, $title: String!, $emoji: String!, $type: String!, $topics: [String!]!, $markdown: String!, $html: String!) {
+  changeArticle(
+    id: $id
+    args: {articleId: $articleId, published: $published, releaseDate: $releaseDate, updateDate: $updateDate, title: $title, emoji: $emoji, type: $type, topics: $topics, markdown: $markdown, html: $html}
+  ) {
+    id
   }
-  sentences: findSentence(page: "about") {
-    text
-    section
+}
+    `;
+export type ChangeArticleMutationFn = Apollo.MutationFunction<ChangeArticleMutation, ChangeArticleMutationVariables>;
+
+/**
+ * __useChangeArticleMutation__
+ *
+ * To run a mutation, you first call `useChangeArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeArticleMutation, { data, loading, error }] = useChangeArticleMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      articleId: // value for 'articleId'
+ *      published: // value for 'published'
+ *      releaseDate: // value for 'releaseDate'
+ *      updateDate: // value for 'updateDate'
+ *      title: // value for 'title'
+ *      emoji: // value for 'emoji'
+ *      type: // value for 'type'
+ *      topics: // value for 'topics'
+ *      markdown: // value for 'markdown'
+ *      html: // value for 'html'
+ *   },
+ * });
+ */
+export function useChangeArticleMutation(baseOptions?: Apollo.MutationHookOptions<ChangeArticleMutation, ChangeArticleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ChangeArticleMutation, ChangeArticleMutationVariables>(ChangeArticleDocument, options);
+      }
+export type ChangeArticleMutationHookResult = ReturnType<typeof useChangeArticleMutation>;
+export type ChangeArticleMutationResult = Apollo.MutationResult<ChangeArticleMutation>;
+export type ChangeArticleMutationOptions = Apollo.BaseMutationOptions<ChangeArticleMutation, ChangeArticleMutationVariables>;
+export const DeleteArticleDocument = gql`
+    mutation DeleteArticle($id: String!) {
+  deleteArticle(id: $id) {
+    id
   }
-  info: findList(name: "info", section: "profile") {
-    list {
-      title
+}
+    `;
+export type DeleteArticleMutationFn = Apollo.MutationFunction<DeleteArticleMutation, DeleteArticleMutationVariables>;
+
+/**
+ * __useDeleteArticleMutation__
+ *
+ * To run a mutation, you first call `useDeleteArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteArticleMutation, { data, loading, error }] = useDeleteArticleMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteArticleMutation(baseOptions?: Apollo.MutationHookOptions<DeleteArticleMutation, DeleteArticleMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteArticleMutation, DeleteArticleMutationVariables>(DeleteArticleDocument, options);
+      }
+export type DeleteArticleMutationHookResult = ReturnType<typeof useDeleteArticleMutation>;
+export type DeleteArticleMutationResult = Apollo.MutationResult<DeleteArticleMutation>;
+export type DeleteArticleMutationOptions = Apollo.BaseMutationOptions<DeleteArticleMutation, DeleteArticleMutationVariables>;
+export const FindAllArticlesDocument = gql`
+    query FindAllArticles {
+  all: findAllArticles {
+    id
+    articleId
+    published
+    releaseDate
+    updateDate
+    title
+    emoji
+    topicIcons {
       icon
+      displayName
     }
-  }
-  feelingProud: findImage(name: "feeling proud") {
-    data
-  }
-  front: findListBySection(section: "front") {
-    name
-    list {
-      title
+    typeIcon {
+      icon
+      displayName
     }
-  }
-  back: findListBySection(section: "back") {
-    name
-    list {
+    markdown
+    html
+    relations {
+      articleId
+      published
+      releaseDate
       title
-    }
-  }
-  others: findListBySection(section: "others") {
-    name
-    list {
-      title
+      emoji
+      type
+      topicIcons {
+        displayName
+      }
     }
   }
 }
     `;
 
 /**
- * __useAboutQuery__
+ * __useFindAllArticlesQuery__
  *
- * To run a query within a React component, call `useAboutQuery` and pass it any options that fit your needs.
- * When your component renders, `useAboutQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFindAllArticlesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllArticlesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useAboutQuery({
+ * const { data, loading, error } = useFindAllArticlesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useAboutQuery(baseOptions?: Apollo.QueryHookOptions<AboutQuery, AboutQueryVariables>) {
+export function useFindAllArticlesQuery(baseOptions?: Apollo.QueryHookOptions<FindAllArticlesQuery, FindAllArticlesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AboutQuery, AboutQueryVariables>(AboutDocument, options);
+        return Apollo.useQuery<FindAllArticlesQuery, FindAllArticlesQueryVariables>(FindAllArticlesDocument, options);
       }
-export function useAboutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AboutQuery, AboutQueryVariables>) {
+export function useFindAllArticlesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllArticlesQuery, FindAllArticlesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AboutQuery, AboutQueryVariables>(AboutDocument, options);
+          return Apollo.useLazyQuery<FindAllArticlesQuery, FindAllArticlesQueryVariables>(FindAllArticlesDocument, options);
         }
-export type AboutQueryHookResult = ReturnType<typeof useAboutQuery>;
-export type AboutLazyQueryHookResult = ReturnType<typeof useAboutLazyQuery>;
-export type AboutQueryResult = Apollo.QueryResult<AboutQuery, AboutQueryVariables>;
-export const BlogDocument = gql`
-    query Blog {
-  titles: findTitle(page: "blog") {
-    text
-    section
-  }
-  latest: findArticles(latest: true) {
-    id
+export type FindAllArticlesQueryHookResult = ReturnType<typeof useFindAllArticlesQuery>;
+export type FindAllArticlesLazyQueryHookResult = ReturnType<typeof useFindAllArticlesLazyQuery>;
+export type FindAllArticlesQueryResult = Apollo.QueryResult<FindAllArticlesQuery, FindAllArticlesQueryVariables>;
+export const FindMoreArticlesDocument = gql`
+    query FindMoreArticles($current: String!) {
+  more: findMoreArticles(current: $current) {
+    articleId
+    published
     releaseDate
     title
     emoji
@@ -409,8 +335,86 @@ export const BlogDocument = gql`
       displayName
     }
   }
-  all: findArticles(latest: false) {
+}
+    `;
+
+/**
+ * __useFindMoreArticlesQuery__
+ *
+ * To run a query within a React component, call `useFindMoreArticlesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindMoreArticlesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindMoreArticlesQuery({
+ *   variables: {
+ *      current: // value for 'current'
+ *   },
+ * });
+ */
+export function useFindMoreArticlesQuery(baseOptions: Apollo.QueryHookOptions<FindMoreArticlesQuery, FindMoreArticlesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindMoreArticlesQuery, FindMoreArticlesQueryVariables>(FindMoreArticlesDocument, options);
+      }
+export function useFindMoreArticlesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindMoreArticlesQuery, FindMoreArticlesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindMoreArticlesQuery, FindMoreArticlesQueryVariables>(FindMoreArticlesDocument, options);
+        }
+export type FindMoreArticlesQueryHookResult = ReturnType<typeof useFindMoreArticlesQuery>;
+export type FindMoreArticlesLazyQueryHookResult = ReturnType<typeof useFindMoreArticlesLazyQuery>;
+export type FindMoreArticlesQueryResult = Apollo.QueryResult<FindMoreArticlesQuery, FindMoreArticlesQueryVariables>;
+export const FindArticleDocument = gql`
+    query FindArticle($articleId: String!) {
+  one: findArticle(articleId: $articleId) {
     id
+    title
+    articleId
+    emoji
+    type
+    topics
+    published
+    releaseDate
+    updateDate
+    markdown
+    html
+  }
+}
+    `;
+
+/**
+ * __useFindArticleQuery__
+ *
+ * To run a query within a React component, call `useFindArticleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindArticleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindArticleQuery({
+ *   variables: {
+ *      articleId: // value for 'articleId'
+ *   },
+ * });
+ */
+export function useFindArticleQuery(baseOptions: Apollo.QueryHookOptions<FindArticleQuery, FindArticleQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindArticleQuery, FindArticleQueryVariables>(FindArticleDocument, options);
+      }
+export function useFindArticleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindArticleQuery, FindArticleQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindArticleQuery, FindArticleQueryVariables>(FindArticleDocument, options);
+        }
+export type FindArticleQueryHookResult = ReturnType<typeof useFindArticleQuery>;
+export type FindArticleLazyQueryHookResult = ReturnType<typeof useFindArticleLazyQuery>;
+export type FindArticleQueryResult = Apollo.QueryResult<FindArticleQuery, FindArticleQueryVariables>;
+export const BlogDocument = gql`
+    query Blog {
+  all: findAllArticles {
+    articleId
+    published
     releaseDate
     title
     emoji
@@ -423,10 +427,12 @@ export const BlogDocument = gql`
     displayName
     icon
     allArticles {
-      id
+      articleId
+      published
     }
     someArticles {
-      id
+      articleId
+      published
       releaseDate
       title
       emoji
@@ -436,6 +442,7 @@ export const BlogDocument = gql`
       }
     }
   }
+  num: countAllArticles
 }
     `;
 
@@ -465,150 +472,91 @@ export function useBlogLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BlogQ
 export type BlogQueryHookResult = ReturnType<typeof useBlogQuery>;
 export type BlogLazyQueryHookResult = ReturnType<typeof useBlogLazyQuery>;
 export type BlogQueryResult = Apollo.QueryResult<BlogQuery, BlogQueryVariables>;
-export const ContactDocument = gql`
-    query Contact {
-  titles: findTitle(page: "contact") {
-    text
-    section
-  }
-  adressDelivery: findImage(name: "address delivery") {
-    data
+export const EditorDocument = gql`
+    query Editor {
+  topics: findAllTopics {
+    displayName
+    name
   }
 }
     `;
 
 /**
- * __useContactQuery__
+ * __useEditorQuery__
  *
- * To run a query within a React component, call `useContactQuery` and pass it any options that fit your needs.
- * When your component renders, `useContactQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useEditorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEditorQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useContactQuery({
+ * const { data, loading, error } = useEditorQuery({
  *   variables: {
  *   },
  * });
  */
-export function useContactQuery(baseOptions?: Apollo.QueryHookOptions<ContactQuery, ContactQueryVariables>) {
+export function useEditorQuery(baseOptions?: Apollo.QueryHookOptions<EditorQuery, EditorQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ContactQuery, ContactQueryVariables>(ContactDocument, options);
+        return Apollo.useQuery<EditorQuery, EditorQueryVariables>(EditorDocument, options);
       }
-export function useContactLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContactQuery, ContactQueryVariables>) {
+export function useEditorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EditorQuery, EditorQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ContactQuery, ContactQueryVariables>(ContactDocument, options);
+          return Apollo.useLazyQuery<EditorQuery, EditorQueryVariables>(EditorDocument, options);
         }
-export type ContactQueryHookResult = ReturnType<typeof useContactQuery>;
-export type ContactLazyQueryHookResult = ReturnType<typeof useContactLazyQuery>;
-export type ContactQueryResult = Apollo.QueryResult<ContactQuery, ContactQueryVariables>;
-export const PostDocument = gql`
-    query Post {
-  titles: findTitle(page: "post") {
-    text
-    section
-  }
-  allArticles: findAllArticles {
-    id
+export type EditorQueryHookResult = ReturnType<typeof useEditorQuery>;
+export type EditorLazyQueryHookResult = ReturnType<typeof useEditorLazyQuery>;
+export type EditorQueryResult = Apollo.QueryResult<EditorQuery, EditorQueryVariables>;
+export const EditDocument = gql`
+    query Edit {
+  all: findAllArticles {
+    articleId
+    published
     releaseDate
-    updateDate
     title
     emoji
+    type
     topicIcons {
-      icon
       displayName
-    }
-    typeIcon {
-      icon
-      displayName
-    }
-    body
-    relations {
-      id
-      releaseDate
-      title
-      emoji
-      type
-      topicIcons {
-        displayName
-      }
     }
   }
 }
     `;
 
 /**
- * __usePostQuery__
+ * __useEditQuery__
  *
- * To run a query within a React component, call `usePostQuery` and pass it any options that fit your needs.
- * When your component renders, `usePostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useEditQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEditQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = usePostQuery({
+ * const { data, loading, error } = useEditQuery({
  *   variables: {
  *   },
  * });
  */
-export function usePostQuery(baseOptions?: Apollo.QueryHookOptions<PostQuery, PostQueryVariables>) {
+export function useEditQuery(baseOptions?: Apollo.QueryHookOptions<EditQuery, EditQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+        return Apollo.useQuery<EditQuery, EditQueryVariables>(EditDocument, options);
       }
-export function usePostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostQuery, PostQueryVariables>) {
+export function useEditLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EditQuery, EditQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PostQuery, PostQueryVariables>(PostDocument, options);
+          return Apollo.useLazyQuery<EditQuery, EditQueryVariables>(EditDocument, options);
         }
-export type PostQueryHookResult = ReturnType<typeof usePostQuery>;
-export type PostLazyQueryHookResult = ReturnType<typeof usePostLazyQuery>;
-export type PostQueryResult = Apollo.QueryResult<PostQuery, PostQueryVariables>;
-export const PostIdDocument = gql`
-    query PostId {
-  articleId: findAllArticles {
-    id
-  }
-}
-    `;
-
-/**
- * __usePostIdQuery__
- *
- * To run a query within a React component, call `usePostIdQuery` and pass it any options that fit your needs.
- * When your component renders, `usePostIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePostIdQuery({
- *   variables: {
- *   },
- * });
- */
-export function usePostIdQuery(baseOptions?: Apollo.QueryHookOptions<PostIdQuery, PostIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PostIdQuery, PostIdQueryVariables>(PostIdDocument, options);
-      }
-export function usePostIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostIdQuery, PostIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PostIdQuery, PostIdQueryVariables>(PostIdDocument, options);
-        }
-export type PostIdQueryHookResult = ReturnType<typeof usePostIdQuery>;
-export type PostIdLazyQueryHookResult = ReturnType<typeof usePostIdLazyQuery>;
-export type PostIdQueryResult = Apollo.QueryResult<PostIdQuery, PostIdQueryVariables>;
+export type EditQueryHookResult = ReturnType<typeof useEditQuery>;
+export type EditLazyQueryHookResult = ReturnType<typeof useEditLazyQuery>;
+export type EditQueryResult = Apollo.QueryResult<EditQuery, EditQueryVariables>;
 export const TopicsDocument = gql`
     query Topics {
-  titles: findTitle(page: "topics") {
-    text
-    section
-  }
   topics: findAllTopics {
     displayName
     icon
     allArticles {
-      id
+      articleId
+      published
       releaseDate
       title
       emoji
