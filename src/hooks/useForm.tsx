@@ -20,7 +20,7 @@ function useForm<T>(
     if ((e.target as HTMLInputElement).files) {
       const { name, files } = e.target as HTMLInputElement;
       const encodedFile = await encodeImg(files![0]);
-      dispatch({ name: name, value: encodedFile as string });
+      dispatch({ name: name, value: `${encodedFile}` });
     } else if (e.target.type === 'radio') {
       dispatch({ name: e.target.name, value: e.target.defaultValue });
     } else if (e.target.type === 'date') {

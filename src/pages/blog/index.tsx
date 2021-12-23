@@ -10,7 +10,8 @@ import { publicState } from 'utils/common';
 
 function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } }) {
   data = JSON.parse(String(data));
-  const [all, _all] = useState(publicState(data.all.articles, auth.state).slice(4, 8));
+  const filteredArticles = publicState(data.all.articles, auth.state);
+  const [all, _all] = useState(filteredArticles.slice(4, 8));
   const [selectedTopic, _selectedTopic] = useState(0);
   const [getMore, { loading }] = useFindMoreArticlesLazyQuery();
   return (
@@ -19,11 +20,7 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
       <PageFrame classNmae={styles.page}>
         <>
           <Heading className={styles.heading} rank={1} text={blog.latest.title} />
-          <ArticleList
-            className={styles.articles}
-            data={publicState(data.all.articles, auth.state).slice(0, 4)}
-            vertical
-          />
+          <ArticleList className={styles.articles} data={filteredArticles.slice(0, 4)} vertical />
           <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
           <ArticleList
             className={styles.articles}
@@ -38,8 +35,12 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
               />
             }
           />
-          <Heading className={styles.heading} rank={1} text={blog.all.title} />
-          <ArticleList horizontal className={styles.articles} data={all} />
+          {filteredArticles.length >= 4 && (
+            <>
+              <Heading className={styles.heading} rank={1} text={blog.all.title} />
+              <ArticleList horizontal className={styles.articles} data={all} />
+            </>
+          )}
           {loading && <Iconify fr={''} icon="eos-icons:loading" className={styles.loading} />}
           <Button
             className={styles.more}
