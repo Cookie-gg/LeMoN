@@ -9,9 +9,9 @@ import { FindArticleDocument, FindArticleQuery } from 'types/graphql.d';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
-    await axios.get(`${process.env.MELON}/status`, {
+    await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
       headers: {
-        key: `${process.env.AUTH_KEY}`,
+        key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
         authorization: `bearer ${ctx.req.headers.cookie?.replace('token=', '')}`,
       },
     });

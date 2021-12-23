@@ -8,7 +8,7 @@ function Page({ data }: { data: EditQueryType }) {
   data = JSON.parse(String(data));
   return (
     <>
-      <HeadMeta title="Edit" ogImage={`${process.env.OG_IMAGE}/page/edit`} />
+      <HeadMeta title="Edit" ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/edit`} />
       <PageFrame classNmae={styles.page}>
         <>
           <Heading className={styles.heading} rank={1} text="PRIVATE" />

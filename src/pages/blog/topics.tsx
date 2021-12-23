@@ -20,7 +20,7 @@ function Page({ data, auth }: { data: TopicQueryType; auth: { state: boolean } }
   };
   return (
     <>
-      <HeadMeta title={topics.title} ogImage={`${process.env.OG_IMAGE}/page/${topics.title}`}>
+      <HeadMeta title={topics.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${topics.title}`}>
         <link
           rel="stylesheet"
           type="text/css"

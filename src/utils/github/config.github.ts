@@ -20,5 +20,5 @@ export interface GithubTypes {
 }
 
 export const github = new Github({
-  auth: process.env.GITHUB_ACCESS_TOKEN,
+  auth: process.env.NEXT_PUBLIC_GITHUB_ACCESS_TOKEN,
 });

@@ -5,7 +5,7 @@ import home from 'assets/json/home.json';
 function Page() {
   return (
     <>
-      <HeadMeta title={home.title} ogImage={`${process.env.OG_IMAGE}/page/${home.title}`} />
+      <HeadMeta title={home.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${home.title}`} />
       <LeMoN />
       <PhraseTypo />
     </>

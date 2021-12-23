@@ -11,7 +11,7 @@ export async function createFile(
     published: boolean;
     markdown: string;
   },
-  owener = `${process.env.GITHUB_OWNER}`,
+  owener = `${process.env.NEXT_PUBLIC_GITHUB_OWNERR}`,
   repo = 'zenn-content',
 ) {
   await github.request('PUT /repos/{owner}/{repo}/contents/{path}', {
@@ -42,7 +42,7 @@ export async function updateFile(
     published: boolean;
     markdown: string;
   },
-  owner = `${process.env.GITHUB_OWNER}`,
+  owner = `${process.env.NEXT_PUBLIC_GITHUB_OWNERR}`,
   repo = 'zenn-content',
 ) {
   const sha = (
@@ -74,7 +74,11 @@ export async function updateFile(
   });
 }
 
-export async function deleteFile(path: string, owener = `${process.env.GITHUB_OWNER}`, repo = 'zenn-content') {
+export async function deleteFile(
+  path: string,
+  owener = `${process.env.NEXT_PUBLIC_GITHUB_OWNERR}`,
+  repo = 'zenn-content',
+) {
   const sha = (
     (
       await github.request('GET /repos/{owner}/{repo}/contents/{path}', {

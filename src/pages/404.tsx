@@ -5,7 +5,7 @@ import error from 'assets/json/404.json';
 function Page() {
   return (
     <>
-      <HeadMeta title={error.title} ogImage={`${process.env.OG_IMAGE}/page/${error.title}`} />
+      <HeadMeta title={error.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${error.title}`} />
       <h1 className={styles.title}>{error.title}</h1>
       <p className={styles.caution}>{error.messgae}</p>
       <Button className={styles.button}>

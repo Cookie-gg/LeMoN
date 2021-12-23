@@ -15,8 +15,8 @@ export default function useAuth(): [
     intervalRef.current = setInterval(async () => {
       try {
         const token = nookies.get(null, 'token')['token'];
-        const res = await axios.get<{ token: string }>(`${process.env.MELON}/refresh`, {
-          headers: { key: `${process.env.AUTH_KEY}`, authorization: `bearer ${token}` },
+        const res = await axios.get<{ token: string }>(`${process.env.NEXT_PUBLIC_MELON}/refresh`, {
+          headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
         });
         console.log('refreshed!');
         _state(true);
@@ -32,9 +32,9 @@ export default function useAuth(): [
     async (name: string, password: string) => {
       try {
         const res = await axios.post<{ token: string }>(
-          `${process.env.MELON}/login`,
+          `${process.env.NEXT_PUBLIC_MELON}/login`,
           { username: name, password: password },
-          { headers: { key: `${process.env.AUTH_KEY}` } },
+          { headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` } },
         );
         _state(true);
         nookies.set(null, 'token', res.data.token);
@@ -53,8 +53,8 @@ export default function useAuth(): [
       intervalRef.current && clearInterval(intervalRef.current);
     };
     try {
-      await axios.get(`${process.env.MELON}/logout`, {
-        headers: { key: `${process.env.AUTH_KEY}` },
+      await axios.get(`${process.env.NEXT_PUBLIC_MELON}/logout`, {
+        headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` },
       });
       logoutEvent();
       router.push('/login');
@@ -66,8 +66,8 @@ export default function useAuth(): [
     const token = nookies.get(null, 'token')['token'];
     token &&
       axios
-        .get(`${process.env.MELON}/status`, {
-          headers: { key: `${process.env.AUTH_KEY}`, authorization: `bearer ${token}` },
+        .get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
+          headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
         })
         .then(() => {
           _state(true);

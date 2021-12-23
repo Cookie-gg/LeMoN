@@ -9,9 +9,9 @@ import { FormFrame, FormInput, FormLabel, FormSubmit, HeadMeta, Img, PageFrame }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
-    await axios.get(`${process.env.MELON}/status`, {
+    await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
       headers: {
-        key: `${process.env.AUTH_KEY}`,
+        key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
         authorization: `bearer ${ctx.req.headers.cookie?.replace('token=', '')}`,
       },
     });
@@ -33,7 +33,7 @@ function Page({ auth }: { auth: { state: boolean; login: (name: string, password
   );
   return (
     <>
-      <HeadMeta title={json.title} ogImage={`${process.env.OG_IMAGE}/page/${json.title}`} />
+      <HeadMeta title={json.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${json.title}`} />
       <PageFrame classNmae={styles.page}>
         <FormFrame className={styles.form} onSubmit={async (e) => loginHandler(e)}>
           <Img src={lemon.src} alt="site_logo" className={styles.logo} width={1614} height={1722} loading="lazy" />

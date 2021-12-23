@@ -30,14 +30,14 @@ export default function Page() {
     _formState('sending');
     await axios
       .post(
-        `${process.env.MELON}/mail`,
+        `${process.env.NEXT_PUBLIC_MELON}/mail`,
         {
           name: formValue.name,
           email: formValue.email,
           subject: formValue.subject,
           message: formValue.message,
         },
-        { headers: { authorization: `${process.env.MAILER_KEY}` } },
+        { headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` } },
       )
       .then(() => {
         _formState('complete');
@@ -49,7 +49,7 @@ export default function Page() {
   };
   return (
     <>
-      <HeadMeta title={contact.title} ogImage={`${process.env.OG_IMAGE}/page/${contact.title}`} />
+      <HeadMeta title={contact.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${contact.title}`} />
       <PageFrame classNmae={styles.page}>
         <>
           <div className={styles.text_wrapper}>
@@ -79,7 +79,7 @@ export default function Page() {
               alt={`${contact.form.title.toLowerCase()}_featured_image`}
               width={913}
               height={680}
-              loading="lazy"
+              priority
             />
           </ImageFrame>
         </>

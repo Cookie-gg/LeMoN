@@ -24,7 +24,7 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
   useEffect(() => _activeSection(0), [router.query.id]);
   return (
     <>
-      <HeadMeta title={data.title} ogImage={`${process.env.OG_IMAGE}/article/${data.title}`}>
+      <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
         <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
       </HeadMeta>
       <PageFrame classNmae={styles.post}>
