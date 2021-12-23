@@ -8,12 +8,12 @@
   },
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:front": "npx rimraf .next && next dev -p 1111",
+    "dev:front": "npx rimraf .next && vercel dev -l 1111",
     "dev:back": "cd ../MeLoN && npm run start:dev",
     "build": "npx rimraf .next && next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel": "vercel dev --listen 1111",
+    "vercel": "vercel dev -l 1111",
     "generate": "graphql-codegen --config codegen.yml",
     "cy:open": "cypress open",
     "cy:run": "cypress run"

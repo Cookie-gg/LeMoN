@@ -6,9 +6,9 @@ import styles from '../../assets/scss/pages/Edit.module.scss';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {
-    await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
+    await axios.get(`${process.env.MELON}/status`, {
       headers: {
-        key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
+        key: `${process.env.AUTH_KEY}`,
         authorization: `bearer ${ctx.req.headers.cookie?.replace('token=', '')}`,
       },
     });
@@ -24,7 +24,7 @@ function Page() {
       <>
         <Head>
           <title>Edit | LeMoN</title>
-        </Head> 
+        </Head>
         <Editor />
       </>
     </PageFrame>

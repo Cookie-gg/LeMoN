@@ -6,7 +6,7 @@ import works from 'assets/json/works.json';
 function Page() {
   return (
     <>
-      <HeadMeta title={works.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${works.title}`} />
+      <HeadMeta title={works.title} ogImage={`${process.env.OG_IMAGE}/page/${works.title}`} />
       <PageFrame classNmae={styles.entire}>
         <p>comming soon...</p>
       </PageFrame>

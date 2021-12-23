@@ -76,9 +76,9 @@ function Monaco({
             _body({
               html: (
                 await axios.post<string>(
-                  `${process.env.NEXT_PUBLIC_MELON}/markdown/string`,
+                  `${process.env.MELON}/markdown/string`,
                   { data: value },
-                  { headers: { authorization: `${process.env.NEXT_PUBLIC_MARCDOWN_KEY}` } },
+                  { headers: { authorization: `${process.env.MARKDOWN_KEY}` } },
                 )
               ).data,
             });

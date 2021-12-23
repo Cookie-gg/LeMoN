@@ -8,7 +8,7 @@ import { Heading, Paragraph, NamePlate, ProfileInfo, ImageFrame, PageFrame, Skil
 function Page() {
   return (
     <>
-      <HeadMeta title={about.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${about.title}`} />
+      <HeadMeta title={about.title} ogImage={`${process.env.OG_IMAGE}/page/${about.title}`} />
       <PageFrame classNmae={styles.page}>
         <>
           <div className={styles.profile}>
