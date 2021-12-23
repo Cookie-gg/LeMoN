@@ -4,7 +4,6 @@ import { BlogDocument, BlogQuery } from 'types/graphql.d';
 
 export interface BlogQueryType {
   all: {
-    limit: number;
     articles: Zenn[];
   };
   topTopics: {
@@ -20,17 +19,15 @@ export default async function blogQuery(): Promise<BlogQueryType> {
     const topTopics = data.topics.sortObj('allArticles', 'desc', true);
     const shapedData: BlogQueryType = {
       all: {
-        limit: data.num,
-        articles: data.all
-          .map((obj) => ({
-            articleId: obj.articleId,
-            published: obj.published,
-            releaseDate: obj.releaseDate,
-            title: obj.title,
-            emoji: obj.emoji,
-            type: obj.type,
-            topics: obj.topicIcons.map((obj) => obj.displayName),
-          })),
+        articles: data.all.map((obj) => ({
+          articleId: obj.articleId,
+          published: obj.published,
+          releaseDate: obj.releaseDate,
+          title: obj.title,
+          emoji: obj.emoji,
+          type: obj.type,
+          topics: obj.topicIcons.map((obj) => obj.displayName),
+        })),
       },
       topTopics: {
         topics: topTopics.map((obj) => obj.displayName),

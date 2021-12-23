@@ -44,7 +44,7 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
           <Button
             className={styles.more}
             isInteractive={true}
-            switching={data.all.limit === all.length + 4}
+            switching={publicState(data.all.articles, auth.state).length === all.length + 4}
             clickEvent={async () => {
               const res = await getMore({ variables: { current: String(all.length + 4) } });
               if (res.data) {
