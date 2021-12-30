@@ -4,6 +4,10 @@
 
   @include max(margin-top, #{12.5px}, 12.5px);
 
+  & + .picker {
+    @include max(margin-top, #{12.5px}, 12.5px);
+  }
+
   select,
   option,
   button {
@@ -52,8 +56,18 @@
       outline-color: $lemon;
       transition: outline-color 0.3s, background-color 0.3s;
     }
-    option:first-of-type {
-      display: none;
+    option {
+      &:first-of-type {
+        display: none;
+      }
+      &:hover {
+        background-color: $lemon !important;
+      }
+      &:last-of-type {
+        background-color: $lemon;
+        color: $dark_gray;
+        font-weight: 400;
+      }
     }
   }
   button {
