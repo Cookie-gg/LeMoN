@@ -2,17 +2,16 @@ import { memo } from 'react';
 import { Link } from 'utils/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/EditButton.module.scss';
+import Nlink from './Nlink';
 
 function EditButton({ articleId }: { articleId: string }) {
   return (
     <div className={styles.entire}>
-      <Link href={`/edit/${articleId}`}>
-        <a>
-          <button className={styles.editor}>
-            <Iconify fr={''} icon="ic:round-edit-note" />
-          </button>
-        </a>
-      </Link>
+      <Nlink href="/edit/[...id]" as={`/edit/${articleId}`}>
+        <button className={styles.editor}>
+          <Iconify fr={''} icon="ic:round-edit-note" />
+        </button>
+      </Nlink>
       <Link href={`https://github.com/Cookie-gg/zenn-content/blob/master/articles/${articleId}.md`}>
         <a target="_blank">
           <button className={styles.github}>
