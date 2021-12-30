@@ -3,6 +3,7 @@ import { encodeEmoji } from 'utils/common';
 import { EmojiPicker, EmojiSvg } from 'components';
 import styles from '../../assets/scss/components/editor/SideMenu.module.scss';
 import React, { useState, useRef, memo, FormEvent, ChangeEvent, useEffect } from 'react';
+import { useRouter } from 'utils/next';
 
 function SideMenu({
   meta,
@@ -26,20 +27,28 @@ function SideMenu({
   idValidate: (target: HTMLInputElement) => void;
   submit: (e: FormEvent<HTMLFormElement>) => void;
 }) {
-  const [pickerEnable, _pickerEnable] = useState(false);
-  const emojiInput = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const [keywords, _keywords] = useState('');
+  const [pickerEnable, _pickerEnable] = useState<{ enable: boolean; display: boolean }>({
+    enable: false,
+    display: false,
+  });
   const emojiPicker = useRef<HTMLDivElement>(null);
+  const emojiInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const clickPickerHandler = (e: MouseEvent) => {
       if (emojiInput.current && emojiPicker.current) {
         if (emojiInput.current.contains(e.target as Node) || emojiPicker.current.contains(e.target as Node))
-          _pickerEnable(true);
-        else _pickerEnable(false);
+          _pickerEnable({ enable: true, display: true });
+        else {
+          _keywords('');
+          _pickerEnable({ enable: true, display: false });
+        }
       }
     };
     document.addEventListener('click', (e) => clickPickerHandler(e));
     return document.removeEventListener('click', (e) => clickPickerHandler(e));
-  }, []);
+  }, [pickerEnable.display]);
   return (
     <form method="post" className={styles.entire} onSubmit={async (e) => submit(e)}>
       <label>Title</label>
@@ -58,25 +67,29 @@ function SideMenu({
         }}
       />
       <label>Emoji</label>
-      <div className={styles.emoji}>
+      <div className={`${styles.emoji} ${keywords.length < 1 && styles.enable}`}>
         <EmojiSvg unicode={encodeEmoji(meta.emoji)} />
         <input
           type="text"
-          value=""
+          value={keywords}
           autoComplete="off"
           ref={emojiInput}
-          className={`${pickerEnable && styles.enable}`}
-          onChange={(e) => e.preventDefault()}
-          onFocus={() => _pickerEnable(true)}
+          className={`${pickerEnable.display && styles.enable}`}
+          onChange={(e) => _keywords(e.target.value)}
+          onFocus={() => _pickerEnable({ enable: true, display: true })}
         />
       </div>
-      <div className={`${styles.picker} ${pickerEnable && styles.enable}`} ref={emojiPicker}>
-        <EmojiPicker
-          onSelect={(emoji) => {
-            dispatch({ name: 'emoji', value: emoji.char });
-            _pickerEnable(false);
-          }}
-        />
+      <div className={`${styles.picker} ${pickerEnable.display && styles.enable}`} ref={emojiPicker}>
+        {pickerEnable.enable && (
+          <EmojiPicker
+            keywords={keywords}
+            onSelect={(emoji) => {
+              _keywords('');
+              dispatch({ name: 'emoji', value: emoji });
+              _pickerEnable({ enable: true, display: false });
+            }}
+          />
+        )}
       </div>
       <label>Type</label>
       <label className={styles.check}>
@@ -120,8 +133,6 @@ function SideMenu({
       <input type="submit" name="save" value="Save" />
 
       <input type="submit" name="delete" value="Delete" />
-
-      {/* <input type="submit" name="close" value="Close" /> */}
     </form>
   );
 }
