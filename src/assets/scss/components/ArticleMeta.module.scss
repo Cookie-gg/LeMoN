@@ -6,13 +6,11 @@
   @include max(letter-spacing, #{1.2px}, 1.2px);
 
   .emoji {
-    align-items: center;
-    display: flex;
-    font-size: 80px;
-    justify-content: center;
-    width: 100%;
+    margin: 0 auto;
 
-    @include max(font-size, #{80px}, 80px);
+    @include max(width, #{80px}, 80px);
+
+    @include max(height, #{80px}, 80px);
   }
   .title {
     font-weight: 600;
