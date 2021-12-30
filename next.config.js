@@ -43,6 +43,7 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: true,
+  // trailingSlash: true, // add slash the end of URL
   sassOptions: {
     prependData: `
 @import 'assets/scss/foundations/functions.scss';
@@ -50,6 +51,7 @@ const nextConfig = {
 @import 'assets/scss/foundations/colors.scss';
 @import 'assets/scss/foundations/variables.scss';
 ` },
+  // pwa settings
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
