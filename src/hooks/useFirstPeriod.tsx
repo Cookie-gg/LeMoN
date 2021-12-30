@@ -2,7 +2,8 @@ import { useRouter } from 'utils/next';
 import { useState, useEffect } from 'react';
 
 export default function useFirstPeriod(duration: number): boolean {
-  const query = (useRouter().query as { id: string[] }).id[0];
+  const router = useRouter();
+  const query = `${router.query.id}` || router.pathname;
   const [period, _period] = useState<boolean>(true);
   useEffect(() => {
     _period(true);
