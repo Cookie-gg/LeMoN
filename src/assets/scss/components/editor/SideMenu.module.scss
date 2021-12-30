@@ -5,8 +5,6 @@
   overflow-x: hidden;
   overflow-y: scroll;
   width: 300px;
-  // border-top-left-radius: 10px;
-  // border-bottom-left-radius: 10px;
 
   @include max(padding-top, #{35px}, 35px);
 
@@ -146,7 +144,8 @@
         transition: outline-color 0.3s, background-color 0.3s 10000s;
       }
       &:focus,
-      &:focus:hover {
+      &:focus:hover,
+      &[class*='alignment'] {
         background-color: rgba($dark_gray, 0.9);
         outline-color: $lemon;
         transition: outline-color 0.3s, background-color 0.3s;
@@ -173,6 +172,7 @@
         border-color: $red;
         color: $red;
         font-weight: 500;
+
         @include max(margin-top, #{12.5px}, 12.5px);
 
         &:hover {
@@ -213,16 +213,26 @@
   }
   .emoji {
     position: relative;
+    &.enable {
+      svg {
+        display: inline-block;
+      }
+      input {
+        color: transparent;
+        cursor: pointer;
+      }
+    }
     svg {
+      display: none;
       position: absolute;
 
       @include max(top, #{5px}, 5px);
 
-      @include max(left, #{7.5px}, 7.5px);
+      @include max(left, #{8px}, 8px);
     }
     input {
-      color: transparent;
-      cursor: pointer;
+      cursor: text;
+
       &.enable {
         background-color: rgba($dark_gray, 0.9);
         outline-color: $lemon;
