@@ -4,7 +4,7 @@ Cookie_gg's Portfolio and Blog
 
 ## Production
 
-[![snapshot]()](https://cookie-gg.vercel.app)
+[![snapshot](/snapshot.png)](https://cookie-gg.vercel.app)
 
 ## Latest Preview
 
