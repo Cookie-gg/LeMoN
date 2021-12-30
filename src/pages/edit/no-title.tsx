@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { memo } from 'react';
+import nookies from 'nookies';
 import { Editor, PageFrame } from 'components';
 import { GetServerSideProps, Head } from 'utils/next';
 import styles from '../../assets/scss/pages/Edit.module.scss';
@@ -14,6 +15,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     });
     return { props: {} };
   } catch {
+    nookies.destroy(ctx, 'token');
     return { redirect: { destination: '/login', permanent: false } };
   }
 };
