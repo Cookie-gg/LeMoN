@@ -1,5 +1,6 @@
 .entire {
   background-color: $lemon;
+  border-radius: 0;
   color: $dark_gray;
   cursor: pointer;
   font-family: $en_font;
@@ -14,11 +15,11 @@
 
   @include max(font-size, #{20px}, 22px);
 
-  @include max(padding-top, #{8px}, 8px);
+  @include max(padding-top, #{9px}, 9px);
 
   @include max(padding-right, #{7.5px}, 7.5px);
 
-  @include max(padding-bottom, #{5px}, 5px);
+  @include max(padding-bottom, #{6px}, 6px);
 
   @include max(padding-left, #{7.5px}, 7.5px);
 

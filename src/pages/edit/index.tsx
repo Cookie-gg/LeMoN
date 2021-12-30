@@ -1,8 +1,25 @@
+import axios from 'axios';
 import { memo } from 'react';
-import { GetStaticProps } from 'utils/next';
+import nookies from 'nookies';
+import { GetServerSideProps } from 'utils/next';
 import editQuery, { EditQueryType } from 'data/editQuery';
 import styles from '../../assets/scss/pages/Edit.module.scss';
 import { Heading, PageFrame, ArticleList, HeadMeta } from 'components';
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  try {
+    await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
+      headers: {
+        key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
+        authorization: `bearer ${ctx.req.headers.cookie?.replace('token=', '')}`,
+      },
+    });
+    return { props: { data: JSON.stringify(await editQuery()) } };
+  } catch {
+    nookies.destroy(ctx, 'token');
+    return { redirect: { destination: '/login', permanent: false } };
+  }
+};
 
 function Page({ data }: { data: EditQueryType }) {
   data = JSON.parse(String(data));
@@ -20,10 +37,5 @@ function Page({ data }: { data: EditQueryType }) {
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => ({
-  props: { data: JSON.stringify(await editQuery()) },
-  revalidate: 60,
-});
 
 export default memo(Page);
