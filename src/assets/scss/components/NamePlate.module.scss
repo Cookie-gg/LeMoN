@@ -49,7 +49,7 @@
       position: absolute;
       transform: skewX(-30deg);
       width: 110%;
-      z-index: 1;
+      z-index: 2;
     }
     svg {
       height: 112.5%;
@@ -57,7 +57,7 @@
       position: relative;
       width: 100%;
       &:first-of-type {
-        z-index: 2;
+        z-index: 3;
         path {
           fill: transparent;
           stroke: $dark_gray;
@@ -67,9 +67,10 @@
         }
       }
       &:last-of-type {
-        inset: 0 0;
+        top: 0;
+        left: 0;
         position: absolute;
-        z-index: 0;
+        z-index: 1;
         path {
           fill: $dark_gray;
         }
