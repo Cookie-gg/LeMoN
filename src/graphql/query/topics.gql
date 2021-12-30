@@ -1,4 +1,4 @@
-query Topics {
+query FindAllTopics {
   topics: findAllTopics {
     displayName
     icon
@@ -13,5 +13,11 @@ query Topics {
         displayName
       }
     }
+  }
+}
+query FindAllOnlyTopics {
+  topics: findAllTopics {
+    displayName
+    name
   }
 }

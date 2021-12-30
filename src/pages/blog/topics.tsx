@@ -3,12 +3,12 @@ import { Fragment as _, memo } from 'react';
 import { GetStaticProps } from 'utils/next';
 import topics from 'assets/json/topics.json';
 import { Icon as Iconify } from '@iconify/react';
-import topicsQuery, { TopicQueryType } from 'data/topicsQuery';
 import styles from '../../assets/scss/pages/Topics.module.scss';
 import { ArticleList, Heading, HeadMeta, PageFrame } from 'components';
 import { publicState } from 'utils/common';
+import blogQuery, { BlogQueryType } from 'data/blogQuery';
 
-function Page({ data, auth }: { data: TopicQueryType; auth: { state: boolean } }) {
+function Page({ data, auth }: { data: BlogQueryType<'topics'>; auth: { state: boolean } }) {
   data = JSON.parse(String(data));
   const settings: Settings = {
     dots: false,
@@ -30,7 +30,7 @@ function Page({ data, auth }: { data: TopicQueryType; auth: { state: boolean } }
       <PageFrame classNmae={styles.page}>
         <>
           <Heading text={topics.all.title} rank={1} className={styles.heading} />
-          {data.topics.map((topic, i) => (
+          {data.all.map((topic, i) => (
             <_ key={i}>
               <ArticleList
                 id={topic.name.toLowerCase()}
@@ -59,7 +59,7 @@ function Page({ data, auth }: { data: TopicQueryType; auth: { state: boolean } }
 }
 
 export const getStaticProps: GetStaticProps = async () => ({
-  props: { data: JSON.stringify(await topicsQuery()) },
+  props: { data: JSON.stringify((await blogQuery()).topics) },
   revalidate: 60,
 });
 

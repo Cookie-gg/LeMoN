@@ -1,28 +1,24 @@
 import { Zenn } from 'types/common';
 import { client } from 'graphql/config.gql';
-import { BlogDocument, EditQuery } from 'types/graphql.d';
+import { FindAllArticlesDocument, FindAllArticlesQuery } from 'types/graphql.d';
 
 export interface EditQueryType {
-  all: {
-    articles: Zenn[];
-  };
+  articles: Zenn[];
 }
 
-export default async function blogQuery(): Promise<EditQueryType> {
-  const { error, data } = await client.query<EditQuery>({ query: BlogDocument });
+export default async function editQuery(): Promise<EditQueryType> {
+  const { error, data } = await client.query<FindAllArticlesQuery>({ query: FindAllArticlesDocument });
   if (data) {
     const shapedData: EditQueryType = {
-      all: {
-        articles: data.all.map((obj) => ({
-          articleId: obj.articleId,
-          published: obj.published,
-          releaseDate: obj.releaseDate,
-          title: obj.title,
-          emoji: obj.emoji,
-          type: obj.type,
-          topics: obj.topicIcons.map((obj) => obj.displayName),
-        })),
-      },
+      articles: data.articles.map((obj) => ({
+        articleId: obj.articleId,
+        published: obj.published,
+        releaseDate: obj.releaseDate,
+        title: obj.title,
+        emoji: obj.emoji,
+        type: obj.typeIcon.displayName,
+        topics: obj.topicIcons.map((topic) => topic.displayName),
+      })),
     };
     return shapedData;
   } else {

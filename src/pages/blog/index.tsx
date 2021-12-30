@@ -8,7 +8,7 @@ import { useFindMoreArticlesLazyQuery } from 'types/graphql.d';
 import { Heading, PageFrame, ArticleList, Button, ArticleTopics, HeadMeta } from 'components';
 import { publicState } from 'utils/common';
 
-function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } }) {
+function Page({ data, auth }: { data: BlogQueryType<'index'>; auth: { state: boolean } }) {
   data = JSON.parse(String(data));
   const filteredArticles = publicState(data.all.articles, auth.state);
   const [all, _all] = useState(filteredArticles.slice(4, 8));
@@ -39,38 +39,38 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
             <>
               <Heading className={styles.heading} rank={1} text={blog.all.title} />
               <ArticleList horizontal className={styles.articles} data={all} />
+              {loading && <Iconify fr={''} icon="eos-icons:loading" className={styles.loading} />}
+              <Button
+                className={styles.more}
+                isInteractive={true}
+                switching={data.all.length === all.length + 4}
+                clickEvent={async () => {
+                  const res = await getMore({ variables: { current: String(all.length + 4) } });
+                  if (res.data) {
+                    _all((prev) => [
+                      ...prev,
+                      ...(res.data
+                        ? res.data.articles.map((obj) => ({
+                            articleId: obj.articleId,
+                            published: obj.published,
+                            releaseDate: obj.releaseDate,
+                            title: obj.title,
+                            emoji: obj.emoji,
+                            type: obj.type,
+                            topics: obj.topicIcons.map((obj) => obj.displayName),
+                          }))
+                        : []),
+                    ]);
+                  }
+                }}
+              >
+                <Link href="/blog/topics">
+                  <a>トピックごとに表示</a>
+                </Link>
+                <span>さらに表示</span>
+              </Button>
             </>
           )}
-          {loading && <Iconify fr={''} icon="eos-icons:loading" className={styles.loading} />}
-          <Button
-            className={styles.more}
-            isInteractive={true}
-            switching={publicState(data.all.articles, auth.state).length === all.length + 4}
-            clickEvent={async () => {
-              const res = await getMore({ variables: { current: String(all.length + 4) } });
-              if (res.data) {
-                _all((prev) => [
-                  ...prev,
-                  ...(res.data
-                    ? res.data.more.map((obj) => ({
-                        articleId: obj.articleId,
-                        published: obj.published,
-                        releaseDate: obj.releaseDate,
-                        title: obj.title,
-                        emoji: obj.emoji,
-                        type: obj.type,
-                        topics: obj.topicIcons.map((obj) => obj.displayName),
-                      }))
-                    : []),
-                ]);
-              }
-            }}
-          >
-            <Link href="/blog/topics">
-              <a>トピックごとに表示</a>
-            </Link>
-            <span>さらに表示</span>
-          </Button>
         </>
       </PageFrame>
     </>
@@ -78,7 +78,7 @@ function Page({ data, auth }: { data: BlogQueryType; auth: { state: boolean } })
 }
 
 export const getStaticProps: GetStaticProps = async () => ({
-  props: { data: JSON.stringify(await blogQuery()) },
+  props: { data: JSON.stringify((await blogQuery()).index) },
   revalidate: 60,
 });
 

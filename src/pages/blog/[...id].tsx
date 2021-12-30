@@ -1,5 +1,4 @@
 import post from 'assets/json/post.json';
-import articleQuery from 'data/articleQuery';
 import { Zenn, ZennAdds } from 'types/common';
 import { memo, useEffect, useState } from 'react';
 import styles from '../../assets/scss/pages/Blog.module.scss';
@@ -16,6 +15,7 @@ import {
   ArticleTopics,
 } from 'components';
 import { publicState } from 'utils/common';
+import blogQuery from 'data/blogQuery';
 
 function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } }) {
   const router = useRouter();
@@ -75,13 +75,12 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
 }
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: (await articleQuery()).paths,
+  paths: (await blogQuery()).id.paths,
   fallback: false,
 });
-
 export const getStaticProps: GetStaticProps = async ({ params }) => ({
   props: {
-    data: JSON.stringify((await articleQuery()).articles.find((article) => article.articleId === params!.id![0])),
+    data: JSON.stringify((await blogQuery()).id.articles.find((article) => article.articleId === params!.id![0])),
     revalidate: 60,
   },
 });

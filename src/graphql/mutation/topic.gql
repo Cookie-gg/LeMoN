@@ -1,0 +1,5 @@
+mutation CreateTopic($name: String!, $displayName: String!, $icon: String!) {
+  addTopic(args: { name: $name, displayName: $displayName, icon: $icon }) {
+    id
+  }
+}

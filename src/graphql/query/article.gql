@@ -1,5 +1,5 @@
 query FindAllArticles {
-  all: findAllArticles {
+  articles: findAllArticles {
     id
     articleId
     published
@@ -8,12 +8,12 @@ query FindAllArticles {
     title
     emoji
     topicIcons {
-      icon
       displayName
+      icon
     }
     typeIcon {
-      icon
       displayName
+      icon
     }
     markdown
     html
@@ -29,9 +29,10 @@ query FindAllArticles {
       }
     }
   }
+  length: countAllArticles
 }
 query FindMoreArticles($current: String!) {
-  more: findMoreArticles(current: $current) {
+  articles: findMoreArticles(current: $current) {
     articleId
     published
     releaseDate
@@ -44,7 +45,7 @@ query FindMoreArticles($current: String!) {
   }
 }
 query FindArticle($articleId: String!) {
-  one: findArticle(articleId: $articleId) {
+  article: findArticle(articleId: $articleId) {
     id
     title
     articleId
@@ -56,5 +57,9 @@ query FindArticle($articleId: String!) {
     updateDate
     markdown
     html
+    allTopics {
+      displayName
+      name
+    }
   }
 }
