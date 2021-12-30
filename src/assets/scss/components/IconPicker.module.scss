@@ -1,0 +1,88 @@
+.wrapper {
+  position: relative;
+  svg {
+    :not([class*='alignment']) + &:hover path {
+      color: $red;
+    }
+    cursor: pointer;
+    position: absolute;
+    top: 12.5%;
+
+    @include max(right, #{7.5px}, 7.5px);
+
+    @include max(font-size, #{25px}, 25px);
+
+    &:hover path {
+      color: $lemon;
+    }
+  }
+}
+.entire {
+  background-color: #313131;
+  border-radius: 5px;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+
+    @include max(height, #{12px}, 12px);
+  }
+  .icons {
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+
+    @include max(height, #{132.5px}, 132.5px);
+
+    @include max(padding-top, #{12px}, 12px);
+
+    @include max(padding-left, #{12px}, 12px);
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      @include max(gap, #{12px}, 12px);
+
+      li {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        svg {
+          @include max(width, #{22.5px}, 22.5px);
+
+          @include max(height, #{22.5px}, 22.5px);
+        }
+        &::after {
+          background-color: $lemon;
+          content: '';
+          height: 2px;
+          left: 50%;
+          position: absolute;
+          transform: translateX(-50%);
+          width: 0%;
+
+          @include max(bottom, #{-8px}, -8px);
+        }
+        &.active::after {
+          width: 150%;
+        }
+        &.active::before,
+        &:hover::before {
+          background-color: rgba(white, 0.08);
+          border-radius: 5px;
+          content: '';
+          height: 150%;
+          left: 50%;
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 150%;
+        }
+      }
+    }
+  }
+}
