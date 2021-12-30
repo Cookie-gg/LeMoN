@@ -1,8 +1,7 @@
-import { Nlink } from 'components';
+import { EmojiSvg, Nlink } from 'components';
 import { Zenn } from 'types/common';
 import { memo, ReactElement } from 'react';
-import { displayDate } from 'utils/common';
-import { Twemoji } from 'react-emoji-render';
+import { displayDate, encodeEmoji } from 'utils/common';
 import styles from '../assets/scss/components/ArticleList.module.scss';
 import Slider, { Settings } from 'react-slick';
 import { Icon as Iconify } from '@iconify/react';
@@ -46,7 +45,7 @@ function ArticleList({
             <>
               <div className={styles.thumbnail}>
                 {vertical && <span className={styles.type}>{value.type.toUpperCase()}</span>}
-                <Twemoji svg className={styles.emoji} text={value.emoji} options={{ protocol: 'https' }} />
+                <EmojiSvg unicode={encodeEmoji(value.emoji)} className={styles.emoji} />
               </div>
               <div className={styles.text_wrapper}>
                 <h2>
