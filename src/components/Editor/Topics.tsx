@@ -1,44 +1,51 @@
-import { memo } from 'react';
-import { useEditorQuery } from 'types/graphql.d';
+import { IconPicker } from 'components';
+import { memo, useState, Fragment, useEffect } from 'react';
+import { useFindAllOnlyTopicsQuery } from 'types/graphql.d';
 import styles from '../../assets/scss/components/editor/Topics.module.scss';
 
 function Topics({ topics, dispatch }: { topics: string[]; dispatch: (arg: { name: string; value: string }) => void }) {
-  const { data, loading } = useEditorQuery();
+  const { data, loading, error } = useFindAllOnlyTopicsQuery();
+  const [allTopics, _allTopics] = useState<{ name: string; displayName: string }[]>([]);
+  useEffect(() => data && _allTopics(data.topics), [data]);
+  const [topicEditor, _topicEditor] = useState<{ index: number; enable: boolean }>({ index: -1, enable: false });
   return (
     <>
       {topics.map((_, i) => (
-        <div className={styles.entire} key={i}>
-          <>
+        <Fragment key={i}>
+          <div className={styles.entire}>
             <select
               name="topics"
               className={`${topics[i] === '' && styles.init}`}
               onChange={(e) => {
-                const changes: string[] = topics;
+                _topicEditor({ index: i, enable: e.target.value === 'editing' });
+                const changes = topics;
                 changes[i] = e.target.value;
                 dispatch({ name: e.target.name, value: JSON.stringify(changes) });
               }}
               value={topics[i]}
               required
             >
-              <option value="">{loading ? 'loading...' : 'article topic'}</option>
+              <option value="">{loading ? 'loading...' : error ? error.name : 'article topic'}</option>
               {data &&
-                data.topics
+                allTopics
                   .filter((value) => topics.filter((_value) => _value !== topics[i]).indexOf(value.name) === -1)
                   .map((topic, j) => (
-                    <option value={topic.name} key={j}>
+                    <option value={topic.name} key={`${i}_${j}`}>
                       {topic.displayName}
                     </option>
                   ))}
+              <option value="editing">Add a topic</option>
             </select>
             {data &&
             topics.filter((value) => value === '').length < 1 &&
             i === topics.length - 1 &&
-            topics.length !== data.topics.length ? (
+            topics.length !== allTopics.length &&
+            topics[i] !== 'editing' ? (
               <button
                 className={styles.add}
                 onClick={(e) => {
                   e.preventDefault();
-                  const changes: string[] = topics;
+                  const changes = topics;
                   changes.push('');
                   dispatch({ name: 'topics', value: JSON.stringify(changes) });
                 }}
@@ -51,7 +58,8 @@ function Topics({ topics, dispatch }: { topics: string[]; dispatch: (arg: { name
                   className={styles.delete}
                   onClick={(e) => {
                     e.preventDefault();
-                    const changes: string[] = topics;
+                    _topicEditor({ index: i, enable: false });
+                    const changes = topics;
                     changes.splice(i, 1);
                     dispatch({ name: 'topics', value: JSON.stringify(changes) });
                   }}
@@ -60,8 +68,24 @@ function Topics({ topics, dispatch }: { topics: string[]; dispatch: (arg: { name
                 </button>
               )
             )}
-          </>
-        </div>
+          </div>
+          {data && topicEditor.index === i && topicEditor.enable && (
+            <IconPicker
+              className={styles.picker}
+              onSelect={(arg) => {
+                _topicEditor({ index: -1, enable: false });
+                const changes = topics;
+                changes[i] = arg.toLowerCase();
+                dispatch({ name: 'topics', value: JSON.stringify(changes) });
+                _allTopics((prev) =>
+                  [...prev, { name: arg.toLowerCase(), displayName: arg }]
+                    .slice()
+                    .sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)),
+                );
+              }}
+            />
+          )}
+        </Fragment>
       ))}
     </>
   );
