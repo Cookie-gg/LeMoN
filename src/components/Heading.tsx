@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, memo, ElementType } from 'react';
+import { memo, ElementType } from 'react';
 import styles from '../assets/scss/components/Heading.module.scss';
 
 interface PropsType {
@@ -8,13 +8,13 @@ interface PropsType {
   id?: string;
 }
 
-function Heading({ rank, text, className, id }: PropsType, ref: ForwardedRef<HTMLElement>) {
+function Heading({ rank, text, className, id }: PropsType) {
   const Tag = `h${rank}` as ElementType;
   return (
-    <Tag className={`${styles.entire} ${className}`} id={id} ref={ref}>
+    <Tag className={`${styles.entire} ${className}`} id={id}>
       <span>{text}</span>
     </Tag>
   );
 }
 
-export default memo(forwardRef<HTMLElement, PropsType>(Heading));
+export default memo(Heading);
