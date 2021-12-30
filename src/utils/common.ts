@@ -8,21 +8,21 @@ export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (
   });
 };
 
-export const encodeEmoji: (emoji: string) => string = (emoji) => {
-  let comp: number;
-  if (emoji.length === 1) {
-    comp = emoji.charCodeAt(0);
+export function encodeEmoji(input: string) {
+  function toCodePoint(input: string, separator = '-') {
+    const codePoints = [];
+    for (const codePoint of input) {
+      codePoints.push(codePoint.codePointAt(0)?.toString(16));
+    }
+    return codePoints.join(separator);
   }
-  comp = (emoji.charCodeAt(0) - 0xd800) * 0x400 + (emoji.charCodeAt(1) - 0xdc00) + 0x10000;
-  if (comp < 0) {
-    comp = emoji.charCodeAt(0);
-  }
-  return comp.toString(16);
-};
+  // return toCodePoint(input.indexOf(String.fromCharCode(0x200d)) < 0 ? input.replace(/\uFE0F/g, '') : input);
+  return toCodePoint(input);
+}
 
 export const displayDate = (arg: Date, split = '/', compare = true) => {
   const date = { y: arg.getFullYear(), m: arg.getMonth(), d: arg.getDate() };
-  const display = `${date.y + split}${`0${date.m - 1}`.slice(-2)}${split}${`0${date.d}`.slice(-2)}`;
+  const display = `${date.y + split}${`0${date.m + 1}`.slice(-2)}${split}${`0${date.d}`.slice(-2)}`;
   if (compare) {
     const now = new Date();
     if (now.getFullYear() === date.y && now.getMonth() === date.m && now.getDate() > date.d)
