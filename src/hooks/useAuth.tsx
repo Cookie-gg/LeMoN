@@ -26,7 +26,7 @@ export default function useAuth(): [
         nookies.destroy(null, 'token');
         intervalRef.current && clearTimeout(intervalRef.current);
       }
-    }, 2000000);
+    }, 1000000);
   }, []);
   const login = useCallback(
     async (name: string, password: string) => {
@@ -63,21 +63,20 @@ export default function useAuth(): [
     }
   }, [router]);
   useEffect(() => {
-    const token = nookies.get(null, 'token')['token'];
-    token &&
-      axios
-        .get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
+    (async () => {
+      try {
+        const token = nookies.get(null, 'token')['token'];
+        await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
           headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
-        })
-        .then(() => {
-          _state(true);
-          refresh();
-        })
-        .catch(() => {
-          _state(false);
-          nookies.destroy(null, 'token');
-          intervalRef.current && clearTimeout(intervalRef.current);
         });
+        _state(true);
+        refresh();
+      } catch {
+        _state(false);
+        nookies.destroy(null, 'token');
+        intervalRef.current && clearTimeout(intervalRef.current);
+      }
+    })();
   }, [refresh]);
   return [state, login, logout];
 }
