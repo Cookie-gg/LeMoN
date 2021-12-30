@@ -2,6 +2,7 @@ export { default as useTop } from './useTop';
 export { default as useForm } from './useForm';
 export { default as useAuth } from './useAuth';
 export { default as useMount } from './useMount';
+export { default as useAxios } from './useAxios';
 export { default as useAgent } from './useAgent';
 export { default as usePeriod } from './usePeriod';
 export { default as useHeight } from './useHeight';
