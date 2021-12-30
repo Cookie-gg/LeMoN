@@ -1,8 +1,8 @@
-import { displayDate } from 'utils/common';
-import { Twemoji } from 'react-emoji-render';
+import { displayDate, encodeEmoji } from 'utils/common';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/ArticleMeta.module.scss';
 import { memo } from 'react';
+import EmojiSvg from './EmojiSvg';
 
 interface PropsType {
   emoji: string;
@@ -15,7 +15,7 @@ interface PropsType {
 function ArticleMeta({ emoji, title, published, releaseDate, updateDate }: PropsType) {
   return (
     <div className={styles.entire}>
-      <Twemoji svg onlyEmojiClassName={styles.emoji} text={emoji} options={{ protocol: 'https' }} />
+      <EmojiSvg unicode={encodeEmoji(emoji)} className={styles.emoji} />
       <h1 className={styles.title}>{title}</h1>
       <div className={styles.time_header}>
         {!published && (
