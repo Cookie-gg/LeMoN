@@ -116,6 +116,7 @@
 
             span {
               border: 0;
+              background-color: transparent;
 
               @include max(height, #{30px}, 30px);
 
