@@ -1,10 +1,11 @@
 import { Link, useRouter } from 'utils/next';
 import { memo, MouseEvent, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Twemoji } from 'react-emoji-render';
 import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
 import { useSwipeable } from 'react-swipeable';
 import { ScrollerContext } from './PageFrame';
+import EmojiSvg from './EmojiSvg';
+import { encodeEmoji } from 'utils/common';
 
 interface PropsType {
   meta: {
@@ -35,6 +36,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
     onSwipedRight: () => _isOpened(false),
     onSwipedLeft: () => _isOpened(true),
   });
+  const innerTocRef = useRef<HTMLDivElement | null>(null);
   const isIntersecting = useIntersect({
     root: scroller?.current,
     el: tocRef.current,
@@ -58,7 +60,10 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
     },
     [window.width],
   );
-  useEffect(() => _isOpened(false), [id]);
+  useEffect(() => {
+    innerTocRef.current?.scrollTo(0, 0);
+    _isOpened(false);
+  }, [id]);
   return (
     <div
       className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init} ${className}`}
@@ -70,12 +75,12 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
       <div className={styles.meta} ref={_height}>
         {window.width < 1200 ? (
           <div className={styles.inner}>
-            <Twemoji svg onlyEmojiClassName={styles.emoji} text={meta.emoji} options={{ protocol: 'https' }} />
+            <EmojiSvg unicode={encodeEmoji(meta.emoji)} className={styles.emoji} />
             <h1 className={styles.title}>{meta.title}</h1>
           </div>
         ) : (
           <>
-            <Twemoji svg onlyEmojiClassName={styles.emoji} text={meta.emoji} options={{ protocol: 'https' }} />
+            <EmojiSvg unicode={encodeEmoji(meta.emoji)} className={styles.emoji} />
             <h1 className={styles.title}>{meta.title}</h1>
           </>
         )}
@@ -86,7 +91,10 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
           maxHeight: window.width < 1200 ? undefined : `calc(100vh - ${paddingTop + paddingBottom + height}px)`,
           top: window.width < 1200 ? undefined : isIntersecting ? `${1 * height}px` : '0px',
         }}
-        ref={isMobile ? swipeOptions.ref : undefined}
+        ref={(el) => {
+          swipeOptions.ref(el);
+          innerTocRef.current = el;
+        }}
         onMouseDown={isMobile ? swipeOptions.onMouseDown : undefined}
       >
         <div
