@@ -1,11 +1,13 @@
 .entire {
+  left: 0;
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
   top: 0;
-  left: 0;
+  transition: left $common_anmt;
 
   // pc
+
   @include max(margin-left, #{30px + 11px});
 
   @include max(padding-left, #{30px});
@@ -27,10 +29,6 @@
 
   @include max(padding-left, $sp_value: 20px);
 
-  @include diff(width, $sp_value: (20px + 20px + 20px - 8px + 20px), $from: 100vw);
-
-  @include max(padding-right, $sp_value: 5px); // (20px - 8px) / 2
-
   @include max(margin-right, $sp_value: 20px + 7px);
 
   @include max(margin-top, $sp_value: (20px + 75px));
@@ -38,6 +36,24 @@
   @include diff(height, $sp_value: (20px + 75px + 20px + 20px));
 
   @include max(margin-bottom, $sp_value: (20px + 20px));
+
+  &.ios {
+    @include diff(width, $sp_value: (20px + 20px + 20px + 20px), $from: 100vw);
+
+    @include max(padding-right, $sp_value: 20px);
+  }
+  &:not(.ios) {
+    @include diff(width, $sp_value: (20px + 20px + 20px - 8px + 20px), $from: 100vw);
+
+    @include max(padding-right, $sp_value: 5px); // (20px - 8px) / 2
+  }
+
+  [class*='header_opened'] + main & {
+    @include max(left, $sp_value: 70px);
+  }
+  [class*='header_expanded'] + main & {
+    @include max(left, $sp_value: 200px);
+  }
 
   .inner {
     box-sizing: border-box;

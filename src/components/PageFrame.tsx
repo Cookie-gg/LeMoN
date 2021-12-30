@@ -2,6 +2,7 @@ import { Router, useRouter } from 'utils/next';
 import memoryCache, { CacheClass } from 'memory-cache';
 import { createContext, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
 import styles from '../assets/scss/components/PageFrame.module.scss';
+import { useAgent } from 'hooks';
 
 export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache();
 
@@ -9,6 +10,7 @@ export const ScrollerContext = createContext<RefObject<HTMLDivElement> | null>(n
 
 export default function PageFrame({ children, classNmae }: { children: ReactElement; classNmae?: string }) {
   const router = useRouter();
+  const ios = useAgent('iphone');
   const [scrollTop, _scrollTop] = useState(0);
   const scroller = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function PageFrame({ children, classNmae }: { children: ReactElem
 
   return (
     <ScrollerContext.Provider value={scroller}>
-      <div className={styles.entire} ref={scroller}>
+      <div className={`${styles.entire} ${ios && styles.ios}`} ref={scroller}>
         <div className={`${styles.inner} ${classNmae}`}>{children}</div>
       </div>
     </ScrollerContext.Provider>
