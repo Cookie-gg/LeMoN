@@ -1,14 +1,13 @@
-import { useState } from 'react';
-
-let timer: NodeJS.Timeout;
+import { useRef, useState } from 'react';
 
 export default function usePeriod<T>(initialState: T): [T, (update: T, duration: number) => void] {
   const [period, _period] = useState<T>(initialState);
+  const timer = useRef<NodeJS.Timeout>();
   function __period(update: T, duration: number) {
-    clearTimeout(timer);
+    timer.current && clearTimeout(timer.current);
     const prev = period;
     _period(update);
-    timer = setTimeout(() => _period(prev), duration);
+    timer.current = setTimeout(() => _period(prev), duration);
   }
   return [period, __period];
 }
