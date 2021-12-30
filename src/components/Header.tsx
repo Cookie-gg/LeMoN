@@ -1,4 +1,4 @@
-import { usePeriod } from 'hooks';
+import { useAgent, useFirstPeriod, usePeriod } from 'hooks';
 import { Nlink } from 'components';
 import { memo, useState } from 'react';
 import { useRouter } from 'utils/next';
@@ -17,6 +17,8 @@ function Header() {
   const pathname = useRouter().pathname;
   const [isClosing, _isClosing] = usePeriod(false);
   const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
+  const initTransition = useFirstPeriod(0);
+  const isMobile = useAgent('mobile');
   const stateClass = (openClass: string, expandClass: string) => {
     return `${(headerState === 'open' || headerState === 'expand') && openClass} ${
       headerState === 'expand' && expandClass
@@ -33,14 +35,18 @@ function Header() {
         'header_expanded',
       )}`}
     >
-      <div
-        {...swipeOptions}
-        className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper}`}
-        onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : prev))}
-      />
+      {isMobile && (
+        <div
+          {...swipeOptions}
+          className={`${stateClass(styles.opened, styles.expanded)} ${styles.swiper}`}
+          onClick={() => _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : prev))}
+        />
+      )}
       <button
         data-id="header"
-        className={` ${stateClass(styles.opened, styles.expanded)} ${isClosing && styles.closing}`}
+        className={`${pathname !== '/' && initTransition && styles.init} ${stateClass(styles.opened, styles.expanded)} ${
+          isClosing && styles.closing
+        }`}
         onClick={() => {
           !(window.innerWidth < 820) && (headerState === 'expand' || headerState === 'open') && _isClosing(true, 950);
           _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));
