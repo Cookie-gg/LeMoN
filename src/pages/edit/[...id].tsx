@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { memo } from 'react';
+import nookies from 'nookies';
 import { client } from 'graphql/config.gql';
 import { Zenn, ZennAdds } from 'types/common';
 import { Editor, PageFrame } from 'components';
@@ -15,17 +16,19 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         authorization: `bearer ${ctx.req.headers.cookie?.replace('token=', '')}`,
       },
     });
+  } catch {
+    nookies.destroy(ctx, 'token');
+    return { redirect: { destination: '/login', permanent: false } };
+  } finally {
     try {
       const { data } = await client.query<FindArticleQuery>({
         query: FindArticleDocument,
         variables: { articleId: ctx.query.id![0] },
       });
-      return { props: { data: JSON.stringify(data.one) } };
+      return { props: { data: JSON.stringify(data.article) } };
     } catch {
       return { redirect: { destination: '/edit/no-title', permanent: false } };
     }
-  } catch {
-    return { redirect: { destination: '/login', permanent: false } };
   }
 };
 
