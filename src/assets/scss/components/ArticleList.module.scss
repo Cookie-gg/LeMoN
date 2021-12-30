@@ -31,11 +31,6 @@
           @include max(height, #{50px}, 50px);
 
           @include max(width, #{50px}, 50px);
-
-          img {
-            height: 100% !important;
-            width: auto !important;
-          }
         }
       }
       .text_wrapper {
