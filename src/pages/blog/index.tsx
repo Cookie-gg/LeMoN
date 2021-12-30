@@ -24,11 +24,11 @@ function Page({ data, auth }: { data: BlogQueryType<'index'>; auth: { state: boo
           <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
           <ArticleList
             className={styles.articles}
-            data={data.topTopics.articles.map((article) => publicState(article).slice(0, 3))[selectedTopic]}
+            data={data.topTopics.articles.map((article) => publicState(article, auth.state))[selectedTopic]}
             vertical
             shiftList={
               <ArticleTopics
-                topics={data.topTopics.topics.slice(0, 3)}
+                topics={data.topTopics.topics}
                 icons={data.topTopics.icons}
                 activeNumber={selectedTopic}
                 clickEvent={(n) => _selectedTopic(n)}
