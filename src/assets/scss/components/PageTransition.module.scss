@@ -15,9 +15,9 @@
     transform-origin: 0% 50%;
     user-select: none;
 
-    @include max(height, calc(200vh + 200vw), 160vh);
+    @include max(height, calc(200vh + 200vw), 200vh);
 
-    @include max(width, 55.5vw, 400px);
+    @include max(width, 55.5vw, 500px);
 
     span {
       display: block;
@@ -30,6 +30,9 @@
       top: 50%;
       transform: rotate(-90deg);
     }
+  }
+  &.mobile {
+    @include max(left, 130vw, 700px);
   }
   &:not(.home) {
     transition: left $common_anmt;
