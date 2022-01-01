@@ -5,6 +5,7 @@ export { default as useMount } from './useMount';
 export { default as useAxios } from './useAxios';
 export { default as useAgent } from './useAgent';
 export { default as usePeriod } from './usePeriod';
+export { default as useMonaco } from './useMonaco';
 export { default as useHeight } from './useHeight';
 export { default as useBrowser } from './useBrowser';
 export { default as usePrevious } from './usePrevious';

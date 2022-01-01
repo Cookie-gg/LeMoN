@@ -1,10 +1,9 @@
 import axios from 'axios';
-import { memo, useEffect, useState } from 'react';
+import { useMonaco } from 'hooks';
+import MonacoEditor from '@monaco-editor/react';
 import type { MonacoEditorType } from 'types/common';
-import MonacoEditor, { useMonaco } from '@monaco-editor/react';
+import { memo, useEffect, useRef, useState } from 'react';
 import styles from '../../assets/scss/components/editor/EditArea.module.scss';
-
-let timer: NodeJS.Timeout;
 
 function Monaco({
   defaultValue,
@@ -17,6 +16,7 @@ function Monaco({
 }) {
   const monaco = useMonaco();
   const [isMounted, _isMounted] = useState(false);
+  const timer = useRef<NodeJS.Timeout>();
   // set theme
   useEffect(() => {
     if (monaco) {
@@ -43,7 +43,7 @@ function Monaco({
     }
   }, [monaco]);
   // clear timeout
-  useEffect(() => () => clearTimeout(timer), []);
+  useEffect(() => () => timer.current && clearTimeout(timer.current), []);
   return (
     <div>
       <MonacoEditor
@@ -70,9 +70,9 @@ function Monaco({
           _editor(editor);
         }}
         onChange={(value) => {
-          clearTimeout(timer);
+          timer.current && clearTimeout(timer.current);
           _body({ markdown: value });
-          timer = setTimeout(async () => {
+          timer.current = setTimeout(async () => {
             _body({
               html: (
                 await axios.post<string>(
