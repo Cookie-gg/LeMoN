@@ -1,23 +1,27 @@
 import Split from 'react-split';
-import { useForm } from 'hooks';
+import { Icon as Iconify } from '@iconify/react';
+import { useForm, useWindowDimensions } from 'hooks';
+import { Router } from 'utils/next';
 import { useRouter } from 'utils/next';
 import { displayDate } from 'utils/common';
 import { client } from 'graphql/config.gql';
-import { FormEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { getFile } from 'utils/github/get.github';
 import type { MonacoEditorType, Zenn, ZennAdds } from 'types/common';
 import styles from '../../assets/scss/components/editor/Editor.module.scss';
 import { deleteFile, updateFile, createFile } from 'utils/github/post.github';
+import { FormEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { ArticleInput, ChangeArticleDocument, DeleteArticleDocument } from 'types/graphql.d';
-import { Router } from 'utils/next';
 // components
 import Monaco from './Monaco';
 import Preview from './Preview';
 import SideMenu from './SideMenu';
 import QuickEdits from './QuickEdits';
-import { getFile } from 'utils/github/get.github';
 
 function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
   const router = useRouter();
+  const window = useWindowDimensions();
+  const [sideEnable, _sideEnable] = useState(true);
+  const [previewEnable, _previewEnable] = useState(false);
   const [editor, _editor] = useState<MonacoEditorType>(null);
   const init = '<!-- comment out -->\nコメントアウトは表示されません。';
   const [body, _body] = useState({ markdown: data.markdown || init, html: data.html || init });
@@ -94,13 +98,13 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
     },
     [idValidate, meta, saveHandler],
   );
+  const dependencies = JSON.stringify(prevData) !== JSON.stringify(meta);
   useEffect(
     () => () => {
-      if (editor) editor.dispose();
+      editor && editor.dispose();
     },
     [editor],
   );
-  const dependencies = JSON.stringify(prevData) !== JSON.stringify(meta);
   useEffect(() => {
     if (dependencies) {
       const routeChangeHandler = () => confirm('変更が見つかりました。保存して終了しますか？') && saveHandler();
@@ -109,7 +113,10 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
     }
   }, [dependencies, saveHandler]);
   return (
-    <div className={styles.entire}>
+    <div className={`${styles.entire} ${sideEnable && styles.opened}`}>
+      <div className={styles.gutter}>
+        <button onClick={() => _sideEnable((prev) => !prev)} />
+      </div>
       <SideMenu
         meta={meta}
         onChange={(e) => onChange(e)}
@@ -119,14 +126,28 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
       />
       <div className={styles.main}>
         <QuickEdits editor={editor} />
-        <Split className={styles.editor} gutterSize={12} minSize={350} snapOffset={0}>
-          <Monaco
-            defaultValue={body.markdown}
-            _editor={(arg) => _editor(arg)}
-            _body={(arg) => _body((prev) => ({ ...prev, ...arg }))}
-          />
-          <Preview editor={editor} html={body.html} />
-        </Split>
+        {window.width && window.width < 1250 ? (
+          <div className={`${styles.editor} ${previewEnable && styles.enable}`}>
+            <button className={styles.switch} onClick={() => _previewEnable((prev) => !prev)}>
+              <Iconify fr={''} icon={previewEnable ? 'ic:round-mode-edit-outline' : 'bx:bxs-right-arrow'} />
+            </button>
+            <Monaco
+              defaultValue={body.markdown}
+              _editor={(arg) => _editor(arg)}
+              _body={(arg) => _body((prev) => ({ ...prev, ...arg }))}
+            />
+            <Preview editor={editor} html={body.html} />
+          </div>
+        ) : (
+          <Split className={styles.editor} gutterSize={12} minSize={350} snapOffset={0}>
+            <Monaco
+              defaultValue={body.markdown}
+              _editor={(arg) => _editor(arg)}
+              _body={(arg) => _body((prev) => ({ ...prev, ...arg }))}
+            />
+            <Preview editor={editor} html={body.html} />
+          </Split>
+        )}
       </div>
     </div>
   );

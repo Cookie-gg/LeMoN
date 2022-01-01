@@ -6,8 +6,8 @@
   font-weight: 400;
   height: 100%;
   overflow: hidden;
-  z-index: 9999;
   position: absolute;
+  z-index: 9999;
 
   @include max(margin-right, #{8px}, 8px);
 
@@ -17,12 +17,35 @@
 
   @include max(font-size, #{18px}, 18px);
 
-  &.hidden {
-    // display: none;
-    opacity: 0;
-    visibility: hidden;
-  }
+  .gutter {
+    align-items: center;
+    background-color: rgba(white, 0.08);
+    display: flex;
+    height: 100%;
+    justify-content: center;
 
+    @include max(width, #{35px}, 35px);
+
+    button {
+      background-color: rgba(white, 0.08);
+      border-radius: 15px;
+
+      @include max(width, #{6px}, 6px);
+
+      @include max(height, #{50px}, 50px);
+    }
+  }
+  &:not(.opened) {
+    & > *:not(.main, .gutter) {
+      display: none;
+    }
+    .main {
+      width: calc(100% - 35px);
+    }
+    .gutter {
+      border-right: 2px solid $lemon;
+    }
+  }
   .main {
     display: flex;
     flex-direction: column;
@@ -35,6 +58,54 @@
       overflow: hidden;
 
       @include max(flex-direction, $sp_value: column);
+
+      @media screen and (max-width: 1250px) {
+        position: relative;
+        & > *:not(.switch) {
+          height: 100%;
+          position: absolute;
+          width: 100%;
+        }
+        &.enable {
+          & > div:first-of-type {
+            opacity: 0;
+            visibility: hidden;
+          }
+          & > div:last-of-type {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+        & > div:last-of-type {
+          opacity: 0;
+          visibility: hidden;
+        }
+        .switch {
+          background-color: $lemon;
+          border-radius: 50%;
+          bottom: 2%;
+          position: absolute;
+          right: 2%;
+          z-index: 100;
+
+          @include max(width, #{35px}, 35px);
+
+          @include max(height, #{35px}, 35px);
+
+          svg {
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-45%, -50%);
+
+            @include max(font-size, #{22.5px}, 22.5px);
+
+            path {
+              color: $dark_gray;
+            }
+          }
+        }
+      }
 
       [class*='gutter'] {
         background-color: $lemon;

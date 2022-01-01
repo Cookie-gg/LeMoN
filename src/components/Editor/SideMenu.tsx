@@ -3,7 +3,6 @@ import { encodeEmoji } from 'utils/common';
 import { EmojiPicker, EmojiSvg } from 'components';
 import styles from '../../assets/scss/components/editor/SideMenu.module.scss';
 import React, { useState, useRef, memo, FormEvent, ChangeEvent, useEffect } from 'react';
-import { useRouter } from 'utils/next';
 
 function SideMenu({
   meta,
@@ -27,7 +26,6 @@ function SideMenu({
   idValidate: (target: HTMLInputElement) => void;
   submit: (e: FormEvent<HTMLFormElement>) => void;
 }) {
-  const router = useRouter();
   const [keywords, _keywords] = useState('');
   const [pickerEnable, _pickerEnable] = useState<{ enable: boolean; display: boolean }>({
     enable: false,
@@ -51,6 +49,7 @@ function SideMenu({
   }, [pickerEnable.display]);
   return (
     <form method="post" className={styles.entire} onSubmit={async (e) => submit(e)}>
+
       <label>Title</label>
       <input type="text" name="title" value={meta.title} onChange={(e) => onChange(e)} placeholder="title" required />
       <label>Id / Slug</label>

@@ -4,7 +4,7 @@
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: scroll;
-  width: 300px;
+  width: 275px;
 
   @include max(padding-top, #{35px}, 35px);
 
@@ -12,7 +12,7 @@
 
   @include max(padding-right, #{27px}, 27px);
 
-  @include max(padding-left, #{35px}, 35px);
+  // @include max(padding-left, #{35px}, 35px);
 
   label:not(.check) {
     align-items: flex-end;
