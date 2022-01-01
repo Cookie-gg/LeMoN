@@ -49,7 +49,6 @@ function SideMenu({
   }, [pickerEnable.display]);
   return (
     <form method="post" className={styles.entire} onSubmit={async (e) => submit(e)}>
-
       <label>Title</label>
       <input type="text" name="title" value={meta.title} onChange={(e) => onChange(e)} placeholder="title" required />
       <label>Id / Slug</label>

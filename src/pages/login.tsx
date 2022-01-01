@@ -55,8 +55,8 @@ function Page({ auth }: { auth: { state: boolean; login: (name: string, password
             ))}
           </>
           <FormSubmit value={json.form.submit[0]} />
-          <div className={styles.divider}>or</div>
-          <FormSubmit value={json.form.submit[0]} preventSubmit onClick={() => router.push('/admin')} />
+          {/* <div className={styles.divider}>or</div> */}
+          {/* <FormSubmit value={json.form.submit[0]} preventSubmit onClick={() => router.push('/admin')} /> */}
         </FormFrame>
       </PageFrame>
     </>

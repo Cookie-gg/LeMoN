@@ -19,13 +19,13 @@
 
   .gutter {
     align-items: center;
-    background-color: rgba(white, 0.08);
+    box-sizing: border-box;
     display: flex;
     height: 100%;
     justify-content: center;
+    position: absolute;
 
     @include max(width, #{35px}, 35px);
-
     button {
       background-color: rgba(white, 0.08);
       border-radius: 15px;
@@ -43,7 +43,9 @@
       width: calc(100% - 35px);
     }
     .gutter {
+      background-color: rgba(white, 0.08);
       border-right: 2px solid $lemon;
+      position: relative;
     }
   }
   .main {
