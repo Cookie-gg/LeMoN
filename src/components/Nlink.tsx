@@ -2,10 +2,12 @@ import { memo, ReactElement } from 'react';
 import { Link } from 'utils/next';
 import { scrollTopCashe } from './PageFrame';
 
-function Nlink({ href, as, children }: { href: string; as?: string; children?: ReactElement }) {
+function Nlink({ href, as, title, children }: { href: string; as?: string; title?: string; children?: ReactElement }) {
   return (
     <Link href={href} as={as}>
-      <a onClick={() => scrollTopCashe.del(as ? as : href)}>{children}</a>
+      <a title={title} onClick={() => scrollTopCashe.del(as ? as : href)}>
+        {children}
+      </a>
     </Link>
   );
 }
