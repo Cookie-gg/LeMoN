@@ -46,7 +46,7 @@ module.exports = {
       ],
       include: path.resolve(__dirname, '../'),
     });
-    // Important: return the modified config
+    // config.resolve.alias['~'] = rootPath;
     return config;
   },
 };
