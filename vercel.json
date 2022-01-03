@@ -1,8 +1,8 @@
 {
   "redirects": [
     {
-      "source": "/storybook",
-      "destination": "/_storybook/?path=/story/example-page--logged-in"
+      "source": "/_storybook",
+      "destination": "/_storybook/?path=/story/phrasetypo--template"
     }
   ]
 }
