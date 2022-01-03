@@ -1,5 +1,5 @@
 {
-  "redirects": [
+  "rewrites": [
     {
       "source": "/_storybook",
       "destination": "/_storybook/?path=/story/example-page--logged-in"
