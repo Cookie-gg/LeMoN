@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/_storybook",
-      "destination": "/_storybook/?path=/story/phrasetypo--template"
+      "destination": "/_storybook/index.html?path=/story/phrasetypo--template"
     }
   ]
 }
