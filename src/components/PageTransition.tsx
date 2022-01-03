@@ -4,8 +4,8 @@ import { useRouter } from 'utils/next';
 import styles from '../assets/scss/components/PageTransition.module.scss';
 
 function PageTransition() {
+  const { pathname } = useRouter();
   const isMobile = useAgent('mobile');
-  const pathname = useRouter().pathname;
   return (
     <>
       <div className={`${styles.entire} ${pathname == '/' && styles.home} ${isMobile && styles.mobile} exclude`}>
