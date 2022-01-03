@@ -10,7 +10,7 @@
     "dev": "run-p dev:*",
     "dev:front": "npx rimraf .next && vercel dev -l 1111",
     "dev:back": "cd ../MeLoN && npm run start:dev",
-    "build": "npx rimraf .next && next build && build-storybook -c .storybook -o /public/_storybook",
+    "build": "npx rimraf .next && next build && build-storybook",
     "start": "next start",
     "lint": "next lint",
     "vercel": "vercel dev -l 1111",
@@ -18,7 +18,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "sb:dev": "start-storybook -p 6006",
-    "sb:build": "build-storybook -c .storybook -o /public/_storybook"
+    "sb:build": "build-storybook"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
