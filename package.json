@@ -16,7 +16,9 @@
     "vercel": "vercel dev -l 1111",
     "generate": "graphql-codegen --config codegen.yml",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "sb:dev": "start-storybook -p 6006",
+    "sb:build": "build-storybook"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
@@ -40,27 +42,41 @@
     "swr": "^1.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.7",
     "@graphql-codegen/cli": "2.3.0",
     "@graphql-codegen/introspection": "2.1.0",
     "@graphql-codegen/typescript": "2.4.1",
     "@graphql-codegen/typescript-operations": "2.2.1",
     "@graphql-codegen/typescript-react-apollo": "3.2.2",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.4.9",
+    "@storybook/manager-webpack5": "^6.4.9",
+    "@storybook/react": "^6.4.9",
     "@testing-library/cypress": "^8.0.2",
     "@types/memory-cache": "^0.2.1",
     "@types/nprogress": "^0.2.0",
     "@types/react": "17.0.11",
     "@types/react-slick": "^0.23.7",
     "@typescript-eslint/eslint-plugin": "4.31.2",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
     "cypress": "^8.6.0",
     "cypress-wait-until": "^1.7.2",
     "eslint": "^7.23.0",
     "eslint-config-next": "^12.0.4",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-storybook": "^0.5.5",
     "monaco-editor": "^0.31.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.5.0",
     "rimraf": "^3.0.2",
     "sass": "^1.45.1",
+    "sass-loader": "^12.4.0",
+    "storybook-addon-next-router": "^3.1.1",
+    "style-loader": "^3.3.1",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.3.5"
   }
 }
