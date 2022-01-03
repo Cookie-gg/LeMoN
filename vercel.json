@@ -1,5 +1,5 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/_storybook",
       "destination": "/_storybook/?path=/story/phrasetypo--template"
