@@ -1,11 +1,10 @@
 .entire {
-  left: 0;
+  right: 0;
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
   top: 0;
-  left: 0;
-  transition: left $common_anmt;
+  transition: right $common_anmt;
 
   // pc
 
@@ -50,10 +49,10 @@
   }
 
   [class*='header_opened'] + main & {
-    @include max(left, $sp_value: 70px);
+    @include max(right, $sp_value: -70px);
   }
   [class*='header_expanded'] + main & {
-    @include max(left, $sp_value: 200px);
+    @include max(right, $sp_value: -200px);
   }
 
   .inner {

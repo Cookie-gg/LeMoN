@@ -55,7 +55,7 @@
     .image_frame img {
       opacity: 1;
       transform: translateX(0%) scaleX(-1);
-      transition: transform ease-out $common_drtn order(1);
+      transition: all ease-out $common_drtn order(1);
     }
     .form {
       .visible {
