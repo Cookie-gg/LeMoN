@@ -2,7 +2,7 @@
   "redirects": [
     {
       "source": "/_storybook",
-      "destination": "/_storybook/?path=/settings/about"
+      "destination": "/_storybook/?path=/story/example-page--logged-in"
     }
   ]
 }
