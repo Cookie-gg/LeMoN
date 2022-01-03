@@ -4,7 +4,7 @@ import { client } from 'graphql/config.gql';
 import { Icon as Iconify } from '@iconify/react';
 import { useAxios, useForm, usePeriod } from 'hooks';
 import { TopicInput, CreateTopicDocument } from 'types/graphql.d';
-import styles from 'assets/scss/components/IconPicker.module.scss';
+import styles from '../assets/scss/components/IconPicker.module.scss';
 
 function IconPicker({ className, onSelect }: { className?: string; onSelect: (topic: string) => void }) {
   const [timeout, _timeout] = usePeriod<'normal' | 'error' | 'empty'>('normal');

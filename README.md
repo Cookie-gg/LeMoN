@@ -62,12 +62,37 @@ Open Cypress window
 npm run cy:open
 ```
 
+Storybook - Dev
+
+```
+npm run sb:dev
+```
+
+Storybook - build
+
+```
+npm run sb:build
+```
+
 ## Directories
 
 ```
 ── .
+  │── .github
+  │   └── workflows
+  │       └── cypress.yml
+  │── .storybook
+  │   ├── main.js
+  │   └── preview.js
   │── .vscode
   │   └── setting.json
+  │── cypress
+  │   ├── downloads
+  │   ├── integration
+  │   ├── plugins
+  │   └── support
+  │── public
+  │   └── ...static files
   │── src
   │   ├── assets
   │   │   ├── img
@@ -76,7 +101,7 @@ npm run cy:open
   │   │       ├── foundation
   │   │       └── pages
   │   ├── components
-  │   │   ├── components files...
+  │   │   ├── ...components files
   │   │   └── index.tsx
   │   ├── data
   │   │   └── ...Query.tsx
@@ -85,10 +110,10 @@ npm run cy:open
   │   │   ├── queries
   │   │   └── config.gql.ts
   │   ├── hooks
-  │   │   ├── hooks files...
+  │   │   ├── ...hooks files
   │   │   └── index.tsx
   │   ├── pages
-  │   │   ├── page files...
+  │   │   ├── ...page files
   │   │   ├── _app.tsc
   │   │   └── index.tsx
   │   ├── types
@@ -116,6 +141,10 @@ npm run cy:open
   ├── README.md
   └── tsconfig.json
 ```
+
+## TO DO
+
+- support mdx files
 
 ## Warnings
 
@@ -151,6 +180,41 @@ import { useState } from 'react';
 
 // set[dispatch name] = _[dispatch name]
 const [variableName, _variableName] = useState<Types>(InitialState);
+```
+
+### Storybook
+
+- Components should be refered from src/components
+- When use next/router, config a route object on each files
+
+```tsx
+[Component Name].story = {
+  parameters: {
+    nextRouter: {
+      pathname: '/lemon', // default: /
+      asPath: '/lemon/cookie', // default: /
+      query: { // default: {}
+        id: 'cookie',
+        // ... any queries
+      },
+    },
+  },
+};
+```
+
+- When use next/context, wrap a component with the context provider
+
+```tsx
+const store = {
+  // initial values used on useContext
+}
+[Component Name].story = {
+  decorators: [storyFn =>
+    <Context.Provider value={store}>
+      {storyFn()}
+    </Context.Provider>
+  ]
+}
 ```
 
 ### Others

@@ -3,7 +3,13 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["next", "next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
   "plugins": ["@typescript-eslint"],
   "root": true,
   "ignorePatterns": "next.config.js",
