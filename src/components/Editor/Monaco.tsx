@@ -76,7 +76,7 @@ function Monaco({
             _body({
               html: (
                 await axios.post<string>(
-                  `${process.env.NEXT_PUBLIC_MELON}/markdown/string`,
+                  `${process.env.NEXT_PUBLIC_MELON}/md`,
                   { data: value },
                   { headers: { authorization: `${process.env.NEXT_PUBLIC_MARKDOWN_KEY}` } },
                 )
