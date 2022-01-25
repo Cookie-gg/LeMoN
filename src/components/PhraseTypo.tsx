@@ -3,7 +3,7 @@ import styles from '../assets/scss/components/PhraseTypo.module.scss';
 
 export default function PhraseTypo() {
   return (
-    <div className={`${styles.entire} exclude`}>
+    <div className={`${styles.entire}`}>
       {specifor(10, (i: number) => (
         <div key={i}>
           <span className="pc">WEB DEVELOP</span>

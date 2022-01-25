@@ -8,7 +8,7 @@ function PageTransition() {
   const isMobile = useAgent('mobile');
   return (
     <>
-      <div className={`${styles.entire} ${pathname == '/' && styles.home} ${isMobile && styles.mobile} exclude`}>
+      <div className={`${styles.entire} ${pathname == '/' && styles.home} ${isMobile && styles.mobile}`}>
         <div className={styles.cover}>
           <span>LeMoN</span>
         </div>
