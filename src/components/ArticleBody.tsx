@@ -1,63 +1,72 @@
-import parse from 'html-react-parser';
+import { Widgets } from 'widgets';
 import { useRouter } from 'utils/next';
-import { useWindowDimensions } from 'hooks';
-import { ScrollerContext } from './PageFrame';
-import markdown from '../assets/scss/components/Markdown.module.scss';
+import { ScrollerContext } from './MainFrame';
+import parse, { Element } from 'html-react-parser';
 import styles from '../assets/scss/components/ArticleBody.module.scss';
-import { Fragment as _, memo, ReactElement, useContext, useEffect, useRef } from 'react';
+import markdwon from '../assets/scss/components/Markdown.module.scss';
+import { createElement, createRef, memo, RefObject, useContext, useEffect, useRef } from 'react';
+import { Mermaid } from 'components';
+import { isText } from 'domhandler';
+import Heading from './article/Heading';
 
 interface PropsType {
   html: string;
   headingTexts?: string[];
+  className?: string;
   _activeSection: (n: number) => void;
-  children?: ReactElement;
 }
 
-function ArticleBody({ html, _activeSection, headingTexts, children }: PropsType) {
+function ArticleBody({ html, _activeSection, headingTexts, className }: PropsType) {
   const id = `${useRouter().query.id}`;
-  const ref = useRef<HTMLDivElement>(null);
   const scroller = useContext(ScrollerContext);
-  const window = useWindowDimensions();
+  const ref = useRef<RefObject<HTMLDivElement>[]>([]);
+
   useEffect(() => {
     const el = ref.current;
     if (headingTexts && el) {
       const observer = new IntersectionObserver(
         (entries) =>
-          entries.forEach(
-            (entry) =>
-              entry.isIntersecting &&
-              headingTexts.forEach((text, i) => text === entry.target.textContent && _activeSection(i)),
+          entries.map(
+            ({ isIntersecting, target: { textContent } }) =>
+              isIntersecting && headingTexts.map((text, i) => text === textContent && _activeSection(i)),
           ),
-        {
-          root: scroller?.current,
-          rootMargin: `0px 0px -95%`,
-          threshold: 0,
-        },
+        { root: scroller?.current, rootMargin: `0px 0px -95%`, threshold: 0 },
       );
-      Array.from(el.querySelectorAll('h1, h2')).map((heading) => observer.observe(heading));
+      el.map((e) => e.current && observer.observe(e.current));
       return () => {
-        observer.unobserve(el);
+        el.map((e) => e.current && observer.unobserve(e.current));
         observer.disconnect();
       };
     }
   }, [id, headingTexts, _activeSection, scroller]);
 
-  return window.width && window.width < 1200 ? (
-    <div className={styles.wrapper}>
-      <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
-        {html.split(/\<.*?table.*?\>/).map((text, i) => (
-          <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
-        ))}
+  return (
+    <>
+      <div className={`${styles.inner} ${markdwon.entire} ${className}`}>
+        {parse(html, {
+          replace: (domNode) => {
+            if (domNode instanceof Element) {
+              if (domNode.attribs.class?.includes('link_widget') && domNode.children[0] instanceof Element) {
+                return createElement(Widgets[domNode.attribs.title], {
+                  el: domNode.attribs.title?.includes('twitter') ? domNode : domNode.children[0],
+                });
+              } else if (
+                domNode.attribs.class?.includes('mermaid') &&
+                domNode.children[0] &&
+                isText(domNode.children[0])
+              ) {
+                return <Mermaid chart={domNode.children[0].data} />;
+              } else if (domNode.name.match(/^h\d/)) {
+                ref.current.push(createRef());
+                const el = <Heading el={domNode} ref={ref.current[ref.current.length - 1]} />;
+                return el;
+              }
+            }
+          },
+        })}
       </div>
-      {children}
-    </div>
-  ) : (
-    <div className={`${styles.inner} ${markdown.styles}`} ref={ref}>
-      {html.split(/\<.*?table.*?\>/).map((text, i) => (
-        <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
-      ))}
-    </div>
+    </>
   );
 }
 
-export default memo(ArticleBody, (prev, next) => prev.html === next.html && prev.children === next.children);
+export default memo(ArticleBody, (prev, next) => prev.html === next.html);

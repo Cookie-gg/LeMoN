@@ -1,8 +1,11 @@
-import parse from 'html-react-parser';
+import { Widgets } from 'widgets';
+import { isText } from 'domhandler';
+import { Mermaid } from 'components';
 import type { MonacoEditorType } from 'types/common';
-import { Fragment as _, memo, useEffect, useRef } from 'react';
+import parse, { domToReact, Element } from 'html-react-parser';
+import { createElement, memo, useEffect, useRef } from 'react';
+import markdwon from '../../assets/scss/components/Markdown.module.scss';
 import styles from '../../assets/scss/components/editor/Preview.module.scss';
-import markdown from '../../assets/scss/components/Markdown.module.scss';
 
 function Preview({ editor, html }: { editor: MonacoEditorType; html: string }) {
   const previewRef = useRef<HTMLDivElement>(null);
@@ -14,10 +17,32 @@ function Preview({ editor, html }: { editor: MonacoEditorType; html: string }) {
     }
   }, [editor]);
   return (
-    <div ref={previewRef} className={`${styles.entire} ${markdown.styles}`}>
-      {html.split(/\<.*?table.*?\>/).map((text, i) => (
-        <_ key={i}>{i % 2 === 0 ? parse(text) : parse(`<table>${text}</table>`, { trim: true })}</_>
-      ))}
+    <div
+      ref={previewRef}
+      className={`${styles.entire} ${markdwon.entire}`}
+      onClick={(e) => {
+        e;
+      }}
+    >
+      {parse(html, {
+        replace: (domNode) => {
+          if (domNode instanceof Element) {
+            if (domNode.attribs.class?.includes('link_widget') && domNode.children[0] instanceof Element) {
+              return createElement(Widgets[domNode.attribs.title], {
+                el: domNode.attribs.title?.includes('twitter') ? domNode : domNode.children[0],
+              });
+            } else if (
+              domNode.attribs.class?.includes('mermaid') &&
+              domNode.children[0] &&
+              isText(domNode.children[0])
+            ) {
+              return <Mermaid chart={domNode.children[0].data} />;
+            } else if (domNode.attribs.href?.match(/^#fn/)) {
+              return <a>{domToReact(domNode.children)}</a>;
+            }
+          }
+        },
+      })}
     </div>
   );
 }
