@@ -1,32 +1,26 @@
 .page {
   overflow: hidden;
+
   .profile {
-    box-sizing: border-box;
     display: flex;
+    box-sizing: border-box;
 
     @include max(flex-direction, $sp_value: column);
 
     .image_frame {
-      @include max(width, 50%);
-
-      @include diff(width, $sp_value: 30px);
-
-      @include max(margin-left, $sp_value: 30px);
-
       @include max(order, $sp_value: -1);
+      @include max(width, 50%, diff(100%, 30px));
+      @include max(margin-left, $sp_value: 30px);
 
       &::before {
         @include max(width, 100%, 125%);
-
         @include max(transform, translate(-33%, -50%) skewX(-30deg), translate(-45%, -50%) skewX(-30deg));
       }
     }
     .text_wrapper {
-      @include max(padding-top, 20px);
-
-      @include max(width, 50%, 100%);
-
       @include max(display, $sp_value: contents);
+      @include max(width, 50%, 100%);
+      @include max(padding-top, 20px);
 
       .heading,
       .title {
@@ -36,35 +30,24 @@
         @include max(margin-top, 65px, 30px);
       }
       .introduction {
-        @include max(margin-top, 45px);
-
         @include max(width, 90%);
-
+        @include max(margin-top, 45px);
         @include max(margin-left, 1%);
       }
       .info {
         @include max(margin-left, 1.25%);
-
         @include max(margin-top, 50px, 30px);
       }
     }
   }
-
   .skills {
     box-sizing: border-box;
 
-    @include max(padding-top, 65px);
-
-    @include max(margin-top, $sp_value: 65px);
-
     @include max(min-height, calc(100vh - (30px + 11px + 110px) - (30px + 11px + 30px)));
+    @include max(margin-top, $sp_value: 65px);
+    @include max(padding-top, 65px);
   }
   #{$mount} & {
-    .image_frame img {
-      opacity: 1;
-      transform: translateX(0%);
-      transition: all ease-out $common_drtn order(1);
-    }
     .title {
       transition: width $common_anmt order(1);
 
@@ -72,8 +55,8 @@
 
       span {
         &:first-of-type path {
-          stroke-dashoffset: 0;
           transition: stroke-dashoffset 2.5s ease-in order(2);
+          stroke-dashoffset: 0;
         }
         &::before {
           transition: width $common_anmt 2.8s;
@@ -81,18 +64,9 @@
         }
       }
       &::before {
-        height: 100%;
         transition: height $common_anmt order(1);
+        height: 100%;
       }
-    }
-    .introduction span,
-    .info li span {
-      transform: translateY(0%);
-      transition: transform $common_anmt order(2);
-    }
-    .heading span {
-      transform: translateY(0%);
-      transition: transform $common_anmt order(2);
     }
   }
 }

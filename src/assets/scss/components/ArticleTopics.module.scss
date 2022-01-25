@@ -1,11 +1,10 @@
 .entire {
   box-sizing: border-box;
+  position: relative;
   font-family: $jp_font;
   line-height: 1.4;
-  position: relative;
 
   @include max(font-size, #{18px}, 18px);
-
   @include max(letter-spacing, #{1.2px}, 1.2px);
 
   .title {
@@ -15,39 +14,38 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
     li {
-      align-items: center;
       display: flex;
+      align-items: center;
       font-weight: 200;
 
       @include max(font-size, #{16px}, 16px);
-
       @include media(mobile) {
         font-weight: 300;
       }
 
       a {
-        align-items: center;
         display: flex;
+        align-items: center;
       }
       span {
-        align-items: center;
-        background-color: $dark_gray;
-        border: 1px solid $lemon;
-        border-radius: 50%;
         display: flex;
+        align-items: center;
         justify-content: center;
         overflow: hidden;
         position: relative;
-
-        @include max(margin-right, #{10px}, 10px);
+        background-color: $dark_gray;
+        border: 1px solid $lemon;
+        border-radius: 50%;
 
         @include max(width, #{40px}, 40px);
-
         @include max(height, #{40px}, 40px);
+        @include max(margin-right, #{10px}, 10px);
 
         svg {
           @include max(font-size, #{20px}, 20px);
+
           path {
             color: $lemon;
           }
@@ -56,88 +54,61 @@
     }
   }
   &.in_article {
-    $res: 1199px;
     width: 100%;
 
-    @include max(padding, #{25px}, $width: $res);
-
-    @include max(background-color, rgba(white, 0.08), $width: $res);
-
-    @media screen and (max-width: $res) {
-      @include max(margin-top, #{30px}, 30px);
-    }
+    @include con(margin-top, $sp_value: 30px, $mid_value: #{30px});
+    @include con(padding, #{25px});
+    @include con(background-color, rgba(white, 0.08));
 
     .title {
-      @include max(display, block, none, $res);
+      @include con(display, block, none);
     }
     .body {
-      @include max(justify-content, space-between, center, $res);
+      @include con(justify-content, space-between, center);
+      @include con(width, $sp_value: 90%);
+      @include con(margin-top, #{20px});
+      @include con(margin, $sp_value: 0 auto);
+      @include con(column-gap, $sp_value: 16px, $mid_value: #{15px});
+      @include con(row-gap, #{20px}, 15px);
 
-      @include max(margin-top, #{20px}, $width: $res);
+      li {
+        @include con(width, calc((100% - 20px) / 2));
 
-      @include max(row-gap, #{20px}, 15px, $res);
-
-      @media screen and (max-width: $res) {
-        margin-left: auto;
-        margin-right: auto;
-        width: 95%;
-
-        @include max(column-gap, #{15px}, 16px, $res);
-
-        li {
-          a {
-            position: relative;
-
-            @include max(padding-right, #{10px}, 10px);
-
-            @include max(padding-left, #{10px}, 10px);
-
-            @include max(padding-bottom, #{2px}, 2px);
-
-            @include max(font-size, #{16px}, 16px);
-
-            @include hover(true) {
-              &:hover::before {
-                border-color: white;
-              }
-            }
-
-            &::before {
-              border: 1px solid $lemon;
-              content: '';
-              height: 100%;
-              left: 50%;
-              position: absolute;
-              top: 50%;
-              transform: translate(-50%, -50%) skewX(-30deg);
-              transition: border-color $common_anmt;
-              width: 100%;
-            }
-
-            span {
-              border: 0;
-              background-color: transparent;
-
-              @include max(height, #{30px}, 30px);
-
-              @include max(width, #{30px}, 30px);
-
-              svg {
-                @include max(font-size, #{16px}, 20px);
-              }
+        a {
+          @include con(padding, $sp_value: 0 10px 2px 10px, $mid_value: #{0 10px 2px 10px});
+          @include con(position, $sp_value: relative);
+          @include con(font-size, $sp_value: 16px, $mid_value: #{16px});
+          @include hover(true) {
+            &:hover::before {
+              @include con(border-color, $sp_value: white);
             }
           }
-        }
-      }
-      li {
-        @include max(width, 48%, $width: $res);
-        a {
           @include hover(both) {
-            text-decoration: underline;
             text-decoration-color: rgba(white, 0.5);
             text-decoration-thickness: 1px;
-            @media screen and (max-width: $res) {
-              text-decoration: none;
+
+            @include con(text-decoration, underline, none);
+          }
+
+          &::before {
+            @include con(transition, $sp_value: border-color $common_anmt);
+            @include con(width, $sp_value: 100%);
+            @include con(height, $sp_value: 100%);
+            @include con(position, $sp_value: absolute);
+            @include con(top, $sp_value: 50%);
+            @include con(left, $sp_value: 50%);
+            @include con(content, initial, '');
+            @include con(border, $sp_value: 1px solid $lemon);
+            @include con(transform, $sp_value: translate(-50%, -50%) skewX(-30deg));
+          }
+          span {
+            @include con(width, $sp_value: 30px, $mid_value: #{30px});
+            @include con(height, $sp_value: 30px, $mid_value: #{30px});
+            @include con(background-color, $sp_value: transparent);
+            @include con(border, $sp_value: 0);
+
+            svg {
+              @include con(font-size, $sp_value: 20px, $mid_value: #{16px});
             }
           }
         }
@@ -145,50 +116,47 @@
     }
   }
   &:not(.in_article) {
-    background-color: rgba(white, 0.04);
     overflow: hidden;
-
-    @include max(padding-top, #{22.5px}, 17.5px);
-
-    @include max(padding-bottom, #{22.5px}, 17.5px);
+    background-color: rgba(white, 0.04);
 
     @include max(height, $sp_value: 280px);
+    @include max(padding-top, #{22.5px}, 17.5px);
+    @include max(padding-bottom, #{22.5px}, 17.5px);
 
     &::before {
-      background-color: $lemon;
-      content: '';
       height: 100%;
       position: absolute;
-      right: 0;
       top: 0;
+      right: 0;
+      content: '';
+      background-color: $lemon;
 
       @include max(width, #{5px}, 5px);
     }
     ul {
       display: flex;
       flex-direction: column;
-      height: 100%;
       justify-content: space-between;
+      height: 100%;
+
       li {
-        box-sizing: border-box;
-        cursor: pointer;
-        position: relative;
         transition: all $common_anmt;
+        box-sizing: border-box;
+        position: relative;
+        cursor: pointer;
 
         @include max(padding-right, #{25px}, 15px);
-
         @include max(padding-left, #{25px}, 15px);
-
         @include hover(true) {
           &:hover {
             color: $dark_gray;
             -webkit-font-smoothing: antialiased;
             -webkit-text-stroke-color: $dark_gray;
-            @include max(-webkit-text-stroke-width, #{1px}, 1px);
-            &::before {
-              @include max(width, calc(100% - 46px));
 
-              @include diff(width, $sp_value: 35px);
+            @include max(-webkit-text-stroke-width, #{1px}, 1px);
+
+            &::before {
+              @include max(width, calc(100% - 46px), diff(100%, 35px));
             }
             &:last-of-type {
               a {
@@ -199,20 +167,22 @@
         }
 
         &::before {
-          background-color: $lemon;
-          content: '';
+          transition: all $common_anmt;
+          width: 0%;
           height: 100%;
           position: absolute;
           right: 0;
-          transition: all $common_anmt;
-          width: 0%;
           z-index: -1;
+          content: '';
+          background-color: $lemon;
         }
         &.active {
           color: $dark_gray;
           -webkit-font-smoothing: antialiased;
           -webkit-text-stroke-color: $dark_gray;
+
           @include max(-webkit-text-stroke-width, #{1px}, 1px);
+
           &::before {
             width: 100%;
           }
@@ -232,8 +202,10 @@
 
           a {
             transition: all $common_anmt;
+
             span {
               background-color: $lemon;
+
               path {
                 color: $dark_gray;
               }

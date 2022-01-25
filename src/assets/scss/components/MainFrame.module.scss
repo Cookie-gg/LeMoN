@@ -1,19 +1,56 @@
 .entire {
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
   left: 0;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
 
   @include max(transition, $sp_value: left $common_anmt);
+  @include max(z-index, 1); // width Header.module.scss
 
+  &.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+
+    &::before {
+      transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
+    }
+    &::after {
+      transition: opacity 0s entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
+        left $common_anmt;
+    }
+  }
+  &:not(.home) {
+    @include max(width, calc(100% - (30px + 11px + 30px) - (30px - 8px + 30px + 11px)));
+    @include max(padding, #{0px (30px - 8px) 0px 30px});
+    @include max(padding-left, $sp_value: 20px);
+    @include max(
+      margin,
+      #{(30px + 11px + 110px) (30px + 11px) (30px + 11px + 30px)},
+      (20px + 75px) (20px + 7px) (20px + 20px) 20px
+    );
+    @include max(
+      height,
+      calc(100% - (30px + 11px + 110px) - (30px + 11px + 30px)),
+      diff(100%, (20px + 75px + 20px + 20px))
+    );
+
+    &.ios {
+      @include max(width, $sp_value: diff(100vw, 20px + 20px + 20px + 20px));
+      @include max(padding-right, $sp_value: 20px);
+    }
+    &:not(.ios) {
+      @include max(width, $sp_value: diff(100vw, 20px + 20px + 20px - 8px + 20px));
+      @include max(padding-right, $sp_value: 5px); // (20px - 8px) / 2
+    }
+  }
   [class*='header_opened'] + & {
     @include max(left, $sp_value: 70px);
+
     &::before {
       @include max(right, $sp_value: -50px);
     }
@@ -23,6 +60,7 @@
   }
   [class*='header_expanded'] + & {
     @include max(left, $sp_value: 200px);
+
     &::before {
       @include max(right, $sp_value: -180px);
     }
@@ -30,69 +68,44 @@
       @include max(left, $sp_value: 220px);
     }
   }
-
+  // border frames
   &::before,
   &::after {
     box-sizing: border-box;
+    width: 0;
     height: 0;
     pointer-events: none;
     position: fixed;
-    width: 0;
-    z-index: 3;
+    z-index: 0; // with PageTransition
   }
   &::before {
-    border-right: 1px solid $lemon;
-    border-top: 1px solid $lemon;
+    transition: right $common_anmt;
     content: '';
-    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
-
-    @include max(bottom, #{30px}, 20px);
+    border-top: 1px solid $lemon;
+    border-right: 1px solid $lemon;
 
     @include max(right, #{30px}, 20px);
+    @include max(bottom, #{30px}, 20px);
   }
   &::after {
+    transition: left $common_anmt;
+    content: '';
     border-bottom: 1px solid $lemon;
     border-left: 1px solid $lemon;
-    content: '';
     opacity: 0;
-    transition: opacity $moment entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
-      left $common_anmt;
-
-    @include max(left, #{30px}, 20px);
 
     @include max(top, #{30px}, 20px);
+    @include max(left, #{30px}, 20px);
   }
   &:not(.home),
   [class*='mounted'] + header + & {
     &::before,
     &::after {
-      @include max(width, calc(100% - (30px * 2)));
-
-      @include max(height, calc(100% - (30px * 2)));
-
-      @include diff(width, $sp_value: (20px * 2));
-
-      @include diff(height, $sp_value: (20px * 2));
+      @include max(width, calc(100% - (30px * 2)), diff(100%, (20px * 2)));
+      @include max(height, calc(100% - (30px * 2)), diff(100%, (20px * 2)));
     }
     &::after {
       opacity: 1;
     }
-  }
-  &:not(.home)::before,
-  &:not(.home)::after {
-    transition: 0;
-  }
-  & > *:not([class*='exclude']) {
-    // animation: fade_in 0.6s both;
-  }
-}
-@keyframes fade_in {
-  from {
-    opacity: 0;
-    visibility: hidden;
-  }
-  to {
-    opacity: 1;
-    visibility: visible;
   }
 }

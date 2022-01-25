@@ -1,5 +1,8 @@
 @use 'sass:math';
+@use 'sass:string';
+@use 'sass:list';
 @use 'sass:map';
+@use 'sass:meta';
 
 // fixed points
 $f_pc: 1562;
@@ -21,57 +24,51 @@ $queries: (
   }
 }
 
-@mixin diff($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
-  @if $value != initial {
-    @include media(pc) {
-      $value: strip_unit($value);
-      #{$property}: calc((#{$from} - #{$value * 100 * math.div(1, $f_pc) + 0vw}) #{$add_term});
-      @media screen and (min-width: #{$f_pc + 0px}) {
-        #{$property}: calc((#{$from} - #{$value + 0px}) #{$add_term});
-      }
-    }
-  }
-  @if $sp_value != initial {
-    @include media(sp) {
-      $sp_value: strip_unit($sp_value);
-      #{$property}: calc((#{$from} - #{$sp_value * 100 * math.div(1, $f_sp) + 0vw}) #{$add_term});
-      @media screen and (min-width: #{$f_sp + 0px}) {
-        #{$property}: calc((#{$from} - #{$sp_value + 0px}) #{$add_term});
-      }
-    }
-  }
-}
-
-@mixin add($property, $value: initial, $sp_value: initial, $from: 100%, $add_term: '') {
-  @if $value != initial {
-    @include media(pc) {
-      $value: strip_unit($value);
-      #{$property}: calc((#{$from} + #{$value * 100 * math.div(1, $f_pc) + 0vw}) #{$add_term});
-      @media screen and (min-width: #{$f_pc + 0px}) {
-        #{$property}: calc((#{$from} + #{$value + 0px}) #{$add_term});
-      }
-    }
-  }
-  @if $sp_value != initial {
-    @include media(sp) {
-      $sp_value: strip_unit($sp_value);
-      #{$property}: calc((#{$from} + #{$sp_value * 100 * math.div(1, $f_sp) + 0vw}) #{$add_term});
-      @media screen and (min-width: #{$f_sp + 0px}) {
-        #{$property}: calc((#{$from} + #{$sp_value + 0px}) #{$add_term});
-      }
-    }
-  }
-}
-
 @mixin max($property, $value: initial, $sp_value: initial, $width: 0, $important: false) {
   @if $value != initial {
     @media screen and (min-width: if($width == 0, $b_pc + 0px, $width + 1px)) {
-      @if type-of($value) == number and unit($value) == 'px' {
+      @if px_validate($value) {
         $value: strip_unit($value);
-        #{$property}: $value * 100 * math.div(1, $f_pc) + 0vw#{if($important, !important, '')};
+
         @media screen and (min-width: #{$f_pc + 0px}) {
           #{$property}: $value + 0px#{if($important, !important, '')};
         }
+
+        #{$property}: $value * 100 * math.div(1, $f_pc) + 0vw#{if($important, !important, '')};
+      } @else if type-of($value) == list {
+        $prev: $value;
+        @each $v in $value {
+          $i: list.index($value, $v);
+          @if px_validate($v) {
+            $value: list.set-nth(
+              $value,
+              $i,
+              strip_unit(list.nth($value, $i)) * 100 * math.div(1, $f_pc) + +0vw#{if($important, !important, '')}
+            );
+          }
+        }
+        @if $value == $prev {
+          #{$property}: $value#{if($important, !important, '')};
+        } @else {
+          @media screen and (min-width: #{$f_pc + 0px}) {
+            #{$property}: $prev#{if($important, !important, '')};
+          }
+
+          #{$property}: $value#{if($important, !important, '')};
+        }
+      } @else if type-of($value) == map {
+        $from: map.get($value, 'from');
+        $ope: map.get($value, 'ope');
+        $additions: map.get($value, 'additions');
+        $value: strip_unit(map.get($value, 'by'));
+
+        @media screen and (min-width: #{$f_pc + 0px}) {
+          #{$property}: calc((#{$from} #{$ope} #{$value + 0px}) #{if($additions != initial, $additions, '')});
+        }
+
+        #{$property}: calc(
+          (#{$from} #{$ope} #{$value * 100 * math.div(1, $f_pc) + 0vw}) #{if($additions != initial, $additions, '')}
+        );
       } @else {
         #{$property}: $value#{if($important, !important, '')};
       }
@@ -79,12 +76,45 @@ $queries: (
   }
   @if $sp_value != initial {
     @media screen and (max-width: if($width == 0, $b_sp + 0px, $width)) {
-      @if type-of($sp_value) == number and unit($sp_value) == 'px' {
+      @if px_validate($sp_value) {
         $sp_value: strip_unit($sp_value);
-        #{$property}: $sp_value * 100 * math.div(1, $f_sp) + 0vw#{if($important, !important, '')};
+
         @media screen and (min-width: #{$f_sp + 0px}) {
           #{$property}: $sp_value + 0px#{if($important, !important, '')};
         }
+
+        #{$property}: $sp_value * 100 * math.div(1, $f_sp) + 0vw#{if($important, !important, '')};
+      } @else if type-of($sp_value) == list {
+        $prev: $sp_value;
+        @each $v in $sp_value {
+          $i: list.index($sp_value, $v);
+          @if px_validate($v) {
+            $sp_value: list.set-nth(
+              $sp_value,
+              $i,
+              strip_unit(list.nth($sp_value, $i)) * 100 * math.div(1, $f_sp) + +0vw#{if($important, !important, '')}
+            );
+          }
+        }
+        @if $sp_value == $prev {
+          #{$property}: $sp_value#{if($important, !important, '')};
+        } @else {
+          @media screen and (min-width: #{$f_sp + 0px}) {
+            #{$property}: $prev#{if($important, !important, '')};
+          }
+
+          #{$property}: $sp_value#{if($important, !important, '')};
+        }
+      } @else if type-of($sp_value) == map {
+        $from: map.get($sp_value, 'from');
+        $ope: map.get($sp_value, 'ope');
+        $sp_value: strip_unit(map.get($sp_value, 'by'));
+
+        @media screen and (min-width: #{$f_sp + 0px}) {
+          #{$property}: calc(#{$from} #{$ope} #{$sp_value + 0px});
+        }
+
+        #{$property}: calc(#{$from} #{$ope} #{$sp_value * 100 * math.div(1, $f_sp) + 0vw});
       } @else {
         #{$property}: $sp_value#{if($important, !important, '')};
       }
@@ -92,11 +122,158 @@ $queries: (
   }
 }
 
+@mixin con($property, $value: initial, $sp_value: initial, $mid_value: initial, $important: false) {
+  @if $value != initial {
+    @media screen and (min-width: 1200px) {
+      @if px_validate($value) {
+        $value: strip_unit($value);
+
+        @media screen and (min-width: #{$f_pc + 0px}) {
+          #{$property}: $value + 0px#{if($important, !important, '')};
+        }
+
+        #{$property}: $value * 100 * math.div(1, $f_pc) + 0vw#{if($important, !important, '')};
+      } @else if type-of($value) == list {
+        $prev: $value;
+        @each $v in $value {
+          $i: list.index($value, $v);
+          @if px_validate($v) {
+            $value: list.set-nth(
+              $value,
+              $i,
+              strip_unit(list.nth($value, $i)) * 100 * math.div(1, $f_pc) + +0vw#{if($important, !important, '')}
+            );
+          }
+        }
+        @if $value == $prev {
+          #{$property}: $value#{if($important, !important, '')};
+        } @else {
+          @media screen and (min-width: #{$f_pc + 0px}) {
+            #{$property}: $prev#{if($important, !important, '')};
+          }
+
+          #{$property}: $value#{if($important, !important, '')};
+        }
+      } @else if type-of($value) == map {
+        $from: map.get($value, 'from');
+        $ope: map.get($value, 'ope');
+        $additions: map.get($value, 'additions');
+        $value: strip_unit(map.get($value, 'by'));
+
+        @media screen and (min-width: #{$f_pc + 0px}) {
+          #{$property}: calc((#{$from} #{$ope} #{$value + 0px}) #{if($additions != initial, $additions, '')});
+        }
+
+        #{$property}: calc(
+          (#{$from} #{$ope} #{$value * 100 * math.div(1, $f_pc) + 0vw}) #{if($additions != initial, $additions, '')}
+        );
+      } @else {
+        #{$property}: $value#{if($important, !important, '')};
+      }
+    }
+  }
+  @if $sp_value != initial {
+    @media screen and (max-width: 1199px) {
+      @if px_validate($sp_value) {
+        @media #{'screen and (min-width: #{$f_sp + 0px})'if($mid_value != initial, 'and (max-width: #{$b_sp + 0px})', '')} {
+          #{$property}: $sp_value#{if($important, !important, '')};
+        }
+
+        #{$property}: strip_unit($sp_value) * 100 * math.div(1, $f_sp) + 0vw#{if($important, !important, '')};
+      } @else if type-of($sp_value) == list {
+        $prev: $sp_value;
+        @each $v in $sp_value {
+          $i: list.index($sp_value, $v);
+          @if px_validate($v) {
+            $sp_value: list.set-nth(
+              $sp_value,
+              $i,
+              strip_unit(list.nth($sp_value, $i)) * 100 * math.div(1, $f_sp) + 0vw#{if($important, !important, '')}
+            );
+          }
+        }
+
+        @media #{'screen and (min-width: #{$f_sp + 0px})'if($mid_value != initial, 'and (max-width: #{$b_sp + 0px})', '')} {
+          #{$property}: $prev#{if($important, !important, '')};
+        }
+
+        #{$property}: $sp_value#{if($important, !important, '')};
+      } @else if type-of($sp_value) == map {
+        $from: map.get($sp_value, 'from');
+        $ope: map.get($sp_value, 'ope');
+        $additions: map.get($sp_value, 'additions');
+        $sp_value: strip_unit(map.get($sp_value, 'by'));
+
+        @media #{'screen and (min-width: #{$f_sp + 0px})'if($mid_value != initial, 'and (max-width: #{$b_sp + 0px})', '')} {
+          #{$property}: calc((#{$from} #{$ope} #{$sp_value + 0px}) #{if($additions != initial, $additions, '')});
+        }
+
+        #{$property}: calc(
+          (#{$from} #{$ope} #{$sp_value * 100 * math.div(1, $f_sp) + 0vw}) #{if($additions != initial, $additions, '')}
+        );
+      } @else {
+        #{$property}: $sp_value#{if($important, !important, '')};
+      }
+    }
+  }
+  @if $mid_value != initial {
+    @media screen and (max-width: 1199px) {
+      @if px_validate($mid_value) {
+        @media screen and (min-width: #{$b_pc + 0px}) {
+          #{$property}: #{if(
+              px_validate($mid_value),
+              strip_unit($mid_value) * 100 * math.div(1, $f_pc) + 0vw,
+              $mid_value
+            )}#{if($important, !important, '')};
+        }
+      } @else if type-of($mid_value) == list {
+        @each $v in $mid_value {
+          $i: list.index($mid_value, $v);
+          @if px_validate($v) {
+            $mid_value: list.set-nth(
+              $mid_value,
+              $i,
+              strip_unit(list.nth($mid_value, $i)) * 100 * math.div(1, $f_pc) + 0vw#{if($important, !important, '')}
+            );
+          }
+        }
+
+        @media screen and (min-width: #{$b_pc + 0px}) {
+          #{$property}: $mid_value#{if($important, !important, '')};
+        }
+      } @else if type-of($mid_value) == map {
+        $from: map.get($mid_value, 'from');
+        $ope: map.get($mid_value, 'ope');
+        $additions: map.get($mid_value, 'additions');
+        $mid_value: strip_unit(map.get($mid_value, 'by'));
+
+        @media screen and (min-width: #{$b_pc + 0px}) {
+          #{$property}: calc(
+            (
+                #{$from} #{$ope} #{if(
+                    px_validate($mid_value),
+                    strip_unit($mid_value) * 100 * math.div(1, $f_sp) + 0vw,
+                    $mid_value + 0px
+                  )}
+              )
+              #{if($additions != initial, $additions, '')}
+          );
+        }
+      } @else {
+        @media screen and (min-width: #{$b_pc + 0px}) {
+          #{$property}: $mid_value#{if($important, !important, '')};
+        }
+      }
+    }
+  }
+}
+
 @mixin custom_max($property, $value, $min_width) {
-  #{$property}: math.div(strip_unit($value) * 100 * 1, strip_unit($min_width)) + 0vw;
   @media screen and (min-width: $min_width) {
     #{$property}: $value;
   }
+
+  #{$property}: math.div(strip_unit($value) * 100 * 1, strip_unit($min_width)) + 0vw;
 }
 
 @mixin hover($hover_available) {

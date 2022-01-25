@@ -1,6 +1,5 @@
 .page {
   @include max(padding-top, 20px);
-
   @include max(padding-bottom, 20px, 20px);
 
   .articles {
@@ -12,74 +11,53 @@
   .loading {
     width: 100%;
 
-    @include max(font-size, #{40px}, 40px);
-
     @include max(margin-top, #{30px}, 30px);
+    @include max(font-size, #{40px}, 40px);
   }
   .more {
     @include max(margin-top, 45px, 30px);
   }
-  #{$mount} & {
-    .heading span {
-      transform: translateY(0);
-      transition: transform $common_anmt order(1);
-    }
-  }
 }
 .post {
-  $res: 1199px;
+  .edit,
   .topics {
-    @include max(display, none, $width: $res);
+    @include con(float, right);
+    @include con(clear, both);
+    @include con(width, #{360px}, 100%);
+
+    &:nth-of-type(2) {
+      @include con(margin-top, #{40px});
+    }
   }
   .contents {
-    display: flex;
+    position: relative;
 
-    @include max(margin-top, #{40px}, $width: $res);
+    @include con(display, contents);
 
-    @include max(flex-direction, $sp_value: column, $width: $res);
-
-    @media screen and (max-width: $res) {
-      @include max(margin-top, #{40px}, 30px);
+    .toc {
+      @include con(float, right);
+      @include con(clear, both);
+      @include con(width, #{360px});
+      @include con(margin-top, #{40px});
     }
-    main {
-      @include max(margin-right, 40px, $width: $res);
-
-      @include diff(width, 40px, $from: calc(100% - 360px));
-
-      @include max(order, 1, 2, $res);
-
-      @media screen and (max-width: $res) {
-        width: 100%;
-      }
-
-      .heading {
-        @include max(margin-top, 65px, 65px);
-      }
-      .relations {
-        @include max(margin-top, 30px, 30px);
-        li {
-          @include diff(width, 40px, $add_term: '/ 2');
-        }
-      }
-    }
-    aside {
-      position: relative;
-
-      @include max(display, $sp_value: none, $width: $res);
-
-      @include max(width, #{360px}, 100%, $res);
-
-      @include max(order, 2, 1, $res);
-
-      .toc {
-        @include max(margin-top, 40px, $width: $res);
-      }
+    .body {
+      @include con(width, calc(100% - 400px), 100%);
+      @include con(margin-top, #{40px}, 30px, #{40px});
     }
   }
-  #{$mount} & {
-    .heading span {
-      transform: translateY(0);
-      transition: transform $common_anmt order(2);
+  .relations {
+    @include con(order, -1);
+    @include con(width, calc(100% - 400px), 100%);
+
+    .heading {
+      @include max(margin-top, 65px, 65px);
+    }
+    .articles {
+      @include max(margin-top, 30px, 30px);
+
+      li {
+        @include max(width, diff(100%, 40px, div(2)), 100%);
+      }
     }
   }
 }

@@ -1,20 +1,92 @@
 @use 'sass:math';
+@use 'sass:string';
+@use 'sass:selector';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:meta';
+
 @function entry_order($times) {
   @if $times == 1 {
     @return 0.3s;
   }
+
   @return 0.6 * ($times - 1) + 0.3s;
 }
 @function order($times) {
   @return 0.6 * ($times - 1) + 0s;
 }
-@function div($n1, $n2) {
+@function divide($n1, $n2) {
   @return math.div($n1, $n2);
+}
+@function sqrt($number) {
+  @return math.sqrt($number);
+}
+@function is_super_selectro($super, $sub) {
+  @return selector.is-superselector($super, $sub);
 }
 @function strip_unit($number) {
   @if type-of($number) == 'number' and not unitless($number) {
     @return math.div($number, ($number * 0 + 1));
   }
+
   @return $number;
 }
+// validate
+@function px_validate($value) {
+  @return type-of($value) == number and unit($value) == 'px';
+}
+// multi transition properties with same options
+@function multi($properties, $opts) {
+  @each $p in $properties {
+    $i: list.index($properties, $p);
+    $properties: list.set-nth($properties, $i, string.unquote('#{$p} #{$opts}, '));
+  }
 
+  @return $properties;
+}
+// multiple headings selector
+@function h($args) {
+  @if type-of($args) == list {
+    @each $v in $args {
+      $i: list.index($args, $v);
+      $args: list.set-nth($args, $i, 'h#{$v},');
+    }
+
+    @return $args;
+  } @else {
+    @return 'h#{$args}';
+  }
+}
+// calc on mixin
+@function div($arg) {
+  @return ' / ' + #{$arg};
+}
+@function mul($arg) {
+  @return ' * ' + #{$arg};
+}
+@function plus($arg) {
+  @return ' + ' + #{$arg};
+}
+@function minus($arg) {
+  @return ' - ' + #{$arg};
+}
+@function diff($from, $by, $additions: initial) {
+  $list: (
+    'from': $from,
+    'by': $by,
+    'ope': '-',
+    'additions': $additions,
+  );
+
+  @return $list;
+}
+@function add($from, $by, $additions: initial) {
+  $list: (
+    'from': $from,
+    'by': $by,
+    'ope': '+',
+    'additions': $additions,
+  );
+
+  @return $list;
+}

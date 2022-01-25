@@ -6,44 +6,29 @@
   }
   .articles {
     @include max(margin-top, 65px, 65px);
+
     &:first-of-type {
       @include max(margin-top, 30px, 30px);
     }
     .card {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      position: relative;
+      font-weight: 400;
+      font-family: $jp_font;
+      line-height: 1.8;
       background-color: rgba(white, 0.04);
       border-left: solid $lemon;
-      box-sizing: border-box;
-      display: flex;
-      font-family: $jp_font;
-      font-weight: 400;
-      justify-content: space-between;
-      line-height: 1.8;
-      position: relative;
 
+      @include max(width, diff(100%, 120px, div(4)));
+      @include max(height, #{125px}, 125px);
+      @include max(padding-right, #{25px}, 25px);
+      @include max(padding-left, #{25px}, 25px);
+      @include max(letter-spacing, #{1.2px}, 1.2px);
       @include max(border-left-width, #{5px}, 5px);
 
-      @include max(height, #{125px}, 125px);
-
-      @include max(letter-spacing, #{1.2px}, 1.2px);
-
-      @include max(padding-right, #{25px}, 25px);
-
-      @include max(padding-left, #{25px}, 25px);
-
-      @include diff(width, 120px, $add_term: '/ 4');
-
-      .icon {
-        @include max(font-size, #{40px}, 40px);
-        path {
-          color: $lemon;
-        }
-      }
-      h2 {
-        font-weight: 400;
-
-        @include max(font-size, #{19px}, 19px);
-      }
       @media screen and (max-width: 900px) {
         justify-content: flex-start;
 
@@ -56,13 +41,25 @@
           @include max(margin-left, #{30px}, 30px);
         }
       }
+
+      .icon {
+        @include max(font-size, #{40px}, 40px);
+
+        path {
+          color: $lemon;
+        }
+      }
+      h2 {
+        font-weight: 400;
+
+        @include max(font-size, #{19px}, 19px);
+      }
     }
   }
-
   #{$mount} & {
     .heading span {
-      transform: translateY(0);
       transition: transform $common_anmt;
+      transform: translateY(0);
     }
   }
 }

@@ -2,15 +2,11 @@
   position: relative;
 }
 .inner {
+  box-sizing: border-box;
   background-color: rgba(white, 0.08);
   border-right: solid $lemon;
-  box-sizing: border-box;
-  $res: 1199px;
-  // transition: all $common_anmt;
 
   @include max(padding, #{45px}, 30px);
-
-  @include max(border-right-width, #{5px}, 0px, $res);
-
   @include max(padding-right, $sp_value: 30px + 8px);
+  @include con(border-right-width, #{5px});
 }

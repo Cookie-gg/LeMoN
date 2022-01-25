@@ -1,111 +1,101 @@
 .articles {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
   width: 100%;
+  overflow: hidden;
 
   @include max(gap, 40px, 20px);
 
-  li:not([class*='ArticleTopics_body'] li) {
-    & > a {
-      display: block;
-      height: 100%;
-      width: 100%;
-      .thumbnail {
-        align-items: center;
-        background-color: rgba(white, 0.08);
-        display: flex;
-        justify-content: center;
+  li:not(.received) {
+    .thumbnail {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-color: rgba(white, 0.08);
+
+      @include max(height, #{125px}, 125px);
+
+      &::before {
+        transition: all $common_anmt;
+        position: absolute;
+        z-index: -1;
+        content: '';
+        background-color: $lemon;
+      }
+      .emoji {
+        @include max(width, #{50px}, 50px);
+        @include max(height, #{50px}, 50px);
+      }
+    }
+    .text_wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      position: relative;
+      background-color: rgba(white, 0.04);
+
+      @include max(letter-spacing, #{1.2px}, 1.2px);
+
+      &::before {
+        position: absolute;
+        content: '';
+      }
+      h2 {
+        display: -webkit-box;
+        width: 100%;
+        overflow: hidden;
         position: relative;
+        font-weight: 400;
+        font-family: $jp_font;
+        line-height: 1.4;
+        -webkit-box-orient: vertical;
 
-        @include max(height, #{125px}, 125px);
-
-        &::before {
-          background-color: $lemon;
-          content: '';
-          position: absolute;
-          transition: all $common_anmt;
-          z-index: -1;
+        @include media(mobile) {
+          font-weight: 600;
         }
-        .emoji {
-          @include max(height, #{50px}, 50px);
 
-          @include max(width, #{50px}, 50px);
+        svg {
+          vertical-align: -12%;
+
+          @include max(margin-right, #{5px}, 5px);
+          @include max(font-size, #{22.5px}, 22.5px);
         }
       }
-      .text_wrapper {
-        background-color: rgba(white, 0.04);
-        box-sizing: border-box;
+      div {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        position: relative;
+        align-items: flex-end;
+        font-weight: 200;
 
-        @include max(letter-spacing, #{1.2px}, 1.2px);
-
-        &::before {
-          content: '';
-          position: absolute;
+        @include max(font-size, #{15px}, 16px);
+        @include media(mobile) {
+          font-weight: 300;
         }
-        h2 {
-          -webkit-box-orient: vertical;
-          display: -webkit-box;
-          font-family: $jp_font;
-          font-weight: 400;
-          line-height: 1.4;
-          overflow: hidden;
-          position: relative;
-          width: 100%;
 
-          @include media(mobile) {
-            font-weight: 600;
-          }
+        p {
+          @include max(margin-top, #{5px}, 5px);
 
-          svg {
-            vertical-align: -12%;
+          span {
+            &:first-of-type::before {
+              content: 'Topics: ';
+            }
+            &:not(:first-of-type)::before {
+              display: inline-block;
+              content: ',';
 
-            @include max(font-size, #{22.5px}, 22.5px);
-
-            @include max(margin-right, #{5px}, 5px);
-          }
-        }
-        div {
-          align-items: flex-end;
-          display: flex;
-          flex-direction: column;
-          font-weight: 200;
-
-          @include media(mobile) {
-            font-weight: 300;
-          }
-
-          @include max(font-size, #{15px}, 16px);
-
-          p {
-            @include max(margin-top, #{5px}, 5px);
-            span {
-              &:first-of-type::before {
-                content: 'Topics: ';
-              }
-              &:not(:first-of-type)::before {
-                content: ',';
-                display: inline-block;
-
-                @include max(margin-right, #{5px}, 5px);
-              }
+              @include max(margin-right, #{5px}, 5px);
             }
           }
         }
       }
     }
   }
-  &.horizontal {
-    justify-content: space-between;
-    li:not([class*='ArticleTopics_body'] li) {
-      animation: fade_in 1s both;
+  &.horizontal > li {
+    @include con(width, diff(100%, 40px, div(2)), 100%);
 
-      @include diff(width, 40px, $from: 100%, $add_term: '/ 2');
-
+    &:not(.received) {
       @include hover(true) {
         &:hover {
           .text_wrapper::before {
@@ -117,35 +107,25 @@
         }
       }
 
-      @media screen and (max-width: 1200px) {
-        width: 100%;
-      }
-
       a {
         display: flex;
+
         .thumbnail {
           @include max(width, #{125px}, 125px);
 
           &::before {
-            height: 100%;
-            right: 0;
-            top: 0;
             width: 1px;
+            height: 100%;
+            top: 0;
+            right: 0;
           }
         }
         .text_wrapper {
-          @include max(width, calc(100% - 125px));
-
-          @include diff(width, $sp_value: 125px);
-
+          @include max(width, calc(100% - 125px), diff(100%, 125px));
           @include max(padding-top, #{17.5px}, 15px);
-
           @include max(padding-left, #{17.5px}, 15px);
-
           @include max(padding-right, #{17.5px}, 15px);
-
           @include max(padding-bottom, #{15px}, 12.5px);
-
           @include media(sp) {
             div p span:nth-of-type(n + 3) {
               display: none;
@@ -153,28 +133,29 @@
           }
 
           &::before {
-            background-color: $lemon;
-            bottom: 0;
-            height: 1px;
-            left: 0;
             transition: all $common_anmt;
             width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: $lemon;
           }
           h2 {
             -webkit-line-clamp: 2;
 
-            @include max(font-size, #{18px}, 18px);
-
             @include max(height, #{18px * 1.4 * 2}, 18px * 1.4 * 2);
+            @include max(font-size, #{18px}, 18px);
           }
         }
       }
     }
   }
-  &:not(.horizontal) {
-    li:not([class*='ArticleTopics_body'] li) {
-      @include diff(width, 120px, $add_term: '/ 4');
-
+  &.vertical {
+    &:not([class*='slick-slider']) > li {
+      @include con(width, diff(100%, 120px, div(4)), diff(100%, 20px, div(2)), diff(100%, 40px, div(2)));
+    }
+    [class*='slick-slider'] li,
+    & > li:not(.received) {
       @include hover(true) {
         &:hover {
           .text_wrapper::after {
@@ -182,8 +163,8 @@
           }
           .thumbnail {
             .type {
-              background-color: $dark_gray;
               color: $lemon;
+              background-color: $dark_gray;
             }
             &::before {
               height: 100%;
@@ -192,105 +173,83 @@
         }
       }
 
-      a {
-        .thumbnail {
-          &::before {
-            bottom: 0;
-            height: 1px;
-            left: 0;
-            width: 100%;
-          }
-          .type {
-            background-color: $lemon;
-            color: $dark_gray;
-            font-weight: 600;
-            position: absolute;
-            transition: all $common_anmt;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-stroke-color: $dark_gray;
-            -webkit-text-stroke-width: 0.05px;
-
-            @include media(mobile) {
-              font-weight: 800;
-            }
-
-            @include max(left, #{10px}, 10px);
-
-            @include max(top, #{10px}, 10px);
-
-            @include max(font-size, #{16px}, 16px);
-
-            @include max(padding-top, #{6px}, 6px);
-
-            @include max(padding-bottom, #{2px}, 2px);
-
-            @include max(padding-right, #{5px}, 5px);
-
-            @include max(padding-left, #{5px}, 5px);
-          }
+      .thumbnail {
+        &::before {
+          width: 100%;
+          height: 1px;
+          bottom: 0;
+          left: 0;
         }
-        .text_wrapper {
-          @include max(padding-right, #{15px}, 12.5px);
+        .type {
+          transition: all $common_anmt;
+          position: absolute;
+          color: $dark_gray;
+          font-weight: 600;
+          background-color: $lemon;
+          -webkit-font-smoothing: antialiased;
+          -webkit-text-stroke-color: $dark_gray;
+          -webkit-text-stroke-width: 0.05px;
 
-          @include max(padding-left, #{15px}, 12.5px);
-
-          @include max(padding-top, #{15px}, 12.5px);
-
-          @include max(padding-bottom, #{12.5px}, 10px);
-
-          @include max(height, #{155px}, 155px);
-
-          @include media(sp) {
-            div p span:not(:first-of-type) {
-              display: none;
-            }
-          }
-
-          &::before {
-            background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
-              100%;
-            right: 0;
-            top: 0;
-            transition: all $common_anmt;
-
-            @include max(width, #{30px}, 30px);
-
-            @include max(height, #{30px}, 30px);
-          }
-          &::after {
-            background-color: $lemon;
-            bottom: 0;
-            content: '';
-            height: 1px;
-            left: 0;
-            position: absolute;
-            transition: all $common_anmt;
-            width: 0%;
-          }
-          h2 {
-            @include max(-webkit-line-clamp, 2, 3);
-
-            // @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
-            @include max(font-size, #{20px}, 18px);
+          @include max(padding-top, #{6px}, 6px);
+          @include max(padding-bottom, #{2px}, 2px);
+          @include max(padding-right, #{5px}, 5px);
+          @include max(padding-left, #{5px}, 5px);
+          @include max(top, #{10px}, 10px);
+          @include max(left, #{10px}, 10px);
+          @include max(font-size, #{16px}, 16px);
+          @include media(mobile) {
+            font-weight: 800;
           }
         }
       }
-    }
-  }
-  &.vertical {
-    // justify-content: space-between;
-    li:not([class*='ArticleTopics_body'] li) {
-      @media screen and (max-width: 1200px) {
-        @include diff(width, 40px, 20px, $add_term: '/ 2');
+      .text_wrapper {
+        @include max(height, #{155px}, 155px);
+        @include max(padding-right, #{15px}, 12.5px);
+        @include max(padding-left, #{15px}, 12.5px);
+        @include max(padding-top, #{15px}, 12.5px);
+        @include max(padding-bottom, #{12.5px}, 10px);
+        @include media(sp) {
+          div p span:not(:first-of-type) {
+            display: none;
+          }
+        }
+
+        &::before {
+          transition: all $common_anmt;
+          top: 0;
+          right: 0;
+          background: linear-gradient(to top right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
+            100%;
+
+          @include max(width, #{30px}, 30px);
+          @include max(height, #{30px}, 30px);
+        }
+        &::after {
+          transition: all $common_anmt;
+          width: 0%;
+          height: 1px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          content: '';
+          background-color: $lemon;
+        }
+        h2 {
+          // @include max(height, #{20px * 1.4 * 2}, 20px * 1.4 * 3);
+          @include max(font-size, #{20px}, 18px);
+          @include max(-webkit-line-clamp, 2, 3);
+        }
       }
     }
   }
   &.slider {
-    li:not([class*='ArticleTopics_body'] li) {
+    li {
       @media screen and (max-width: 1200px) {
-        @include diff(width, 80px, $add_term: '/ 3');
+        @include max(width, diff(100%, 80px, div(3)));
+
         @media screen and (max-width: 900px) {
-          @include diff(width, 40px, 20px, $add_term: '/ 2');
+          @include max(width, diff(100%, 40px, div(2)), diff(100%, 40px, div(2)));
+
           &:first-of-type {
             width: 100%;
           }
@@ -301,77 +260,77 @@
     & > li:not(:last-of-type),
     [class*='slick-slider'] [class*='slick-list'] [class*='slick-slide']:not(:last-of-type) li {
       position: relative;
+
       &::before {
-        background-color: rgba(white, 0.08);
-        content: '';
-        left: 100%;
         position: absolute;
+        left: 100%;
+        content: '';
+        background-color: rgba(white, 0.08);
         transform: translateY(50%);
 
-        @include max(top, #{62.5px});
-
-        @include max(height, #{2.5px});
-
         @include max(width, 40px);
+        @include max(height, #{2.5px});
+        @include max(top, #{62.5px});
       }
     }
     [class*='slick-slider'] {
       display: flex;
       overflow: hidden;
 
-      @include diff(width, div(40, 3) + 0px, $add_term: '/ 4 * 3');
+      @include max(width, diff(100%, divide(40, 3) + 0px, div(4 * 3)));
 
       @media screen and (max-width: 1200px) {
-        @include diff(width, div(40, 2) + 0px, $add_term: '/ 3 * 2');
+        @include max(width, diff(100%, divide(40, 2) + 0px, div(3 * 2)));
+
         @media screen and (max-width: 900px) {
           width: 100%;
         }
       }
 
       & > button {
-        align-items: center;
-        background-color: rgba($dark_gray, 0.6);
-        display: flex;
-        font-size: 0px !important;
-        height: 100%;
-        justify-content: center;
-        opacity: 0;
-        position: absolute;
         transition: opacity $common_anmt;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        position: absolute;
         z-index: 1;
+        font-size: 0px !important;
+        background-color: rgba($dark_gray, 0.6);
+        opacity: 0;
 
         @include max(width, #{50px}, 50px);
-
         @include hover(both) {
           opacity: 1;
         }
 
         &::before {
-          color: $lemon;
           display: block;
-          font-weight: 500;
           position: relative;
+          color: $lemon;
+          font-weight: 500;
           transform: scaleY(1.5);
 
           @include max(font-size, #{40px}, 40px);
         }
         &[class*='slick-prev'] {
           left: 0;
+
           &::before {
             content: '<';
           }
         }
         &[class*='slick-next'] {
           right: 0px;
+
           &::before {
             content: '>';
           }
         }
       }
       [class*='slick-list'] {
+        @include max(width, add(100%, 40px), add(100%, 20px));
         @include max(margin-right, -40px, -20px);
-
-        @include add(width, 40px, 20px);
 
         [class*='slick-track'] {
           &::before,

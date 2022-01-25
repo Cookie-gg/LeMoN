@@ -13,7 +13,7 @@
 
   @include max(width, calc(100% - 8px));
 
-  @include diff(width, $sp_value: 8px);
+  @include max(width, $sp_value: diff(100%, 8px));
 
   @include max(font-size, #{18px}, 18px);
 

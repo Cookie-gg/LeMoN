@@ -1,27 +1,22 @@
 .entire {
   display: flex;
   flex-direction: column;
-  font-weight: 400;
-  letter-spacing: 0;
   overflow: hidden;
   position: relative;
+  font-weight: 400;
+  letter-spacing: 0;
 
+  @include max(font-size, #{24px}, 26px);
   @include media(mobile) {
     font-weight: 600;
   }
 
-  @include max(font-size, #{24px}, 26px);
-
   &::before {
-    background-color: $lemon;
-    content: '';
     height: 1.25px;
-
-    @include max(margin-bottom, #{10px}, 8px);
+    content: '';
+    background-color: $lemon;
 
     @include max(width, #{300px}, 250px);
-  }
-  span {
-    transform: translateY(125%);
+    @include max(margin-bottom, #{10px}, 8px);
   }
 }

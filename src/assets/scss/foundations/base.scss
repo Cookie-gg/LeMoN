@@ -11,7 +11,6 @@ html {
     overflow: hidden;
     position: relative;
     width: 100%;
-
     &::before,
     &::after {
       background-color: rgba(255, 255, 255, 0.01);

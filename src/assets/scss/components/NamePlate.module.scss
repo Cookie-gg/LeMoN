@@ -1,37 +1,35 @@
 .entire {
-  background-clip: content-box;
-  background-color: $lemon;
   display: flex;
-  font-style: italic;
-  font-weight: bold;
+  width: 0;
   height: 85px;
   position: relative;
-  width: 0;
+  font-weight: bold;
+  font-style: italic;
+  background-color: $lemon;
+  background-clip: content-box;
 
   @include max(padding-left, #{10px}, 10px);
-
   @include custom_max(height, 85px, 725px);
 
   &::before {
-    background-color: $lemon;
-    content: '';
+    width: 2px;
     height: 0;
-    left: 0;
     position: absolute;
     top: 0;
-    width: 2px;
+    left: 0;
+    content: '';
+    background-color: $lemon;
   }
   &::after {
-    background-color: $lemon;
     clip-path: polygon(0 0, 100% 0%, 0% 100%);
-    content: '';
-    left: 100%;
     position: absolute;
     top: 0;
+    left: 100%;
+    content: '';
+    background-color: $lemon;
     transform: translate(-1px, -0.5px);
 
-    @include custom_max(width, div(85px * 1.02, $route_3), 725px);
-
+    @include custom_max(width, divide(85px * 1.02, sqrt(3)), 725px);
     @include custom_max(height, 85px * 1.02, 725px);
   }
   span {
@@ -41,27 +39,26 @@
     @include custom_max(margin-left, 20px, 725px);
 
     &::before {
-      background-color: $lemon;
-      content: '';
+      width: 110%;
       height: 100%;
       position: absolute;
-      right: -5%;
       top: 0;
-      transform: skewX(-30deg);
-      width: 110%;
+      right: -5%;
       z-index: 2;
+      content: '';
+      background-color: $lemon;
+      transform: skewX(-30deg);
     }
     svg {
+      width: 100%;
       margin-top: -1%;
       position: relative;
-      width: 100%;
-
       // height: 112.5%;
-
       @include custom_max(height, 85px * 1.02 * 1.125, 725px);
 
       &:first-of-type {
         z-index: 3;
+
         path {
           fill: transparent;
           stroke: $dark_gray;
@@ -71,10 +68,11 @@
         }
       }
       &:last-of-type {
-        left: 0;
         position: absolute;
         top: 0;
+        left: 0;
         z-index: 1;
+
         path {
           fill: $dark_gray;
         }

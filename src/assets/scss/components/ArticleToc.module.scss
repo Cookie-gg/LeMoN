@@ -1,309 +1,193 @@
 .entire {
+  top: 0;
   font-family: $jp_font;
   line-height: 1.4;
-  $res: 1199px;
-  top: 0;
-
-  @include max(position, sticky, absolute, $res);
-
-  @include max(width, 100%, $width: $res);
-
-  @include max(transition, top $common_anmt, padding-left $common_anmt, $res);
 
   @include max(letter-spacing, #{1.2px}, 1.2px);
-
-  @include max(right, $sp_value: 0, $width: $res);
-
-  @include max(height, $sp_value: 100%, $width: $res);
-
-  [class*='header_opened'] + main & {
-    @media screen and (max-width: $res) {
-      @include max(padding-left, #{100px}, (100px));
-    }
-  }
+  @include con(transition, top $common_anmt, padding-left $common_anmt);
+  @include con(width, 100%);
+  @include con(height, $sp_value: 100%);
+  @include con(position, sticky, absolute);
+  @include con(right, $sp_value: 0);
 
   .meta {
-    @media screen and (min-width: ($res + 1px)) {
-      align-items: center;
-      background-color: rgba(white, 0.04);
-      box-sizing: border-box;
-      display: flex;
-      font-family: $jp_font;
-      padding: 25px 20px;
-      position: sticky;
-      top: 0;
-      width: 100%;
-      z-index: -1;
+    display: flex;
+    align-content: center;
+    box-sizing: border-box;
+    font-family: $jp_font;
 
-      &::before {
-        background-color: $lemon;
-        bottom: 0;
-        content: '';
-        height: 1px;
-        left: 0;
-        position: absolute;
-        transition: width $common_anmt order(2);
-        width: 0;
-      }
-      &::after {
-        background: linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100%
-          100%;
-        bottom: 0;
-        content: '';
-        height: 0px;
-        position: absolute;
-        right: 0;
-        transition: all $common_anmt order(1);
-        width: 0px;
-      }
-      .emoji {
-        height: 45px;
-        margin-right: 15px;
-        width: 45px;
-      }
-      .title {
-        font-size: 17.5px;
-        font-weight: 500;
-        line-height: 1.8;
-      }
+    @include max(letter-spacing, #{1.2px}, 1.2px);
+    @include con(transition, $sp_value: left $common_anmt);
+    @include con(padding, #{25px 20px});
+    @include con(overflow, $sp_value: hidden);
+    @include con(position, sticky, fixed);
+    @include con(top, 0, (20px + 75px), #{30px + 11px + 110px});
+    @include con(left, $sp_value: (20px + 20px), $mid_value: #{30px + 11px + 30px});
+    @include con(z-index, -1, 2);
+    @include con(background-color, rgba(white, 0.04));
+    @include con(
+      width,
+      100%,
+      diff(100%, (20px + 20px + 20px + 20px)),
+      calc(100% - (30px + 11px + 30px) - (30px + 30px + 11px))
+    );
+
+    .inner {
+      @include con(transition, $sp_value: transform $common_anmt);
+      @include con(display, $sp_value: flex);
+      @include con(width, $sp_value: 100%);
+      @include con(padding, $sp_value: 10px, $mid_value: #{10px});
+      @include con(position, $sp_value: relative);
+      @include con(top, $sp_value: 0);
+      @include con(z-index, $sp_value: 1);
+      @include con(background-color, $sp_value: $lemon);
+      @include con(transform, $sp_value: translateY(-105%));
     }
-    @media screen and (max-width: $res) {
-      align-items: center;
-      box-sizing: border-box;
-      display: flex;
-      font-family: $jp_font;
-      pointer-events: none;
-      position: fixed;
-      transition: left $common_anmt;
-      z-index: 2;
+    &::before {
+      @include con(transition, width $common_anmt order(2));
+      @include con(width, 0);
+      @include con(height, #{1px});
+      @include con(position, absolute);
+      @include con(bottom, 0);
+      @include con(left, 0);
+      @include con(content, '', initial);
+      @include con(background-color, $lemon);
+    }
+    &::after {
+      @include con(transition, multi(width height, $common_anmt) order(2));
+      @include con(width, 0);
+      @include con(height, 0);
+      @include con(position, absolute);
+      @include con(right, 0);
+      @include con(bottom, 0);
+      @include con(content, '', initial);
+      @include con(
+        background,
+        linear-gradient(to bottom right, rgba(255, 255, 255, 0) 50%, $lemon 50.75%) no-repeat top left/100% 100%
+      );
+    }
+    .emoji {
+      @include con(width, #{45px}, 32px, #{30px});
+      @include con(height, #{45px}, 32px, #{30px});
+      @include con(margin-right, #{15px}, 15px);
+    }
+    .title {
+      line-height: 1.8;
 
-      @include max(letter-spacing, #{1.2px}, 1.2px);
-
-      // pc
-      @include max(top, #{30px + 11px + 110px});
-
-      @include max(left, #{30px + 11px + 30px});
-
-      @include max(width, calc(100% - (30px + 11px + 30px) - (30px + 30px + 11px)));
-
-      //sp
-      @include max(top, $sp_value: (20px + 75px));
-
-      @include max(left, $sp_value: (20px + 20px));
-
-      @include diff(width, $sp_value: (20px + 20px + 20px + 20px));
-
-      .inner {
-        display: flex;
-        position: relative;
-        top: 0;
-        transform: translateY(-100%);
-        transition: transform $common_anmt;
-        width: 100%;
-        z-index: 1;
-
-        @include max(padding, #{10px}, 10px);
-      }
-      &::before {
-        background-color: $dark_gray;
-        bottom: 100%;
-        content: '';
-        height: 100%;
-        left: 0;
-        position: absolute;
-        width: 100%;
-        z-index: 2;
-      }
-      &::after {
-        background-color: $lemon;
-        content: '';
-        height: 0;
-        left: 0;
-        position: absolute;
-        top: 0;
-        transition: height $common_anmt;
-        width: 100%;
-      }
-      .emoji {
-        @include max(width, #{30px}, 32px);
-
-        @include max(height, #{30px}, 32px);
-
-        @include max(margin-right, #{15px}, 15px);
-      }
-      .title {
-        color: rgba($dark_gray, 0.9);
-        font-weight: 700;
-        line-height: 1.8;
-
-        @include max(font-size, #{17.5px}, 19.5px);
-      }
-      [class*='header_opened'] + main & {
-        @include max(left, $sp_value: (20px + 20px + 70px));
-      }
-      [class*='header_expanded'] + main & {
-        @include max(left, $sp_value: (20px + 20px + 200px));
-      }
+      @include con(color, $sp_value: rgba($dark_gray, 0.9));
+      @include con(font-weight, 500, 700);
+      @include con(font-size, #{17.5px}, 19.5px, #{17.5px});
+    }
+    [class*='header_opened'] + main & {
+      @include con(left, $sp_value: (20px + 20px + 70px));
+    }
+    [class*='header_expanded'] + main & {
+      @include con(left, $sp_value: (20px + 20px + 200px));
     }
   }
   .toc {
     box-sizing: border-box;
-    font-family: $jp_font;
     width: 100%;
+    font-family: $jp_font;
 
-    @include max(background-color, #313131, $width: $res);
-
-    @include max(overflow-x, hidden, $width: $res);
-
-    @include max(overflow-y, scroll, $width: $res);
-
-    @include max(padding, #{25px}, $width: $res);
-
-    @include max(position, absolute, $width: $res);
-
-    @include max(top, 0, $width: $res);
-
-    @include max(transition, top $common_anmt order(3), width $common_anmt, $res);
-
-    @include max(cursor, $sp_value: pointer, $width: $res);
-
-    @include max(height, $sp_value: 100%, $width: $res);
-
-    @media screen and (max-width: $res) {
-      @include max(width, #{45px}, 45px);
-
-      @include hover(true) {
-        &:hover {
-          .title {
-            @include max(width, #{30px}, 30px);
-          }
-        }
-      }
-
-      &::before {
-        background-color: $lemon;
-        content: '';
-        height: 100%;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        top: 0;
-        z-index: 2;
-
-        @include max(width, #{5px}, 5px);
-      }
-      &::after {
-        background-color: $dark_gray;
-        content: '';
-        height: 100%;
-        left: 100%;
-        position: absolute;
-        top: 0;
-        z-index: 2;
-
-        @include max(width, #{300px}, 300px);
+    @include con(transition, top $common_anmt order(3), width $common_anmt);
+    @include con(width, $sp_value: 45px, $mid_value: #{45px});
+    @include con(height, $sp_value: 100%);
+    @include con(padding, #{25px});
+    @include con(overflow-x, hidden);
+    @include con(overflow-y, scroll);
+    @include con(position, absolute);
+    @include con(top, 0);
+    @include con(background-color, #313131);
+    @include con(cursor, $sp_value: pointer);
+    @include hover(true) {
+      &:hover .title {
+        @include con(width, $sp_value: 30px, $mid_value: #{30px});
       }
     }
 
+    &::before {
+      @include con(width, $sp_value: 5px, $mid_value: #{5px});
+      @include con(height, $sp_value: 100%);
+      @include con(pointer-events, $sp_value: none);
+      @include con(position, $sp_value: absolute);
+      @include con(top, $sp_value: 0);
+      @include con(right, $sp_value: 0);
+      @include con(z-index, $sp_value: 2);
+      @include con(content, initial, '');
+      @include con(background-color, $sp_value: $lemon);
+    }
+    &::after {
+      @include con(width, $sp_value: 300px, $mid_value: #{300px});
+      @include con(height, $sp_value: 100%);
+      @include con(position, $sp_value: absolute);
+      @include con(top, $sp_value: 0);
+      @include con(left, $sp_value: 100%);
+      @include con(z-index, $sp_value: 2);
+      @include con(content, initial, '');
+      @include con(background-color, $sp_value: $dark_gray);
+    }
+    &.opened {
+      @include con(width, $sp_value: 300px, $mid_value: #{300px});
+
+      .body {
+        @include con(transform, $sp_value: translateX(0%));
+      }
+    }
     .title {
       font-weight: 500;
 
-      @include max(font-size, #{17.5px}, $width: $res);
-
-      @include max(position, $sp_value: absolute, $width: $res);
-
-      @include max(align-items, $sp_value: center, $width: $res);
-
-      @include max(display, $sp_value: flex, $width: $res);
-
-      @include max(writing-mode, $sp_value: vertical-lr, $width: $res);
-
-      @include max(transition, $sp_value: width $common_anmt, $width: $res);
-
-      @include max(transform, $sp_value: translateY(-50%), $width: $res);
-
-      @include max(justify-content, $sp_value: center, $width: $res);
-
-      @include max(color, $sp_value: $dark_gray, $width: $res);
-
-      @include max(background-color, $sp_value: $lemon, $width: $res);
-
-      @include max(z-index, $sp_value: 2, $width: $res);
-
-      @media screen and (max-width: $res) {
-        width: 0;
-
-        @include max(
-          clip-path,
-          polygon(100% 0, 100% 100%, 0% 75%, 0 25%),
-          polygon(100% 0, 100% 100%, 0% 85%, 0 15%),
-          $res
-        );
-
-        @include max(right, #{4.5px}, 4.5px);
-
-        @include max(height, #{200px}, 200px);
-
-        @include max(font-size, #{18px}, 18px);
-      }
+      @include con(transition, $sp_value: width $common_anmt);
+      @include con(display, $sp_value: flex);
+      @include con(align-items, $sp_value: center);
+      @include con(justify-content, $sp_value: center);
+      @include con(width, $sp_value: 0);
+      @include con(height, $sp_value: 200px, $mid_value: #{200px});
+      @include con(clip-path, $sp_value: polygon(100% 0, 100% 100%, 0% 75%, 0 25%), $mid_value: polygon(100% 0, 100% 100%, 0% 85%, 0 15%));
+      @include con(position, $sp_value: absolute);
+      @include con(right, $sp_value: 4.5px, $mid_value: #{4.5px});
+      @include con(z-index, $sp_value: 2);
+      @include con(color, $sp_value: $dark_gray);
+      @include con(font-size, #{17.5px}, 18px, #{18px});
+      @include con(background-color, $sp_value: $lemon);
+      @include con(transform, $sp_value: translateY(-50%));
+      @include con(writing-mode, $sp_value: vertical-lr);
     }
     .body {
       display: flex;
       flex-direction: column;
 
-      @include max(margin-top, 20px, $width: $res);
+      @include con(transition, $sp_value: transform $common_anmt);
+      @include con(box-sizing, $sp_value: border-box);
+      @include con(width, $sp_value: 295px, $mid_value: #{295px});
+      @include con(margin, 20px 0 0 0, 0 5px 0 0, #{0 5px 0 0});
+      @include con(padding, $sp_value: 25px, $mid_value: #{25px});
+      @include con(overflow-x, $sp_value: visible);
+      @include con(overflow-y, $sp_value: scroll);
+      @include con(position, $sp_value: sticky);
+      @include con(top, $sp_value: 0);
+      @include con(z-index, $sp_value: 1);
+      @include con(background-color, $sp_value: #313131);
+      @include con(border-left, $sp_value: solid rgba(white, 0.4));
+      @include con(border-left-width, $sp_value: 5px, $mid_value: #{5px});
+      @include con(transform, $sp_value: translateX(45px));
+      @include con(row-gap, #{10px}, 10px);
+      @include con(
+        max-height,
+        $sp_value: diff(100vh, (20px + 75px + 20px + 20px)),
+        $mid_value: calc(100vh - 30px - 11px - 110px - 30px - 11px - 30px)
+      );
 
-      @include max(background-color, $sp_value: #313131, $width: $res);
-
-      @include max(box-sizing, $sp_value: border-box, $width: $res);
-
-      @include max(overflow-x, $sp_value: visible, $width: $res);
-
-      @include max(overflow-y, $sp_value: scroll, $width: $res);
-
-      @include max(position, $sp_value: sticky, $width: $res);
-
-      @include max(z-index, $sp_value: 1, $width: $res);
-
-      @include max(transition, $sp_value: all $common_anmt, $width: $res);
-
-      @include max(top, $sp_value: 0, $width: $res);
-
-      @include max(border-left, $sp_value: solid rgba(white, 0.4), $width: $res);
-
-      @include max(transform, $sp_value: translateX(45px), $width: $res);
-
-      @include max(row-gap, #{10px}, 10px);
-
-      @media screen and (max-width: $res) {
-        @include max(border-left-width, #{5px}, 5px);
-
-        @include max(margin-right, #{5px}, 5px);
-
-        @include max(max-height, calc(100vh - 30px - 11px - 110px - 30px - 11px - 30px));
-
-        @include diff(max-height, $sp_value: (20px + 75px + 20px + 20px), $from: 100vh);
-
-        @include max(width, #{295px}, 295px);
-
-        @include max(padding-left, #{25px}, 25px);
-
-        @include max(padding-right, #{25px}, 25px);
-
-        @include max(padding-top, #{25px}, 25px);
-
-        @include max(padding-bottom, #{25px}, 25px);
-      }
       li {
-        align-items: center;
-        color: rgba(white, 0.6);
-        cursor: pointer;
-        display: flex;
-        line-height: 1.4;
-        position: relative;
         transition: color $common_anmt;
-        user-select: none;
+        display: flex;
+        align-items: center;
         width: 100%;
+        user-select: none;
+        position: relative;
+        color: rgba(white, 0.6);
+        line-height: 1.4;
+        cursor: pointer;
 
         &._1 {
           font-weight: 500;
@@ -320,62 +204,48 @@
           @include max(font-size, #{14px}, 16px);
 
           &::before {
-            @include max(margin-left, #{2px}, 2px);
-
-            @include max(margin-right, #{12px}, 12px);
-
-            @include max(height, #{9px}, 9px);
-
             @include max(width, #{9px}, 9px);
+            @include max(height, #{9px}, 9px);
+            @include max(margin-left, #{2px}, 2px);
+            @include max(margin-right, #{12px}, 12px);
           }
         }
         &::before {
-          background-color: #6f6f6f;
-          box-sizing: border-box;
-          content: '';
+          transition: multi(background-clip background-color border padding border-width, ease-in-out 0.3s);
           display: block;
-          transform: rotate(-45deg);
-          transition: all ease-in-out 0.3s;
+          box-sizing: border-box;
           z-index: 1;
-
-          @include max(margin-top, #{2px}, 2px);
+          content: '';
+          background-color: #6f6f6f;
+          transform: rotate(-45deg);
 
           @include max(width, #{13px}, 13px);
-
           @include max(height, #{13px}, 13px);
+          @include max(margin-top, #{2px}, 2px);
         }
         &:not(:first-of-type)::after {
-          background-color: #6f6f6f;
-          bottom: 50%;
-          content: '';
+          width: 1px;
           height: 100%;
           height: 150%;
           position: absolute;
-          width: 1px;
+          bottom: 50%;
+          content: '';
+          background-color: #6f6f6f;
 
           @include max(left, #{6.2px}, 6.2px);
         }
         &.active {
-          color: white;
           pointer-events: none;
+          color: white;
+
           &::before {
-            background-clip: content-box;
             background-color: $lemon;
+            background-clip: content-box;
             border: solid darken($lemon, 20);
 
             @include max(padding, #{1px}, 1px);
-
             @include max(border-width, #{2px}, 2px);
           }
-        }
-      }
-    }
-    @media screen and (max-width: $res) {
-      &.opened {
-        @include max(width, #{300px}, 300px);
-
-        .body {
-          transform: translateX(0%);
         }
       }
     }
@@ -390,31 +260,23 @@
   }
   &.showed {
     .meta {
-      @media screen and (min-width: ($res + 1px)) {
-        &::before {
-          transition: width $common_anmt order(3);
-          width: 100%;
-        }
-        &::after {
-          transition: all $common_anmt order(4);
+      @include max(pointer-events, $sp_value: auto);
 
-          @include max(width, #{40px}, 40px);
-
-          @include max(height, #{40px}, 40px);
-        }
+      .inner {
+        @include con(transform, $sp_value: translateY(0));
       }
-      @media screen and (max-width: $res) {
-        pointer-events: auto;
-        .inner {
-          transform: translateY(0);
-        }
-        &::after {
-          height: 100%;
-        }
+      &::before {
+        @include con(transition, width $common_anmt order(3));
+        @include con(width, 100%);
+      }
+      &::after {
+        @include con(transition, multi(width height, $common_anmt order(4)));
+        @include con(width, #{40px}, $mid_value: 40px);
+        @include con(height, #{40px}, $mid_value: 40px);
       }
     }
     .toc {
-      @include max(transition, top $common_anmt order(2), width $common_anmt, $res);
+      @include max(transition, top $common_anmt order(2), width $common_anmt);
     }
   }
 }

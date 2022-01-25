@@ -1,8 +1,9 @@
 .entire {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 4;
+  transition: left $common_anmt order(1);
+  z-index: 0; // with LeMoN.module.scss
 
   @include max(left, -130vw, -1300px);
 
@@ -34,14 +35,12 @@
   &.mobile {
     @include max(left, 130vw, 700px);
   }
-  &:not(.home) {
-    transition: left $common_anmt;
+  [class*='mounted'] + header[class*='header_opened'] + main > &.home {
+    @include max(left, $sp_value: add(50%, 70px));
   }
   #{$mount} & {
     &.home {
       left: 50%;
-      transition: left $common_anmt entry_order(1);
-
       @media screen and (max-width: #{$f_sp + 0px}) {
         .cover {
           left: 33vw;
