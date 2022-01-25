@@ -3,6 +3,7 @@ import { useReducer, ChangeEvent, Dispatch } from 'react';
 
 function useForm<T>(
   initialState: T,
+  callBackFn?: () => void,
 ): [
   T,
   (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => Promise<void>,
@@ -17,6 +18,7 @@ function useForm<T>(
   }
   const [state, dispatch] = useReducer(reducer, initialState);
   async function asyncReducer(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): Promise<void> {
+    callBackFn && callBackFn();
     if ((e.target as HTMLInputElement).files) {
       const { name, files } = e.target as HTMLInputElement;
       const encodedFile = await encodeImg(files![0]);
