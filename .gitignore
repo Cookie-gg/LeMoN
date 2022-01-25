@@ -41,3 +41,6 @@ editor.md
 cypress/screenshots
 cypress/videos
 cypress/cypress.yml
+
+# local files
+*.local.*
