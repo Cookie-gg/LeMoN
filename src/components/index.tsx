@@ -38,4 +38,4 @@ export { default as ArticleTopics } from './ArticleTopics';
 export { default as DynamicWrapper } from './DynamicWrapper';
 export { default as PageTransition } from './PageTransition';
 // Editor
-export { default as Editor } from './editor';
+export { default as Editor } from './editor/index';
