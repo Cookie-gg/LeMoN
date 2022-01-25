@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios';
 import { Zenn } from 'types/common';
 
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
@@ -44,3 +45,23 @@ export const publicState = (data: Zenn[], authState?: boolean) =>
     if (authState || process.env.NODE_ENV === 'development') return value;
     else if (value.published) return value;
   });
+
+export const cookie = (arg?: string): { [key: string]: string } =>
+  arg ? Object.assign({}, ...arg.split('; ').map((q) => ({ [q.split('=')[0]]: q.split('=')[1] }))) : undefined;
+
+export async function auth<T = { token: string }, D = { username: string; password: string }>(
+  method: 'get' | 'post',
+  endpoint: string,
+  token?: string,
+  data?: D,
+): Promise<AxiosResponse<T>> {
+  if (method === 'get') {
+    return await axios.get<T>(`${process.env.NEXT_PUBLIC_MELON}${endpoint}`, {
+      headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
+    });
+  } else {
+    return await axios.post<T>(`${process.env.NEXT_PUBLIC_MELON}${endpoint}`, data, {
+      headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` },
+    });
+  }
+}
