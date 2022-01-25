@@ -1,6 +1,5 @@
 {
   "cSpell.enabled": false,
-  "csscomb.preset": "./.vscode/csscomb.json",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
@@ -9,5 +8,11 @@
   "files.exclude": {
     "**/.next": true,
     "**/next-env.d.ts": true
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
