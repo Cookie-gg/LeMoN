@@ -1,10 +1,13 @@
 .page {
-  align-items: center;
   display: flex;
+  align-items: center;
   justify-content: center;
+  height: 100%;
+
   @include max(height, 100%);
 
   .form {
+    @include max(max-width, #{375px}, 375px);
     @include max(margin-right, $sp_value: 8px);
     // @include max(margin-top, #{-80px});
     label:first-of-type {
@@ -20,40 +23,39 @@
     }
     h1 {
       display: grid;
-      font-style: italic;
-      font-weight: 700;
-      overflow: hidden;
-      place-items: center;
-      position: relative;
       width: 100%;
-
-      @include max(font-size, #{60px}, 60px);
+      overflow: hidden;
+      position: relative;
+      font-weight: 700;
+      font-style: italic;
+      place-items: center;
 
       @include max(margin-top, #{25px}, 25px);
+      @include max(font-size, #{60px}, 60px);
 
       span {
         transform: translateY(-4.5%);
       }
     }
     .divider {
-      align-items: center;
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      width: 100%;
       overflow: hidden;
       position: relative;
-      width: 100%;
 
       @include max(margin-top, #{25px}, 25px);
-
       @include max(font-size, #{20px}, 20px);
+
       &::before,
       &::after {
-        background-color: rgba(white, 0.25);
-        content: '';
         display: block;
+        width: 150px;
         height: 1px;
         position: relative;
-        width: 150px;
+        content: '';
+        background-color: rgba(white, 0.25);
       }
     }
   }
