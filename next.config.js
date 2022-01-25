@@ -48,7 +48,7 @@ const nextConfig = {
           },
           {
             // appoint content type
-            key: 'X-Content-Type-Options',
+            key: 'X-Content-Type-Options',  
             value: 'nosniff',
           },
           {
