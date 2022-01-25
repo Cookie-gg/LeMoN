@@ -4,7 +4,7 @@ import { useRouter } from 'utils/next';
 import { useAgent, useWindowDimensions } from 'hooks';
 import memoryCache, { CacheClass } from 'memory-cache';
 import styles from '../assets/scss/components/MainFrame.module.scss';
-import { createContext, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
+import { createContext, ReactElement, RefObject, useEffect, useRef } from 'react';
 
 export const scrollTopCashe: CacheClass<string, number> = new memoryCache.Cache();
 
@@ -17,8 +17,8 @@ export default function MainFrame({
   auth: { state: boolean; logout: () => Promise<void> };
   children: ReactElement;
 }) {
-  // const isMobile = useAgent('mobile');
-  // const { height } = useWindowDimensions();
+  const isMobile = useAgent('mobile');
+  const { height } = useWindowDimensions();
   const router = useRouter();
   const ios = useAgent('iphone');
   const scroller = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export default function MainFrame({
     <ScrollerContext.Provider value={scroller}>
       <main
         className={`${styles.entire} ${ios && styles.ios} ${router.pathname === '/' && styles.home}`}
-        // style={{ height: isMobile && height ? `${height}px` : undefined }}
+        style={{ height: isMobile && height ? `${height}px` : undefined }}
         ref={scroller}
       >
         {router.pathname !== '/' && auth.state && <AuthButton logout={() => auth.logout()} />}
