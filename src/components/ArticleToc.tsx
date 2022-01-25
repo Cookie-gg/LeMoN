@@ -73,7 +73,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
       // onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
       onClick={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
     >
-      <div className={`${styles.meta} ${styles.meta}`} ref={_height}>
+      <div className={`${styles.meta} ${ios && styles.ios}`} ref={_height}>
         {window.width < 1200 ? (
           <div className={styles.inner}>
             <EmojiSvg unicode={encodeEmoji(meta.emoji)} className={styles.emoji} />
