@@ -1,9 +1,10 @@
 import { memo } from 'react';
 import nookies from 'nookies';
-import { Editor, PageFrame } from 'components';
+import { PageFrame } from 'components';
+import Editor from 'components/editor';
+import { auth, cookie } from 'utils/common';
 import { GetServerSideProps, Head } from 'utils/next';
 import styles from '../../assets/scss/pages/Edit.module.scss';
-import { auth, cookie } from 'utils/common';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   try {

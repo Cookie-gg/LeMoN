@@ -37,6 +37,3 @@ export { default as ArticleList } from './ArticleList';
 export { default as ArticleTopics } from './ArticleTopics';
 export { default as DynamicWrapper } from './DynamicWrapper';
 export { default as PageTransition } from './PageTransition';
-// Editor
-import Editor from './editor';
-export { Editor };
