@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import nookies from 'nookies';
-import Editor from 'components/editor';
-import { PageFrame } from 'components';
+import { Editor, PageFrame } from 'components';
 import { client } from 'graphql/config.gql';
 import { auth, cookie } from 'utils/common';
 import { Zenn, ZennAdds } from 'types/common';

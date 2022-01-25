@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import nookies from 'nookies';
-import { PageFrame } from 'components';
-import Editor from 'components/editor';
+import { Editor, PageFrame } from 'components';
 import { auth, cookie } from 'utils/common';
 import { GetServerSideProps, Head } from 'utils/next';
 import styles from '../../assets/scss/pages/Edit.module.scss';
