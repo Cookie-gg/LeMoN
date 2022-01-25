@@ -82,7 +82,6 @@
   &::after {
     transition: opacity 0s entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
       left $common_anmt;
-    transition: left $common_anmt;
     content: '';
     border-bottom: 1px solid $lemon;
     border-left: 1px solid $lemon;
