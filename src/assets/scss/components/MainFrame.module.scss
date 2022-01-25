@@ -15,14 +15,6 @@
     width: 100%;
     height: 100vh;
     pointer-events: none;
-
-    &::before {
-      transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
-    }
-    &::after {
-      transition: opacity 0s entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
-        left $common_anmt;
-    }
   }
   &:not(.home) {
     @include max(width, calc(100% - (30px + 11px + 30px) - (30px - 8px + 30px + 11px)));
@@ -35,8 +27,8 @@
     );
     @include max(
       height,
-      calc(100% - (30px + 11px + 110px) - (30px + 11px + 30px)),
-      diff(100%, (20px + 75px + 20px + 20px))
+      calc(100vh - (30px + 11px + 110px) - (30px + 11px + 30px)),
+      diff(100vh, (20px + 75px + 20px + 20px))
     );
 
     &.ios {
@@ -79,7 +71,7 @@
     z-index: 0; // with PageTransition
   }
   &::before {
-    transition: right $common_anmt;
+    transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
     content: '';
     border-top: 1px solid $lemon;
     border-right: 1px solid $lemon;
@@ -88,6 +80,8 @@
     @include max(bottom, #{30px}, 20px);
   }
   &::after {
+    transition: opacity 0s entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4),
+      left $common_anmt;
     transition: left $common_anmt;
     content: '';
     border-bottom: 1px solid $lemon;
