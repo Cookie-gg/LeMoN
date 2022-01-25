@@ -39,6 +39,16 @@
         visibility: visible;
         opacity: 1;
       }
+      .visible {
+        transition: all $common_anmt order(2);
+        visibility: visible;
+        opacity: 1;
+      }
+      .hidden {
+        transition: all $common_anmt order(1);
+        visibility: hidden;
+        opacity: 0;
+      }
     }
   }
 }
