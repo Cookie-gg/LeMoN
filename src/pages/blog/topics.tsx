@@ -20,14 +20,14 @@ function Page({ data, auth }: { data: BlogQueryType<'topics'>; auth: { state: bo
   };
   return (
     <>
-      <HeadMeta title={topics.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${topics.title}`}>
+      <HeadMeta title={topics.title}>
         <link
           rel="stylesheet"
           type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
         />
       </HeadMeta>
-      <PageFrame classNmae={styles.page}>
+      <PageFrame className={styles.page}>
         <>
           <Heading text={topics.all.title} rank={1} className={styles.heading} />
           {data.all.map((topic, i) => (
@@ -35,6 +35,7 @@ function Page({ data, auth }: { data: BlogQueryType<'topics'>; auth: { state: bo
               <ArticleList
                 id={topic.name.toLowerCase()}
                 slider
+                vertical
                 data={publicState(topic.articles, auth.state)}
                 className={styles.articles}
                 shiftList={
