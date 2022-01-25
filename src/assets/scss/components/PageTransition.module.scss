@@ -3,7 +3,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   transition: left $common_anmt order(1);
-  z-index: 1; // with LeMoN.module.scss
+  z-index: 0; // with LeMoN.module.scss
 
   @include max(left, -130vw, -1300px);
 
