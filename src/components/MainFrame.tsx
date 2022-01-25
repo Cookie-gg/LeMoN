@@ -35,7 +35,7 @@ export default function MainFrame({
     <ScrollerContext.Provider value={scroller}>
       <main
         className={`${styles.entire} ${ios && styles.ios} ${router.pathname === '/' && styles.home}`}
-        style={{ height: isMobile && height ? `${height}px` : undefined }}
+        style={{ height: router.pathname === '/' && isMobile && height ? `${height}px` : undefined }}
         ref={scroller}
       >
         {router.pathname !== '/' && auth.state && <AuthButton logout={() => auth.logout()} />}
