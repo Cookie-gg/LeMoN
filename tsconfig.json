@@ -24,7 +24,8 @@
     "types": [
       "cypress",
       "@testing-library/cypress",
-      "cypress-wait-until"
+      "cypress-wait-until",
+      "youtube"
     ],
     "incremental": true
   },
@@ -36,6 +37,6 @@
     "**/*.ts",
     "**/*.tsx",
     "next.config.js",
-    "./node_modules/cypress"
+    "./node_modules/cypress",
   ]
 }
