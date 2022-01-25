@@ -25,16 +25,27 @@
     @include con(left, $sp_value: (20px + 20px), $mid_value: #{30px + 11px + 30px});
     @include con(z-index, -1, 2);
     @include con(background-color, rgba(white, 0.04));
-    @include con(
-      width,
-      100%,
-      diff(100%, (20px + 20px + 20px + 20px)),
-      calc(100% - (30px + 11px + 30px) - (30px + 30px + 11px))
-    );
 
+    &.ios {
+      @include con(
+        width,
+        100%,
+        diff(100%, (20px + 20px + 20px + 20px)),
+        calc(100% - (30px + 11px + 30px - 8px) - (30px + 30px + 11px))
+      );
+    }
+    &:not(.ios) {
+      @include con(
+        width,
+        100%,
+        diff(100%, (20px + 20px + 20px + 20px)),
+        calc(100% - (30px + 11px + 30px) - (30px + 30px + 11px))
+      );
+    }
     .inner {
       @include con(transition, $sp_value: transform $common_anmt);
       @include con(display, $sp_value: flex);
+      @include con(box-sizing, $sp_value: border-box);
       @include con(width, $sp_value: 100%);
       @include con(padding, $sp_value: 10px, $mid_value: #{10px});
       @include con(position, $sp_value: relative);
@@ -143,7 +154,6 @@
       @include con(justify-content, $sp_value: center);
       @include con(width, $sp_value: 0);
       @include con(height, $sp_value: 200px, $mid_value: #{200px});
-      @include con(clip-path, $sp_value: polygon(100% 0, 100% 100%, 0% 75%, 0 25%), $mid_value: polygon(100% 0, 100% 100%, 0% 85%, 0 15%));
       @include con(position, $sp_value: absolute);
       @include con(right, $sp_value: 4.5px, $mid_value: #{4.5px});
       @include con(z-index, $sp_value: 2);
@@ -151,6 +161,11 @@
       @include con(font-size, #{17.5px}, 18px, #{18px});
       @include con(background-color, $sp_value: $lemon);
       @include con(transform, $sp_value: translateY(-50%));
+      @include con(
+        clip-path,
+        $sp_value: polygon(100% 0, 100% 100%, 0% 75%, 0 25%),
+        $mid_value: polygon(100% 0, 100% 100%, 0% 85%, 0 15%)
+      );
       @include con(writing-mode, $sp_value: vertical-lr);
     }
     .body {

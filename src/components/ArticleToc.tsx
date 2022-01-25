@@ -29,6 +29,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   const [cursorY, _cursorY] = useState(0);
   const initTransition = useFirstPeriod(0);
   const tocRef = useRef<HTMLDivElement>(null);
+  const ios = useAgent('iphone');
   const scroller = useContext(ScrollerContext);
   const [isOpened, _isOpened] = useState(false);
   const [height, _height] = useHeight<HTMLDivElement>();
@@ -72,7 +73,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
       // onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
       onClick={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
     >
-      <div className={styles.meta} ref={_height}>
+      <div className={`${styles.meta} ${styles.meta}`} ref={_height}>
         {window.width < 1200 ? (
           <div className={styles.inner}>
             <EmojiSvg unicode={encodeEmoji(meta.emoji)} className={styles.emoji} />
@@ -114,7 +115,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
                     ? `${height + window.width * 0.05}px`
                     : `${height + 25}px`
                   : undefined,
-              height: isMobile
+              maxHeight: isMobile
                 ? window.width < 500
                   ? window.height - window.width * 0.27
                   : window.height - 20 - 75 - 20 - 20
