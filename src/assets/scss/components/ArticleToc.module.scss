@@ -45,6 +45,7 @@
     .inner {
       @include con(transition, $sp_value: transform $common_anmt);
       @include con(display, $sp_value: flex);
+      @include con(align-items, $sp_value: center);
       @include con(box-sizing, $sp_value: border-box);
       @include con(width, $sp_value: 100%);
       @include con(padding, $sp_value: 10px, $mid_value: #{10px});
