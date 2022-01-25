@@ -22,7 +22,11 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap"
           />
-
+          {/* katex */}
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+          />
           {/* icon */}
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
@@ -37,11 +41,11 @@ class MyDocument extends Document {
           <meta name="msapplication-wide310x150logo" content="/site-tile-310x150.png" />
           <meta name="msapplication-square310x310logo" content="/site-tile-310x310.png" />
           <meta name="msapplication-TileColor" content="#ffd500" />
-
           {/* meta */}
           <meta name="theme-color" content="#ffd500" />
           <meta name="application-name" content="LeMoN" />
           <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="lemon:image" content="/site-icon.png" />
           {/* meta/ogp */}
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content="LeMoN" />
