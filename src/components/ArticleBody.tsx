@@ -1,4 +1,4 @@
-import { Widgets } from 'widgets';
+import { Scripts, Widgets } from 'widgets';
 import { useRouter } from 'utils/next';
 import { ScrollerContext } from './MainFrame';
 import parse, { Element } from 'html-react-parser';
@@ -43,6 +43,7 @@ function ArticleBody({ html, _activeSection, headingTexts, className }: PropsTyp
   return (
     <>
       <div className={`${styles.inner} ${markdwon.entire} ${className}`}>
+        <Scripts />
         {parse(html, {
           replace: (domNode) => {
             if (domNode instanceof Element) {

@@ -13,7 +13,7 @@
     "build": "next build && build-storybook -o public/_storybook",
     "start": "next start",
     "lint": "next lint",
-    "format": "npx prettier --with-node-modules",
+    "format": "npx prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"src/**/*.scss\"",
     "del": "npx rimarf .next",
     "vercel": "vercel dev -l 1111",
     "generate": "graphql-codegen --config codegen.yml",

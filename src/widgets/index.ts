@@ -7,6 +7,7 @@ import Githubgist from './GithubGist';
 import Speakerdeck from './SpeakerDeck';
 import Stackblitz from './StackBlitz';
 import SlideShare from './SlideShare';
+export { default as Scripts } from './Scripts';
 import { NamedExoticComponent } from 'react';
 import { Element } from 'html-react-parser';
 

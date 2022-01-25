@@ -1,4 +1,4 @@
-import { Widgets } from 'widgets';
+import { Scripts, Widgets } from 'widgets';
 import { isText } from 'domhandler';
 import { Mermaid } from 'components';
 import type { MonacoEditorType } from 'types/common';
@@ -24,6 +24,7 @@ function Preview({ editor, html }: { editor: MonacoEditorType; html: string }) {
         e;
       }}
     >
+      <Scripts />
       {parse(html, {
         replace: (domNode) => {
           if (domNode instanceof Element) {
