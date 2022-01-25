@@ -1,5 +1,5 @@
-import axios from 'axios';
 import nookies from 'nookies';
+import { auth } from 'utils/common';
 import { useRouter } from 'utils/next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -15,9 +15,7 @@ export default function useAuth(): [
     intervalRef.current = setInterval(async () => {
       try {
         const token = nookies.get(null, 'token')['token'];
-        const res = await axios.get<{ token: string }>(`${process.env.NEXT_PUBLIC_MELON}/refresh`, {
-          headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
-        });
+        const res = await auth('get', '/refresh', token);
         console.log('refreshed!');
         _state(true);
         nookies.set(null, 'token', res.data.token);
@@ -31,11 +29,7 @@ export default function useAuth(): [
   const login = useCallback(
     async (name: string, password: string) => {
       try {
-        const res = await axios.post<{ token: string }>(
-          `${process.env.NEXT_PUBLIC_MELON}/login`,
-          { username: name, password: password },
-          { headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` } },
-        );
+        const res = await auth('post', '/login', undefined, { username: name, password: password });
         _state(true);
         nookies.set(null, 'token', res.data.token);
         refresh();
@@ -47,36 +41,40 @@ export default function useAuth(): [
     [router, refresh],
   );
   const logout = useCallback(async () => {
-    const logoutEvent = () => {
+    try {
+      const token = nookies.get(null, 'token')['token'];
+      await auth('get', '/logout', token);
+      router.push('/login');
+    } catch {
+    } finally {
       _state(false);
       nookies.destroy(null, 'token');
       intervalRef.current && clearInterval(intervalRef.current);
-    };
-    try {
-      await axios.get(`${process.env.NEXT_PUBLIC_MELON}/logout`, {
-        headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}` },
-      });
-      logoutEvent();
-      router.push('/login');
-    } catch {
-      logoutEvent();
     }
   }, [router]);
   useEffect(() => {
-    (async () => {
-      try {
-        const token = nookies.get(null, 'token')['token'];
-        await axios.get(`${process.env.NEXT_PUBLIC_MELON}/status`, {
-          headers: { key: `${process.env.NEXT_PUBLIC_AUTH_KEY}`, authorization: `bearer ${token}` },
-        });
-        _state(true);
-        refresh();
-      } catch {
-        _state(false);
-        nookies.destroy(null, 'token');
-        intervalRef.current && clearTimeout(intervalRef.current);
-      }
-    })();
+    const token = nookies.get(null, 'token')['token'];
+    if (token) {
+      (async () => {
+        try {
+          const res = await auth('get', '/refresh', token);
+          _state(true);
+          nookies.set(null, 'token', res.data.token);
+          refresh();
+        } catch {
+          const res = await auth('get', '/deliver', token);
+          if (res.data.token) {
+            _state(true);
+            nookies.set(null, 'token', res.data.token);
+            refresh();
+          } else {
+            _state(false);
+            nookies.destroy(null, 'token');
+            intervalRef.current && clearTimeout(intervalRef.current);
+          }
+        }
+      })();
+    }
   }, [refresh]);
   return [state, login, logout];
 }
