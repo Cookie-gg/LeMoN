@@ -3,7 +3,7 @@ import { memo, MouseEvent, useCallback, useContext, useEffect, useRef, useState 
 import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
 import { useSwipeable } from 'react-swipeable';
-import { ScrollerContext } from './PageFrame';
+import { ScrollerContext } from './MainFrame';
 import EmojiSvg from './EmojiSvg';
 import { encodeEmoji } from 'utils/common';
 
@@ -21,8 +21,8 @@ interface PropsType {
 }
 
 function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
-  const paddingTop = 30 + 11 + 110; // value from scss/components/PageFrame.module.scss
-  const paddingBottom = 30 + 11 + 30; // value from scss/components/PageFrame.module.scss
+  const paddingTop = 30 + 11 + 110; // value from scss/components/MainFrame.module.scss
+  const paddingBottom = 30 + 11 + 30; // value from scss/components/MainFrame.module.scss
   const window = useWindowDimensions() as { width: number; height: number };
   const isMobile = useAgent('mobile');
   const id = `${useRouter().query.id}`;

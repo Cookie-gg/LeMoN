@@ -14,7 +14,7 @@ function Header() {
     { name: 'Blog', path: '/blog', icon: 'fa-solid:newspaper' },
     { name: 'Contact', path: '/contact', icon: 'fa-solid:envelope' },
   ];
-  const pathname = useRouter().pathname;
+  const { pathname } = useRouter();
   const [isClosing, _isClosing] = usePeriod(false);
   const [headerState, _headerState] = useState<'close' | 'open' | 'expand'>('close');
   const initTransition = useFirstPeriod(0);
@@ -44,9 +44,10 @@ function Header() {
       )}
       <button
         data-id="header"
-        className={`${pathname !== '/' && initTransition && styles.init} ${stateClass(styles.opened, styles.expanded)} ${
-          isClosing && styles.closing
-        }`}
+        className={`${pathname !== '/' && initTransition && styles.init} ${stateClass(
+          styles.opened,
+          styles.expanded,
+        )} ${isClosing && styles.closing}`}
         onClick={() => {
           !(window.innerWidth < 820) && (headerState === 'expand' || headerState === 'open') && _isClosing(true, 950);
           _headerState((prev) => (prev === 'open' || prev === 'expand' ? 'close' : 'open'));

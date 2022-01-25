@@ -1,6 +1,6 @@
 import { EmojiSvg, Nlink } from 'components';
 import { Zenn } from 'types/common';
-import { memo, ReactElement } from 'react';
+import { cloneElement, memo, ReactElement } from 'react';
 import { displayDate, encodeEmoji } from 'utils/common';
 import styles from '../assets/scss/components/ArticleList.module.scss';
 import Slider, { Settings } from 'react-slick';
@@ -75,9 +75,9 @@ function ArticleList({
         } ${className}`}
         id={id}
       >
-        {shiftList}
+        {shiftList && cloneElement(shiftList, { className: `${shiftList.props.className} ${styles.received}` })}
         {slider && data.length > 2 ? <Slider {...settings}>{listBody}</Slider> : listBody}
-        {pushList}
+        {pushList && cloneElement(pushList, { className: `${pushList.props.className} ${styles.received}` })}
       </ul>
     </>
   );

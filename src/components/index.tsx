@@ -4,7 +4,6 @@ export { default as Skills } from './Skills';
 export { default as NamePlate } from './NamePlate';
 export { default as MainFrame } from './MainFrame';
 export { default as Paragraph } from './Paragraph';
-export { default as PageFrame } from './PageFrame';
 export { default as PhraseTypo } from './PhraseTypo';
 export { default as ProfileInfo } from './ProfileInfo';
 export { default as ProgressBar } from './ProgressBar';
@@ -17,8 +16,10 @@ export { default as Button } from './Button';
 export { default as Loading } from './Loading';
 export { default as DataRes } from './DataRes';
 export { default as Heading } from './Heading';
+export { default as Mermaid } from './Mermaid';
 export { default as HeadMeta } from './HeadMeta';
 export { default as EmojiSvg } from './EmojiSvg';
+export { default as PageFrame } from './PageFrame';
 export { default as FormInput } from './FormInput';
 export { default as FormLabel } from './FormLabel';
 export { default as FormFrame } from './FormFrame';
@@ -36,5 +37,5 @@ export { default as ArticleList } from './ArticleList';
 export { default as ArticleTopics } from './ArticleTopics';
 export { default as DynamicWrapper } from './DynamicWrapper';
 export { default as PageTransition } from './PageTransition';
-
-export { default as Editor } from './Editor';
+// Editor
+export { default as Editor } from './editor';

@@ -4,9 +4,9 @@ import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/EditButton.module.scss';
 import Nlink from './Nlink';
 
-function EditButton({ articleId }: { articleId: string }) {
+function EditButton({ articleId, className }: { articleId: string; className?: string }) {
   return (
-    <div className={styles.entire}>
+    <div className={`${styles.entire} ${className}`}>
       <Nlink href="/edit/[...id]" as={`/edit/${articleId}`}>
         <button className={styles.editor}>
           <Iconify fr={''} icon="ic:round-edit-note" />

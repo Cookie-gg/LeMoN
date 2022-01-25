@@ -1,6 +1,6 @@
-import { memo, ReactElement } from 'react';
 import { Link } from 'utils/next';
-import { scrollTopCashe } from './PageFrame';
+import { memo, ReactElement } from 'react';
+import { scrollTopCashe } from './MainFrame';
 
 function Nlink({ href, as, title, children }: { href: string; as?: string; title?: string; children?: ReactElement }) {
   return (

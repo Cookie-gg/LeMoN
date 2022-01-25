@@ -12,7 +12,7 @@ function Heading({ rank, text, className, id }: PropsType) {
   const Tag = `h${rank}` as ElementType;
   return (
     <Tag className={`${styles.entire} ${className}`} id={id}>
-      <span>{text}</span>
+      {text}
     </Tag>
   );
 }

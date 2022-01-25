@@ -18,7 +18,7 @@ function HeadMeta({ title, description, ogImage, children }: PropsType) {
       <meta property="og:url" content={`https://cookie-gg.vercel.app${asPath}`} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description ? description : `${title} page of Cookie_gg's Portfolio`} />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={ogImage || `${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${title}`} />
       <meta name="twitter:description" content={description ? description : `${title} page of Cookie_gg's Portfolio`} />
       {children}
     </Head>
