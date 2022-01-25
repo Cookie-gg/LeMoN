@@ -2,7 +2,7 @@
   display: flex;
   box-sizing: border-box;
   position: fixed;
-  z-index: 0; // with MainFrame.module.scss
+  z-index: 1; // with MainFrame.module.scss
 
   @include max(top, #{30px + 11px}, 20px + 19px);
   @include max(left, #{30px + 11px}, 20px + 19px);
