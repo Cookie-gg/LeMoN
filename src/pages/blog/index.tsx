@@ -16,8 +16,8 @@ function Page({ data, auth }: { data: BlogQueryType<'index'>; auth: { state: boo
   const [getMore, { loading }] = useFindMoreArticlesLazyQuery();
   return (
     <>
-      <HeadMeta title={blog.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${blog.title}`} />
-      <PageFrame classNmae={styles.page}>
+      <HeadMeta title={blog.title} />
+      <PageFrame className={styles.page}>
         <>
           <Heading className={styles.heading} rank={1} text={blog.latest.title} />
           <ArticleList className={styles.articles} data={filteredArticles.slice(0, 4)} vertical />
