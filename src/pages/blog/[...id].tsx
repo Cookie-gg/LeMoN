@@ -22,12 +22,11 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
   data = JSON.parse(String(data));
   const [activeSection, _activeSection] = useState(0);
   useEffect(() => _activeSection(0), [router.query.id]);
+
   return (
     <>
-      <HeadMeta title={data.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/article/${data.title}`}>
-        <link rel="pagesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" />
-      </HeadMeta>
-      <PageFrame classNmae={styles.post}>
+      <HeadMeta title={data.title} />
+      <PageFrame className={styles.post}>
         <>
           <ArticleMeta
             emoji={data.emoji}
@@ -36,37 +35,25 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
             releaseDate={data.releaseDate}
             updateDate={data.updateDate}
           />
+          {auth.state && <EditButton articleId={data.articleId} className={styles.edit} />}
           <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} className={styles.topics} inArticle />
           <div className={styles.contents}>
-            <main>
-              <ArticleBody
-                html={data.html}
-                headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
-                _activeSection={(n: number) => _activeSection(n)}
-              >
-                <ArticleToc
-                  meta={{ title: data.title, emoji: data.emoji }}
-                  activeSection={activeSection}
-                  headings={data.headings}
-                />
-              </ArticleBody>
-              <Heading rank={2} text={post.relations.title} className={styles.heading} />
-              <ArticleList
-                vertical
-                className={styles.relations}
-                data={publicState(data.relations.articles, auth.state)}
-              />
-            </main>
-            <aside>
-              {auth.state && <EditButton articleId={data.articleId} />}
-              <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} inArticle />
-              <ArticleToc
-                meta={{ title: data.title, emoji: data.emoji }}
-                activeSection={activeSection}
-                headings={data.headings}
-                className={styles.toc}
-              />
-            </aside>
+            <ArticleToc
+              meta={{ title: data.title, emoji: data.emoji }}
+              activeSection={activeSection}
+              headings={data.headings}
+              className={styles.toc}
+            />
+            <ArticleBody
+              html={data.html}
+              headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
+              _activeSection={(n: number) => _activeSection(n)}
+              className={styles.body}
+            />
+          </div>
+          <div className={styles.relations}>
+            <Heading rank={2} text={post.relations.title} className={styles.heading} />
+            <ArticleList vertical className={styles.articles} data={publicState(data.relations.articles, auth.state)} />
           </div>
         </>
       </PageFrame>

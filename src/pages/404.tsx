@@ -1,18 +1,20 @@
-import { Button, HeadMeta } from 'components';
 import { Link } from 'utils/next';
+import { Button, HeadMeta } from 'components';
 import styles from '../assets/scss/pages/404.module.scss';
-import error from 'assets/json/404.json';
+
 function Page() {
   return (
     <>
-      <HeadMeta title={error.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${error.title}`} />
-      <h1 className={styles.title}>{error.title}</h1>
-      <p className={styles.caution}>{error.messgae}</p>
-      <Button className={styles.button}>
-        <Link href="/">
-          <a>ホームへ戻る</a>
-        </Link>
-      </Button>
+      <HeadMeta title="404" />
+      <div className={styles.entire}>
+        <h1 className={styles.title}>404</h1>
+        <p className={styles.caution}>お探しのページは見つかりませんでした。</p>
+        <Button className={styles.button}>
+          <Link href="/">
+            <a>ホームへ戻る</a>
+          </Link>
+        </Button>
+      </div>
     </>
   );
 }

@@ -49,8 +49,8 @@ export default function Page() {
   };
   return (
     <>
-      <HeadMeta title={contact.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${contact.title}`} />
-      <PageFrame classNmae={styles.page}>
+      <HeadMeta title={contact.title} />
+      <PageFrame className={styles.page}>
         <>
           <div className={styles.text_wrapper}>
             <Heading rank={2} text={contact.form.title} className={styles.heading} />

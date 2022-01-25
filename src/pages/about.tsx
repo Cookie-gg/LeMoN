@@ -8,10 +8,10 @@ import { Heading, Paragraph, NamePlate, ProfileInfo, ImageFrame, PageFrame, Skil
 function Page() {
   return (
     <>
-      <HeadMeta title={about.title} ogImage={`${process.env.NEXT_PUBLIC_OG_IMAGE}/page/${about.title}`} />
-      <PageFrame classNmae={styles.page}>
+      <HeadMeta title={about.title} />
+      <PageFrame className={styles.page}>
         <>
-          <div className={styles.profile}>
+          <section className={styles.profile}>
             <div className={styles.text_wrapper}>
               <Heading rank={1} text={about.profile.title} className={styles.heading} />
               <NamePlate className={styles.title} />
@@ -27,10 +27,10 @@ function Page() {
                 priority
               />
             </ImageFrame>
-          </div>
-          <div className={styles.skills}>
+          </section>
+          <section className={styles.skills}>
             <Skills data={about.skills} />
-          </div>
+          </section>
         </>
       </PageFrame>
     </>
