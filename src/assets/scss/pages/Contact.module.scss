@@ -1,6 +1,6 @@
 .page {
   display: flex;
-  overflow: hidden;
+  overflow-x: hidden;
 
   @include max(flex-direction, $sp_value: column);
 
