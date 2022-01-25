@@ -18,14 +18,14 @@
       "contents": [
         { "title": "Dev Tools", "list": ["Visual Studio Code"] },
         {
-          "title": "Languages I can use",
+          "title": "Skills",
           "list": [
-            "HTML5 / CSS3 / SCSS",
+            "HTML / CSS3 / SCSS",
             "JavaScript / TypeScript",
             "Webpack",
-            "React / Next.js",
-            "Vue.js / Nuxt.js",
-            "Wordpress"
+            "React ‐ Next.js / Vue.js - NuxtJS",
+            "Apollo - Graphql / Storybook",
+            "PHP - WordPress"
           ]
         }
       ]
@@ -33,19 +33,16 @@
     {
       "icon": "teenyicons:servers-outline",
       "title": "Back-end",
-      "explanation": "よりフロント側で加工しやすいようなデータ設計、またレスポンスの早いAPI設計を常に心がけています。",
+      "explanation": "よりフロント側で加工しやすいデータ設計、またレスポンスの早いAPI設計を常に心がけています。",
       "contents": [
         { "title": "Dev Tools", "list": ["Visual Studio Code"] },
         {
-          "title": "Languages I can use",
-          "list": [
-            "JavaScript / TypeScript",
-            "Node.js / Express.js",
-            "Nest.js",
-            "MongoDB",
-            "GraphQL",
-            "Google Apps Script"
-          ]
+          "title": "Languages",
+          "list": ["Node.js / Express.js / Nest.js", "GraphQL"]
+        },
+        {
+          "title": "Clouds",
+          "list": ["MongoDB Atlas", "Google Cloud Platform"]
         }
       ]
     },
@@ -55,7 +52,7 @@
       "explanation": "下記のツールの基本的操作のほかに、自作PCで得た多くのWindowsPCについての知識を保有しております。BIOS設定なども行えます。",
       "contents": [
         {
-          "title": "Dev Tools",
+          "title": "Tools",
           "list": [
             "PowerPoint / Word / Excel",
             "Photoshop",
