@@ -1,39 +1,38 @@
 .entire {
+  transition: left $common_anmt order(1);
   position: fixed;
   top: 50%;
-  transform: translate(-50%, -50%);
-  transition: left $common_anmt order(1);
   z-index: 2; // with LeMoN.module.scss
+  transform: translate(-50%, -50%);
 
   @include max(left, -130vw, -1300px);
+  @include media(mobile) {
+    @include max(left, 130vw, 700px);
+  }
 
   .cover {
-    background-color: $lemon;
-    left: 167.5px;
     overflow: hidden;
+    user-select: none;
     position: absolute;
+    left: 167.5px;
+    background-color: $lemon;
     transform: translateY(-50%) rotate(30deg);
     transform-origin: 0% 50%;
-    user-select: none;
-
-    @include max(height, calc(200vh + 200vw), 200vh);
 
     @include max(width, 55.5vw, 500px);
+    @include max(height, calc(200vh + 200vw), 200vh);
 
     span {
       display: block;
-      font-size: 700px;
-      font-style: italic;
-      font-weight: 700;
-      left: -925px;
-      opacity: 0.3;
       position: absolute;
       top: 50%;
+      left: -925px;
+      font-weight: 700;
+      font-size: 700px;
+      font-style: italic;
       transform: rotate(-90deg);
+      opacity: 0.3;
     }
-  }
-  &.mobile {
-    @include max(left, 130vw, 700px);
   }
   [class*='mounted'] + header[class*='header_opened'] + main > &.home {
     @include max(left, $sp_value: add(50%, 70px));
@@ -41,6 +40,7 @@
   #{$mount} & {
     &.home {
       left: 50%;
+
       @media screen and (max-width: #{$f_sp + 0px}) {
         .cover {
           left: 33vw;

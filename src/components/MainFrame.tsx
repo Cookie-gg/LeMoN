@@ -41,6 +41,7 @@ export default function MainFrame({
         {router.pathname !== '/' && auth.state && <AuthButton logout={() => auth.logout()} />}
         <PageTransition />
         {children}
+        <div className={styles.wire} />
       </main>
     </ScrollerContext.Provider>
   );
