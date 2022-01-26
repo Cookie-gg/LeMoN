@@ -13,7 +13,7 @@
     top: 0;
     left: 0;
 
-    @include max(width, $sp_value: diff(11px, 20px + 20px));
+    @include max(width, $sp_value: add(11px, 20px + 20px));
 
     &.opened {
       right: 0;
