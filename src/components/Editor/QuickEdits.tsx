@@ -1,10 +1,11 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Icon as Iconify } from '@iconify/react';
 import type { MonacoEditorType } from 'types/common';
 import styles from '../../assets/scss/components/editor/QuickEdits.module.scss';
+import { upload } from 'utils/common';
 
 function QuickEdits({ editor }: { editor: MonacoEditorType }) {
-  const quickEdits = [
+  const quickEdits: { icon: string; title: string; text: string; newLine: boolean; needUpload?: boolean }[] = [
     { icon: 'gridicons:heading-h1', title: '見出し1', text: '# ', newLine: true },
     { icon: 'gridicons:heading-h2', title: '見出し2', text: '## ', newLine: true },
     { icon: 'gridicons:heading-h3', title: '見出し3', text: '### ', newLine: true },
@@ -28,6 +29,13 @@ function QuickEdits({ editor }: { editor: MonacoEditorType }) {
     },
     { icon: 'jam:id-card-f', title: 'リンクカード', text: '\nhttps://cookie-gg.vercel.app/', newLine: true },
     { icon: 'ic:baseline-image', title: '画像', text: '![altテキスト](https://画像のURL)', newLine: true },
+    {
+      icon: 'mdi:image-plus',
+      title: '画像 (アップロード)',
+      text: '![altテキスト](https://画像のURL)',
+      newLine: true,
+      needUpload: true,
+    },
     {
       icon: 'mdi:image-size-select-large',
       title: '画像 (サイズ設定あり)',
@@ -97,37 +105,47 @@ function QuickEdits({ editor }: { editor: MonacoEditorType }) {
       newLine: true,
     },
   ];
+  const insertHandler = useCallback(
+    (text: string, newLine: boolean) => {
+      const selection = editor && editor.getSelection();
+      if (selection) {
+        editor.executeEdits('functions', [
+          {
+            range: {
+              startColumn: selection.startColumn,
+              startLineNumber: selection.startLineNumber,
+              endColumn: selection.endColumn,
+              endLineNumber: selection.endLineNumber,
+            },
+            text: newLine && selection.startColumn !== 1 && selection.endColumn !== 1 ? `\n\n${text}` : text,
+            forceMoveMarkers: true,
+          },
+        ]);
+        editor.focus();
+      }
+    },
+    [editor],
+  );
   return (
     <ul className={styles.entire}>
-      {quickEdits.map((edit, i) => (
-        <a title={edit.title} key={i}>
-          <Iconify
-            fr={''}
-            icon={edit.icon}
-            onClick={() => {
-              const selection = editor && editor.getSelection();
-              if (selection) {
-                editor.executeEdits('functions', [
-                  {
-                    range: {
-                      startColumn: selection.startColumn,
-                      startLineNumber: selection.startLineNumber,
-                      endColumn: selection.endColumn,
-                      endLineNumber: selection.endLineNumber,
-                    },
-                    text:
-                      edit.newLine && selection.startColumn !== 1 && selection.endColumn !== 1
-                        ? `\n\n${edit.text}`
-                        : edit.text,
-                    forceMoveMarkers: true,
-                  },
-                ]);
-                editor.focus();
-              }
-            }}
-          />
-        </a>
-      ))}
+      {quickEdits.map((edit, i) => {
+        return (
+          <a title={edit.title} key={i}>
+            {edit.needUpload ? (
+              <>
+                <input
+                  type="file"
+                  accept=".png,.pjp,.jpg,.pjpeg,.jfif,.gif"
+                  onChange={async (e) => insertHandler(`![altテキスト](${await upload(e)})`, edit.newLine)}
+                />
+                <Iconify fr={''} icon={edit.icon} />
+              </>
+            ) : (
+              <Iconify fr={''} icon={edit.icon} onClick={() => insertHandler(edit.text, edit.newLine)} />
+            )}
+          </a>
+        );
+      })}
     </ul>
   );
 }

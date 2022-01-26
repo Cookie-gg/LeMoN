@@ -8,6 +8,9 @@ const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: true,
   // trailingSlash: true, // add slash the end of URL
+  images: {
+    domains: ['storage.google.com', 'dropbox.com'],
+  },
   sassOptions: {
     prependData: `
 @import 'assets/scss/foundations/functions.scss';
@@ -48,7 +51,7 @@ const nextConfig = {
           },
           {
             // appoint content type
-            key: 'X-Content-Type-Options',  
+            key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
           {

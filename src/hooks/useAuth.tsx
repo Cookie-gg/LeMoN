@@ -24,7 +24,7 @@ export default function useAuth(): [
         nookies.destroy(null, 'token');
         intervalRef.current && clearTimeout(intervalRef.current);
       }
-    }, 1000000);
+    }, 60 * 60 * 1000);
   }, []);
   const login = useCallback(
     async (name: string, password: string) => {

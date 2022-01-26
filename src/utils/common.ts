@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
 import { Zenn } from 'types/common';
+import { ChangeEvent } from 'react';
+import axios, { AxiosResponse } from 'axios';
 
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
@@ -65,3 +66,21 @@ export async function auth<T = { token: string }, D = { username: string; passwo
     });
   }
 }
+
+export const upload = async (e: ChangeEvent<HTMLInputElement>): Promise<string> => {
+  try {
+    const file = e.target.files![0];
+    const { data } = await axios.get<{ url: string; name: string }>(
+      `${process.env.NEXT_PUBLIC_MELON}/storage/upload?fileName=${file.name}`,
+      {
+        headers: { authorization: `${process.env.NEXT_PUBLIC_STORAGE_KEY}` },
+      },
+    );
+    if (file.size > 5000000) return 'can not accept a file of 5MB';
+    if (!file.type.match(/png|pjp|jpg|pjpeg|jfif|gif/g)) return 'only accept images';
+    await axios.put(`${data.url}`, file, { headers: { 'Content-Type': 'application/octet-stream' } });
+    return `https://storage.googleapis.com/lemon-storage/${data.name}`;
+  } catch (e) {
+    return 'failed upload.';
+  }
+};
