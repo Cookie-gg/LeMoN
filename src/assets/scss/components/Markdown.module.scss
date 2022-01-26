@@ -334,10 +334,9 @@ $code_font: 'Source Code Pro', monospace;
       img[alt='og icon'],
       img[alt='og image'] {
         display: flex;
-        width: auto;
-        height: 100%;
 
-        @include max(height, #{126px});
+        @include max(width, auto, 100%);
+        @include max(height, #{126px}, auto);
       }
     }
     &[class*='both'] {
