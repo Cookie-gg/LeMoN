@@ -77,7 +77,8 @@ export const upload = async (e: ChangeEvent<HTMLInputElement>): Promise<string> 
       },
     );
     if (file.size > 5000000) return 'can not accept a file of 5MB';
-    if (!file.type.match(/png|pjp|jpg|pjpeg|jfif|gif/g)) return 'only accept images';
+    console.log(file.type);
+    if (!file.type.match(/png|pjp|jpg|(p?)jpeg|jfif|gif/g)) return 'only accept images';
     await axios.put(`${data.url}`, file, { headers: { 'Content-Type': 'application/octet-stream' } });
     return `https://storage.googleapis.com/lemon-storage/${data.name}`;
   } catch (e) {
