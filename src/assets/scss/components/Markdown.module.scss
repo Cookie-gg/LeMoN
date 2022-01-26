@@ -95,8 +95,8 @@ $code_font: 'Source Code Pro', monospace;
       vertical-align: top;
       cursor: pointer;
 
-      @include con(margin-top, $sp_value: #{-100px}, $mid_value: -100px);
-      @include con(padding-top, $sp_value: #{100px}, $mid_value: 100px);
+      @include con(margin-top, $sp_value: #{-85px}, $mid_value: -85px);
+      @include con(padding-top, $sp_value: #{85px}, $mid_value: 85px);
       @include hover(both) {
         text-decoration: underline;
         text-decoration-color: rgba($lemon, 0.9);
@@ -128,8 +128,8 @@ $code_font: 'Source Code Pro', monospace;
           padding-top: 10px;
 
           @include max(font-size, #{16px}, 18px);
-          @include con(margin-top, #{-10px}, #{-100px}, -100px);
-          @include con(padding-top, #{10px}, #{100px}, 100px);
+          @include con(margin-top, #{-10px}, #{-85px}, -85px);
+          @include con(padding-top, #{10px}, #{85px}, 85px);
 
           a {
             color: $lemon;
