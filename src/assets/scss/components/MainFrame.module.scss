@@ -1,7 +1,4 @@
 .entire {
-  overflow-x: hidden;
-  // overflow-y: auto;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -15,9 +12,13 @@
     justify-content: center;
     width: 100%;
     height: 100vh;
+    overflow: hidden;
     pointer-events: none;
   }
   &:not(.home) {
+    overflow-x: hidden;
+    overflow-y: auto;
+
     @include max(width, calc(100% - (30px + 11px + 30px) - (30px - 8px + 30px + 11px)));
     @include max(padding, #{0px (30px - 8px) 0px 30px});
     @include max(padding-left, $sp_value: 20px);
@@ -69,8 +70,6 @@
     height: 0;
     pointer-events: none;
     position: fixed;
-
-    @include max(z-index, $sp_value: 999);
   }
   &::before {
     transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2), right $common_anmt;
