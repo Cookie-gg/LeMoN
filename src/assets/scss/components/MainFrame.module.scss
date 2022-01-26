@@ -15,7 +15,7 @@
     overflow: hidden;
     pointer-events: none;
 
-    .wire {
+    & + .wire {
       &::before,
       &::after {
         box-sizing: border-box;
@@ -42,6 +42,16 @@
 
         @include max(top, #{30px}, 20px);
         @include max(left, #{30px}, 20px);
+      }
+    }
+    [class*='mounted'] + header + & + .wire {
+      &::before,
+      &::after {
+        @include max(width, calc(100% - (30px * 2)), diff(100%, (20px * 2)));
+        @include max(height, calc(100% - (30px * 2)), diff(100%, (20px * 2)));
+      }
+      &::after {
+        opacity: 1;
       }
     }
   }
@@ -71,7 +81,7 @@
       @include max(width, $sp_value: diff(100%, 20px + 20px + 20px - 8px + 20px));
       @include max(padding-right, $sp_value: 5px); // (20px - 8px) / 2
     }
-    .wire {
+    & + .wire {
       outline: 1px solid $lemon;
 
       @include max(outline-offset, #{-31px}, -21px);
@@ -79,33 +89,23 @@
   }
   [class*='header_opened'] + & {
     &,
-    .wire {
+    & + .wire {
       @include max(left, $sp_value: 70px);
     }
   }
   [class*='header_expanded'] + & {
     &,
-    .wire {
+    & + .wire {
       @include max(left, $sp_value: 200px);
     }
   }
-  .wire {
-    transition: left $common_anmt;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  [class*='mounted'] + header + & > .wire {
-    &::before,
-    &::after {
-      @include max(width, calc(100% - (30px * 2)), diff(100%, (20px * 2)));
-      @include max(height, calc(100% - (30px * 2)), diff(100%, (20px * 2)));
-    }
-    &::after {
-      opacity: 1;
-    }
-  }
+}
+.wire {
+  transition: left $common_anmt;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
