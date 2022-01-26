@@ -22,7 +22,7 @@
     background-color: $lemon;
 
     @include max(width, #{100px}, 100px);
-    @include max(height, #{17.5px}, 17.5px);
+    @include max(height, #{17.5px}, 10px);
     @include max(margin-right, #{5px}, 5px);
     @include max(margin-left, #{5px}, 5px);
 
