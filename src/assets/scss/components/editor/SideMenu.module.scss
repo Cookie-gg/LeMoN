@@ -1,93 +1,81 @@
 .entire {
-  background-color: rgba(white, 0.08);
-  border-right: 2px solid $lemon;
   box-sizing: border-box;
+  width: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
-  width: 300px;
+  background-color: rgba(white, 0.08);
+  border-right: 2px solid $lemon;
 
   @include max(padding-top, #{35px}, 35px);
-
   @include max(padding-bottom, #{35px}, 35px);
-
   @include max(padding-right, #{27px}, 27px);
-
   @include max(padding-left, #{35px}, 35px);
 
   label:not(.check) {
-    align-items: flex-end;
     display: flex;
+    align-items: flex-end;
 
     @include max(font-size, #{20px}, 20px);
 
     &:not(:first-of-type) {
       @include max(margin-top, #{37.5px}, 37.5px);
     }
-
     &::before {
-      background-color: $lemon;
-      content: '';
       display: block;
       width: 4px;
+      content: '';
+      background-color: $lemon;
 
       @include max(height, #{25px}, 25px);
-
       @include max(margin-right, #{7.5px}, 7.5px);
     }
   }
   label.check {
+    transition: outline-color 0.2s;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    font-weight: 400;
+    font-family: $jp_font;
     background-color: rgba($dark_gray, 0.5);
     border-radius: 4px;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: inline-block;
-    font-family: $jp_font;
-    font-weight: 400;
     outline: 2px solid;
     outline-color: transparent;
-    position: relative;
-    transition: outline-color 0.2s;
-
-    @include max(font-size, #{16px}, 16px);
+    cursor: pointer;
 
     @include max(margin-top, #{15px}, 15px);
-
-    @include max(letter-spacing, #{1.2px}, 1.2px);
-
-    @include max(padding-top, #{8px}, 8px);
-
-    @include max(padding-left, #{10px}, 10px);
-
-    @include max(padding-right, #{9px}, 9px);
-
-    @include max(padding-bottom, #{8px}, 8px);
-
     @include max(margin-right, #{15px}, 15px);
+    @include max(padding-top, #{8px}, 8px);
+    @include max(padding-left, #{10px}, 10px);
+    @include max(padding-right, #{9px}, 9px);
+    @include max(padding-bottom, #{8px}, 8px);
+    @include max(font-size, #{16px}, 16px);
+    @include max(letter-spacing, #{1.2px}, 1.2px);
 
     span {
       &::before {
-        background-clip: content-box;
-        border: 1px solid $lemon;
-        border-radius: 50%;
-        border-radius: 50%;
-        border-style: solid;
-        content: '';
         display: inline-block;
+        width: 8px;
         height: 8px;
         padding: 2px;
-        width: 8px;
+        content: '';
+        background-clip: content-box;
+        border: 1px solid $lemon;
+        border-style: solid;
+        border-radius: 50%;
+        border-radius: 50%;
 
         @include max(margin-right, #{7.5px}, 7.5px);
       }
     }
     &:hover {
-      outline-color: rgba(white, 0.25);
       transition: outline-color 0.3s;
+      outline-color: rgba(white, 0.25);
     }
     &:active {
+      transition: outline-color 0.3s, background-color 0.3s;
       background-color: rgba($dark_gray, 0.9);
       outline-color: $lemon;
-      transition: outline-color 0.3s, background-color 0.3s;
     }
     input[type='radio'] {
       display: none;
@@ -101,31 +89,33 @@
     }
   }
   input {
+    transition: outline-color 0.2s, background-color 0.2s;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    font-weight: 300;
+    font-family: $jp_font;
     background-color: rgba($dark_gray, 0.5);
     border-radius: 4px;
-    box-sizing: border-box;
-    display: block;
-    font-family: $jp_font;
-    font-weight: 300;
     outline: 2px solid;
     outline-color: transparent;
     scroll-padding-top: 100px;
-    transition: outline-color 0.2s, background-color 0.2s;
-    width: 100%;
-
-    @include max(font-size, #{16px}, 16px);
 
     @include max(padding-right, #{7.5px}, 7.5px);
-
     @include max(padding-left, #{7.5px}, 7.5px);
-
     @include max(padding-top, #{2px}, 2px);
-
     @include max(padding-bottom, #{2px}, 2px);
-
+    @include max(font-size, #{16px}, 16px);
+    @include max(font-size, #{16px}, 16px);
     @include max(letter-spacing, #{1.2px}, 1.2px);
 
-    @include max(font-size, #{16px}, 16px);
+    @keyframes onAutoFillStart {
+      from {
+      }
+      to {
+        background-color: transparent;
+      }
+    }
 
     &:not([type='date'], [type='submit']) {
       line-height: 1.8;
@@ -140,27 +130,28 @@
       @include max(margin-top, #{12.5px}, 12.5px);
 
       &:hover {
-        outline-color: rgba(white, 0.25);
         transition: outline-color 0.3s, background-color 0.3s 10000s;
+        outline-color: rgba(white, 0.25);
       }
       &:focus,
       &:focus:hover,
       &[class*='alignment'] {
+        transition: outline-color 0.3s, background-color 0.3s;
         background-color: rgba($dark_gray, 0.9);
         outline-color: $lemon;
-        transition: outline-color 0.3s, background-color 0.3s;
       }
     }
     &[type='submit'] {
+      font-weight: 400;
       border: 1px solid;
       cursor: pointer;
-      font-weight: 400;
+
       &:hover {
         transition: background-color 0.3s;
       }
       &[name='save'] {
-        border-color: $lemon;
         color: $lemon;
+        border-color: $lemon;
 
         @include max(margin-top, #{37.5px}, 37.5px);
 
@@ -169,9 +160,9 @@
         }
       }
       &[name='delete'] {
-        border-color: $red;
         color: $red;
         font-weight: 500;
+        border-color: $red;
 
         @include max(margin-top, #{12.5px}, 12.5px);
 
@@ -180,8 +171,8 @@
         }
       }
       &[name='page'] {
-        border-color: rgba(white, 0.5);
         color: rgba(white, 0.8);
+        border-color: rgba(white, 0.5);
 
         @include max(margin-top, #{12.5px}, 12.5px);
 
@@ -192,27 +183,20 @@
     }
     &[type='text']:-webkit-autofill,
     &[type='text']:focus:-webkit-autofill {
+      transition: background-color 0s;
+      transition-delay: 10000s;
       animation-name: onAutoFillStart;
       caret-color: white;
       -webkit-text-fill-color: white !important;
-      transition: background-color 0s;
-      transition-delay: 10000s;
     }
     &[type='date']::-webkit-calendar-picker-indicator {
       cursor: pointer;
       filter: invert(0.8);
     }
-
-    @keyframes onAutoFillStart {
-      from {
-      }
-      to {
-        background-color: transparent;
-      }
-    }
   }
   .emoji {
     position: relative;
+
     &.enable {
       svg {
         display: inline-block;
@@ -227,32 +211,32 @@
       position: absolute;
 
       @include max(top, #{5px}, 5px);
-
       @include max(left, #{8px}, 8px);
     }
     input {
       cursor: text;
 
       &.enable {
+        transition: outline-color 0.3s, background-color 0.3s;
         background-color: rgba($dark_gray, 0.9);
         outline-color: $lemon;
-        transition: outline-color 0.3s, background-color 0.3s;
       }
     }
     & + .picker {
-      opacity: 0;
       position: relative;
       visibility: hidden;
+      opacity: 0;
+
       & > * {
-        left: 0px;
+        width: 100%;
         position: absolute;
         top: calc(100% + 2px);
-        width: 100%;
+        left: 0px;
         z-index: 9999;
       }
       &.enable {
-        opacity: 1;
         visibility: visible;
+        opacity: 1;
       }
     }
   }

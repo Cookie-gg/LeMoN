@@ -1,12 +1,11 @@
 // Selection
 ::selection {
-  background-color: $lemon;
   color: $dark_gray;
+  background-color: $lemon;
 }
 // Scroll bar
 ::-webkit-scrollbar {
   @include max(width, #{8px}, 8px);
-
   @include max(height, #{8px}, 8px);
 }
 // ::-webkit-scrollbar-track {
@@ -16,9 +15,10 @@
   display: none;
 }
 ::-webkit-scrollbar-thumb {
+  transition: background-color $common_anmt;
   background-color: rgba(white, 0.1);
   border-radius: 5px;
-  transition: background-color $common_anmt;
+
   &:hover {
     background-color: rgba(white, 0.2);
   }
@@ -37,8 +37,8 @@
 *,
 html {
   color: $text-white;
-  font-family: $en_font;
   font-weight: 200;
+  font-family: $en_font;
 }
 span {
   display: inline-block;

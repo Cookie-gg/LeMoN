@@ -1,37 +1,34 @@
 .entire {
-  background-color: rgba(white, 0.08);
-  border-radius: 10px;
-  box-sizing: border-box;
   display: flex;
-  font-weight: 400;
+  box-sizing: border-box;
   height: 100%;
   overflow: hidden;
   position: absolute;
   z-index: 9999;
-
-  @include max(margin-right, #{8px}, 8px);
+  font-weight: 400;
+  background-color: rgba(white, 0.08);
+  border-radius: 10px;
 
   @include max(width, calc(100% - 8px));
-
   @include max(width, $sp_value: diff(100%, 8px));
-
+  @include max(margin-right, #{8px}, 8px);
   @include max(font-size, #{18px}, 18px);
 
   .gutter {
-    align-items: center;
-    box-sizing: border-box;
     display: flex;
-    height: 100%;
+    align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
     position: absolute;
 
     @include max(width, #{35px}, 35px);
+
     button {
       background-color: rgba(white, 0.08);
       border-radius: 15px;
 
       @include max(width, #{6px}, 6px);
-
       @include max(height, #{50px}, 50px);
     }
   }
@@ -43,16 +40,17 @@
       width: calc(100% - 35px);
     }
     .gutter {
+      position: relative;
       background-color: rgba(white, 0.08);
       border-right: 2px solid $lemon;
-      position: relative;
     }
   }
   .main {
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: calc(100% - 300px);
+    height: 100%;
+
     .editor {
       display: flex;
       flex-grow: 1;
@@ -63,41 +61,41 @@
 
       @media screen and (max-width: 1250px) {
         position: relative;
+
         & > *:not(.switch) {
+          width: 100%;
           height: 100%;
           position: absolute;
-          width: 100%;
         }
         &.enable {
           & > div:first-of-type {
-            opacity: 0;
             visibility: hidden;
+            opacity: 0;
           }
           & > div:last-of-type {
-            opacity: 1;
             visibility: visible;
+            opacity: 1;
           }
         }
         & > div:last-of-type {
-          opacity: 0;
           visibility: hidden;
+          opacity: 0;
         }
         .switch {
-          background-color: $lemon;
-          border-radius: 50%;
-          bottom: 2%;
           position: absolute;
           right: 2%;
+          bottom: 2%;
           z-index: 100;
+          background-color: $lemon;
+          border-radius: 50%;
 
           @include max(width, #{35px}, 35px);
-
           @include max(height, #{35px}, 35px);
 
           svg {
-            left: 50%;
             position: absolute;
             top: 50%;
+            left: 50%;
             transform: translate(-45%, -50%);
 
             @include max(font-size, #{22.5px}, 22.5px);
@@ -110,18 +108,19 @@
       }
 
       [class*='gutter'] {
+        display: grid;
         background-color: $lemon;
         background-color: rgba(white, 0.16);
-        display: grid;
         place-items: center;
+
         &::before {
-          border-left: 1px solid rgba(white, 0.8);
-          border-right: 1px solid rgba(white, 0.8);
-          box-sizing: border-box;
-          content: '';
           display: block;
-          height: 50px;
+          box-sizing: border-box;
           width: 6px;
+          height: 50px;
+          content: '';
+          border-right: 1px solid rgba(white, 0.8);
+          border-left: 1px solid rgba(white, 0.8);
         }
       }
     }

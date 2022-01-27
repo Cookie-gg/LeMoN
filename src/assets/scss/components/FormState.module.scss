@@ -1,27 +1,25 @@
 .state {
   grid-area: 1/-1;
-  opacity: 0;
   position: relative;
-  visibility: hidden;
   z-index: 0;
+  visibility: hidden;
+  opacity: 0;
 
   &.sending {
     @include max(font-size, #{40px}, 40px);
   }
   &.error,
   &.complete {
-    font-family: $jp_font;
     font-weight: 300;
+    font-family: $jp_font;
     line-height: 1.8;
     text-align: center;
 
+    @include max(font-size, #{16px}, 18px);
+    @include max(letter-spacing, #{1.2px}, 1.2px);
     @include media(mobile) {
       font-weight: 400;
     }
-
-    @include max(letter-spacing, #{1.2px}, 1.2px);
-
-    @include max(font-size, #{16px}, 18px);
 
     & > a {
       @include hover(both) {
@@ -35,13 +33,13 @@
     }
   }
   &.visible {
-    opacity: 1;
     transition: all $common_anmt order(2);
     visibility: visible;
+    opacity: 1;
   }
   &.hidden {
-    opacity: 0;
     transition: all $common_anmt order(1);
     visibility: hidden;
+    opacity: 0;
   }
 }

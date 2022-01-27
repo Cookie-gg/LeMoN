@@ -6,36 +6,33 @@
   @include max(letter-spacing, #{1.2px}, 1.2px);
 
   button {
-    font-family: $jp_font;
     font-weight: 400;
+    font-family: $jp_font;
 
     @include max(font-size, #{16px}, 16px);
 
     a,
     span {
-      background-color: rgba(white, 0.08);
       display: block;
       position: relative;
       z-index: 0;
+      background-color: rgba(white, 0.08);
 
       @include max(padding-top, #{10px}, 10px);
-
       @include max(padding-left, #{40px}, 40px);
-
       @include max(padding-right, #{40px}, 40px);
-
       @include max(padding-bottom, #{12px}, 12px);
 
       &::after {
-        background-color: $lemon;
-        bottom: -1px;
-        content: '';
-        height: 1px;
-        left: 0;
-        position: absolute;
         transition: all $common_anmt;
         width: 0;
+        height: 1px;
+        position: absolute;
+        bottom: -1px;
+        left: 0;
         z-index: 1;
+        content: '';
+        background-color: $lemon;
       }
       &:hover::after {
         width: 100%;

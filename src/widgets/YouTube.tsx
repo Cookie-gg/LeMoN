@@ -49,7 +49,7 @@ function YouTube({ el }: { el: Element }) {
       // playerVars: Object.assign({}, ...playerVars.map((key) => ({ [key]: query[key] || undefined }))),
     });
   }, [query, playerVars]);
-  console.log(Object.assign({}, ...playerVars.map((key) => ({ [key]: query[key] || undefined }))),);
+  console.log(Object.assign({}, ...playerVars.map((key) => ({ [key]: query[key] || undefined }))));
   return (
     <div className="link_widget youtube">
       <div id={query.v} />

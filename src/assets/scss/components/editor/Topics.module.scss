@@ -7,7 +7,6 @@
   & + .picker {
     @include max(margin-top, #{12.5px}, 12.5px);
   }
-
   select,
   option,
   button {
@@ -15,36 +14,30 @@
     border-radius: 4px;
     outline: 2px solid;
     outline-color: transparent;
+
     &:hover {
-      outline-color: rgba(white, 0.25);
       transition: outline-color 0.3s;
+      outline-color: rgba(white, 0.25);
     }
     &:not(button) {
       box-sizing: border-box;
       color: $text-white;
-      cursor: pointer;
-      font-family: $jp_font;
       font-weight: 300;
+      font-family: $jp_font;
       line-height: 1.8;
+      cursor: pointer;
     }
   }
-
   select {
     transition: outline-color 0.2s, background-color 0.2s;
 
-    @include max(letter-spacing, #{1.2px}, 1.2px);
-
-    @include max(font-size, #{16px}, 16px);
-
-    @include max(padding-right, #{7.5px}, 7.5px);
-
-    @include max(padding-left, #{7.5px}, 7.5px);
-
-    @include max(padding-top, #{2px}, 2px);
-
-    @include max(padding-bottom, #{4px}, 4px);
-
     @include max(width, calc(100% - 12.5px - 32px));
+    @include max(padding-right, #{7.5px}, 7.5px);
+    @include max(padding-left, #{7.5px}, 7.5px);
+    @include max(padding-top, #{2px}, 2px);
+    @include max(padding-bottom, #{4px}, 4px);
+    @include max(font-size, #{16px}, 16px);
+    @include max(letter-spacing, #{1.2px}, 1.2px);
 
     &.init {
       color: rgba(white, 0.25);
@@ -52,9 +45,9 @@
     }
     &:focus,
     &:focus:hover {
+      transition: outline-color 0.3s, background-color 0.3s;
       background-color: rgba($dark_gray, 0.9);
       outline-color: $lemon;
-      transition: outline-color 0.3s, background-color 0.3s;
     }
     option {
       &:first-of-type {
@@ -64,24 +57,22 @@
         background-color: $lemon !important;
       }
       &:last-of-type {
-        background-color: $lemon;
         color: $dark_gray;
         font-weight: 400;
+        background-color: $lemon;
       }
     }
   }
   button {
-    align-items: center;
-    display: flex;
-    font-weight: 400;
-    justify-content: center;
     transition: outline-color 0.2s;
-
-    @include max(font-size, #{30px}, 30px);
-
-    @include max(margin-left, #{12.5px}, 12.5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
 
     @include max(width, #{32px}, 32px);
+    @include max(margin-left, #{12.5px}, 12.5px);
+    @include max(font-size, #{30px}, 30px);
 
     &.add span {
       color: $lemon;
@@ -91,8 +82,8 @@
       transform: scaleX(1.5);
     }
     &:active {
-      outline-color: $lemon;
       transition: outline-color 0.3s;
+      outline-color: $lemon;
     }
   }
 }

@@ -1,6 +1,5 @@
 .page {
   @include max(padding-top, 20px);
-
   @include max(padding-bottom, 20px, 20px);
 
   .articles {
@@ -11,15 +10,15 @@
   }
   #{$mount} & {
     .heading span {
-      transform: translateY(0);
       transition: transform $common_anmt order(1);
+      transform: translateY(0);
     }
   }
 }
 .post {
-  align-items: center;
   display: flex;
-  height: 100%;
+  align-items: center;
   justify-content: center;
   max-width: 1600px !important;
+  height: 100%;
 }

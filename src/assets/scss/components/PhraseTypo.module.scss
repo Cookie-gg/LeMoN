@@ -1,23 +1,23 @@
 .entire {
-  font-weight: 700;
+  user-select: none;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%) skewX(-30deg);
-  user-select: none;
   z-index: -1;
-
-  @include max(font-size, #{50px}, 40px);
+  font-weight: 700;
+  transform: translateY(-50%) skewX(-30deg);
 
   @include max(left, #{185px}, 25vw);
+  @include max(font-size, #{50px}, 40px);
 
   & > div {
     overflow-y: hidden;
     position: relative;
-    transform: skewX(30deg);
     white-space: nowrap;
+    transform: skewX(30deg);
     @for $i from 1 through 10 {
       &:nth-of-type(#{$i}) {
         @include max(height, calc(40px * #{$i} * 0.1), calc(40px * #{$i} * 0.1));
+
         span {
           @include max(
             animation,
@@ -27,65 +27,66 @@
         }
       }
     }
+
     &:not(:last-of-type) {
       @include max(margin-bottom, #{10px}, #{5px});
     }
     span {
-      color: rgba(white, 0.05);
       position: relative;
       top: -40px;
+      color: rgba(white, 0.05);
     }
   }
 }
 @include media(pc) {
   @keyframes text_gradient {
     0% {
-      color: rgba(white, 0.05);
       top: -40px;
+      color: rgba(white, 0.05);
     }
     5% {
-      color: rgba(white, 0.05);
       top: 0;
+      color: rgba(white, 0.05);
     }
     40% {
-      color: rgba(white, 0.05);
       top: 0;
+      color: rgba(white, 0.05);
     }
     50% {
-      color: rgba(white, 0.75);
       top: 0;
+      color: rgba(white, 0.75);
     }
     60% {
-      color: rgba(white, 0.05);
       top: 0;
+      color: rgba(white, 0.05);
     }
     95% {
-      color: rgba(white, 0.05);
       top: 0;
+      color: rgba(white, 0.05);
     }
     100% {
-      color: rgba(white, 0.05);
       top: -40px;
+      color: rgba(white, 0.05);
     }
   }
 }
 @include media(sp) {
   @keyframes text_gradient {
     0% {
-      color: rgba(white, 0.05);
       top: -40px;
+      color: rgba(white, 0.05);
     }
     20% {
-      color: rgba(white, 0.05);
       top: 0;
+      color: rgba(white, 0.05);
     }
     80% {
-      color: rgba(white, 0.05);
       top: 0;
+      color: rgba(white, 0.05);
     }
     100% {
-      color: rgba(white, 0.05);
       top: -40px;
+      color: rgba(white, 0.05);
     }
   }
 }

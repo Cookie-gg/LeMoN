@@ -1,83 +1,81 @@
 .entire {
-  align-items: center;
-  background-clip: content-box;
   display: flex;
-  font-style: italic;
-  font-weight: 700;
+  align-items: center;
   justify-content: center;
-  position: relative;
-  user-select: none;
   width: 0px;
+  user-select: none;
+  position: relative;
+  font-weight: 700;
+  font-style: italic;
+  background-clip: content-box;
   opacity: 0;
 
+  @include max(height, #{75px}, 75px);
   @include max(padding-right, #{380px}, 380px);
-
   @include max(font-size, #{100px}, 100px);
 
-  @include max(height, #{75px}, 75px);
-
   .text {
-    align-items: center;
-    color: $dark_gray;
     display: flex;
-    height: 100%;
+    align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
     position: relative;
     top: -70px;
-    width: 100%;
     z-index: 3; // with PageTransition.module.scss
+    color: $dark_gray;
+
     &_wrapper {
-      background-color: $lemon;
+      width: 100%;
       height: 100%;
       overflow: hidden;
-      width: 100%;
+      background-color: $lemon;
     }
   }
   &::before {
+    position: absolute;
+    top: 0%;
+    right: 0;
+    z-index: -1;
     content: 'Cookie_gg';
     font-weight: 200;
     opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0%;
-    z-index: -1;
 
     @include max(font-size, #{20px}, 20px);
   }
   &::after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
     border-bottom: 1px solid $lemon;
     border-left: 1px solid $lemon;
-    content: '';
-    height: 100%;
     opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
   }
   &.mounted {
+    transition: opacity 0s, width $common_anmt order(2), padding-right $common_anmt order(2);
     padding-right: 0;
     opacity: 1;
-    transition: opacity 0s, width $common_anmt order(2), padding-right $common_anmt order(2);
 
     @include max(width, #{380px}, 380px);
 
     .text {
-      top: 0;
       transition: all $common_anmt order(3);
+      top: 0;
     }
     &::before {
-      opacity: 1;
-      top: -30%;
       transition: opacity $moment order(4), top $common_anmt order(4);
+      top: -30%;
+      opacity: 1;
     }
     &::after {
-      opacity: 1;
       transition: opacity $moment order(4), width $common_anmt order(4), height $common_anmt order(4);
-
-      @include max(height, calc(100% + 15px), calc(100% + 2.25vw));
+      opacity: 1;
 
       @include max(width, calc(100% + 15px), calc(100% + 2.25vw));
+      @include max(height, calc(100% + 15px), calc(100% + 2.25vw));
     }
   }
 }

@@ -1,18 +1,17 @@
 .entire {
+  display: grid;
   align-items: center;
+  justify-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
+  color: rgba(white, 0.9);
   background-color: rgba(white, 0.08);
   border-right: solid $lemon;
-  @include max(border-right-width, #{5px}, 5px);
-  box-sizing: border-box;
-  color: rgba(white, 0.9);
-  display: grid;
-  justify-items: center;
-  position: relative;
-  width: 100%;
-
-  @include max(padding, #{40px}, 30px);
 
   @include max(max-width, #{425px});
+  @include max(padding, #{40px}, 30px);
+  @include max(border-right-width, #{5px}, 5px);
 
   input:not([type='submit']),
   textarea {
@@ -27,7 +26,7 @@
   }
   hr {
     width: 100%;
-    opacity: 0.2;
     margin-bottom: 0;
+    opacity: 0.2;
   }
 }

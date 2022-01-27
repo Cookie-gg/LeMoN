@@ -1,8 +1,8 @@
 .entire {
   display: inline-block;
-  font-weight: 400;
-  position: relative;
   width: 100%;
+  position: relative;
+  font-weight: 400;
 
   @include max(font-size, #{20px}, 22px);
 
@@ -10,8 +10,8 @@
     @include max(margin-top, #{35px}, 35px);
   }
   &.required::after {
-    color: rgba(red, 0.9);
     content: '*';
+    color: rgba(red, 0.9);
 
     @include max(margin-left, #{5px}, 5px);
   }

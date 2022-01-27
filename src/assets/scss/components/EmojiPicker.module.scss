@@ -6,30 +6,27 @@
     width: 100%;
   }
   &::after {
-    content: '';
     display: block;
     width: 100%;
+    content: '';
 
     @include max(height, #{12px}, 12px);
   }
   nav {
-    border-bottom: 1px solid rgba(white, 0.25);
-    box-sizing: border-box;
     display: flex;
+    box-sizing: border-box;
     overflow-x: scroll;
     overflow-y: hidden;
+    border-bottom: 1px solid rgba(white, 0.25);
 
     @include max(padding-top, #{12px}, 12px);
-
     @include max(padding-bottom, #{8px}, 8px);
-
     @include max(padding-right, #{12px}, 12px);
-
     @include max(padding-left, #{12px}, 12px);
 
     &::after {
-      content: '';
       height: 100%;
+      content: '';
 
       @include max(width, #{12px}, 12px);
     }
@@ -39,19 +36,19 @@
       @include max(column-gap, #{12px}, 12px);
 
       li {
-        cursor: pointer;
         display: flex;
         justify-content: center;
         position: relative;
+        cursor: pointer;
 
         &::after {
-          background-color: $lemon;
-          content: '';
-          height: 2px;
-          left: 50%;
-          position: absolute;
-          transform: translateX(-50%);
           width: 0%;
+          height: 2px;
+          position: absolute;
+          left: 50%;
+          content: '';
+          background-color: $lemon;
+          transform: translateX(-50%);
 
           @include max(bottom, #{-8px}, -8px);
         }
@@ -60,15 +57,15 @@
         }
         &.active::before,
         &:hover::before {
-          background-color: rgba(white, 0.08);
-          border-radius: 5px;
-          content: '';
+          width: 150%;
           height: 150%;
-          left: 50%;
           position: absolute;
           top: 50%;
+          left: 50%;
+          content: '';
+          background-color: rgba(white, 0.08);
+          border-radius: 5px;
           transform: translate(-50%, -50%);
-          width: 150%;
         }
       }
     }
@@ -79,9 +76,7 @@
     overscroll-behavior-y: contain;
 
     @include max(max-height, #{350px}, 350px);
-
     @include max(padding-top, #{12px}, 12px);
-
     @include max(padding-left, #{12px}, 12px);
 
     ul {
@@ -91,23 +86,24 @@
       @include max(gap, #{12px}, 12px);
 
       li {
-        cursor: pointer;
         display: flex;
         justify-content: center;
         position: relative;
+        cursor: pointer;
 
         &:hover {
           position: relative;
+
           &::after {
-            background-color: rgba(white, 0.08);
-            border-radius: 5px;
-            content: '';
+            width: 150%;
             height: 150%;
-            left: 50%;
             position: absolute;
             top: 50%;
+            left: 50%;
+            content: '';
+            background-color: rgba(white, 0.08);
+            border-radius: 5px;
             transform: translate(-50%, -50%);
-            width: 150%;
           }
         }
       }
