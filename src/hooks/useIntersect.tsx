@@ -5,15 +5,17 @@ export default function useIntersect({
   root = null,
   el,
   rootMargin = '0px',
+  once = false,
 }: {
   root?: HTMLElement | null;
   el: HTMLElement | null;
   rootMargin?: string;
-  isOnce?: boolean;
-}): boolean {
+  once?: boolean;
+}): { intersect: boolean; disable: (result: boolean) => void } {
   const [isIntersecting, _isIntersecting] = useState(false);
-  const router = useRouter();
-  const depPath = `${router.query.id}` || router.pathname;
+  const [observerState, _observerState] = useState(true);
+  const { pathname, query } = useRouter();
+  const depPath = `${query.id}` || pathname;
   useEffect(() => {
     _isIntersecting(false);
     if (el) {
@@ -22,11 +24,21 @@ export default function useIntersect({
         { root, threshold: 0, rootMargin: rootMargin },
       );
       observer.observe(el);
+      if (once || !observerState) {
+        observer.unobserve(el);
+        observer.disconnect();
+      }
       return () => {
         observer.unobserve(el);
         observer.disconnect();
       };
     }
-  }, [depPath, el, rootMargin, root]);
-  return isIntersecting;
+  }, [depPath, el, rootMargin, root, once, observerState]);
+  return {
+    intersect: isIntersecting,
+    disable: (result) => {
+      _observerState(false);
+      _isIntersecting(result);
+    },
+  };
 }

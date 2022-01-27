@@ -73,10 +73,11 @@ function Topics({ topics, dispatch }: { topics: string[]; dispatch: (arg: { name
             <IconPicker
               className={styles.picker}
               onSelect={(arg) => {
+                // disable icon picker
                 _topicEditor({ index: -1, enable: false });
-                const changes = topics;
-                changes[i] = arg.toLowerCase();
-                dispatch({ name: 'topics', value: JSON.stringify(changes) });
+                // add as a topic of the article
+                dispatch({ name: 'topics', value: JSON.stringify([...topics, arg.toLowerCase()]) });
+                // add as a option and sort
                 _allTopics((prev) =>
                   [...prev, { name: arg.toLowerCase(), displayName: arg }]
                     .slice()

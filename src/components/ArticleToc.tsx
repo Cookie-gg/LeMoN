@@ -38,7 +38,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
     onSwipedLeft: () => _isOpened(true),
   });
   const innerTocRef = useRef<HTMLDivElement | null>(null);
-  const isIntersecting = useIntersect({
+  const observer = useIntersect({
     root: scroller?.current,
     el: tocRef.current,
     rootMargin: `0px 0px -100%`,
@@ -67,7 +67,9 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
   }, [id]);
   return (
     <div
-      className={`${styles.entire} ${isIntersecting && styles.showed} ${initTransition && styles.init} ${className}`}
+      className={`${styles.entire} ${observer.intersect && styles.showed} ${
+        initTransition && styles.init
+      } ${className}`}
       ref={tocRef}
       onMouseEnter={(e) => window.width < 1200 && !isMobile && getMousePosition(e)}
       // onMouseMove={(e) => isOpened && window.width < 1200 && !isMobile && getMousePosition(e)}
@@ -90,7 +92,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
         className={`${styles.toc} ${isOpened && styles.opened}`}
         style={{
           maxHeight: window.width < 1200 ? undefined : `calc(100vh - ${paddingTop + paddingBottom + height}px)`,
-          top: window.width < 1200 ? undefined : isIntersecting ? `${1 * height}px` : '0px',
+          top: window.width < 1200 ? undefined : observer ? `${1 * height}px` : '0px',
         }}
         ref={(el) => {
           swipeOptions.ref(el);
@@ -110,7 +112,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
             className={styles.body}
             style={{
               paddingTop:
-                window.width < 1200 && isIntersecting
+                window.width < 1200 && observer
                   ? window.width < 500
                     ? `${height + window.width * 0.05}px`
                     : `${height + 25}px`

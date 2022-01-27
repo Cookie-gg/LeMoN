@@ -8,21 +8,22 @@ function EmojiPicker({ keywords, onSelect }: { keywords: string; onSelect?: (emo
   const [activeGenre, _activeGenre] = useState(0);
   const [{ loading, data, error }] = useAxios<
     { name: string; code: string; emojis: { name: string; text: string; unicode: string }[] }[]
-  >(`${process.env.NEXT_PUBLIC_MELON}/icon/twemoji`, process.env.NEXT_PUBLIC_ICON_KEY);
+  >(`${process.env.NEXT_PUBLIC_MELON}/icon/twemoji`, { headers: { key: `${process.env.NEXT_PUBLIC_ICON_KEY}` } });
 
   const [result, _result, timeoutResult] = useAxios<{ name: string; text: string; unicode: string }[]>(
-    `${process.env.NEXT_PUBLIC_MELON}/icon/twemoji?search=`,
-    process.env.NEXT_PUBLIC_ICON_KEY,
+    `${process.env.NEXT_PUBLIC_MELON}/icon/twemoji`,
+    { headers: { key: `${process.env.NEXT_PUBLIC_ICON_KEY}` } },
     { manual: true, timeout: true },
   );
   useEffect(() => {
     if (keywords.length > 0) {
       _activeGenre(-1);
-      timeoutResult && timeoutResult({ query: keywords });
+      timeoutResult && timeoutResult({ reset: true, query: { search: keywords } });
     } else {
       _activeGenre(0);
       _result && _result({ loading: true, data: undefined });
     }
+    // eslint-disable-next-line
   }, [keywords]);
   return (
     <div className={styles.entire}>

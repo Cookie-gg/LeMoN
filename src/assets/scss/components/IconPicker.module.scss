@@ -1,17 +1,17 @@
 .wrapper {
   position: relative;
+
   svg {
+    position: absolute;
+    top: 12.5%;
+    cursor: pointer;
+
+    @include max(right, #{7.5px}, 7.5px);
+    @include max(font-size, #{25px}, 25px);
+
     :not([class*='alignment']) + &:hover path {
       color: $red;
     }
-    cursor: pointer;
-    position: absolute;
-    top: 12.5%;
-
-    @include max(right, #{7.5px}, 7.5px);
-
-    @include max(font-size, #{25px}, 25px);
-
     &:hover path {
       color: $lemon;
     }
@@ -22,9 +22,9 @@
   border-radius: 5px;
 
   &::after {
-    content: '';
     display: block;
     width: 100%;
+    content: '';
 
     @include max(height, #{12px}, 12px);
   }
@@ -33,12 +33,14 @@
     overflow-y: scroll;
     overscroll-behavior-y: contain;
 
-    @include max(height, #{132.5px}, 132.5px);
-
+    @include max(min-height, #{50px}, 50px);
+    @include max(max-height, #{132.5px}, 132.5px);
     @include max(padding-top, #{12px}, 12px);
-
     @include max(padding-left, #{12px}, 12px);
 
+    .loading {
+      @include max(margin-top, #{12px}, 12px);
+    }
     ul {
       display: flex;
       flex-wrap: wrap;
@@ -46,24 +48,27 @@
       @include max(gap, #{12px}, 12px);
 
       li {
-        cursor: pointer;
         display: flex;
         justify-content: center;
         position: relative;
+        cursor: pointer;
 
         svg {
           @include max(width, #{22.5px}, 22.5px);
-
           @include max(height, #{22.5px}, 22.5px);
         }
+        &:last-of-type {
+          width: 0;
+          height: 0;
+        }
         &::after {
-          background-color: $lemon;
-          content: '';
-          height: 2px;
-          left: 50%;
-          position: absolute;
-          transform: translateX(-50%);
           width: 0%;
+          height: 2px;
+          position: absolute;
+          left: 50%;
+          content: '';
+          background-color: $lemon;
+          transform: translateX(-50%);
 
           @include max(bottom, #{-8px}, -8px);
         }
@@ -72,15 +77,15 @@
         }
         &.active::before,
         &:hover::before {
-          background-color: rgba(white, 0.08);
-          border-radius: 5px;
-          content: '';
+          width: 150%;
           height: 150%;
-          left: 50%;
           position: absolute;
           top: 50%;
+          left: 50%;
+          content: '';
+          background-color: rgba(white, 0.08);
+          border-radius: 5px;
           transform: translate(-50%, -50%);
-          width: 150%;
         }
       }
     }

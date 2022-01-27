@@ -58,20 +58,18 @@ export default async function blogQuery(): Promise<{ index: Index; id: Id; topic
           length: data.length,
         },
         topTopics: {
-          topics: topics.slice(0, 3).map((topic) => topic.displayName),
-          icons: topics.slice(0, 3).map((topic) => topic.icon),
-          articles: topics.slice(0, 3).map((topic) =>
-            topic.allArticles
-              .map((article) => ({
-                articleId: article.articleId,
-                published: article.published,
-                releaseDate: article.releaseDate,
-                title: article.title,
-                emoji: article.emoji,
-                type: article.type,
-                topics: article.topicIcons.map((_topic) => _topic.displayName),
-              }))
-              .slice(0, 3),
+          topics: topics.map((topic) => topic.displayName),
+          icons: topics.map((topic) => topic.icon),
+          articles: topics.map((topic) =>
+            topic.allArticles.map((article) => ({
+              articleId: article.articleId,
+              published: article.published,
+              releaseDate: article.releaseDate,
+              title: article.title,
+              emoji: article.emoji,
+              type: article.type,
+              topics: article.topicIcons.map((_topic) => _topic.displayName),
+            })),
           ),
         },
       },
