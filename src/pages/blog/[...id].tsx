@@ -25,7 +25,7 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
 
   return (
     <>
-      <HeadMeta title={data.title} />
+      <HeadMeta title={data.title} type="article" />
       <PageFrame className={styles.post}>
         <>
           <ArticleMeta
