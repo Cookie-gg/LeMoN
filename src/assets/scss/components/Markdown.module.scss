@@ -489,6 +489,9 @@ $code_font: 'Source Code Pro', monospace;
           color: #f92672;
           font-style: normal;
         }
+        &[class*='comment'] {
+          color: rgba(#f8f8f2, 0.5);
+        }
       }
       &[class*='diff'] {
         position: relative;
