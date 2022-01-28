@@ -1,3 +1,0 @@
-{
-  "plugins": ["autoprefixer", "postcss-nesting", "css-has-pseudo", "postcss-flexbugs-fixes"]
-}
