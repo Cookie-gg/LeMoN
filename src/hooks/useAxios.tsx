@@ -75,10 +75,8 @@ const useAxios = function <T>(
         try {
           const res = await axios.get<T & { result: T; limit: number }>(url + queries, { ...config });
           if (res.data.limit && res.data.result) {
-            console.log('hoge');
             _data({ loading: false, data: res.data.result, limit: res.data.limit });
           } else {
-            console.log('hage');
             if (arg.query?.index || arg.query?.limit) {
               _data((prev) => ({
                 loading: false,

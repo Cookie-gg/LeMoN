@@ -73,14 +73,14 @@ function IconPicker({ className, onSelect }: { className?: string; onSelect: (to
           <div className={styles.icons} ref={wrapper}>
             <ul>
               {!data && topic.icon !== '' && topic.iconIndex === '' && (
-                <li title={topic.icon} className={`${styles.active} foo`}>
+                <li title={topic.icon} className={styles.active}>
                   <Iconify fr={''} icon={topic.icon} />
                 </li>
               )}
               {data && (
                 <>
                   {Object.values(data).findIndex((d) => d === topic.icon) === -1 && topic.icon !== '' && (
-                    <li title={topic.icon} className={`${styles.active} hoge`}>
+                    <li title={topic.icon} className={styles.active}>
                       <Iconify fr={''} icon={topic.icon} />
                     </li>
                   )}
