@@ -21,8 +21,8 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
   const router = useRouter();
   data = JSON.parse(String(data));
   const [activeSection, _activeSection] = useState(0);
+  const relations = publicState(data.relations.articles, auth.state);
   useEffect(() => _activeSection(0), [router.query.id]);
-
   return (
     <>
       <HeadMeta title={data.title} type="article" />
@@ -53,10 +53,12 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
               className={styles.body}
             />
           </div>
-          <div className={styles.relations}>
-            <Heading rank={2} text={post.relations.title} className={styles.heading} />
-            <ArticleList vertical className={styles.articles} data={publicState(data.relations.articles, auth.state)} />
-          </div>
+          {relations.length > 0 && (
+            <div className={styles.relations}>
+              <Heading rank={2} text={post.relations.title} className={styles.heading} />
+              <ArticleList vertical className={styles.articles} data={relations} />
+            </div>
+          )}
         </>
       </PageFrame>
     </>
