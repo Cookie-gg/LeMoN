@@ -7,7 +7,6 @@ mermaid.initialize({
   theme: 'dark',
   securityLevel: 'strict',
   maxTextSize: 100000,
-  logLevel: process.env.NODE_ENV !== 'production' ? 4 : 1,
 });
 
 function Mermaid({ chart }: { chart: string }) {
