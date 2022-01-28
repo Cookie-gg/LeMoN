@@ -76,7 +76,10 @@ function Topics({ topics, dispatch }: { topics: string[]; dispatch: (arg: { name
                 // disable icon picker
                 _topicEditor({ index: -1, enable: false });
                 // add as a topic of the article
-                dispatch({ name: 'topics', value: JSON.stringify([...topics, arg.toLowerCase()]) });
+                dispatch({
+                  name: 'topics',
+                  value: JSON.stringify(topics.map((t) => (t === 'editing' ? arg.toLowerCase() : t))),
+                });
                 // add as a option and sort
                 _allTopics((prev) =>
                   [...prev, { name: arg.toLowerCase(), displayName: arg }]

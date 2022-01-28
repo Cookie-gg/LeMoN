@@ -40,6 +40,7 @@ function IconPicker({ className, onSelect }: { className?: string; onSelect: (to
           onChange={(e) => {
             _topic(e);
             observer.state(true);
+            dispatch({ name: 'iconIndex', value: '' });
             // search after it spend 1.5s
             timeoutDispatch({ reset: true, query: { search: e.target.value, limit: 54, index: 0 } });
           }}
@@ -71,13 +72,18 @@ function IconPicker({ className, onSelect }: { className?: string; onSelect: (to
         <div className={`${styles.entire} ${className}`}>
           <div className={styles.icons} ref={wrapper}>
             <ul>
-              {topic.icon !== '' && (
-                <li title={topic.icon} className={styles.active}>
+              {!data && topic.icon !== '' && topic.iconIndex === '' && (
+                <li title={topic.icon} className={`${styles.active} foo`}>
                   <Iconify fr={''} icon={topic.icon} />
                 </li>
               )}
               {data && (
                 <>
+                  {Object.values(data).findIndex((d) => d === topic.icon) === -1 && topic.icon !== '' && (
+                    <li title={topic.icon} className={`${styles.active} hoge`}>
+                      <Iconify fr={''} icon={topic.icon} />
+                    </li>
+                  )}
                   {Object.values(data).map((icon, i) => (
                     <li
                       key={i}
