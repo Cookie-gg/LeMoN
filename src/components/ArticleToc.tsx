@@ -92,7 +92,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
         className={`${styles.toc} ${isOpened && styles.opened}`}
         style={{
           maxHeight: window.width < 1200 ? undefined : `calc(100vh - ${paddingTop + paddingBottom + height}px)`,
-          top: window.width < 1200 ? undefined : observer ? `${1 * height}px` : '0px',
+          top: window.width < 1200 ? undefined : observer.intersect ? `${1 * height}px` : '0px',
         }}
         ref={(el) => {
           swipeOptions.ref(el);

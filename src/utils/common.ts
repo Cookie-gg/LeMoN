@@ -44,7 +44,8 @@ export const specifor: <T>(times: number, func: (index: number) => T) => T[] = (
 export const publicState = (data: Zenn[], authState?: boolean) =>
   data.filter((value) => {
     if (authState || process.env.NODE_ENV === 'development') return value;
-    else if (value.published) return value;
+    else 
+    if (value.published) return value;
   });
 
 export const cookie = (arg?: string): { [key: string]: string } =>

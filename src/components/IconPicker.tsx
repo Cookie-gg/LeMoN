@@ -21,7 +21,7 @@ function IconPicker({ className, onSelect }: { className?: string; onSelect: (to
     (async () => {
       if (data && Object.keys(data).length > 53 && observer.intersect) {
         await lazyDispatch({ query: { search: topic.name, limit: 54, index: Object.keys(data).length } });
-        limit && Object.keys(data).length === limit && observer.disable(false);
+        limit && Object.keys(data).length === limit && observer.state(false);
       }
     })();
     // eslint-disable-next-line
@@ -39,6 +39,7 @@ function IconPicker({ className, onSelect }: { className?: string; onSelect: (to
           className={`${topic.name.length > 0 && 'alignment'}`}
           onChange={(e) => {
             _topic(e);
+            observer.state(true);
             // search after it spend 1.5s
             timeoutDispatch({ reset: true, query: { search: e.target.value, limit: 54, index: 0 } });
           }}

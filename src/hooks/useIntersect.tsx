@@ -11,7 +11,7 @@ export default function useIntersect({
   el: HTMLElement | null;
   rootMargin?: string;
   once?: boolean;
-}): { intersect: boolean; disable: (result: boolean) => void } {
+}): { intersect: boolean; state: (value: boolean, result?: boolean) => void } {
   const [isIntersecting, _isIntersecting] = useState(false);
   const [observerState, _observerState] = useState(true);
   const { pathname, query } = useRouter();
@@ -23,7 +23,7 @@ export default function useIntersect({
         (entries) => entries.forEach((entry) => _isIntersecting(entry.isIntersecting)),
         { root, threshold: 0, rootMargin: rootMargin },
       );
-      observer.observe(el);
+      observerState && observer.observe(el);
       if (once || !observerState) {
         observer.unobserve(el);
         observer.disconnect();
@@ -36,9 +36,9 @@ export default function useIntersect({
   }, [depPath, el, rootMargin, root, once, observerState]);
   return {
     intersect: isIntersecting,
-    disable: (result) => {
-      _observerState(false);
-      _isIntersecting(result);
+    state: (value, result = false) => {
+      _observerState(result);
+      _isIntersecting(value);
     },
   };
 }
