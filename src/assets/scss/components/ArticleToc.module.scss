@@ -18,6 +18,7 @@
 
     @include max(letter-spacing, #{1.2px}, 1.2px);
     @include con(transition, $sp_value: left $common_anmt);
+    @include con(align-items, center);
     @include con(padding, #{25px 20px});
     @include con(overflow, $sp_value: hidden);
     @include con(position, sticky, fixed);
