@@ -21,23 +21,25 @@ function Page({ data, auth }: { data: BlogQueryType<'index'>; auth: { state: boo
         <>
           <Heading className={styles.heading} rank={1} text={blog.latest.title} />
           <ArticleList className={styles.articles} data={filteredArticles.slice(0, 4)} vertical />
-          <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
-          {data.topTopics.articles[0].length > 0 && (
-            <ArticleList
-              className={styles.articles}
-              data={data.topTopics.articles
-                .map((article) => publicState(article, auth.state))
-                [selectedTopic].slice(0, 3)}
-              vertical
-              shiftList={
-                <ArticleTopics
-                  topics={data.topTopics.topics.slice(0, 3)}
-                  icons={data.topTopics.icons.slice(0, 3)}
-                  activeNumber={selectedTopic}
-                  clickEvent={(n) => _selectedTopic(n)}
-                />
-              }
-            />
+          {data.topTopics.articles.map((article) => publicState(article, auth.state))[0].length > 0 && (
+            <>
+              <Heading className={styles.heading} rank={1} text={blog.topTopics.title} />
+              <ArticleList
+                className={styles.articles}
+                data={data.topTopics.articles
+                  .map((article) => publicState(article, auth.state))
+                  [selectedTopic].slice(0, 3)}
+                vertical
+                shiftList={
+                  <ArticleTopics
+                    topics={data.topTopics.topics.slice(0, 3)}
+                    icons={data.topTopics.icons.slice(0, 3)}
+                    activeNumber={selectedTopic}
+                    clickEvent={(n) => _selectedTopic(n)}
+                  />
+                }
+              />
+            </>
           )}
           {filteredArticles.length >= 4 && (
             <>

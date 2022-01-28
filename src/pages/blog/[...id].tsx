@@ -38,12 +38,14 @@ function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } 
           {auth.state && <EditButton articleId={data.articleId} className={styles.edit} />}
           <ArticleTopics type={data.type} topics={data.topics} icons={data.icons} className={styles.topics} inArticle />
           <div className={styles.contents}>
-            <ArticleToc
-              meta={{ title: data.title, emoji: data.emoji }}
-              activeSection={activeSection}
-              headings={data.headings}
-              className={styles.toc}
-            />
+            {data.headings && data.headings.length > 0 && (
+              <ArticleToc
+                meta={{ title: data.title, emoji: data.emoji }}
+                activeSection={activeSection}
+                headings={data.headings}
+                className={styles.toc}
+              />
+            )}
             <ArticleBody
               html={data.html}
               headingTexts={data.headings ? data.headings.map((heading) => heading.text) : undefined}
