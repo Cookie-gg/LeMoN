@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Image } from 'utils/next';
+import { Image } from 'utils/libs/next';
 import { ImageProps } from 'next/image';
 
 function Img({

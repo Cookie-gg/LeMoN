@@ -1,7 +1,7 @@
 import { Icon as Iconify } from '@iconify/react';
 import { Button } from 'components';
 import { memo } from 'react';
-import { Link } from 'utils/next';
+import { Link } from 'utils/libs/next';
 import styles from '../assets/scss/components/FormState.module.scss';
 
 function FormState({

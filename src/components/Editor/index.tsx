@@ -1,8 +1,8 @@
 import Split from 'react-split';
 import { Icon as Iconify } from '@iconify/react';
 import { useForm, useWindowDimensions } from 'hooks';
-import { Router } from 'utils/next';
-import { useRouter } from 'utils/next';
+import { Router } from 'utils/libs/next';
+import { useRouter } from 'utils/libs/next';
 import { displayDate } from 'utils/common';
 import { client } from 'graphql/config.gql';
 import { getFile } from 'utils/github/get.github';

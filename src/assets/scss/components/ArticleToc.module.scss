@@ -16,8 +16,8 @@
     box-sizing: border-box;
     font-family: $jp_font;
 
+    @include max(transition, $sp_value: left $common_anmt);
     @include max(letter-spacing, #{1.2px}, 1.2px);
-    @include con(transition, $sp_value: left $common_anmt);
     @include con(align-items, center);
     @include con(padding, #{25px 20px});
     @include con(overflow, $sp_value: hidden);
@@ -92,10 +92,10 @@
       @include con(font-size, #{17.5px}, 19.5px, #{17.5px});
     }
     [class*='header_opened'] + main & {
-      @include con(left, $sp_value: (20px + 20px + 70px));
+      @include max(left, $sp_value: (20px + 20px + 70px));
     }
     [class*='header_expanded'] + main & {
-      @include con(left, $sp_value: (20px + 20px + 200px));
+      @include max(left, $sp_value: (20px + 20px + 200px));
     }
   }
   .toc {
@@ -141,11 +141,7 @@
       @include con(background-color, $sp_value: $dark_gray);
     }
     &.opened {
-      @include con(width, $sp_value: 300px, $mid_value: #{300px});
-
-      .body {
-        @include con(transform, $sp_value: translateX(0%));
-      }
+      @include con(width, $sp_value: 300px, $mid_value: #{345px});
     }
     .title {
       font-weight: 500;
@@ -174,7 +170,7 @@
       display: flex;
       flex-direction: column;
 
-      @include con(transition, $sp_value: transform $common_anmt);
+      @include con(transition, $sp_value: padding-top $common_anmt);
       @include con(box-sizing, $sp_value: border-box);
       @include con(width, $sp_value: 295px, $mid_value: #{295px});
       @include con(margin, 20px 0 0 0, 0 5px 0 0, #{0 5px 0 0});
@@ -199,21 +195,20 @@
         transition: color $common_anmt;
         display: flex;
         align-items: center;
+        box-sizing: border-box;
         width: 100%;
         user-select: none;
         position: relative;
         color: rgba(white, 0.6);
-        line-height: 1.4;
+        line-height: 1.6;
         cursor: pointer;
+
+        @include max(padding-left, #{30px}, 30px);
 
         &._1 {
           font-weight: 500;
 
           @include max(font-size, #{16px}, 18px);
-
-          &::before {
-            @include max(margin-right, #{10px}, 10px);
-          }
         }
         &._2 {
           font-weight: 400;
@@ -223,14 +218,15 @@
           &::before {
             @include max(width, #{9px}, 9px);
             @include max(height, #{9px}, 9px);
-            @include max(margin-left, #{2px}, 2px);
-            @include max(margin-right, #{12px}, 12px);
+            @include max(margin, #{0 2px}, 0 2px);
           }
         }
         &::before {
           transition: multi(background-clip background-color border padding border-width, ease-in-out 0.3s);
           display: block;
           box-sizing: border-box;
+          position: absolute;
+          left: 0;
           z-index: 1;
           content: '';
           background-color: #6f6f6f;
@@ -238,12 +234,10 @@
 
           @include max(width, #{13px}, 13px);
           @include max(height, #{13px}, 13px);
-          @include max(margin-top, #{2px}, 2px);
         }
         &:not(:first-of-type)::after {
           width: 1px;
-          height: 100%;
-          height: 150%;
+          height: 110%;
           position: absolute;
           bottom: 50%;
           content: '';
@@ -293,7 +287,7 @@
       }
     }
     .toc {
-      @include max(transition, top $common_anmt order(2), width $common_anmt);
+      @include con(transition, top $common_anmt order(2), width $common_anmt);
     }
   }
 }

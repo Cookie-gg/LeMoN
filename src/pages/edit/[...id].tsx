@@ -4,7 +4,7 @@ import { Editor, PageFrame } from 'components';
 import { client } from 'graphql/config.gql';
 import { auth, cookie } from 'utils/common';
 import { Zenn, ZennAdds } from 'types/common';
-import { GetServerSideProps, Head } from 'utils/next';
+import { GetServerSideProps, Head } from 'utils/libs/next';
 import styles from '../../assets/scss/pages/Edit.module.scss';
 import { FindArticleDocument, FindArticleQuery } from 'types/graphql.d';
 

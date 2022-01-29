@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, RefObject } from 'react';
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 
 export default function useHeight<T extends HTMLElement>(init = 0, isInteractive = true): [number, RefObject<T>] {
   const query = (useRouter().query as { id: string[] }).id[0];

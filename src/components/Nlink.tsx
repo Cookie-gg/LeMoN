@@ -1,4 +1,4 @@
-import { Link } from 'utils/next';
+import { Link } from 'utils/libs/next';
 import { memo, ReactElement } from 'react';
 import { scrollTopCashe } from './MainFrame';
 

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Script } from 'utils/next';
+import { Script } from 'utils/libs/next';
 
 function Scripts() {
   return (

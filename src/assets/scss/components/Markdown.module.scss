@@ -53,7 +53,7 @@ $code_font: 'Source Code Pro', monospace;
       content: '';
 
       @include con(height, #{10px}, 100px, #{100px});
-      @include con(margin-top, $sp_value: -100px, $mid_value: #{-100px});
+      @include con(margin-top, #{-10px}, -100px, #{-100px});
     }
   }
   h3 {

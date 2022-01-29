@@ -4,11 +4,10 @@
   top: 50%;
   z-index: 2; // with LeMoN.module.scss
   transform: translate(-50%, -50%);
-
-  @include max(left, -130vw, -1300px);
-  @include media(mobile) {
-    @include max(left, 130vw, 700px);
-  }
+  // @include max(left, -120vw, -1300px);
+  // @include media(mobile) {
+  // }
+  @include max(left, 120vw, 935px);
 
   .cover {
     overflow: hidden;
@@ -19,8 +18,8 @@
     transform: translateY(-50%) rotate(30deg);
     transform-origin: 0% 50%;
 
-    @include max(width, 55.5vw, 500px);
-    @include max(height, calc(200vh + 200vw), 200vh);
+    @include max(width, 72vw, 500px);
+    @include max(height, 200vh, 125vh);
 
     span {
       display: block;

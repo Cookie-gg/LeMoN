@@ -1,6 +1,6 @@
 import { AuthButton } from 'components';
 import PageTransition from './PageTransition';
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import { useAgent, useWindowDimensions } from 'hooks';
 import memoryCache, { CacheClass } from 'memory-cache';
 import styles from '../assets/scss/components/MainFrame.module.scss';

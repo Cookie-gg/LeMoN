@@ -1,4 +1,4 @@
-import { Link } from 'utils/next';
+import { Link } from 'utils/libs/next';
 import { Button, HeadMeta } from 'components';
 import styles from '../assets/scss/pages/404.module.scss';
 

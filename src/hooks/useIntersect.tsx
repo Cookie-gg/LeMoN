@@ -1,4 +1,4 @@
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import { useEffect, useState } from 'react';
 
 export default function useIntersect({

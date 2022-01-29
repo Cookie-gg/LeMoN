@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useForm } from 'hooks';
-import { Image } from 'utils/next';
+import { Image } from 'utils/libs/next';
 import contact from 'assets/json/contact.json';
 import { FormEvent, Fragment as _, useState } from 'react';
 import addressDelivery from 'assets/svg/addressDelivery.svg';

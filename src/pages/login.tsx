@@ -1,7 +1,7 @@
 import useForm from 'hooks/useForm';
 import lemon from 'assets/svg/lemon.svg';
 import json from 'assets/json/login.json';
-import { GetServerSideProps } from 'utils/next';
+import { GetServerSideProps } from 'utils/libs/next';
 import styles from '../assets/scss/pages/Login.module.scss';
 import React, { FormEvent, Fragment as _, memo, useCallback } from 'react';
 import { FormFrame, FormInput, FormLabel, FormSubmit, HeadMeta, Img, PageFrame } from 'components';

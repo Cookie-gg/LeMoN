@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import nookies from 'nookies';
-import { GetServerSideProps } from 'utils/next';
+import { GetServerSideProps } from 'utils/libs/next';
 import editQuery, { EditQueryType } from 'data/editQuery';
 import styles from '../../assets/scss/pages/Edit.module.scss';
 import { Heading, PageFrame, ArticleList, HeadMeta } from 'components';

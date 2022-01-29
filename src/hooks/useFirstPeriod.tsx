@@ -1,4 +1,4 @@
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import { useState, useEffect } from 'react';
 
 export default function useFirstPeriod(duration: number): boolean {

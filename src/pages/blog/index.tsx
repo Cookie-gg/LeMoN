@@ -1,7 +1,7 @@
 import { useState, memo } from 'react';
 import blog from 'assets/json/blog.json';
 import { Icon as Iconify } from '@iconify/react';
-import { GetStaticProps, Link } from 'utils/next';
+import { GetStaticProps, Link } from 'utils/libs/next';
 import blogQuery, { BlogQueryType } from 'data/blogQuery';
 import styles from '../../assets/scss/pages/Blog.module.scss';
 import { useFindMoreArticlesLazyQuery } from 'types/graphql.d';

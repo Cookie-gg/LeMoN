@@ -1,4 +1,4 @@
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import loader from '@monaco-editor/loader';
 import { useEffect, useState } from 'react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';

@@ -1,5 +1,5 @@
 import { Scripts, Widgets } from 'widgets';
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import { ScrollerContext } from './MainFrame';
 import parse, { Element } from 'html-react-parser';
 import styles from '../assets/scss/components/ArticleBody.module.scss';

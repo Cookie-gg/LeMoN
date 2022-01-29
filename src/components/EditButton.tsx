@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Link } from 'utils/next';
+import { Link } from 'utils/libs/next';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/EditButton.module.scss';
 import Nlink from './Nlink';

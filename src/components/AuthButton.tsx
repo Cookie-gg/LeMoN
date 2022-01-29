@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import styles from '../assets/scss/components/AuthButton.module.scss';
 import { Icon as Iconify } from '@iconify/react';
-import { Link, useRouter } from 'utils/next';
+import { Link, useRouter } from 'utils/libs/next';
 import { Nlink } from 'components';
 
 function AuthButton({ logout }: { logout: () => Promise<void> }) {

@@ -28,7 +28,7 @@ import * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
 export type MonacoEditorType = Monaco.editor.IStandaloneCodeEditor | null;
 
 // middleware type
-import type { NextFetchEvent, NextRequest } from 'utils/next';
+import type { NextFetchEvent, NextRequest } from 'utils/libs/next';
 export type Middleware = (
   request: NextRequest,
   event: NextFetchEvent,

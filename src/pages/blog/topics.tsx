@@ -1,13 +1,13 @@
 import { Settings } from 'react-slick';
 import { Fragment as _, memo, useEffect } from 'react';
-import { GetStaticProps } from 'utils/next';
+import { GetStaticProps } from 'utils/libs/next';
 import topics from 'assets/json/topics.json';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../../assets/scss/pages/Topics.module.scss';
 import { ArticleList, Heading, HeadMeta, PageFrame } from 'components';
 import { publicState } from 'utils/common';
 import blogQuery, { BlogQueryType } from 'data/blogQuery';
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 
 function Page({ data, auth }: { data: BlogQueryType<'topics'>; auth: { state: boolean } }) {
   data = JSON.parse(String(data));

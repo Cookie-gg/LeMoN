@@ -1,4 +1,4 @@
-import { Link, useRouter } from 'utils/next';
+import { Link, useRouter } from 'utils/libs/next';
 import { memo, MouseEvent, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useAgent, useFirstPeriod, useHeight, useIntersect, useWindowDimensions } from 'hooks';
 import styles from '../assets/scss/components/ArticleToc.module.scss';
@@ -112,7 +112,7 @@ function ArticleToc({ meta, activeSection, headings, className }: PropsType) {
             className={styles.body}
             style={{
               paddingTop:
-                window.width < 1200 && observer
+                window.width < 1200 && observer.intersect
                   ? window.width < 500
                     ? `${height + window.width * 0.05}px`
                     : `${height + 25}px`

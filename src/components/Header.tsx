@@ -1,7 +1,7 @@
 import { useAgent, useFirstPeriod, usePeriod } from 'hooks';
 import { Nlink } from 'components';
 import { memo, useState } from 'react';
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import { useSwipeable } from 'react-swipeable';
 import { Icon as Iconify } from '@iconify/react';
 import styles from '../assets/scss/components/Header.module.scss';

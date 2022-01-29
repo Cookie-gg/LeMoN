@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Image } from 'utils/next';
+import { Image } from 'utils/libs/next';
 import about from 'assets/json/about.json';
 import feelingProud from 'assets/svg/feelingProud.svg';
 import styles from '../assets/scss/pages/About.module.scss';

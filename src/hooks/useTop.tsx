@@ -1,4 +1,4 @@
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import { useState, useEffect, useRef, RefObject } from 'react';
 
 export default function useTop<T extends HTMLElement>(init = 0): [number, RefObject<T>] {

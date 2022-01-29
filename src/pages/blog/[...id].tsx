@@ -2,7 +2,7 @@ import post from 'assets/json/post.json';
 import { Zenn, ZennAdds } from 'types/common';
 import { memo, useEffect, useState } from 'react';
 import styles from '../../assets/scss/pages/Blog.module.scss';
-import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/next';
+import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/libs/next';
 import {
   Heading,
   HeadMeta,

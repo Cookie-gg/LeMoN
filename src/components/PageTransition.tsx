@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useRouter } from 'utils/next';
+import { useRouter } from 'utils/libs/next';
 import styles from '../assets/scss/components/PageTransition.module.scss';
 
 function PageTransition() {

@@ -1,5 +1,5 @@
 import { memo, ReactElement } from 'react';
-import { Head, useRouter } from 'utils/next';
+import { Head, useRouter } from 'utils/libs/next';
 
 interface PropsType {
   title: string;
