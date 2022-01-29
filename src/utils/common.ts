@@ -28,7 +28,7 @@ export const displayDate = (arg: Date, split = '/', compare = true) => {
   if (compare) {
     const now = new Date();
     if (now.getFullYear() === date.y && now.getMonth() === date.m && now.getDate() > date.d)
-      return `${now.getDate() - date.d} days ago`;
+      return `${now.getDate() - date.d} day${now.getDate() - date.d === 1 ? '' : 's'} ago`;
     else return display;
   } else return display;
 };
