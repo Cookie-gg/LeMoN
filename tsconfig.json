@@ -25,7 +25,8 @@
       "cypress",
       "@testing-library/cypress",
       "cypress-wait-until",
-      "youtube"
+      "youtube",
+      "gtag.js"
     ],
     "incremental": true
   },
