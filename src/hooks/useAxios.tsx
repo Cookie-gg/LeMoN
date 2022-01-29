@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import axios, { type AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 interface StateType<T> {
   loading?: boolean;
