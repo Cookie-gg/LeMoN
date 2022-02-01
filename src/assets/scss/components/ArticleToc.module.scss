@@ -195,14 +195,11 @@
         width: 1px;
         height: 100%;
         position: absolute;
-        // @include max(top, #{5px}, 5px);
-
         bottom: 0;
         content: '';
         background-color: #6f6f6f;
 
-        @include max(height, calc(100% - 5px), diff(100%, 5px));
-        // @include max(left, #{6.2px}, 6.2px);
+        @include con(height, calc(100% - 5px), 100%);
         @include con(left, #{divide(12px, 2)}, 31px, #{31px});
       }
       li {
