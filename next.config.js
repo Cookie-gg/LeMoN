@@ -4,6 +4,17 @@
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
+const cacheHeaders = [
+  {
+    key: 'Cache-Control',
+    value: 'max-age=0',
+  },
+  {
+    key: 'Surrogate-Control',
+    value: 'public, max-age=300',
+  },
+];
+
 const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: true,
@@ -65,8 +76,18 @@ const nextConfig = {
           // }
         ],
       },
+      {
+        source: '/edit/:id*',
+        headers: cacheHeaders,
+      },
+      {
+        // Client Routing で SSR するページに遷移したとき
+        source: '/_next/data/:hash/edit/:id*',
+        headers: cacheHeaders,
+      },
     ];
   },
+
   // ignore files for storybook from build
   webpack: (config, { webpack }) => {
     config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /\.stor(ies|y)\.tsx$/ }));
