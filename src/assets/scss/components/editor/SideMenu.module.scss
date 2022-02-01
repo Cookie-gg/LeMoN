@@ -146,39 +146,31 @@
       border: 1px solid;
       cursor: pointer;
 
+      @mixin submit($color, $font_weight: 400) {
+        color: $color;
+        font-weight: $font_weight;
+        border-color: $color;
+
+        &:hover {
+          background-color: rgba($color, 0.075);
+        }
+      }
+
       &:hover {
         transition: background-color 0.3s;
       }
       &[name='save'] {
-        color: $lemon;
-        border-color: $lemon;
-
         @include max(margin-top, #{37.5px}, 37.5px);
-
-        &:hover {
-          background-color: rgba($lemon, 0.075);
-        }
+        @include submit($lemon);
+      }
+      &[name='zenn'] {
+        @include submit(#37a2ff, 500);
+      }
+      &:not([name='save']) {
+        @include max(margin-top, #{17.5px}, 17.5px);
       }
       &[name='delete'] {
-        color: $red;
-        font-weight: 500;
-        border-color: $red;
-
-        @include max(margin-top, #{12.5px}, 12.5px);
-
-        &:hover {
-          background-color: rgba($red, 0.075);
-        }
-      }
-      &[name='page'] {
-        color: rgba(white, 0.8);
-        border-color: rgba(white, 0.5);
-
-        @include max(margin-top, #{12.5px}, 12.5px);
-
-        &:hover {
-          background-color: rgba(white, 0.02);
-        }
+        @include submit($red, 500);
       }
     }
     &[type='text']:-webkit-autofill,

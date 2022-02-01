@@ -9,7 +9,7 @@ const nextConfig = {
   optimizeFonts: true,
   // trailingSlash: true, // add slash the end of URL
   images: {
-    domains: ['storage.google.com', 'dropbox.com'],
+    domains: ['storage.googleapis.com', 'dropbox.com'],
   },
   sassOptions: {
     prependData: `

@@ -447,15 +447,19 @@ $code_font: 'Source Code Pro', monospace;
       span {
         &[class*='keyword'],
         &[class*='builtin'],
+        &[class*='property'],
         &[class*='operator'][class*='arrow'],
         &[class*='operator'][class*='blue'] {
           color: #66d9ef;
           font-style: italic;
         }
+        &[class*='class-name'],
+        &[class*='selector'],
         &[class*='function'],
         &[class*='function-variable'] {
           color: #a6e22e;
         }
+        &[class*='atrule'] > [class*='rule'],
         &[class*='tag'],
         &[class*='operator'],
         &[class*='keyword'][class*='control-flow'] {
@@ -470,6 +474,9 @@ $code_font: 'Source Code Pro', monospace;
         &[class*='parameter'] {
           color: #fd971f;
           font-style: italic;
+        }
+        &[class*='string'] {
+          color: #e6db74;
         }
         &[class*='number'],
         &[class*='boolean'] {

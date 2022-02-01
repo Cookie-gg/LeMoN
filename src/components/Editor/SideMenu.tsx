@@ -130,6 +130,8 @@ function SideMenu({
 
       <input type="submit" name="save" value="Save" />
 
+      <input type="submit" name="zenn" value="With Zenn" />
+
       <input type="submit" name="delete" value="Delete" />
     </form>
   );
