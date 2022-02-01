@@ -9,10 +9,14 @@ import { client } from 'graphql/config.gql';
 import { Script } from 'utils/libs/next';
 import { ApolloProvider } from '@apollo/client';
 import { existsGaId, GA_ID } from 'utils/libs/gtag';
-import { Header, MainFrame, ProgressBar } from 'components';
+import { Header, MainFrame, ProgressBar, Notification } from 'components';
+import { createContext, useState } from 'react';
+
+export const NotiContext = createContext<((arg: string) => void) | null>(null);
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [state, login, logout] = useAuth();
+  const [noti, _noti] = useState<{ msg: string; enable: boolean }>({ msg: '', enable: false });
   usePageView();
   return (
     <>
@@ -21,8 +25,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <>
           <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
           <Script strategy="afterInteractive">
-            {parse(`
-                  window.dataLayer = window.dataLayer || [];
+            {parse(`window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
                   gtag('config', '${GA_ID}', {
@@ -34,10 +37,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <ProgressBar />
       <Header />
       <ApolloProvider {...{ client }}>
-        <MainFrame auth={{ state, logout }}>
-          <Component {...pageProps} auth={{ state, login }} />
-        </MainFrame>
+        <NotiContext.Provider value={(msg: string) => _noti({ msg, enable: true })}>
+          <MainFrame auth={{ state, logout }}>
+            <Component {...pageProps} auth={{ state, login }} />
+          </MainFrame>
+        </NotiContext.Provider>
       </ApolloProvider>
+      <Notification noti={noti} dispatch={(state) => _noti({ msg: '', enable: state })} />
     </>
   );
 }
