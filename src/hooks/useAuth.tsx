@@ -18,19 +18,21 @@ export default function useAuth(): [
         const res = await auth('get', '/refresh', token);
         console.log('refreshed!');
         _state(true);
+        nookies.destroy(null, 'token');
         nookies.set(null, 'token', res.data.token);
       } catch {
         _state(false);
         nookies.destroy(null, 'token');
         intervalRef.current && clearTimeout(intervalRef.current);
       }
-    }, 60 * 60 * 1000);
+    }, 60 * 60 * 1000 * 1.5);
   }, []);
   const login = useCallback(
     async (name: string, password: string) => {
       try {
         const res = await auth('post', '/login', undefined, { username: name, password: password });
         _state(true);
+        nookies.destroy(null, 'token');
         nookies.set(null, 'token', res.data.token);
         refresh();
         router.push('/edit');
@@ -59,12 +61,14 @@ export default function useAuth(): [
         try {
           const res = await auth('get', '/refresh', token);
           _state(true);
+          nookies.destroy(null, 'token');
           nookies.set(null, 'token', res.data.token);
           refresh();
         } catch {
           const res = await auth('get', '/deliver', token);
           if (res.data.token) {
             _state(true);
+            nookies.destroy(null, 'token');
             nookies.set(null, 'token', res.data.token);
             refresh();
           } else {
