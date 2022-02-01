@@ -141,7 +141,7 @@
       @include con(background-color, $sp_value: $dark_gray);
     }
     &.opened {
-      @include con(width, $sp_value: 300px, $mid_value: #{345px});
+      @include con(width, $sp_value: 345px, $mid_value: #{345px});
     }
     .title {
       font-weight: 500;
@@ -203,7 +203,7 @@
 
         @include max(height, calc(100% - 5px), diff(100%, 5px));
         // @include max(left, #{6.2px}, 6.2px);
-        @include max(left, #{divide(12px, 2)}, divide(12px, 2));
+        @include con(left, #{divide(12px, 2)}, 31px, #{31px});
       }
       li {
         transition: color $common_anmt;
