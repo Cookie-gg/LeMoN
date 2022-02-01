@@ -151,7 +151,7 @@
     }
   }
   &.vertical {
-    &:not([class*='slick-slider']) > li {
+    &:not([class*='slick-slider']) > li:not([class*='card']) {
       @include con(width, diff(100%, 120px, div(4)), diff(100%, 20px, div(2)), diff(100%, 40px, div(2)));
     }
     [class*='slick-slider'] li,
@@ -277,15 +277,7 @@
       display: flex;
       overflow: hidden;
 
-      @include max(width, diff(100%, divide(40, 3) + 0px, div(4 * 3)));
-
-      @media screen and (max-width: 1200px) {
-        @include max(width, diff(100%, divide(40, 2) + 0px, div(3 * 2)));
-
-        @media screen and (max-width: 900px) {
-          width: 100%;
-        }
-      }
+      @include con(width, diff(100%, 40px, div(divide(4, 3))));
 
       & > button {
         transition: opacity $common_anmt;

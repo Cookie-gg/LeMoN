@@ -22,7 +22,7 @@
       background-color: rgba(white, 0.04);
       border-left: solid $lemon;
 
-      @include max(width, diff(100%, 120px, div(4)));
+      @include con(width, diff(100%, 120px, div(4)), 100%);
       @include max(height, #{125px}, 125px);
       @include max(padding-right, #{25px}, 25px);
       @include max(padding-left, #{25px}, 25px);
