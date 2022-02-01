@@ -151,7 +151,7 @@
     }
   }
   &.vertical {
-    &:not([class*='slick-slider']) > li:not([class*='card']) {
+    &:not([class*='slick-slider']) > li {
       @include con(width, diff(100%, 120px, div(4)), diff(100%, 20px, div(2)), diff(100%, 40px, div(2)));
     }
     [class*='slick-slider'] li,
