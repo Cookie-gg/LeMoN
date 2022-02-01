@@ -10,7 +10,7 @@ function Nlink({ href, as, title, children }: { href: string; as?: string; title
         title={title}
         onClick={() => {
           scrollTopCashe.del(as ? as : href);
-          gtag.event({ action: 'click_event', category: 'link_button', label: 'event' });
+          // gtag.event({ action: 'click_event', category: 'link_button', label: 'event' });
         }}
       >
         {children}

@@ -22,8 +22,6 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap"
           />
-          {/* katex */}
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
           {/* icon */}
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
