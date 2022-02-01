@@ -60,23 +60,25 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
       const variables = Object.assign(meta, { id: data.id || '', markdown: body.markdown, html: body.html });
       const { id, articleId, title, emoji, type, topics, published, markdown } = variables;
       if (submitter === 'save' || submitter === 'zenn') {
+        await client.mutate<ArticleInput>({ mutation: ChangeArticleDocument, variables });
+        console.log('mongodb!');
         if (submitter === 'zenn') {
-          await client.mutate<ArticleInput>({ mutation: ChangeArticleDocument, variables });
-        }
-        if (data.articleId !== articleId || id === '') {
-          try {
-            await deleteFile(`articles/${data.articleId}.md`);
-          } finally {
-            await createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
+          if (data.articleId !== articleId || id === '') {
+            try {
+              await deleteFile(`articles/${data.articleId}.md`);
+            } finally {
+              await createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
+            }
+          } else {
+            try {
+              await getFile(`articles/${data.articleId}.md`); // confirm file exiting
+              await updateFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
+            } catch {
+              await createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
+            }
           }
-        } else {
-          try {
-            await getFile(`articles/${data.articleId}.md`); // confirm file exiting
-            await updateFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
-          } catch {
-            await createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
-          }
         }
+        console.log('github!');
         _isSaved(true);
         notification && notification('保存しました');
       } else if (
