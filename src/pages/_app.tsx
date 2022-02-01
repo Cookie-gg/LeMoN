@@ -6,7 +6,7 @@ import 'assets/scss/foundations/base.scss';
 import 'assets/scss/foundations/reset.scss';
 import 'assets/scss/foundations/global.scss';
 import { client } from 'graphql/config.gql';
-import { Head, Script, useRouter } from 'utils/libs/next';
+import { Head } from 'utils/libs/next';
 import { ApolloProvider } from '@apollo/client';
 // import { existsGaId, GA_ID } from 'utils/libs/gtag';
 import { Header, MainFrame, ProgressBar, Notification } from 'components';
@@ -17,18 +17,12 @@ export const NotiContext = createContext<((arg: string) => void) | null>(null);
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [state, login, logout] = useAuth();
   const [noti, _noti] = useState<{ msg: string; enable: boolean }>({ msg: '', enable: false });
-  const { pathname } = useRouter();
   // usePageView();
   return (
     <>
-      <Head>
-        {pathname.match(/blog\/\[\.{3}id\]|edit\/\[\.{3}id\]/g) && (
-          <>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-          </>
-        )}
-        {/* Google Analytics */}
-        {/* {existsGaId && (
+      {/* <Head> */}
+      {/* Google Analytics */}
+      {/* {existsGaId && (
           <>
             <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
             <Script strategy="afterInteractive">
@@ -41,7 +35,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             </Script>
           </>
         )} */}
-      </Head>
+      {/* </Head> */}
       <ProgressBar />
       <Header />
       <ApolloProvider {...{ client }}>
