@@ -154,6 +154,7 @@ function Monaco({
               });
               _prevValue(value);
             }
+            controller.abort();
           }, 1500);
         }}
       />

@@ -60,7 +60,7 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
       const variables = Object.assign(meta, { id: data.id || '', markdown: body.markdown, html: body.html });
       const { id, articleId, title, emoji, type, topics, published, markdown } = variables;
       if (submitter === 'save' || submitter === 'zenn') {
-        if (submitter !== 'zenn') {
+        if (submitter === 'zenn') {
           await client.mutate<ArticleInput>({ mutation: ChangeArticleDocument, variables });
         }
         if (data.articleId !== articleId || id === '') {

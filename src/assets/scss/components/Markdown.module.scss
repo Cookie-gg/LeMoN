@@ -539,8 +539,6 @@ $code_font: 'Source Code Pro', monospace;
       }
     }
     &[class*='named-fence-block'] {
-      overflow: hidden;
-
       @include max(padding-top, #{45px}, 45px);
 
       [class*='named-fence-filename'] {
