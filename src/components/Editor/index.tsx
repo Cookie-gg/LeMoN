@@ -7,10 +7,11 @@ import { displayDate } from 'utils/common';
 import { client } from 'graphql/config.gql';
 import { getFile } from 'utils/github/get.github';
 import type { MonacoEditorType, Zenn, ZennAdds } from 'types/common';
-import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
+import { FormEvent, memo, useCallback, useContext, useEffect, useState } from 'react';
 import styles from '../../assets/scss/components/editor/Editor.module.scss';
 import { deleteFile, updateFile, createFile } from 'utils/github/post.github';
 import { ArticleInput, ChangeArticleDocument, DeleteArticleDocument } from 'types/graphql.d';
+import { NotiContext } from 'pages/_app';
 // components
 import Monaco from './Monaco';
 import Preview from './Preview';
@@ -20,6 +21,7 @@ import QuickEdits from './QuickEdits';
 function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
   const router = useRouter();
   const w = useWindowDimensions();
+  const notification = useContext(NotiContext);
   const [sideEnable, _sideEnable] = useState(true);
   const [previewEnable, _previewEnable] = useState(false);
   const [editor, _editor] = useState<MonacoEditorType>(null);
@@ -54,44 +56,40 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
     target.reportValidity();
   }, []);
   const saveHandler = useCallback(
-    async (submitter = 'save') => {
-      const { id, articleId, published, releaseDate, updateDate, title, emoji, type, topics, markdown, html } =
-        Object.assign(meta, { id: data.id || '', markdown: body.markdown, html: body.html });
-      if (submitter === 'save') {
-        await client.mutate<ArticleInput>({
-          mutation: ChangeArticleDocument,
-          variables: { id, articleId, published, releaseDate, updateDate, title, emoji, type, topics, html, markdown },
-        });
-        console.log('mongoDb!');
-        _isSaved(true);
+    async (submitter: string) => {
+      const variables = Object.assign(meta, { id: data.id || '', markdown: body.markdown, html: body.html });
+      const { id, articleId, title, emoji, type, topics, published, markdown } = variables;
+      if (submitter === 'save' || submitter === 'zenn') {
+        if (submitter !== 'zenn') {
+          await client.mutate<ArticleInput>({ mutation: ChangeArticleDocument, variables });
+        }
         if (data.articleId !== articleId || id === '') {
           try {
             await deleteFile(`articles/${data.articleId}.md`);
-            console.log('deleted!');
           } finally {
             await createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
-            console.log('created!');
           }
         } else {
           try {
             await getFile(`articles/${data.articleId}.md`); // confirm file exiting
             await updateFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
-            console.log('updated!');
           } catch {
             await createFile(`articles/${articleId}.md`, { title, emoji, type, topics, published, markdown });
-            console.log('created!');
           }
         }
+        _isSaved(true);
+        notification && notification('保存しました');
       } else if (
         submitter === 'delete' &&
         confirm(`一度削除すると元に戻りません。本当に ${data.title || title || 'タイトルなし'} を削除しますか？`)
       ) {
         await client.mutate<ArticleInput>({ mutation: DeleteArticleDocument, variables: { id } });
         await deleteFile(`articles/${data.articleId}.md`);
+        notification && notification('削除しました');
         router.push('/blog');
       }
     },
-    [body.html, body.markdown, data.articleId, data.id, data.title, meta, router],
+    [body.html, body.markdown, data.articleId, data.id, data.title, meta, notification, router],
   );
   const submit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -106,7 +104,7 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
   );
   useEffect(() => {
     if (!isSaved) {
-      const routeChangeHandler = () => confirm('変更が見つかりました。保存して終了しますか？') && saveHandler();
+      const routeChangeHandler = () => confirm('変更が見つかりました。保存して終了しますか？') && saveHandler('save');
       const windowCloseHandler = (e: BeforeUnloadEvent) => {
         Router.events.off('routeChangeStart', routeChangeHandler);
         e.preventDefault();
@@ -140,28 +138,24 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
               <Iconify fr={''} icon={previewEnable ? 'ic:round-mode-edit-outline' : 'bx:bxs-right-arrow'} />
             </button>
             <Monaco
-              defaultValue={body.markdown}
               _editor={(arg) => _editor(arg)}
-              _body={(arg) =>
-                _body((prev) => {
-                  _isSaved(false);
-                  return { ...prev, ...arg };
-                })
-              }
+              body={body}
+              _body={(arg) => {
+                _isSaved(false);
+                _body((prev) => ({ ...prev, ...arg }));
+              }}
             />
             <Preview editor={editor} html={body.html} />
           </div>
         ) : (
           <Split className={styles.editor} gutterSize={12} minSize={350} snapOffset={0}>
             <Monaco
-              defaultValue={body.markdown}
               _editor={(arg) => _editor(arg)}
-              _body={(arg) =>
-                _body((prev) => {
-                  _isSaved(false);
-                  return { ...prev, ...arg };
-                })
-              }
+              body={body}
+              _body={(arg) => {
+                _isSaved(false);
+                _body((prev) => ({ ...prev, ...arg }));
+              }}
             />
             <Preview editor={editor} html={body.html} />
           </Split>

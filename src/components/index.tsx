@@ -34,6 +34,7 @@ export { default as EmojiPicker } from './EmojiPicker';
 export { default as ArticleBody } from './ArticleBody';
 export { default as ArticleMeta } from './ArticleMeta';
 export { default as ArticleList } from './ArticleList';
+export { default as Notification } from './Notification';
 export { default as ArticleTopics } from './ArticleTopics';
 export { default as DynamicWrapper } from './DynamicWrapper';
 export { default as PageTransition } from './PageTransition';
