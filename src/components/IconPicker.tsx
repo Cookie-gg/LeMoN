@@ -9,10 +9,10 @@ import styles from '../assets/scss/components/IconPicker.module.scss';
 function IconPicker({ className, onSelect }: { className?: string; onSelect: (topic: string) => void }) {
   const [timeout, _timeout] = usePeriod<'normal' | 'error' | 'empty'>('normal');
   const [topic, _topic, dispatch, resetAll] = useForm({ name: '', iconIndex: '', icon: '' });
-  const [{ loading, data, error, limit }, lazyDispatch, timeoutDispatch] = useAxios<string[]>(
+  const [{ loading, data, error, limit }, manualDispatch, lazyDispatch, timeoutDispatch] = useAxios<string[]>(
     `${process.env.NEXT_PUBLIC_MELON}/icon`,
     { headers: { key: `${process.env.NEXT_PUBLIC_ICON_KEY}` } },
-    { timeout: true, lazy: true },
+    { manual: true, timeout: true, lazy: true },
   );
   const wrapper = useRef<HTMLDivElement>(null);
   const target = useRef<HTMLLIElement>(null);
@@ -39,10 +39,15 @@ function IconPicker({ className, onSelect }: { className?: string; onSelect: (to
           className={`${topic.name.length > 0 && 'alignment'}`}
           onChange={(e) => {
             _topic(e);
-            observer.state(true);
             dispatch({ name: 'iconIndex', value: '' });
-            // search after it spend 1.5s
-            timeoutDispatch({ reset: true, query: { search: e.target.value, limit: 54, index: 0 } });
+            if (e.target.value !== '') {
+              observer.state(true);
+              // search after it spend 1.5s
+              timeoutDispatch({ reset: true, query: { search: e.target.value, limit: 54, index: 0 } });
+            } else {
+              observer.state(false);
+              manualDispatch({ loading: false, data: undefined });
+            }
           }}
         />
         <Iconify
