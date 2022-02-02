@@ -224,7 +224,7 @@ const store = {
 - Prettier
   https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 
-※ When you use `React.memo`, be careful warning of ESLink and write like below
+※ When you use `React.memo`, be careful warning of ESLint and write like below
 
 ```tsx
 import React from 'react';
