@@ -81,7 +81,7 @@ const nextConfig = {
         headers: cacheHeaders,
       },
       {
-        // Client Routing で SSR するページに遷移したとき
+        // support client routing to ssr
         source: '/_next/data/:hash/edit/:id*',
         headers: cacheHeaders,
       },
