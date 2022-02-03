@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useMonaco } from 'hooks';
 import MonacoEditor from '@monaco-editor/react';
 import type { MonacoEditorType } from 'types/common';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import styles from '../../assets/scss/components/editor/EditArea.module.scss';
 import { diffLines } from 'diff';
 
@@ -20,44 +20,6 @@ function Monaco({
   const timer = useRef<NodeJS.Timeout>();
   const controller = new AbortController();
   const [prevValue, _prevValue] = useState(body.markdown);
-  const snnippets = useMemo(
-    () => [
-      ...[1, 2, 3, 4, 5, 6].map((i) => ({
-        label: `Heading:${i}`,
-        documentation: `${i}st Heading`,
-        insertText: [`# $1`],
-      })),
-      { label: 'List:unorder', documentation: 'Unorder List', insertText: ['- $1'] },
-      { label: 'List:order', documentation: 'Order List', insertText: ['1 $1'] },
-      { label: 'Link:normal', documentation: 'Normal Link', insertText: ['[$1]($2)'] },
-      { label: 'Link:card', documentation: 'Link Card', insertText: ['\nhttps://cookie-gg.dev/'] },
-      { label: 'Image:normal', documentation: 'Image with Alt Text', insertText: ['![$1]($2)'] },
-      { label: 'Image:size', documentation: 'Image with Size Config', insertText: ['![$1]($2 =$3)'] },
-      { label: 'Image:caption', documentation: 'Image with Caption', insertText: ['![$1]($2)', '*$3*'] },
-      { label: 'Image:title', documentation: 'Image with Title', insertText: ['[![$1]($2)]($3)]'] },
-      {
-        label: 'Table',
-        documentation: 'Table',
-        insertText: ['| Head | Head | Head |', '| ------ | ------ | ------ |', '|  Text  |  Text  |  Text  |'],
-      },
-      { label: 'Code:inline', documentation: 'Inline Code', insertText: ['`$1`'] },
-      { label: 'Code:block', documentation: 'Code Block', insertText: ['```$1', '$2', '```'] },
-      { label: 'Code:file', documentation: 'Code Block with File Name', insertText: ['```$1:$2', '$3', '```'] },
-      { label: 'Code:diff', documentation: 'Code Block with Diff', insertText: ['```diff $1', '$2', '```'] },
-      { label: 'Math:inline', documentation: 'Inline Math', insertText: ['$$1$'] },
-      { label: 'Math:block', documentation: 'Math Block', insertText: ['$$', '$1', '$$'] },
-      { label: 'Reference', documentation: 'Reference', insertText: ['> $1'] },
-      { label: 'Footnote', documentation: 'Footnote', insertText: ['[^$1]', '[^$1]:$1'] },
-      { label: 'Divide', documentation: 'Divide Line', insertText: ['---'] },
-      { label: 'Text:italic', documentation: 'Italic Text Style', insertText: ['*$1*'] },
-      { label: 'Text:bold', documentation: 'Bold Text Style', insertText: ['**$1**'] },
-      { label: 'Text:negative', documentation: 'Text with Negative Line', insertText: ['~~$1~~'] },
-      { label: 'Box:message', documentation: 'Message Box', insertText: [':::message', '$1', ':::'] },
-      { label: 'Box:alert', documentation: 'Alert Box', insertText: [':::message alert', '$1', ':::'] },
-      { label: 'Box:details', documentation: 'Details Box', insertText: [':::details $1', '$2', ':::'] },
-    ],
-    [],
-  );
   // set theme
   useEffect(() => {
     if (monaco) {
@@ -84,7 +46,41 @@ function Monaco({
       monaco.languages.registerCompletionItemProvider('markdown', {
         provideCompletionItems: (m, position) => {
           return {
-            suggestions: snnippets.map(({ label, documentation, insertText }) => ({
+            suggestions: [
+              ...[1, 2, 3, 4, 5, 6].map((i) => ({
+                label: `Heading:${i}`,
+                documentation: `${i}st Heading`,
+                insertText: [`# $1`],
+              })),
+              { label: 'List:unorder', documentation: 'Unorder List', insertText: ['- $1'] },
+              { label: 'List:order', documentation: 'Order List', insertText: ['1 $1'] },
+              { label: 'Link:normal', documentation: 'Normal Link', insertText: ['[$1]($2)'] },
+              { label: 'Link:card', documentation: 'Link Card', insertText: ['\nhttps://cookie-gg.dev/'] },
+              { label: 'Image:normal', documentation: 'Image with Alt Text', insertText: ['![$1]($2)'] },
+              { label: 'Image:size', documentation: 'Image with Size Config', insertText: ['![$1]($2 =$3)'] },
+              { label: 'Image:caption', documentation: 'Image with Caption', insertText: ['![$1]($2)', '*$3*'] },
+              { label: 'Image:title', documentation: 'Image with Title', insertText: ['[![$1]($2)]($3)]'] },
+              {
+                label: 'Table',
+                documentation: 'Table',
+                insertText: ['| Head | Head | Head |', '| ------ | ------ | ------ |', '|  Text  |  Text  |  Text  |'],
+              },
+              { label: 'Code:inline', documentation: 'Inline Code', insertText: ['`$1`'] },
+              { label: 'Code:block', documentation: 'Code Block', insertText: ['```$1', '$2', '```'] },
+              { label: 'Code:file', documentation: 'Code Block with File Name', insertText: ['```$1:$2', '$3', '```'] },
+              { label: 'Code:diff', documentation: 'Code Block with Diff', insertText: ['```diff $1', '$2', '```'] },
+              { label: 'Math:inline', documentation: 'Inline Math', insertText: ['$$1$'] },
+              { label: 'Math:block', documentation: 'Math Block', insertText: ['$$', '$1', '$$'] },
+              { label: 'Reference', documentation: 'Reference', insertText: ['> $1'] },
+              { label: 'Footnote', documentation: 'Footnote', insertText: ['[^$1]', '[^$1]:$1'] },
+              { label: 'Divide', documentation: 'Divide Line', insertText: ['---'] },
+              { label: 'Text:italic', documentation: 'Italic Text Style', insertText: ['*$1*'] },
+              { label: 'Text:bold', documentation: 'Bold Text Style', insertText: ['**$1**'] },
+              { label: 'Text:negative', documentation: 'Text with Negative Line', insertText: ['~~$1~~'] },
+              { label: 'Box:message', documentation: 'Message Box', insertText: [':::message', '$1', ':::'] },
+              { label: 'Box:alert', documentation: 'Alert Box', insertText: [':::message alert', '$1', ':::'] },
+              { label: 'Box:details', documentation: 'Details Box', insertText: [':::details $1', '$2', ':::'] },
+            ].map(({ label, documentation, insertText }) => ({
               label,
               kind: monaco.languages.CompletionItemKind.Snippet,
               documentation,
@@ -101,7 +97,7 @@ function Monaco({
         },
       });
     }
-  }, [monaco, snnippets]);
+  }, [monaco]);
   // clear timeout
   useEffect(() => () => timer.current && clearTimeout(timer.current), []);
   return (
