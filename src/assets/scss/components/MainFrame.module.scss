@@ -108,6 +108,4 @@
   position: fixed;
   top: 0;
   left: 0;
-
-  @include max(z-index, $sp_value: -1);
 }

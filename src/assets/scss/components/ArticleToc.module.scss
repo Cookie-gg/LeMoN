@@ -131,7 +131,7 @@
       @include con(background-color, $sp_value: $lemon);
     }
     &::after {
-      @include con(width, $sp_value: 300px, $mid_value: #{300px});
+      @include con(width, $sp_value: 5px, $mid_value: #{5px});
       @include con(height, $sp_value: 100%);
       @include con(position, $sp_value: absolute);
       @include con(top, $sp_value: 0);
