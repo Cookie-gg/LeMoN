@@ -2,7 +2,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
 
   @include max(transition, $sp_value: left $common_anmt);
 
@@ -108,4 +107,5 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }

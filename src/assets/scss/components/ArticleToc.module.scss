@@ -131,7 +131,7 @@
       @include con(background-color, $sp_value: $lemon);
     }
     &::after {
-      @include con(width, $sp_value: 5px, $mid_value: #{5px});
+      @include con(width, $sp_value: 100%);
       @include con(height, $sp_value: 100%);
       @include con(position, $sp_value: absolute);
       @include con(top, $sp_value: 0);
@@ -174,6 +174,7 @@
       @include con(box-sizing, $sp_value: border-box);
       @include con(width, $sp_value: 295px, $mid_value: #{295px});
       @include con(margin, 20px 0 0 0, 0 5px 0 0, #{0 5px 0 0});
+      @include con(margin-left, $sp_value: 45px, $mid_value: #{45px});
       @include con(padding, $sp_value: 25px, $mid_value: #{25px});
       @include con(overflow-x, $sp_value: visible);
       @include con(overflow-y, $sp_value: scroll);
@@ -183,7 +184,6 @@
       @include con(background-color, $sp_value: #313131);
       @include con(border-left, $sp_value: solid rgba(white, 0.4));
       @include con(border-left-width, $sp_value: 5px, $mid_value: #{5px});
-      @include con(transform, $sp_value: translateX(45px));
       @include con(row-gap, #{10px}, 10px);
       @include con(
         max-height,
