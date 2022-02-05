@@ -1,7 +1,7 @@
 import { Zenn } from 'types/common';
 import { ChangeEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import * as zlib from 'zlib';
+import zlib from 'zlib';
 
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
