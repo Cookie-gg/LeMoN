@@ -5,6 +5,7 @@ import type { MonacoEditorType } from 'types/common';
 import { memo, useEffect, useRef, useState } from 'react';
 import styles from '../../assets/scss/components/editor/EditArea.module.scss';
 import { diffLines } from 'diff';
+import { gzip, unzip } from 'utils/common';
 
 function Monaco({
   _editor,
@@ -135,18 +136,19 @@ function Monaco({
               const { added, value: addedValue } = diffs[diffs.length - 1];
               const onlyAdditon = added && !diffs[diffs.length - 2].removed;
               _body({
-                html:
+                html: unzip(
                   (onlyAdditon ? body.html : '') +
-                  (
-                    await axios.post<string>(
-                      `${process.env.NEXT_PUBLIC_MELON}/md`,
-                      { data: onlyAdditon ? addedValue : value },
-                      {
-                        headers: { authorization: `${process.env.NEXT_PUBLIC_MARKDOWN_KEY}` },
-                        signal: controller.signal,
-                      },
-                    )
-                  ).data,
+                    (
+                      await axios.post<string>(
+                        `${process.env.NEXT_PUBLIC_MELON}/md`,
+                        { data: gzip(onlyAdditon ? addedValue : value) },
+                        {
+                          headers: { key: `${process.env.NEXT_PUBLIC_MARKDOWN_KEY}` },
+                          signal: controller.signal,
+                        },
+                      )
+                    ).data,
+                ),
               });
               _prevValue(value);
             }

@@ -1,6 +1,7 @@
 import { Zenn } from 'types/common';
 import { ChangeEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import * as zlib from 'zlib';
 
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
@@ -73,7 +74,7 @@ export const upload = async (e: ChangeEvent<HTMLInputElement>): Promise<string> 
     const { data } = await axios.get<{ url: string; name: string }>(
       `${process.env.NEXT_PUBLIC_MELON}/storage/upload?fileName=${file.name}`,
       {
-        headers: { authorization: `${process.env.NEXT_PUBLIC_STORAGE_KEY}` },
+        headers: { key: `${process.env.NEXT_PUBLIC_STORAGE_KEY}` },
       },
     );
     if (file.size > 5000000) return 'can not accept a file of 5MB';
@@ -84,3 +85,16 @@ export const upload = async (e: ChangeEvent<HTMLInputElement>): Promise<string> 
     return 'failed upload.';
   }
 };
+
+export function gzip(str: string) {
+  const content = encodeURIComponent(str); // エンコード
+  const result = zlib.gzipSync(content); // 圧縮
+  const value = result.toString('base64'); // Buffer => base64変換
+  return value;
+}
+export function unzip(value: string) {
+  const buffer = Buffer.from(value, 'base64'); // base64 => Bufferに変換
+  const result = zlib.unzipSync(buffer).toString(); // 復号化
+  const str = decodeURIComponent(result); // デコード (utf-8)
+  return str;
+}
