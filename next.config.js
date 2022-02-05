@@ -22,6 +22,11 @@ const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: true,
   // trailingSlash: true, // add slash the end of URL
+  experimental: {
+    removeConsole: {
+      exclude: ['error'],
+    },
+  },
   images: {
     domains: ['storage.googleapis.com', 'dropbox.com'],
   },

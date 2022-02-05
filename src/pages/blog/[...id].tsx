@@ -1,21 +1,13 @@
+import blogQuery from 'data/blogQuery';
 import post from 'assets/json/post.json';
+import { publicState } from 'utils/common';
 import { Zenn, ZennAdds } from 'types/common';
 import { memo, useEffect, useState } from 'react';
 import styles from '../../assets/scss/pages/Blog.module.scss';
-import { GetStaticPaths, GetStaticProps, useRouter } from 'utils/libs/next';
-import {
-  Heading,
-  HeadMeta,
-  PageFrame,
-  EditButton,
-  ArticleToc,
-  ArticleBody,
-  ArticleMeta,
-  ArticleList,
-  ArticleTopics,
-} from 'components';
-import { publicState } from 'utils/common';
-import blogQuery from 'data/blogQuery';
+import { dynamic, GetStaticPaths, GetStaticProps, useRouter } from 'utils/libs/next';
+import { Heading, HeadMeta, PageFrame, ArticleToc, ArticleBody, ArticleMeta, ArticleTopics } from 'components';
+const EditButton = dynamic(import('components/EditButton'));
+const ArticleList = dynamic(import('components/ArticleList'));
 
 function Page({ data, auth }: { data: Zenn & ZennAdds; auth: { state: boolean } }) {
   const router = useRouter();
