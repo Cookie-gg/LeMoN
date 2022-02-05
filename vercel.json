@@ -1,8 +1,0 @@
-{
-  "redirects": [
-    {
-      "source": "/_storybook",
-      "destination": "/_storybook/index.html?path=/story/phrasetypo--template"
-    }
-  ]
-}

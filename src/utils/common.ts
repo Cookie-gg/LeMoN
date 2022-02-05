@@ -1,7 +1,7 @@
 import { Zenn } from 'types/common';
 import { ChangeEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import zlib from 'zlib';
+import zlib from 'react-zlib-js';
 
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
@@ -92,6 +92,7 @@ export function gzip(str: string) {
   const value = result.toString('base64'); // Buffer => base64変換
   return value;
 }
+
 export function unzip(value: string) {
   const buffer = Buffer.from(value, 'base64'); // base64 => Bufferに変換
   const result = zlib.unzipSync(buffer).toString(); // 復号化

@@ -1,41 +1,25 @@
 import 'utils/prototype';
-// import parse from 'html-react-parser';
-import { useAuth, usePageView } from 'hooks';
 import type { AppProps } from 'next/app';
+import { dynamic } from 'utils/libs/next';
 import 'assets/scss/foundations/base.scss';
 import 'assets/scss/foundations/reset.scss';
-import 'assets/scss/foundations/global.scss';
 import { client } from 'graphql/config.gql';
-import { Head } from 'utils/libs/next';
+import { useAuth, usePageView } from 'hooks';
+import 'assets/scss/foundations/global.scss';
 import { ApolloProvider } from '@apollo/client';
-// import { existsGaId, GA_ID } from 'utils/libs/gtag';
-import { Header, MainFrame, ProgressBar, Notification } from 'components';
 import { createContext, useState } from 'react';
+import { ProgressBar, Notification } from 'components';
+const Header = dynamic(() => import('components/Header'));
+const MainFrame = dynamic(() => import('components/MainFrame'));
 
 export const NotiContext = createContext<((arg: string) => void) | null>(null);
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [state, login, logout] = useAuth();
   const [noti, _noti] = useState<{ msg: string; enable: boolean }>({ msg: '', enable: false });
-  // usePageView();
+  usePageView();
   return (
     <>
-      {/* <Head> */}
-      {/* Google Analytics */}
-      {/* {existsGaId && (
-          <>
-            <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-            <Script strategy="afterInteractive">
-              {parse(`window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${GA_ID}', {
-                    page_path: window.location.pathname,
-                  });`)}
-            </Script>
-          </>
-        )} */}
-      {/* </Head> */}
       <ProgressBar />
       <Header />
       <ApolloProvider {...{ client }}>

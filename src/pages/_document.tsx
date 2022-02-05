@@ -1,4 +1,5 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
+import { existsGaId, GA_ID } from 'utils/libs/gtag';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -53,6 +54,23 @@ class MyDocument extends Document {
           <meta name="twitter:creator" content="@cookie_ggs" />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:url" content="https://twitter.com/cookie_ggs/" />
+          {/* Google Analytics */}
+          {existsGaId && (
+            <>
+              <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_ID}', {
+                    page_path: window.location.pathname,
+                  });`,
+                }}
+              />
+            </>
+          )}
         </Head>
         <body>
           <Main />

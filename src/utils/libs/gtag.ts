@@ -4,9 +4,7 @@ export const existsGaId = GA_ID !== '';
 
 // PVを測定する
 export const pageview = (path: string) => {
-  window.gtag('config', GA_ID, {
-    page_path: path,
-  });
+  window.gtag('config', GA_ID, { page_path: path });
 };
 
 // GAイベントを発火させる
