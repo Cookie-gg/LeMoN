@@ -37,7 +37,7 @@ export default function Page() {
           subject: formValue.subject,
           message: formValue.message,
         },
-        { headers: { authorization: `${process.env.NEXT_PUBLIC_MAILER_KEY}` } },
+        { headers: { key: `${process.env.NEXT_PUBLIC_MAILER_KEY}` } },
       )
       .then(() => {
         _formState('complete');
