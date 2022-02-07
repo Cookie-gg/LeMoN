@@ -10,7 +10,7 @@
     "dev": "run-p dev:*",
     "dev:front": "run-s prebuild && vercel dev -l 1111",
     "dev:back": "cd ../MeLoN && npm run start:dev",
-    "build": "run-s prebuild && next build",
+    "build": "run-s prebuild && next build && build-storybook -o /_storybook",
     "analyze": "run-s prebuild && ANALYZE=true next build",
     "prebuild": "npx rimraf .next",
     "start": "next start",
@@ -20,7 +20,9 @@
     "vercel": "vercel dev -l 1111",
     "generate": "graphql-codegen --config codegen.yml",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "sb:dev": "start-storybook -p 6006",
+    "sb:build": "build-storybook -o /_storybook"
   },
   "dependencies": {
     "@apollo/client": "^3.5.6",
