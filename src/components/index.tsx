@@ -14,7 +14,6 @@ export { default as Nlink } from './Nlink';
 export { default as Header } from './Header';
 export { default as Button } from './Button';
 export { default as Loading } from './Loading';
-export { default as DataRes } from './DataRes';
 export { default as Heading } from './Heading';
 export { default as Mermaid } from './Mermaid';
 export { default as HeadMeta } from './HeadMeta';
@@ -36,7 +35,6 @@ export { default as ArticleMeta } from './ArticleMeta';
 export { default as ArticleList } from './ArticleList';
 export { default as Notification } from './Notification';
 export { default as ArticleTopics } from './ArticleTopics';
-export { default as DynamicWrapper } from './DynamicWrapper';
 export { default as PageTransition } from './PageTransition';
 
 export { default as Editor } from './Editor';

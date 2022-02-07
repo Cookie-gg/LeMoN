@@ -3,6 +3,9 @@
 // pwa
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const cacheHeaders = [
   {
@@ -19,6 +22,11 @@ const nextConfig = {
   reactStrictMode: true,
   optimizeFonts: true,
   // trailingSlash: true, // add slash the end of URL
+  experimental: {
+    removeConsole: {
+      exclude: ['error'],
+    },
+  },
   images: {
     domains: ['storage.googleapis.com', 'dropbox.com'],
   },
@@ -101,4 +109,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withPWA(nextConfig);
+module.exports = withBundleAnalyzer(withPWA(nextConfig));
