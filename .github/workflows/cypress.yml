@@ -5,8 +5,8 @@ on: deployment_status
 jobs:
   cypress:
     if: |
-      github.event.deployment_status.state == 'success' && 
-      github.event.deployment_status.environment == 'Preview'
+      github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview' && !contains(github.event.head_commit.message, '[skip ci]')
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
