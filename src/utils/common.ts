@@ -2,6 +2,7 @@ import { Zenn } from 'types/common';
 import { ChangeEvent } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import zlib from 'react-zlib-js';
+import dayjs from 'dayjs';
 
 export const encodeImg: (file: File) => Promise<string | ArrayBuffer | null> = (file) => {
   return new Promise((resolve) => {
@@ -23,15 +24,14 @@ export function encodeEmoji(input: string) {
   return toCodePoint(input);
 }
 
-export const displayDate = (arg: Date, split = '/', compare = true) => {
-  const date = { y: arg.getFullYear(), m: arg.getMonth(), d: arg.getDate() };
-  const display = `${date.y + split}${`0${date.m + 1}`.slice(-2)}${split}${`0${date.d}`.slice(-2)}`;
+export const displayDate = (time: number | 'now', split = '/', compare = false) => {
+  const argDate = dayjs(time === 'now' ? undefined : time);
   if (compare) {
-    const now = new Date();
-    if (now.getFullYear() === date.y && now.getMonth() === date.m && now.getDate() > date.d)
-      return `${now.getDate() - date.d} day${now.getDate() - date.d === 1 ? '' : 's'} ago`;
-    else return display;
-  } else return display;
+    const now = dayjs();
+    if (now.year() === argDate.year() && now.month() === argDate.month() && now.date() > argDate.date())
+      return `${now.date() - argDate.date()} day${now.date() - argDate.date() === 1 ? '' : 's'} ago`;
+    else return argDate.format(`YYYY${split}MM${split}DD`);
+  } else return argDate.format(`YYYY${split}MM${split}DD`);
 };
 
 export const specifor: <T>(times: number, func: (index: number) => T) => T[] = (times, func) => {

@@ -23,7 +23,7 @@ const nextConfig = {
   optimizeFonts: true,
   // trailingSlash: true, // add slash the end of URL
   experimental: {
-    removeConsole: {
+    removeConsole: process.env.NODE_ENV === 'production' && {
       exclude: ['error'],
     },
   },

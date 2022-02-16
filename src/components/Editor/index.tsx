@@ -36,8 +36,8 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
       type: data.type?.toLowerCase() || 'tech',
       topics: data.topics?.map((topic) => topic.toLowerCase()) || [''],
       published: data.published || false,
-      releaseDate: displayDate(data.releaseDate ? new Date(data.releaseDate) : new Date(), '-', false),
-      updateDate: displayDate(new Date(), '-', false),
+      releaseDate: displayDate(data.releaseDate ? data.releaseDate : 'now', '-'),
+      updateDate: displayDate('now', '-'),
     },
     () => _isSaved(false),
   );

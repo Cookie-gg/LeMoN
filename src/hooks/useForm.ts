@@ -26,8 +26,7 @@ function useForm<T>(
     } else if (e.target.type === 'radio') {
       dispatch({ name: e.target.name, value: e.target.defaultValue });
     } else if (e.target.type === 'date') {
-      const date = new Date((e.target as HTMLInputElement).valueAsNumber);
-      dispatch({ name: e.target.name, value: displayDate(date, '-', false) });
+      dispatch({ name: e.target.name, value: displayDate((e.target as HTMLInputElement).valueAsNumber, '-') });
     } else {
       dispatch({ name: e.target.name, value: e.target.value });
     }

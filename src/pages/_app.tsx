@@ -1,6 +1,5 @@
 import 'utils/prototype';
 import type { AppProps } from 'next/app';
-import { dynamic } from 'utils/libs/next';
 import 'assets/scss/foundations/base.scss';
 import 'assets/scss/foundations/reset.scss';
 import { client } from 'graphql/config.gql';
@@ -8,9 +7,7 @@ import { useAuth, usePageView } from 'hooks';
 import 'assets/scss/foundations/global.scss';
 import { ApolloProvider } from '@apollo/client';
 import { createContext, useState } from 'react';
-import { ProgressBar, Notification } from 'components';
-const Header = dynamic(() => import('components/Header'));
-const MainFrame = dynamic(() => import('components/MainFrame'));
+import { Header, MainFrame, ProgressBar, Notification } from 'components';
 
 export const NotiContext = createContext<((arg: string) => void) | null>(null);
 

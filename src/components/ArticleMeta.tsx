@@ -8,8 +8,8 @@ interface PropsType {
   emoji: string;
   title: string;
   published: boolean;
-  releaseDate: Date;
-  updateDate: Date;
+  releaseDate: number;
+  updateDate: number;
 }
 
 function ArticleMeta({ emoji, title, published, releaseDate, updateDate }: PropsType) {
@@ -26,11 +26,11 @@ function ArticleMeta({ emoji, title, published, releaseDate, updateDate }: Props
         )}
         <div className={styles.release_date}>
           <Iconify fr={''} icon="fa-solid:calendar-day" />
-          <time>{displayDate(new Date(releaseDate), '.', false)}</time>
+          <time>{displayDate(releaseDate, '.', false)}</time>
         </div>
         <div className={styles.update_date}>
           <Iconify fr={''} icon="fa-solid:sync" />
-          <time>{displayDate(new Date(updateDate), '.', false)}</time>
+          <time>{displayDate(updateDate, '.', false)}</time>
         </div>
       </div>
     </div>
