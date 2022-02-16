@@ -53,7 +53,7 @@ function ArticleList({
                   {value.title}
                 </h2>
                 <div>
-                  <time>{displayDate(new Date(value.releaseDate))}</time>
+                  <time>{displayDate(value.releaseDate)}</time>
                   <p>
                     {value.topics.specifor(
                       horizontal ? 3 : 2,

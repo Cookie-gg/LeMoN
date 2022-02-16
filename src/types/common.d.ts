@@ -3,14 +3,14 @@ export interface Zenn {
   id?: string;
   articleId: string;
   published: boolean;
-  releaseDate: Date;
+  releaseDate: number;
   title: string;
   emoji: string;
   type: string;
   topics: string[];
 }
 export interface ZennAdds {
-  updateDate: Date;
+  updateDate: number;
   icons: string[];
   markdown: string;
   html: string;
