@@ -19,7 +19,7 @@ export default function useAuth(): [
         console.log('refreshed!');
         _state(true);
         nookies.destroy(null, 'token');
-        nookies.set(null, 'token', res.data.token);
+        nookies.set(null, 'token', res.data.token, { path: '/' });
       } catch {
         _state(false);
         nookies.destroy(null, 'token');
@@ -33,7 +33,7 @@ export default function useAuth(): [
         const res = await auth('post', '/login', undefined, { username: name, password: password });
         _state(true);
         nookies.destroy(null, 'token');
-        nookies.set(null, 'token', res.data.token);
+        nookies.set(null, 'token', res.data.token, { path: '/' });
         refresh();
         router.push('/edit');
       } catch {
@@ -62,14 +62,14 @@ export default function useAuth(): [
           const res = await auth('get', '/refresh', token);
           _state(true);
           nookies.destroy(null, 'token');
-          nookies.set(null, 'token', res.data.token);
+          nookies.set(null, 'token', res.data.token, { path: '/' });
           refresh();
         } catch {
           const res = await auth('get', '/deliver', token);
           if (res.data.token) {
             _state(true);
             nookies.destroy(null, 'token');
-            nookies.set(null, 'token', res.data.token);
+            nookies.set(null, 'token', res.data.token, { path: '/' });
             refresh();
           } else {
             _state(false);
