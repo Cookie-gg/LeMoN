@@ -24,7 +24,7 @@
         position: absolute;
       }
       &::before {
-        transition: height $common_anmt entry_order(1), width $common_anmt entry_order(2);
+        transition: height $common_anmt order(1), width $common_anmt order(2);
         content: '';
         border-top: 1px solid $lemon;
         border-right: 1px solid $lemon;
@@ -33,7 +33,7 @@
         @include max(bottom, #{30px}, 20px);
       }
       &::after {
-        transition: opacity 0s entry_order(3), height $common_anmt entry_order(3), width $common_anmt entry_order(4);
+        transition: opacity 0s order(3), height $common_anmt order(3), width $common_anmt order(4);
         content: '';
         border-bottom: 1px solid $lemon;
         border-left: 1px solid $lemon;
