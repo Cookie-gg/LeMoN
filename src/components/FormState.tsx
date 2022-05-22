@@ -23,7 +23,7 @@ function FormState({
         もう一度入力・送信を行うか、
         <br />
         お手数をおかけしますが、
-        <a href={`mailto:${'cookie.nkz@gmail.com'}`}>cookie.nkz@gmail.com</a> までご連絡ください。
+        <a href={`mailto:${'cookie.gg.dev@gmail.com'}`}>cookie.gg.dev@gmail.com</a> までご連絡ください。
         <Button className={styles.button}>
           <span
             onClick={(e) => {
