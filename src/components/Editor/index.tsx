@@ -78,7 +78,6 @@ function Editor({ data = {} }: { data?: Partial<Zenn & ZennAdds> }) {
             }
           }
         }
-        console.log('github!');
         _isSaved(true);
         notification && notification('保存しました');
       } else if (
