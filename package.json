@@ -38,7 +38,7 @@
     "html-react-parser": "^1.4.8",
     "js-base64": "^3.7.2",
     "memory-cache": "^0.2.0",
-    "mermaid": "^8.13.10",
+    "mermaid": "^9.1.2",
     "next": "^12.1.0",
     "next-pwa": "^5.4.4",
     "nookies": "^2.5.2",
